@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="psam_slot">
+        <item>psam1</item>
+        <item>psam2</item>
+    </string-array>
+    <string-array name="serial">
+        <item>mcu串口2</item>
+        <item>mcu串口3</item>
+        <item>mcu串口4</item>
+        <item>mcu串口5</item>
+    </string-array>
+    <string-array name="baudrate">
+        <item>1200</item>
+        <item>2400</item>
+        <item>4800</item>
+        <item>9600</item>
+        <item>19200</item>
+        <item>38400</item>
+        <item>57600</item>
+        <item>76800</item>
+        <item>115200</item>
+    </string-array>
+
+
+    <string-array name="can_baudrate">
+        <item>25K</item>
+        <item>50K</item>
+        <item>100K</item>
+        <item>125K</item>
+        <item>200K</item>
+        <item>250K</item>
+        <item>500K</item>
+        <item>750K</item>
+        <item>1M</item>
+
+    </string-array>
+    <string-array name="mc_type">
+        <item>SLE4442</item>
+        <item>SLE4428</item>
+        <item>AT24C01</item>
+        <item>AT24C02</item>
+        <item>AT24C04</item>
+        <item>AT24C08</item>
+        <item>AT24C16</item>
+        <item>AT24C32</item>
+        <item>AT24C64</item>
+        <item>CPUCARD</item>
+
+    </string-array>
+    <string-array name="barcodeType">
+        <item>一维条码</item>
+        <item>二维条码</item>
+    </string-array>
+
+    <string name="app_name">3505</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="sdk_version">SDK Version</string>
+    <string name="pos_reset">POS RESET</string>
+    <string name="pos_status">POS Status</string>
+    <string name="swiping_card">Swiping Card</string>
+    <string name="ic_reset">IC reset</string>
+    <string name="ic_close">IC close</string>
+    <string name="ic_cmd">IC cmd</string>
+    <string name="update">Update</string>
+    <string name="psam_reset">PSAM reset</string>
+    <string name="psam_close">PSAM close</string>
+    <string name="psam_cmd">PSAM cmd</string>
+    <string name="expand_serial">ExpandSerial</string>
+    <string name="print_text">Print</string>
+    <string name="print_image">PrintImage</string>
+    <string name="print1d2dcode">print1D2Dcode</string>
+    <string name="nfc">NFC</string>
+    <string name="code_content">编码内容:</string>
+    <string name="please_input_content_to_generate_barcode">请输入生成的内容</string>
+    <string name="height_of_the_image">图像高度:</string>
+    <string name="width_of_the_image">图像宽度:</string>
+    <string name="generate_barcode">生成一维码</string>
+    <string name="generate_qrcode">生成二维码</string>
+    <string name="select_image">选择图片</string>
+    <string name="magin_left">左边距:</string>
+    <string name="print_density">打印浓度:</string>
+    <string name="print">打印</string>
+    <string name="update_fonts">更新字库</string>
+    <string name="select_a_firmware_file">更新固件</string>
+    <string name="psam1_">" psam1:"</string>
+    <string name="psam2">" psam2:"</string>
+    <string name="ic_card">" IC卡"</string>
+    <string name="magnetic_card">" 磁条卡:"</string>
+    <string name="printer">" 打印机:"</string>
+    <string name="pos_serial_no">"pos序列号: "</string>
+    <string name="pos_firmware_version">"pos固件版本: "</string>
+    <string name="get_pos_status_failed">获取状态失败</string>
+    <string name="card_no">卡号:</string>
+    <string name="track1">轨道1:</string>
+    <string name="track2">轨道2:</string>
+    <string name="track3">轨道3:</string>
+    <string name="swiping_card_interrupt">用户取消刷卡</string>
+    <string name="swiping_card_timeout">刷卡超时</string>
+    <string name="swiping_card_failed">刷卡失败</string>
+    <string name="data_of_reset">复位数据:
+\n</string>
+    <string name="reset_ic_timeout">复位IC卡超时</string>
+    <string name="ic_reset_failed">复位IC卡失败</string>
+    <string name="ic_close_success">IC关闭成功</string>
+    <string name="ic_close_failed">IC关闭失败</string>
+    <string name="ic_cmd_success">IC 指令执行成功 
+\n收到回复:</string>
+    <string name="ic_cmd_failed">IC 指令执行失败</string>
+    <string name="psam_reset_success">psam复位成功</string>
+    <string name="psam_reset_failed">psam复位失败</string>
+    <string name="psam_close_success">psam关闭成功</string>
+    <string name="psam_close_failed">psam关闭失败</string>
+    <string name="psam_cmd_success">psam命令执行成功
+\n收到回复:</string>
+    <string name="psam_cmd_failed">psam命令执行失败</string>
+    <string name="serial_cmd_success">命令执行成功 
+\n 收到回复:</string>
+    <string name="serial_cmd_failed">命令执行失败</string>
+    <string name="print_success">打印结果:打印成功</string>
+    <string name="print_no_paper">打印结果:打印机缺纸</string>
+    <string name="print_failed">打印结果:打印机失败</string>
+    <string name="print_voltate_low">打印结果:电池电压过低</string>
+    <string name="print_voltate_high">打印结果:电源电压过高</string>
+    <string name="getting_pos_status">正在获取状态...</string>
+    <string name="version_">version:</string>
+    <string name="please_insert_ic_card">请插入IC卡...</string>
+    <string name="please_take_out_ic_card">请取出IC卡...</string>
+    <string name="executing_ic_cmd">正在执行IC指令...</string>
+    <string name="please_swiping_card">请刷卡...</string>
+    <string name="which_psamslot_to_close">关闭哪个PSAM卡槽?</string>
+    <string name="closing_psam1">正在关闭PSAM1...</string>
+    <string name="closing_psam2">正在关闭PSAM2...</string>
+    <string name="which_psamslot_to_reset">复位哪个PSAM?</string>
+    <string name="which_psamslot_to_operate">操作哪个PSAM卡?</string>
+    <string name="resetting_psam1">正在复位psam1...</string>
+    <string name="resetting_psam2">正在复位psam2...</string>
+    <string name="executing_psam1_cmd">正在执行psam1命令...</string>
+    <string name="executing_psam2_cmd">正在执行psam2命令...</string>
+    <string name="which_serialport_to_send">发送数据到哪个串口?</string>
+    <string name="sending_to_serial1">发送数据到串口1...</string>
+    <string name="sending_to_serial2">发送数据到串口2...</string>
+    <string name="code_type">条码类型:</string>
+    <string name="update_fonts_">确定更新字库?</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="upgrade_success">升级完成!</string>
+    <string name="upgrade_failed">升级失败!</string>
+    <string name="update_Pos_firmware">确定更新Pos固件?</string>
+    <string name="firmware_path">固件路径:</string>
+    <string name="sync_baudrate">同步波特率...</string>
+    <string name="erase_memory">擦除存储区...</string>
+    <string name="start_writing_program">开始写入程序...</string>
+    <string name="pos_firmware_update_success">POS固件更新完成</string>
+    <string name="pos_firmware_update_failed">POS更新失败!</string>
+    <string name="pos_fonts_update_success">POS字库更新完成</string>
+    <string name="printing_in_progress">正在打印...</string>
+    <string name="print_count">打印张数:</string>
+    <string name="tips">提示</string>
+    <string name="close">关闭</string>
+    <string name="state_normal">正常</string>
+    <string name="state_no_card">无卡</string>
+    <string name="state_card_error">卡错误</string>
+    <string name="state_fault">故障</string>
+    <string name="state_no_paper">缺纸</string>
+    <string name="readoutUnprotect">解除读写保护</string>
+    <string name="device_power">电源开关</string>
+    <string name="device_power_tip">打开或关闭扫描头电源</string>
+    <string name="scan_mode">扫描模式</string>
+    <string name="scan_mode_tip">切换扫描模式</string>
+    <string name="scan_sound">提示音</string>
+    <string name="scan_sound_tip">扫描时播放提示音</string>
+    <string name="append_enter_key">附加回车键</string>
+    <string name="append_enter_key_tip">扫描到数据后追加回车</string>
+    <string name="device_reset">重置设备</string>
+    <string name="poweroff_auto_reset">关机自动重置</string>
+    <string name="poweroff_auto_reset_tips">关机时自动恢复扫描设备参数</string>
+    <string name="reset_scan_device">重置扫描头</string>
+
+    <string-array name="barcode_dev_list">
+        <item>H271-SD01</item>
+        <item>N3680SR-W1-TTL</item>
+        <item>NLS-EM3096</item>
+    </string-array>
+
+    <string-array name="barcode_scan_mode">
+        <item>手动模式</item>
+        <item>感应模式</item>
+
+    </string-array>
+    <string-array name="barcode_light_mode">
+        <item>无照明</item>
+        <item>普通</item>
+        <item>常亮</item>
+
+    </string-array>
+
+    
+     <string name="print_complete">打印完成</string>
+    <string name="barcode_scan_dev_model">扫描头型号</string>
+    <string name="barcode_scan_dev_model_tips">选择使用的扫描设备</string>
+    <string name="light_mode">灯光模式</string>
+    <string name="title_activity_pay">PayActivity</string>
+    
+     <string name="reset">设备复位</string>
+    <string name="state">设备状态</string>
+    <string name="psam_card">psam 卡</string>
+
+    <string name="serial_port">扩展串口</string>
+    <string name="bar_scan">条码扫描</string>
+    <string name="ex_io">ex IO</string>
+
+</resources>

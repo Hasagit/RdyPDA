@@ -1,0 +1,42 @@
+<resources>
+    <!--新世界设备型号-->
+    <string name="only_scan_model">NLS-MT66</string>
+    <!--打印+扫描设备型号-->
+    <string name="print_scan_model">PDA3505</string>
+    <string name="app_name">RdyPDA</string>
+    <string name="llddr">领料单导入</string>
+    <string name="yyjs">原料接收</string>
+    <string name="toul">投料</string>
+    <string name="tuil">退料</string>
+    <string name="rk">入库</string>
+    <string name="ck">出库</string>
+    <string name="forget_pwd">忘记密码</string>
+    <string name="login">登录</string>
+    <string name="id_tip">请输入账号</string>
+    <string name="pwd_tip">请输入密码</string>
+    <string name="logining">登录中...</string>
+    <string name="main_title">瑞多益科技</string>
+    <string name="lld">领料单</string>
+    <string name="more_msg">详情</string>
+    <string name="receive">扫描</string>
+    <string name="gdxq">工单选取</string>
+    <string name="hl">混料</string>
+    <string name="tl">投料</string>
+    <string name="query_key">搜索关键字</string>
+    <string name="wld">物料单</string>
+    <string name="lldh">领料单号</string>
+    <string name="wlbh">物料编号</string>
+    <string name="wlmc">物料名称</string>
+    <string name="wlpc">物料批次</string>
+    <string name="gys">供运商</string>
+    <string name="lhrq">来货日期</string>
+    <string name="sl">数量</string>
+    <string name="dw">单位</string>
+    <string name="kwdm">库位代码</string>
+    <string name="tmbh">条码编号</string>
+    <string name="dy">打印</string>
+    <string name="tip">提示</string>
+    <string name="sure">确定</string>
+    <string name="cancel">取消</string>
+    <string name="print_error_model">此设备不支持打印</string>
+</resources>

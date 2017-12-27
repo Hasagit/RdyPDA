@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="81dp"
+    android:background="@android:color/darker_gray">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        >
+        <android.support.v4.widget.SlidingPaneLayout
+            android:id="@+id/sliding"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="1dp">
+            <LinearLayout
+                android:layout_width="140dp"
+                android:layout_height="match_parent">
+                <com.rdypda.view.widget.PowerButton
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/holo_green_light"
+                    android:layout_weight="1"
+                    android:text="@string/tl"
+                    android:id="@+id/tl_btn"
+                    android:textColor="@android:color/white"
+                    />
+                <com.rdypda.view.widget.PowerButton
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/holo_red_light"
+                    android:layout_weight="1"
+                    android:text="@string/hl"
+                    android:id="@+id/hl_btn"
+                    android:textColor="@android:color/white"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@android:color/white">
+                <com.rdypda.view.widget.PowerButton
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/sliding_btn"
+                    android:background="@drawable/sliding"/>
+            </LinearLayout>
+        </android.support.v4.widget.SlidingPaneLayout>
+    </FrameLayout>
+</FrameLayout>

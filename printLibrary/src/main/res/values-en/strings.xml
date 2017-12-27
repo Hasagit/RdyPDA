@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="psam_slot">
+        <item>psam1</item>
+        <item>psam2</item>
+    </string-array>
+	<string-array name="serial">
+        <item>Serial1</item>
+        <item>Serial2</item>
+    </string-array>
+	<string-array name="barcodeType">
+        <item>barcode</item>
+        <item>qrcode</item>
+    </string-array>
+    <string name="app_name">3505</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="sdk_version">SDK Version</string>
+    <string name="pos_reset">POS RESET</string>
+    <string name="pos_status">POS Status</string>
+    <string name="swiping_card">Swiping Card</string>
+    <string name="ic_reset">IC reset</string>
+    <string name="ic_close">IC close</string>
+    <string name="ic_cmd">IC cmd</string>
+    <string name="update">Update</string>
+    <string name="psam_reset">PSAM reset</string>
+    <string name="psam_close">PSAM close</string>
+    <string name="psam_cmd">PSAM cmd</string>
+    <string name="expand_serial">ExpandSerial</string>
+    <string name="print_text">Print</string>
+    <string name="print_image">PrintImage</string>
+    <string name="print1d2dcode">print1D2Dcode</string>
+    <string name="nfc">NFC</string>
+    <string name="code_content">content:</string>
+    <string name="please_input_content_to_generate_barcode">please input content to generate barcode</string>
+    <string name="height_of_the_image">height:</string>
+    <string name="width_of_the_image">width:</string>
+    <string name="generate_barcode">create barcode</string>
+    <string name="generate_qrcode">create qrcode</string>
+    <string name="select_image">image</string>
+    <string name="magin_left">magin left:</string>
+    <string name="print_density">print density:</string>
+    <string name="print">print</string>
+    <string name="update_fonts">update fonts</string>
+    <string name="select_a_firmware_file">update firmware </string>
+    <string name="psam1_">" psam1:"</string>
+    <string name="psam2">" psam2:"</string>
+    <string name="ic_card">" IC card"</string>
+    <string name="magnetic_card">" magnetic card:"</string>
+    <string name="printer">" printer:"</string>
+    <string name="pos_serial_no">" serial no: "</string>
+    <string name="pos_firmware_version">" firmware version: "</string>
+    <string name="get_pos_status_failed">get pos status failed</string>
+    <string name="card_no">card no:</string>
+    <string name="track1">track1:</string>
+    <string name="track2">track2:</string>
+    <string name="track3">track3:</string>
+    <string name="swiping_card_interrupt">swiping card interrupt</string>
+    <string name="swiping_card_timeout">swiping card timeout</string>
+    <string name="swiping_card_failed">swiping card failed</string>
+    <string name="data_of_reset">data of reset:
+\n</string>
+    <string name="reset_ic_timeout">ic reset timeout</string>
+    <string name="ic_reset_failed">ic reset failed</string>
+    <string name="ic_close_success">ic close success</string>
+    <string name="ic_close_failed">ic close failed</string>
+    <string name="ic_cmd_success">ic cmd success
+\n receive:</string>
+    <string name="ic_cmd_failed">ic cmd failed</string>
+    <string name="psam_reset_success">psam reset success</string>
+    <string name="psam_reset_failed">psam reset failed</string>
+    <string name="psam_close_success">psam close success</string>
+    <string name="psam_close_failed">psam close failed</string>
+    <string name="psam_cmd_success">psam cmd success
+\n receive:</string>
+    <string name="psam_cmd_failed">psam cmd failed</string>
+    <string name="serial_cmd_success">serial cmd success
+\n receive:</string>
+    <string name="serial_cmd_failed">serial cmd failed</string>
+    <string name="print_success">result:print success</string>
+    <string name="print_no_paper">result:printer no paper</string>
+    <string name="print_failed">result:print failed</string>
+    <string name="print_voltate_low">result:battery voltate low</string>
+    <string name="print_voltate_high">result:battery voltate high</string>
+    <string name="getting_pos_status">getting pos status...</string>
+    <string name="version_">version:</string>
+    <string name="please_insert_ic_card">please insert ic card...</string>
+    <string name="please_take_out_ic_card">please take out ic card...</string>
+    <string name="executing_ic_cmd">executing ic cmd...</string>
+    <string name="please_swiping_card">please swiping card...</string>
+    <string name="which_psamslot_to_close">which psamslot to close?</string>
+    <string name="closing_psam1">closing psam1...</string>
+    <string name="closing_psam2">closing psam2...</string>
+    <string name="which_psamslot_to_reset">which psamslot to reset?</string>
+    <string name="which_psamslot_to_operate">which psamslot to operate?</string>
+    <string name="resetting_psam1">resetting psam1...</string>
+    <string name="resetting_psam2">resetting_psam2...</string>
+    <string name="executing_psam1_cmd">executing psam1 cmd...</string>
+    <string name="executing_psam2_cmd">executing psam2 cmd...</string>
+    <string name="which_serialport_to_send">which serialport to_send?</string>
+    <string name="sending_to_serial1">sending to serial1...</string>
+    <string name="sending_to_serial2">sending to serial2...</string>
+    <string name="code_type">encode type:</string>
+    <string name="update_fonts_">update fonts ?</string>
+    <string name="confirm">confirm</string>
+    <string name="cancel">cancel</string>
+    <string name="upgrade_success">upgrade success!</string>
+    <string name="upgrade_failed">upgrade failed!</string>
+    <string name="update_Pos_firmware">update Pos firmware?</string>
+    <string name="firmware_path">firmware path:</string>
+    <string name="sync_baudrate">sync baudrate...</string>
+    <string name="erase_memory">erase memory...</string>
+    <string name="start_writing_program">start writing program...</string>
+    <string name="pos_firmware_update_success">update success</string>
+    <string name="pos_firmware_update_failed">update failed</string>
+    <string name="pos_fonts_update_success">update success</string>
+	<string name="printing_in_progress">printing in progress...</string>
+	<string name="print_count">print count:</string>
+	<string name="tips">tip</string>
+    <string name="close">close</string>
+    
+    <string name="print_complete">Print Complete</string>
+       <string name="reset">reset</string>
+    <string name="state">state</string>
+    <string name="psam_card">psam</string>
+
+    <string name="serial_port">serial port</string>
+    <string name="bar_scan">scan</string>
+    <string name="succse">scan</string>
+</resources>
