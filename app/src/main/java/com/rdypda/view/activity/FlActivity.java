@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.rdypda.R;
 import com.rdypda.adapter.ReceiveAdapter;
 import com.rdypda.util.ScanUtil;
-import com.rdypda.view.viewinterface.IYljsView;
+import com.rdypda.view.viewinterface.IFlView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class YljsActivity extends BaseActivity implements IYljsView{
+public class FlActivity extends BaseActivity implements IFlView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.receive)

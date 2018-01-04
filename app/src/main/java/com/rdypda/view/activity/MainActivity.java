@@ -1,7 +1,5 @@
 package com.rdypda.view.activity;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 
 import android.os.Bundle;
@@ -33,17 +31,6 @@ public class MainActivity extends BaseActivity implements IMainView{
     Toolbar toolbar;
     @BindView(R.id.drawer)
     DrawerLayout drawer;
-    @BindView(R.id.llddr)
-    FrameLayout llddrBtn;
-    @BindView(R.id.yljs)
-    FrameLayout yljsBtn;
-    @BindView(R.id.toul)
-    FrameLayout toulBtn;
-    @BindView(R.id.tuil)
-    FrameLayout tuilBtn;
-    @BindView(R.id.ck)
-    FrameLayout ckBtn;
-    @BindView(R.id.rk)
     FrameLayout rkBtn;
     @BindView(R.id.switch_layout)
     LinearLayout switchLayout;
@@ -51,6 +38,44 @@ public class MainActivity extends BaseActivity implements IMainView{
     LinearLayout exitLayout;
     @BindView(R.id.banner)
     BGABanner banner;
+
+    //功能按钮
+    @BindView(R.id.tmdy)
+    LinearLayout tmdy_btn;
+    @BindView(R.id.fl)
+    LinearLayout fl_btn;
+    @BindView(R.id.yljs)
+    LinearLayout yljs_btn;
+    @BindView(R.id.yltl)
+    LinearLayout yltl_btn;
+    @BindView(R.id.hl)
+    LinearLayout hl_btn;
+    @BindView(R.id.aldfl)
+    LinearLayout aldfl_btn;
+    @BindView(R.id.tl)
+    LinearLayout tl_btn;
+    @BindView(R.id.gdtldylz)
+    LinearLayout gdtldylz_btn;
+    @BindView(R.id.cpsmrk)
+    LinearLayout cpsmrk_btn;
+    @BindView(R.id.ykll)
+    LinearLayout ykll_btn;
+    @BindView(R.id.adfl)
+    LinearLayout adfl_btn;
+    @BindView(R.id.adtl)
+    LinearLayout adtl_btn;
+    @BindView(R.id.yktldck)
+    LinearLayout yctldck_btn;
+    @BindView(R.id.tmcf)
+    LinearLayout tmcf_btn;
+    @BindView(R.id.tmbd)
+    LinearLayout tmbd_btn;
+    @BindView(R.id.kcpd)
+    LinearLayout kcpd_btn;
+    @BindView(R.id.tmcx)
+    LinearLayout tmcx_btn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,32 +107,52 @@ public class MainActivity extends BaseActivity implements IMainView{
     }
 
 
-    @OnClick({R.id.llddr,R.id.yljs,R.id.toul,R.id.tuil,R.id.rk,R.id.ck,R.id.switch_layout,R.id.exit_layout})
+    @OnClick({R.id.switch_layout,R.id.exit_layout,R.id.tmdy,R.id.fl,R.id.yljs,
+            R.id.yltl,R.id.hl,R.id.aldfl,R.id.tl,R.id.gdtldylz,R.id.cpsmrk,R.id.ykll,
+            R.id.adfl,R.id.adtl,R.id.yktldck,R.id.tmcf,R.id.tmbd,R.id.kcpd,R.id.tmcx})
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.llddr:
+            case R.id.tmdy:
                 presenter.goToLlddr();
-                break;
-            case R.id.yljs:
-                presenter.goToYljs();
-                break;
-            case R.id.toul:
-                presenter.goToGdxq();
-                break;
-            case R.id.tuil:
-                presenter.goToGdxq();
-                break;
-            case R.id.rk:
-                presenter.goToYljs();
-                break;
-            case R.id.ck:
-                presenter.goToYljs();
                 break;
             case R.id.switch_layout:
                 presenter.goToLogin();
                 break;
             case R.id.exit_layout:
                 finish();
+                break;
+            case R.id.fl:
+                presenter.goToYljs();
+                break;
+            case R.id.yljs:
+                break;
+            case R.id.yltl:
+                break;
+            case R.id.hl:
+                break;
+            case R.id.aldfl:
+                break;
+            case R.id.tl:
+                break;
+            case R.id.gdtldylz:
+                break;
+            case R.id.cpsmrk:
+                break;
+            case R.id.ykll:
+                break;
+            case R.id.adfl:
+                break;
+            case R.id.adtl:
+                break;
+            case R.id.yktldck:
+                break;
+            case R.id.tmcf:
+                break;
+            case R.id.tmbd:
+                break;
+            case R.id.kcpd:
+                break;
+            case R.id.tmcx:
                 break;
         }
     }

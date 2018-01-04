@@ -6,41 +6,50 @@
     android:orientation="vertical">
     <LinearLayout
         android:id="@+id/content"
-        android:background="@drawable/white_btn_bg"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:orientation="horizontal"
         >
         <LinearLayout
+            android:background="@drawable/white_btn_bg"
             android:layout_width="10dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:orientation="vertical">
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textColor="@android:color/black"
-                android:text="领料单"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@drawable/table_left_top">
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="领料单"
 
-                />
-            <TextView
+                    />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="40dp"
-                android:layout_weight="1"
-                android:text="123456"
-                android:textSize="17dp"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/test_btn"
-                />
+                android:layout_height="50dp"
+                android:background="@drawable/table_right_top">
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="123456"
+                    android:gravity="center_vertical"
+                    android:id="@+id/test_btn"
+                    />
+            </LinearLayout>
         </LinearLayout>
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="40dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:scaleType="fitXY"
             android:layout_gravity="center_vertical"
             android:src="@drawable/more"/>

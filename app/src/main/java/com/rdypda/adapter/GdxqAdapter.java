@@ -6,12 +6,11 @@ import android.support.v4.widget.SlidingPaneLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.liangmutian.airrecyclerview.swipetoloadlayout.BaseRecyclerAdapter;
 import com.rdypda.R;
-import com.rdypda.view.activity.YljsActivity;
+import com.rdypda.view.activity.FlActivity;
 import com.rdypda.view.widget.PowerButton;
 
 import java.util.List;
@@ -61,14 +60,14 @@ public class GdxqAdapter extends BaseRecyclerAdapter<GdxqAdapter.GdxqViewHolder,
         viewHolder.hl_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, YljsActivity.class);
+                Intent intent=new Intent(context, FlActivity.class);
                 context.startActivity(intent);
             }
         });
         viewHolder.tl_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, YljsActivity.class);
+                Intent intent=new Intent(context, FlActivity.class);
                 context.startActivity(intent);
             }
         });

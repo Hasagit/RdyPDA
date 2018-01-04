@@ -9,7 +9,7 @@ import com.rdypda.util.PrintUtil;
 import com.rdypda.view.activity.GdxqActivity;
 import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
-import com.rdypda.view.activity.YljsActivity;
+import com.rdypda.view.activity.FlActivity;
 import com.rdypda.view.viewinterface.IMainView;
 
 /**
@@ -40,7 +40,7 @@ public class MainPresenter extends BasePresenter{
     }
 
     public void goToYljs(){
-        Intent intent=new Intent(context, YljsActivity.class);
+        Intent intent=new Intent(context, FlActivity.class);
         context.startActivity(intent);
     }
 
