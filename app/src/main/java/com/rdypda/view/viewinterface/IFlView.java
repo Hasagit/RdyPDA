@@ -1,5 +1,6 @@
 package com.rdypda.view.viewinterface;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -7,5 +8,5 @@ import java.util.Map;
  */
 
 public interface IFlView {
-
+    void refreshReceive(List<Map<String, String>>data);
 }

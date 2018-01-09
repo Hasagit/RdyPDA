@@ -13,12 +13,12 @@ import com.rdypda.view.viewinterface.ILlddrMsgView;
  * Created by DengJf on 2017/12/26.
  */
 
-public class LlddrMsgPresenter {
+public class LlddrMsgPresenter extends BasePresenter{
     private ILlddrMsgView view;
-    private Context context;
     private PrintUtil printUtil;
 
     public LlddrMsgPresenter( Context context,ILlddrMsgView view) {
+        super(context);
         this.view = view;
         this.context = context;
         if (Build.MODEL.equals(context.getResources().getString(R.string.print_scan_model))){
@@ -28,7 +28,7 @@ public class LlddrMsgPresenter {
     }
 
     public void printEven(){
-        if (!Build.MODEL.equals(context.getResources().getString(R.string.print_scan_model))){
+        /*if (!Build.MODEL.equals(context.getResources().getString(R.string.print_scan_model))){
             view.showMessage(context.getResources().getString(R.string.print_error_model));
             return;
         }
@@ -57,7 +57,12 @@ public class LlddrMsgPresenter {
             public void onPrinterSetting(int i) {
                 Log.e("print","PrinterSetting   "+i);
             }
-        });
+        });*/
+        if (preferenUtil.getString("blueToothAddress").equals("")){
+            view.showBlueToothAddressDialog();
+        }
+
+
     }
 
     public void closePrint(){

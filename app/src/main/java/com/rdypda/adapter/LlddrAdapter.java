@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.example.liangmutian.airrecyclerview.swipetoloadlayout.BaseRecyclerAdapter;
 import com.rdypda.R;
+import com.rdypda.presenter.MainPresenter;
+import com.rdypda.view.activity.FlActivity;
 import com.rdypda.view.activity.LlddrMsgActivity;
 import com.rdypda.view.activity.WldActivity;
 
@@ -29,12 +31,14 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
     private List<Map<String,String>>data;
     private Context context;
     private int resource;
+    private int startType;
 
-    public LlddrAdapter( Context context, int resource,List<Map<String, String>> data) {
+    public LlddrAdapter( Context context, int resource,List<Map<String, String>> data,int type) {
         super(data);
         this.data = data;
         this.context = context;
         this.resource = resource;
+        this.startType=type;
     }
 
     @Override
@@ -51,8 +55,13 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context,WldActivity.class);
-                context.startActivity(intent);
+                if (startType== MainPresenter.TMDY){
+                    Intent intent=new Intent(context,WldActivity.class);
+                    context.startActivity(intent);
+                }else if (startType== MainPresenter.FL){
+                    Intent intent=new Intent(context,FlActivity.class);
+                    context.startActivity(intent);
+                }
             }
         });
     }

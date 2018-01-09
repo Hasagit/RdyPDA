@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 public class LlddrActivity extends BaseActivity implements ILlddrView{
     private LlddrAdapter adapter;
     private List<Map<String,String>>data;
+    private int startType;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.lld_list)
@@ -53,6 +54,9 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
 
     @Override
     protected void initView() {
+        startType=getIntent().getIntExtra("type",0);
+
+
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -101,7 +105,7 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
 
     @Override
     public void showList(List<Map<String, String>> data) {
-        adapter=new LlddrAdapter(LlddrActivity.this,R.layout.lllddr_item,data);
+        adapter=new LlddrAdapter(LlddrActivity.this,R.layout.lllddr_item,data,startType);
         lldListView.setLayoutManager(new GridLayoutManager(LlddrActivity.this,1));
         lldListView.setAdapter(adapter);
     }

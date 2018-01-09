@@ -6,4 +6,6 @@ package com.rdypda.view.viewinterface;
 
 public interface ILlddrMsgView {
     void showMessage(String message);
+
+    void showBlueToothAddressDialog();
 }

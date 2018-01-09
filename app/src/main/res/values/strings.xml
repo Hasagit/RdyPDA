@@ -18,7 +18,7 @@
     <string name="main_title">瑞多益科技</string>
     <string name="lld">领料单</string>
     <string name="more_msg">详情</string>
-    <string name="receive">扫描</string>
+    <string name="receive">物料单/扫描</string>
     <string name="gdxq">工单选取</string>
     <string name="hl">混料</string>
     <string name="tl">投料</string>

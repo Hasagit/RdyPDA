@@ -18,6 +18,8 @@ import com.rdypda.view.viewinterface.IMainView;
 
 public class MainPresenter extends BasePresenter{
     private IMainView view;
+    static final public int TMDY=0;
+    static final public int FL=1;
 
     public MainPresenter(Context context,IMainView view) {
         super(context);
@@ -34,13 +36,14 @@ public class MainPresenter extends BasePresenter{
         context.startActivity(intent);
     }
 
-    public void goToLlddr(){
+    public void goToLlddr(int type){
         Intent intent=new Intent(context, LlddrActivity.class);
+        intent.putExtra("type",type);
         context.startActivity(intent);
     }
 
     public void goToYljs(){
-        Intent intent=new Intent(context, FlActivity.class);
+        Intent intent=new Intent(context, LlddrActivity.class);
         context.startActivity(intent);
     }
 

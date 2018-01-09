@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import com.rdypda.R;
 import com.rdypda.adapter.ReceiveAdapter;
+import com.rdypda.presenter.FlPresenter;
 import com.rdypda.util.ScanUtil;
 import com.rdypda.view.viewinterface.IFlView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -31,13 +33,15 @@ public class FlActivity extends BaseActivity implements IFlView {
     @BindView(R.id.num)
     TextView num;
     private ReceiveAdapter adapter;
-    private ScanUtil scanUtil;
+    private FlPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yljs);
         ButterKnife.bind(this);
         initView();
+        presenter=new FlPresenter(this,this);
     }
 
     @Override
@@ -45,27 +49,6 @@ public class FlActivity extends BaseActivity implements IFlView {
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        adapter=new ReceiveAdapter(this,R.layout.lllddr_item,new ArrayList<Map<String, String>>());
-        recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-        recyclerView.setAdapter(adapter);
-
-
-        scanUtil=new ScanUtil(this);
-        scanUtil.open();
-        scanUtil.setOnScanListener(new ScanUtil.OnScanListener() {
-            @Override
-            public void onSuccess(String result) {
-                Map<String,String>map=new HashMap<>();
-                map.put("id",result);
-                refreshReceive(map);
-                num.setText("数量："+adapter.getItemCount());
-            }
-
-            @Override
-            public void onFail(String error) {
-
-            }
-        });
     }
 
 
@@ -79,14 +62,15 @@ public class FlActivity extends BaseActivity implements IFlView {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void refreshReceive(Map<String, String> data) {
-        adapter.addData(data);
+    @Override
+    public void refreshReceive(List<Map<String, String>> data) {
+        adapter=new ReceiveAdapter(this,R.layout.fl_wl_item,data);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,1));
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        scanUtil.close();
     }
 }

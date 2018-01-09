@@ -13,11 +13,11 @@ import java.util.Map;
  * Created by DengJf on 2017/12/20.
  */
 
-public class WldPresenter {
+public class WldPresenter extends BasePresenter{
     private IWldView view;
-    private Context context;
 
     public WldPresenter(Context context, IWldView view) {
+        super(context);
         this.view = view;
         this.context = context;
         List<Map<String,String>>data=new ArrayList<>();

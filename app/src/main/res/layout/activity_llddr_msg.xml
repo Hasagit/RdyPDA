@@ -19,7 +19,19 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:title="@string/more_msg"
             android:id="@+id/toolbar"
-            ></android.support.v7.widget.Toolbar>
+            >
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.rdypda.view.widget.PowerButton
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/setting_btn"
+                    android:background="@drawable/setting_icon"
+                    android:layout_gravity="right|center_vertical"/>
+            </FrameLayout>
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
     <ScrollView
         android:layout_width="match_parent"

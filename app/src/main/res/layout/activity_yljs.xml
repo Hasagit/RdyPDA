@@ -16,7 +16,6 @@
             android:id="@+id/toolbar"
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
-            app:layout_scrollFlags="scroll|enterAlways"
             app:title="@string/receive">
             <TextView
                 android:layout_width="wrap_content"

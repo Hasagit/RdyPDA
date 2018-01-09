@@ -113,7 +113,7 @@ public class MainActivity extends BaseActivity implements IMainView{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tmdy:
-                presenter.goToLlddr();
+                presenter.goToLlddr(MainPresenter.TMDY);
                 break;
             case R.id.switch_layout:
                 presenter.goToLogin();
@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity implements IMainView{
                 finish();
                 break;
             case R.id.fl:
-                presenter.goToYljs();
+                presenter.goToLlddr(MainPresenter.FL);
                 break;
             case R.id.yljs:
                 break;
