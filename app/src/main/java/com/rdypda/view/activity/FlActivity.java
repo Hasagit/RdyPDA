@@ -12,11 +12,8 @@ import android.widget.TextView;
 import com.rdypda.R;
 import com.rdypda.adapter.ReceiveAdapter;
 import com.rdypda.presenter.FlPresenter;
-import com.rdypda.util.ScanUtil;
 import com.rdypda.view.viewinterface.IFlView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +35,7 @@ public class FlActivity extends BaseActivity implements IFlView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_yljs);
+        setContentView(R.layout.activity_fl);
         ButterKnife.bind(this);
         initView();
         presenter=new FlPresenter(this,this);

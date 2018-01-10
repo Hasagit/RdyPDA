@@ -9,7 +9,7 @@ import com.rdypda.util.PrintUtil;
 import com.rdypda.view.activity.GdxqActivity;
 import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
-import com.rdypda.view.activity.FlActivity;
+import com.rdypda.view.activity.YlzckActivity;
 import com.rdypda.view.viewinterface.IMainView;
 
 /**
@@ -42,13 +42,15 @@ public class MainPresenter extends BasePresenter{
         context.startActivity(intent);
     }
 
-    public void goToYljs(){
-        Intent intent=new Intent(context, LlddrActivity.class);
-        context.startActivity(intent);
-    }
 
     public void goToGdxq(){
         Intent intent=new Intent(context, GdxqActivity.class);
+        context.startActivity(intent);
+    }
+
+    public void goToYlzck(int type) {
+        Intent intent = new Intent(context, YlzckActivity.class);
+        intent.putExtra("startType",type);
         context.startActivity(intent);
     }
 }
