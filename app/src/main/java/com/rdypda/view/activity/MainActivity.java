@@ -131,6 +131,7 @@ public class MainActivity extends BaseActivity implements IMainView{
                 presenter.goToYlzck(YlzckActivity.START_TYPE_YLTL);
                 break;
             case R.id.hl:
+                presenter.goToHl();
                 break;
             case R.id.aldfl:
                 break;

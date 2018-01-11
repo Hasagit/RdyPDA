@@ -7,6 +7,7 @@ import android.os.Build;
 import com.rdypda.R;
 import com.rdypda.util.PrintUtil;
 import com.rdypda.view.activity.GdxqActivity;
+import com.rdypda.view.activity.HlActivity;
 import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
 import com.rdypda.view.activity.YlzckActivity;
@@ -51,6 +52,11 @@ public class MainPresenter extends BasePresenter{
     public void goToYlzck(int type) {
         Intent intent = new Intent(context, YlzckActivity.class);
         intent.putExtra("startType",type);
+        context.startActivity(intent);
+    }
+
+    public void goToHl(){
+        Intent intent=new Intent(context, HlActivity.class);
         context.startActivity(intent);
     }
 }
