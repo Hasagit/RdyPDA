@@ -17,7 +17,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class YlzckActivity extends BaseActivity implements IYljsView{
-    public static int START_TYPE_YLJS=0,START_TYPE_YLTL=1;
+    public static int START_TYPE_YLJS=0,
+            START_TYPE_YLTL=1,
+            START_TYPE_GDTLDYLZ=2,
+            STRAT_TYPE_CPSMCR=3,
+            START_TYPE_YKLL=4;
     private String title;
     private YlzckPresenter presenter;
     @BindView(R.id.toolbar)
@@ -45,8 +49,17 @@ public class YlzckActivity extends BaseActivity implements IYljsView{
         if (getIntent().getIntExtra("startType",0)==0){
             title="原料接收";
             actionBar.setTitle(title);
-        }else {
+        }else if (getIntent().getIntExtra("startType",0)==1){
             title="原料退料";
+            actionBar.setTitle(title);
+        }else if (getIntent().getIntExtra("startType",0)==2){
+            title="工单退料到原料组";
+            actionBar.setTitle(title);
+        } else if (getIntent().getIntExtra("startType",0)==3){
+            title="产品扫描入库";
+            actionBar.setTitle(title);
+        }else if (getIntent().getIntExtra("startType",0)==4){
+            title="移库领料";
             actionBar.setTitle(title);
         }
     }

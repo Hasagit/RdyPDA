@@ -34,7 +34,9 @@
         <service android:name="com.qs.service.ScanService" />
 
         <activity android:name=".view.activity.YlzckActivity" />
-        <activity android:name=".view.activity.HlActivity"></activity>
+        <activity android:name=".view.activity.HlActivity" />
+        <activity android:name=".view.activity.TlActivity" />
+        <activity android:name=".view.activity.FirstActivity"></activity>
     </application>
 
 </manifest>

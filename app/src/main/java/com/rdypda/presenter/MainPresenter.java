@@ -10,6 +10,7 @@ import com.rdypda.view.activity.GdxqActivity;
 import com.rdypda.view.activity.HlActivity;
 import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
+import com.rdypda.view.activity.TlActivity;
 import com.rdypda.view.activity.YlzckActivity;
 import com.rdypda.view.viewinterface.IMainView;
 
@@ -57,6 +58,11 @@ public class MainPresenter extends BasePresenter{
 
     public void goToHl(){
         Intent intent=new Intent(context, HlActivity.class);
+        context.startActivity(intent);
+    }
+
+    public void goToTl(){
+        Intent intent=new Intent(context, TlActivity.class);
         context.startActivity(intent);
     }
 }
