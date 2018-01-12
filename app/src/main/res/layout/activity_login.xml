@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:background="@android:color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.rdypda.view.activity.LoginActivity">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
@@ -52,12 +55,17 @@
                     android:id="@+id/user_img"
                     android:src="@drawable/defualt_user"/>
             </FrameLayout>
-            <Spinner
+            <FrameLayout
                 android:layout_width="230dp"
                 android:layout_height="45dp"
-                android:id="@+id/factory_list"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"></Spinner>
+                android:layout_marginBottom="10dp"
+                >
+                <Spinner
+                    android:layout_width="230dp"
+                    android:layout_height="45dp"
+                    android:id="@+id/factory_list"></Spinner>
+            </FrameLayout>
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/user_id_layout"
                 android:layout_width="230dp"

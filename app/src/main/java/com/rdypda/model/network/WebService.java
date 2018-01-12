@@ -1,5 +1,7 @@
 package com.rdypda.model.network;
 
+import android.util.Log;
+
 import com.rdypda.model.network.api.ServiceApi;
 
 import org.json.JSONArray;
@@ -11,6 +13,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
@@ -22,7 +25,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 
 public class WebService {
-    public static String URL="http://192.168.1.39:8080/Service1.asmx/";
+    public static String URL="http://yun.ruiduoyi.com:8080/Service.asmx/";
     public static Retrofit retrofit;
     public static  ServiceApi serviceApi;
 
@@ -54,6 +57,30 @@ public class WebService {
             public void subscribe(ObservableEmitter<JSONArray> e) throws Exception {
                 Response<String>response=getServiceApi().getQuerysqlResult(sql,"nopassword").execute();
                 e.onNext(stringToJsonArray(response.body()));
+                e.onComplete();
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public static Observable<JSONObject>getCompanyList(){
+        return Observable.create(new ObservableOnSubscribe<JSONObject>() {
+            @Override
+            public void subscribe(ObservableEmitter<JSONObject> e) throws Exception {
+                Response<String>response=getServiceApi().getCompanyList().execute();
+                e.onNext(stringToJsonObject(response.body()));
+                e.onComplete();
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public static Observable<JSONObject>usrLogon(final String usrCmpId, final String usrId, final String usrPwd){
+        return Observable.create(new ObservableOnSubscribe<JSONObject>() {
+            @Override
+            public void subscribe(ObservableEmitter<JSONObject> e) throws Exception {
+                Response<String>response=getServiceApi().userLogin(usrCmpId,usrId,usrPwd).execute();
+                e.onNext(stringToJsonObject(response.body()));
                 e.onComplete();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
@@ -123,6 +150,16 @@ public class WebService {
         }
         return array;
     }
+
+    public static JSONObject stringToJsonObject(String result) throws JSONException {
+        Log.e("webSevice",result);
+        String format_1=result.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<string xmlns=\"http://zblog.vicp.net/\">","");
+        String format_2=format_1.replace("</string>","");
+        Log.e("format",format_2);
+        return new JSONObject(format_2);
+    }
+
+
 
     public static int calculate(String str,String substr){
         if (str.length()>0){
