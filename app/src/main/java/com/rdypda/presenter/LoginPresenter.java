@@ -27,10 +27,21 @@ import io.reactivex.disposables.Disposable;
 public class LoginPresenter extends BasePresenter {
     private ILoginView view;
     private List<Map<String,String>>data;
-
+    private boolean isRemember=true;
     public LoginPresenter(Context context, final ILoginView view) {
         super(context);
         this.view=view;
+        if (!preferenUtil.getString("userId").equals("")){
+            view.setDefaultUser(preferenUtil.getString("userId"),preferenUtil.getString("userPwd"));
+            preferenUtil.setString("usr_yhdm","");
+            preferenUtil.setString("usr_yhmm","");
+            preferenUtil.setString("usr_yhmc","");
+            preferenUtil.setString("usr_bmdm","");
+            preferenUtil.setString("usr_gsdm","");
+            preferenUtil.setString("usr_flag","");
+            preferenUtil.setString("usr_Token","");
+            preferenUtil.setString("usr_TokenValid","");
+        }
         WebService.getCompanyList().subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -70,7 +81,7 @@ public class LoginPresenter extends BasePresenter {
 
 
 
-    public void login(int usrCmpIdPosition,String usrId,String usrPwd){
+    public void login(final int usrCmpIdPosition, final String usrId, final String usrPwd){
         view.setUserIdErrorEnable(false);
         view.setPwdErrorEnable(false);
         if (usrId.equals("")){
@@ -113,7 +124,18 @@ public class LoginPresenter extends BasePresenter {
                         preferenUtil.setString("usr_flag",array.getJSONObject(0).getString("usr_flag"));
                         preferenUtil.setString("usr_Token",array.getJSONObject(0).getString("usr_Token"));
                         preferenUtil.setString("usr_TokenValid",array.getJSONObject(0).getString("usr_TokenValid"));
+                        if (isRemember){
+                            preferenUtil.setString("userId",usrId);
+                            preferenUtil.setString("userPwd",usrPwd);
+                            preferenUtil.setString("cmp_gsdm",data.get(usrCmpIdPosition).get("cmp_gsdm"));
+                        }else {
+                            preferenUtil.setString("userId","");
+                            preferenUtil.setString("userPwd","");
+                            preferenUtil.setString("cmp_gsdm","");
+                        }
+                        //preferenUtil.setString("cmp_gsdm",data.get(usrCmpIdPosition).get("cmp_gsdm"));
                         context.startActivity(intent);
+                        view.finish();
                     }else {
                         view.showToastMsg(value.getJSONArray("Table0").getJSONObject(0).getString("cMsg"));
                     }
@@ -133,7 +155,11 @@ public class LoginPresenter extends BasePresenter {
 
             }
         });
+
+
     }
 
-
+    public void setRemember(boolean remember) {
+        isRemember = remember;
+    }
 }

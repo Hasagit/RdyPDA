@@ -20,24 +20,24 @@
         </activity>
         <activity android:name=".view.activity.BaseActivity" />
         <activity android:name=".view.activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".view.activity.LlddrActivity" />
         <activity android:name=".view.activity.LlddrMsgActivity" />
         <activity android:name=".view.activity.FlActivity" />
         <activity android:name=".view.activity.GdxqActivity" />
         <activity android:name=".view.activity.WldActivity" />
-
         <service android:name="com.qs.service.ScanService" />
-
         <activity android:name=".view.activity.YlzckActivity" />
         <activity android:name=".view.activity.HlActivity" />
         <activity android:name=".view.activity.TlActivity" />
-        <activity android:name=".view.activity.FirstActivity"></activity>
+        <activity android:name=".view.activity.FirstActivity"
+            android:theme="@style/FirstTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -11,12 +11,14 @@
     android:focusableInTouchMode="true"
     tools:context="com.rdypda.view.activity.LoginActivity">
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolBar"
+        android:id="@+id/toolbar"
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
         >
         <FrameLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
@@ -98,17 +100,17 @@
 
             <FrameLayout
                 android:layout_width="230dp"
-                android:layout_height="20dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center">
-                <TextView
-                    android:id="@+id/forget"
+                <CheckBox
+                    android:id="@+id/remember"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:gravity="right"
+                    android:gravity="center_vertical"
                     android:textSize="15dp"
                     android:textColor="@color/colorPrimary"
-                    android:text="@string/forget_pwd"/>
+                    android:text="@string/remember_pwd"/>
             </FrameLayout>
             <android.support.v7.widget.CardView
                 android:layout_marginTop="5dp"

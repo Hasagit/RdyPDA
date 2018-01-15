@@ -7,6 +7,6 @@ import java.util.Map;
  * Created by DengJf on 2017/12/13.
  */
 
-public interface IFlView {
+public interface IFlView extends IBaseView{
     void refreshReceive(List<Map<String, String>>data);
 }

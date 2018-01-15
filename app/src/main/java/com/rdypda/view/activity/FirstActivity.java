@@ -2,6 +2,7 @@ package com.rdypda.view.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.rdypda.R;
 import com.rdypda.presenter.FirstPresenter;
@@ -19,5 +20,10 @@ public class FirstActivity extends BaseActivity implements IFirstView {
     @Override
     protected void initView() {
 
+    }
+
+    @Override
+    public void showToastMsg(String msg) {
+        Toast.makeText(FirstActivity.this,msg,Toast.LENGTH_SHORT).show();
     }
 }

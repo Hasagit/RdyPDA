@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -37,6 +41,10 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     TextInputLayout userPwdLayout;
     @BindView(R.id.user_pwd_ed)
     TextInputEditText userPwdEd;
+    @BindView(R.id.remember)
+    CheckBox rememberCheckBox;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private ProgressDialog progressDialog;
     private LoginPresenter presenter;
     private int factoryPosition=-1;
@@ -54,8 +62,27 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     protected void initView(){
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle(getResources().getString(R.string.logining));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
+        rememberCheckBox.setChecked(true);
+        rememberCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                presenter.setRemember(isChecked);
+            }
+        });
 
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnClick({R.id.login_btn})
@@ -123,5 +150,11 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @Override
     public void setPwdError(String error) {
         userPwdLayout.setError(error);
+    }
+
+    @Override
+    public void setDefaultUser(String userId, String userPwd) {
+        userIdEd.setText(userId);
+        userPwdEd.setText(userPwd);
     }
 }

@@ -152,11 +152,12 @@ public class WebService {
     }
 
     public static JSONObject stringToJsonObject(String result) throws JSONException {
-        Log.e("webSevice",result);
+        //Log.e("webSevice",result);
         String format_1=result.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<string xmlns=\"http://zblog.vicp.net/\">","");
         String format_2=format_1.replace("</string>","");
-        Log.e("format",format_2);
-        return new JSONObject(format_2);
+        String format_3=format_2.replace("\\t","    ");
+        Log.e("format",format_3);
+        return new JSONObject(format_3);
     }
 
 

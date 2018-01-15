@@ -7,6 +7,6 @@ import java.util.Map;
  * Created by DengJf on 2017/12/15.
  */
 
-public interface IGdxqView {
+public interface IGdxqView extends IBaseView{
     void refreshRecyclerView(List<Map<String,String>>data);
 }

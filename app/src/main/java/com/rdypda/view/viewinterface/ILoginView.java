@@ -7,7 +7,7 @@ import java.util.Map;
  * Created by DengJf on 2018/1/12.
  */
 
-public interface ILoginView {
+public interface ILoginView extends IBaseView{
     void showFactoryList(List<Map<String,String>>data);
 
     void showToastMsg(String msg);
@@ -21,4 +21,6 @@ public interface ILoginView {
     void setPwdErrorEnable(boolean enable);
 
     void setPwdError(String error);
+
+    void setDefaultUser(String userId,String userPwd);
 }

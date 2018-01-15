@@ -36,6 +36,7 @@ public class MainPresenter extends BasePresenter{
     public void goToLogin(){
         Intent intent=new Intent(context, LoginActivity.class);
         context.startActivity(intent);
+        view.finish();
     }
 
     public void goToLlddr(int type){
