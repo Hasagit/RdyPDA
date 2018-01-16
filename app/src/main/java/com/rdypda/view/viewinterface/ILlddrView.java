@@ -10,9 +10,7 @@ import java.util.Map;
 public interface ILlddrView extends IBaseView{
     void showList(List<Map<String,String>> data);
 
-    void setProgressBarVisibility(int visibility);
+    void showToast(String msg);
 
-    void setSwipeVisibility(int visibility);
-
-    void setRefreshing(boolean refreshing);
+    void setProgressDialogEnable(boolean enable);
 }

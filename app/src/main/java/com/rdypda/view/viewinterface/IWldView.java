@@ -9,4 +9,8 @@ import java.util.Map;
 
 public interface IWldView extends IBaseView{
     void refreshWldRecycler(List<Map<String,String >>data);
+
+    void showToastMsg(String msg);
+
+    void setProgressDialogEnable(boolean enable);
 }

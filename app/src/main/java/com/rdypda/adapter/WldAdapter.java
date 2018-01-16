@@ -41,7 +41,18 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
 
     @Override
     public void onBindViewHolder(WldViewHolder viewHolder, final int i, Map<String, String> map) {
-        viewHolder.wld_text.setText(map.get("id"));
+        viewHolder.lab_1.setText(map.get("djbh"));
+        viewHolder.lab_2.setText(map.get("llm_wldm"));
+        viewHolder.lab_3.setText(map.get("ftyId"));
+        viewHolder.lab_4.setText(map.get("stkId"));
+        viewHolder.lab_5.setText(map.get("wldm"));
+        viewHolder.lab_6.setText(map.get("wlpm"));
+        viewHolder.lab_7.setText(map.get("ywwlpm"));
+        viewHolder.lab_8.setText(map.get("qty"));
+        viewHolder.lab_9.setText(map.get("unit"));
+        viewHolder.lab_10.setText(map.get("jlry"));
+        viewHolder.lab_11.setText(map.get("jlrq"));
+        viewHolder.lab_12.setText(map.get("id"));
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,13 +64,33 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
 
 
     public class WldViewHolder extends BaseRecyclerAdapter.BaseRecyclerViewHolder{
-        public TextView wld_text,person_text,time_text;
+        public TextView lab_1;
+        public TextView lab_2;
+        public TextView lab_3;
+        public TextView lab_4;
+        public TextView lab_5;
+        public TextView lab_6;
+        public TextView lab_7;
+        public TextView lab_8;
+        public TextView lab_9;
+        public TextView lab_10;
+        public TextView lab_11;
+        public TextView lab_12;
         public LinearLayout content;
         public WldViewHolder(View itemView) {
             super(itemView);
-            wld_text=(TextView) itemView.findViewById(R.id.wld);
-            person_text=(TextView)itemView.findViewById(R.id.person);
-            time_text=(TextView)itemView.findViewById(R.id.time);
+            lab_1=(TextView)itemView.findViewById(R.id.lab_1);
+            lab_2=(TextView)itemView.findViewById(R.id.lab_2);
+            lab_3=(TextView)itemView.findViewById(R.id.lab_3);
+            lab_4=(TextView)itemView.findViewById(R.id.lab_4);
+            lab_5=(TextView)itemView.findViewById(R.id.lab_5);
+            lab_6=(TextView)itemView.findViewById(R.id.lab_6);
+            lab_7=(TextView)itemView.findViewById(R.id.lab_7);
+            lab_8=(TextView)itemView.findViewById(R.id.lab_8);
+            lab_9=(TextView)itemView.findViewById(R.id.lab_9);
+            lab_10=(TextView)itemView.findViewById(R.id.lab_10);
+            lab_11=(TextView)itemView.findViewById(R.id.lab_11);
+            lab_12=(TextView)itemView.findViewById(R.id.lab_12);
             content=(LinearLayout)itemView.findViewById(R.id.content);
         }
     }

@@ -97,6 +97,40 @@ public class WebService {
     }
 
 
+    public static Observable<JSONObject>querySqlCommandJosn(final String sqlCommand, final String cTokenUser){
+        return Observable.create(new ObservableOnSubscribe<JSONObject>() {
+            @Override
+            public void subscribe(ObservableEmitter<JSONObject> e) throws Exception {
+                Response<String>response=getServiceApi().querySqlCommandJosn(sqlCommand,cTokenUser).execute();
+                e.onNext(stringToJsonObject(response.body()));
+                e.onComplete();
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //将服务器返回数据转换成JsonArray
     public static JSONArray stringToJsonArray(String result) throws IOException, JSONException {
         List<List<String>>tab_list=new ArrayList<>();

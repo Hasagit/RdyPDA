@@ -21,8 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.rdypda.view.widget.PowerButton
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/setting_btn"
                 android:layout_gravity="center_vertical|right"
                 android:layout_marginRight="10dp"

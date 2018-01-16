@@ -1,5 +1,6 @@
 package com.rdypda.view.activity;
 
+import android.app.ProgressDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
@@ -10,20 +11,25 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.rdypda.R;
 import com.rdypda.adapter.LlddrAdapter;
 import com.rdypda.presenter.LlddrPresenter;
 import com.rdypda.view.viewinterface.ILlddrView;
+import com.rdypda.view.widget.PowerButton;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class LlddrActivity extends BaseActivity implements ILlddrView{
     private LlddrAdapter adapter;
@@ -36,13 +42,15 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
     LlddrPresenter presenter;
     @BindView(R.id.progressbar)
     ProgressBar progressBar;
-    @BindView(R.id.swipe)
-    SwipeRefreshLayout swipe;
-    @BindView(R.id.edit_query)
-    EditText queryEd;
+    @BindView(R.id.edit_lldh)
+    EditText lldhEd;
+    @BindView(R.id.edit_wldm)
+    EditText wldmEd;
+    @BindView(R.id.edit_ddbh)
+    EditText ddbhEd;
     @BindView(R.id.btn_query)
-    ImageView queryBtn;
-
+    PowerButton queryBtn;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +58,16 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
         ButterKnife.bind(this);
         initView();
         presenter=new LlddrPresenter(this,this);
+    }
+
+    @OnClick({R.id.btn_query})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.btn_query:
+                showList(new ArrayList<Map<String, String>>());
+                presenter.queryDataByKey(lldhEd.getText().toString(),wldmEd.getText().toString(),ddbhEd.getText().toString());
+                break;
+        }
     }
 
     @Override
@@ -60,38 +78,10 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-
-        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.refreshListData();
-            }
-        });
-
-        queryEd.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Log.e("beforeedit",s.toString());
-                presenter.queryDataByKey(s.toString());
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.e("onedit",s.toString());
-                presenter.queryDataByKey(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Log.e("afteredit",s.toString());
-                presenter.queryDataByKey(s.toString());
-
-            }
-        });
+        progressDialog =new ProgressDialog(this);
+        progressDialog.setTitle("查询中...");
 
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -111,17 +101,16 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
     }
 
     @Override
-    public void setProgressBarVisibility(int visibility) {
-        progressBar.setVisibility(visibility);
+    public void showToast(String msg) {
+        Toast.makeText(LlddrActivity.this,msg,Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void setSwipeVisibility(int visibility) {
-        swipe.setVisibility(visibility);
-    }
-
-    @Override
-    public void setRefreshing(boolean refreshing) {
-        swipe.setRefreshing(refreshing);
+    public void setProgressDialogEnable(boolean enable) {
+        if (enable){
+            progressDialog.show();
+        }else {
+            progressDialog.dismiss();
+        }
     }
 }

@@ -15,71 +15,140 @@
             android:focusableInTouchMode="true"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="150dp"
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:title="@string/lld"
             app:layout_scrollFlags="scroll|enterAlways">
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/shape"></FrameLayout>
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="10dp"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    >
-                    <EditText
-                        android:inputType="number"
-                        android:layout_marginLeft="10dp"
-                        android:id="@+id/edit_query"
-                        android:layout_width="10dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:hint="@string/query_key"
-                        android:background="@null"
-                        android:textSize="14dp"
-                        android:theme="@style/AppTheme"/>
-                    <ImageView
-                        android:id="@+id/btn_query"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/query"
-                        android:scaleType="fitXY"
-                        android:layout_marginRight="10dp"
-                        />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_weight="1">
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/shape"></FrameLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            >
+                            <EditText
+                                android:inputType="number"
+                                android:layout_marginLeft="10dp"
+                                android:id="@+id/edit_lldh"
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:hint="请输入领料单号(必填)"
+                                android:background="@null"
+                                android:textSize="14dp"
+                                android:theme="@style/AppTheme"/>
+                        </LinearLayout>
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_weight="1">
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/shape"></FrameLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            >
+                            <EditText
+                                android:inputType="number"
+                                android:layout_marginLeft="10dp"
+                                android:id="@+id/edit_wldm"
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:hint="请输入物料代码(选填)"
+                                android:background="@null"
+                                android:textSize="14dp"
+                                android:theme="@style/AppTheme"/>
+                        </LinearLayout>
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_weight="1">
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/shape"></FrameLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            >
+                            <EditText
+                                android:inputType="number"
+                                android:layout_marginLeft="10dp"
+                                android:id="@+id/edit_ddbh"
+                                android:layout_width="10dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:hint="请输入订单编号(选填)"
+                                android:background="@null"
+                                android:textSize="14dp"
+                                android:theme="@style/AppTheme"/>
+                        </LinearLayout>
+                    </FrameLayout>
                 </LinearLayout>
-            </FrameLayout>
+                <com.rdypda.view.widget.PowerButton
+                    android:layout_marginTop="11dp"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/btn_query"
+                    android:background="@drawable/query"/>
+            </LinearLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipe"
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none"
-            >
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/lld_list"
-                android:divider="@color/color_toum"
-                ></android.support.v7.widget.RecyclerView>
-        </android.support.v4.widget.SwipeRefreshLayout>
+            android:id="@+id/lld_list"
+            android:divider="@color/color_toum"
+            ></android.support.v7.widget.RecyclerView>
     </FrameLayout>
     <ProgressBar
         android:visibility="gone"

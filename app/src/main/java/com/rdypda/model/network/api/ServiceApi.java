@@ -18,4 +18,7 @@ public interface ServiceApi {
 
     @GET("UsrLogon")
     Call<String>userLogin(@Query("usrCmpId")String usrCmpId,@Query("usrId")String usrId,@Query("usrPwd")String usrPwd);
+
+    @GET("QuerySqlCommandJosn")
+    Call<String>querySqlCommandJosn(@Query("SqlCommand")String SqlCommand,@Query("cTokenUser")String cTokenUser);
 }
