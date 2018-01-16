@@ -5,5 +5,5 @@ package com.rdypda.view.viewinterface;
  */
 
 public interface IMainView extends IBaseView{
-
+    void setUserName(String userName);
 }

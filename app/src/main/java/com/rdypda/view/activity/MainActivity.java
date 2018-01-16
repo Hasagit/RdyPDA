@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.rdypda.R;
 import com.rdypda.presenter.MainPresenter;
@@ -74,6 +75,8 @@ public class MainActivity extends BaseActivity implements IMainView{
     LinearLayout kcpd_btn;
     @BindView(R.id.tmcx)
     LinearLayout tmcx_btn;
+    @BindView(R.id.user_name)
+    TextView userNameText;
 
 
     @Override
@@ -172,5 +175,10 @@ public class MainActivity extends BaseActivity implements IMainView{
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setUserName(String userName) {
+        userNameText.setText(userName);
     }
 }

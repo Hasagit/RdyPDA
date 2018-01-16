@@ -26,6 +26,7 @@ public class MainPresenter extends BasePresenter{
     public MainPresenter(Context context,IMainView view) {
         super(context);
         this.view = view;
+        view.setUserName("你好，"+preferenUtil.getString("usr_yhmc"));
         if (Build.MODEL.equals(context.getResources().getString(R.string.print_scan_model))){
             PrintUtil util=new PrintUtil(context);
             util.initPost();

@@ -1,14 +1,19 @@
 package com.rdypda.view.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -19,6 +24,7 @@ import android.widget.Toast;
 import com.rdypda.R;
 import com.rdypda.presenter.LoginPresenter;
 import com.rdypda.view.viewinterface.ILoginView;
+import com.rdypda.view.widget.PowerButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +51,9 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     CheckBox rememberCheckBox;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.setting_btn)
+    PowerButton settingBtn;
+    private AlertDialog ipSettingDialog;
     private ProgressDialog progressDialog;
     private LoginPresenter presenter;
     private int factoryPosition=-1;
@@ -72,8 +81,38 @@ public class LoginActivity extends BaseActivity implements ILoginView {
                 presenter.setRemember(isChecked);
             }
         });
-
+        userIdEd.setInputType(InputType.TYPE_NULL);
+        //userPwdEd.setInputType(InputType.TYPE_NULL|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View view= LayoutInflater.from(this).inflate(R.layout.ip_setting_dialog,null);
+            ipSettingDialog=new AlertDialog.Builder(this).setView(view).create();
+            ipSettingDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+            PowerButton sureBtn=view.findViewById(R.id.sure_btn);
+            PowerButton cancleBtn=view.findViewById(R.id.cancle_btn);
+            final TextInputEditText ipEd=view.findViewById(R.id.ip_ed);
+            final TextInputLayout ipLayout=view.findViewById(R.id.ip_layout);
+            cancleBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ipSettingDialog.dismiss();
+                }
+            });
+            sureBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ipEd.getText().toString().equals("")){
+                        ipLayout.setErrorEnabled(true);
+                        ipLayout.setError("ip地址不能为空");
+                    }else {
+                        presenter.setIpAddress(ipEd.getText().toString());
+                        presenter=new LoginPresenter(LoginActivity.this,LoginActivity.this);
+                        ipSettingDialog.dismiss();
+                    }
+                }
+            });
+        }
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -85,11 +124,14 @@ public class LoginActivity extends BaseActivity implements ILoginView {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.login_btn})
+    @OnClick({R.id.login_btn,R.id.setting_btn})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.login_btn:
                 presenter.login(factoryPosition,userIdEd.getText().toString(),userPwdEd.getText().toString());
+                break;
+            case R.id.setting_btn:
+                ipSettingDialog.show();
                 break;
         }
     }

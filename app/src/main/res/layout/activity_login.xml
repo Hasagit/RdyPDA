@@ -18,20 +18,15 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         >
         <FrameLayout
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/register"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="注册"
-                android:gravity="center|bottom"
-                android:layout_gravity="right"
-                android:textColor="@android:color/white"
-                android:textSize="18dp"/>
+            <com.rdypda.view.widget.PowerButton
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:id="@+id/setting_btn"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/setting_icon"/>
         </FrameLayout>
     </android.support.v7.widget.Toolbar>
     <ScrollView

@@ -42,6 +42,12 @@ public class LoginPresenter extends BasePresenter {
             preferenUtil.setString("usr_Token","");
             preferenUtil.setString("usr_TokenValid","");
         }
+
+        getCompanyList();
+    }
+
+
+    public void getCompanyList(){
         WebService.getCompanyList().subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -70,6 +76,7 @@ public class LoginPresenter extends BasePresenter {
             @Override
             public void onError(Throwable e) {
                 e.printStackTrace();
+                view.showToastMsg("公司信息加载失败");
             }
 
             @Override
@@ -78,8 +85,6 @@ public class LoginPresenter extends BasePresenter {
             }
         });
     }
-
-
 
     public void login(final int usrCmpIdPosition, final String usrId, final String usrPwd){
         view.setUserIdErrorEnable(false);
@@ -95,7 +100,7 @@ public class LoginPresenter extends BasePresenter {
             return;
         }
         if (usrCmpIdPosition==-1){
-            view.showToastMsg("公司信息加载失败，请重启软件");
+            view.showToastMsg("公司信息不能为空");
             return;
         }
         if (data==null){
@@ -146,6 +151,7 @@ public class LoginPresenter extends BasePresenter {
 
             @Override
             public void onError(Throwable e) {
+                e.printStackTrace();
                 view.setShowProgressDialogEnable(false);
                 view.showToastMsg(e.getMessage());
             }
@@ -161,5 +167,11 @@ public class LoginPresenter extends BasePresenter {
 
     public void setRemember(boolean remember) {
         isRemember = remember;
+    }
+
+    public void setIpAddress(String address){
+        preferenUtil.setString("ipAddress",address);
+        WebService.initUrl(preferenUtil);
+        view.showFactoryList(new ArrayList<Map<String, String>>());
     }
 }

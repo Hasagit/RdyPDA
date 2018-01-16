@@ -27,6 +27,7 @@ public class FirstPresenter extends BasePresenter{
         super(context);
         this.view=view;
         preferenUtil.setBoolean("isFirstActivityLogin",false);
+        WebService.initUrl(preferenUtil);
         if (preferenUtil.getString("userId").equals("")){
             preferenUtil.setBoolean("isFirstActivityLogin",false);
         }else {

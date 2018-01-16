@@ -2,6 +2,7 @@ package com.rdypda.model.network;
 
 import android.util.Log;
 
+import com.rdypda.model.cache.PreferenUtil;
 import com.rdypda.model.network.api.ServiceApi;
 
 import org.json.JSONArray;
@@ -28,6 +29,15 @@ public class WebService {
     public static String URL="http://yun.ruiduoyi.com:8080/Service.asmx/";
     public static Retrofit retrofit;
     public static  ServiceApi serviceApi;
+
+    public static void initUrl(PreferenUtil preferenUtil){
+        if (!preferenUtil.getString("ipAddress").equals("")){
+            URL="http://"+preferenUtil.getString("ipAddress")+":8080/Service.asmx/";
+            retrofit=null;
+            serviceApi=null;
+            Log.e("reSetIp",URL);
+        }
+    }
 
     public static Retrofit getRetrofit(){
         if (retrofit==null){
@@ -159,8 +169,6 @@ public class WebService {
         Log.e("format",format_3);
         return new JSONObject(format_3);
     }
-
-
 
     public static int calculate(String str,String substr){
         if (str.length()>0){

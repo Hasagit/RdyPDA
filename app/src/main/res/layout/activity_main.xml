@@ -692,7 +692,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@android:color/white"
-                    android:text="您好，邓靖发"/>
+                    />
             </FrameLayout>
             <LinearLayout
                 android:layout_width="match_parent"
