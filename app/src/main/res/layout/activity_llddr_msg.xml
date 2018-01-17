@@ -8,6 +8,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.rdypda.view.activity.LlddrMsgActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,6 +23,7 @@
             android:id="@+id/toolbar"
             >
             <FrameLayout
+                android:layout_marginLeft="200dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <com.rdypda.view.widget.PowerButton
@@ -67,11 +70,12 @@
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_top">
                     <TextView
+                        android:id="@+id/lldh"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="10086"/>
+                        />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -99,11 +103,12 @@
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
                     <TextView
+                        android:id="@+id/wlbh"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="10011"/>
+                        />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -123,19 +128,21 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/wlmc"/>
+                        android:text="条码批次号"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
-                    <TextView
+                    <EditText
+                        android:id="@+id/tmpch"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:text="鸡毛蒜皮"/>
+                        />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -155,19 +162,21 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/wlpc"/>
+                        android:text="条码数量"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
-                    <TextView
+                    <EditText
+                        android:id="@+id/tmsl"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:text="250"/>
+                        />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -187,7 +196,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/gys"/>
+                        android:text="单位"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -195,11 +204,12 @@
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
                     <TextView
+                        android:id="@+id/dw"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="中国移动"/>
+                        />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -219,7 +229,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/lhrq"/>
+                        android:text="工厂号"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -227,11 +237,12 @@
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
                     <TextView
+                        android:id="@+id/gch"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="2017-12-22 14:00"/>
+                        />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -251,7 +262,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/sl"/>
+                        android:text="库存地点"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -259,11 +270,12 @@
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
                     <TextView
+                        android:id="@+id/kcdd"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="998"/>
+                        />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -283,7 +295,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/dw"/>
+                        android:text="库位"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -291,11 +303,12 @@
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
                     <TextView
+                        android:id="@+id/kw"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="吨"/>
+                        />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -315,7 +328,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/kwdm"/>
+                        android:text="储位"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -323,11 +336,12 @@
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
                     <TextView
+                        android:id="@+id/cw"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="9527"/>
+                        />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -347,7 +361,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/tmbh"/>
+                        android:text="条码序号"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -355,14 +369,26 @@
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
                     <TextView
+                        android:id="@+id/tmxh"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
+                        android:textColor="@color/color_green"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="1771923276523"/>
+                        />
                 </LinearLayout>
             </LinearLayout>
 
+            <com.rdypda.view.widget.PowerButton
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/color_green"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="30dp"
+                android:id="@+id/get_tm_btn"
+                android:textColor="@android:color/white"
+                android:text="获取条码序号"/>
 
             <com.rdypda.view.widget.PowerButton
                 android:layout_width="match_parent"

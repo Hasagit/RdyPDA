@@ -2,6 +2,7 @@ package com.rdypda.view.activity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
@@ -17,6 +18,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.rdypda.R;
 import com.rdypda.model.cache.PreferenUtil;
@@ -24,6 +27,8 @@ import com.rdypda.presenter.LlddrMsgPresenter;
 import com.rdypda.util.PrintUtil;
 import com.rdypda.view.viewinterface.ILlddrMsgView;
 import com.rdypda.view.widget.PowerButton;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Set;
@@ -37,8 +42,32 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
     Toolbar toolbar;
     @BindView(R.id.setting_btn)
     PowerButton settingBtn;
+    @BindView(R.id.lldh)
+    TextView lldhText;
+    @BindView(R.id.wlbh)
+    TextView wlbhText;
+    @BindView(R.id.tmpch)
+    EditText tmpchEd;
+    @BindView(R.id.tmsl)
+    EditText tmslEd;
+    @BindView(R.id.dw)
+    TextView dwText;
+    @BindView(R.id.gch)
+    TextView gchText;
+    @BindView(R.id.kcdd)
+    TextView kcddText;
+    @BindView(R.id.kw)
+    TextView kwText;
+    @BindView(R.id.cw)
+    TextView cwText;
+    @BindView(R.id.tmxh)
+    TextView tmxhText;
+    private String lldhStr,wlbhStr,tmpchStr,tmslStr,dwStr,gchStr,kcddStr,kwStr,cwStr,wlpmStr,ywwlpmStr;
     private AlertDialog msgDialog;
     private LlddrMsgPresenter presenter;
+    private ProgressDialog progressDialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +83,8 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getResources().getString(R.string.more_msg));
+
+
         msgDialog=new AlertDialog.Builder(this)
                 .setTitle(getResources().getString(R.string.tip))
                 .setPositiveButton(getResources().getString(R.string.sure), new DialogInterface.OnClickListener() {
@@ -62,18 +93,45 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
                         msgDialog.dismiss();
                     }
                 })
+                .setCancelable(false)
                 .create();
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        lldhStr=getIntent().getStringExtra("lldh");
+        wlbhStr=getIntent().getStringExtra("wldm");
+        dwStr=getIntent().getStringExtra("dw");
+        gchStr=getIntent().getStringExtra("gch");
+        kcddStr=getIntent().getStringExtra("kcdd");
+        kwStr=getIntent().getStringExtra("kcdd");
+        wlpmStr=getIntent().getStringExtra("wlpm");
+        ywwlpmStr=getIntent().getStringExtra("ywwlpm");
+        lldhText.setText(lldhStr);
+        wlbhText.setText(wlbhStr);
+        dwText.setText(dwStr);
+        gchText.setText(gchStr);
+        kcddText.setText(kcddStr);
+        kwText.setText(kwStr);
     }
 
 
-    @OnClick({R.id.print_btn,R.id.setting_btn})
+    @OnClick({R.id.print_btn,R.id.setting_btn,R.id.get_tm_btn})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.print_btn:
-                presenter.printEven();
+                presenter.printEven(lldhStr,wlpmStr,ywwlpmStr,tmxhText.getText().toString(),tmpchEd.getText().toString());
                 break;
             case R.id.setting_btn:
                 showBlueToothAddressDialog();
+                break;
+            case R.id.get_tm_btn:
+                presenter.getTmxh(tmpchEd.getText().toString(),tmslEd.getText().toString(),lldhStr,
+                        wlbhStr,dwStr,gchStr,kcddStr,tmxhText.getText().toString());
                 break;
         }
     }
@@ -152,6 +210,21 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
             builder.create().show();
         }
 
+    }
+
+    @Override
+    public void setTmxhText(String tmxh) {
+        tmxhText.setText(tmxh);
+    }
+
+    @Override
+    public void setProgressDialogEnable(String title,boolean enable) {
+        if (enable){
+            progressDialog.setTitle(title);
+            progressDialog.show();
+        }else {
+            progressDialog.dismiss();
+        }
     }
 
     @Override

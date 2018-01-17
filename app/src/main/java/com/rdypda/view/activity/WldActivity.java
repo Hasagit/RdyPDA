@@ -56,6 +56,7 @@ public class WldActivity extends BaseActivity implements IWldView{
     @Override
     public void refreshWldRecycler(List<Map<String, String>> data) {
         adapter=new WldAdapter(WldActivity.this,R.layout.wld_item,data);
+        adapter.setLldh(djbh);
         recyclerView.setLayoutManager(new GridLayoutManager(WldActivity.this,1));
         recyclerView.setAdapter(adapter);
     }

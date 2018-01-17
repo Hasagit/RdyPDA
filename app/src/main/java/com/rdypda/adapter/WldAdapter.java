@@ -23,6 +23,7 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
     private List<Map<String,String>>data;
     private int resources;
     private Context context;
+    private String lldh;
 
     public WldAdapter(Context context,int resources,List<Map<String, String>> data) {
         super(data);
@@ -40,7 +41,7 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
     }
 
     @Override
-    public void onBindViewHolder(WldViewHolder viewHolder, final int i, Map<String, String> map) {
+    public void onBindViewHolder(WldViewHolder viewHolder, final int i, final Map<String, String> map) {
         viewHolder.lab_1.setText(map.get("djbh"));
         viewHolder.lab_2.setText(map.get("llm_wldm"));
         viewHolder.lab_3.setText(map.get("ftyId"));
@@ -57,6 +58,13 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context, LlddrMsgActivity.class);
+                intent.putExtra("lldh",lldh);
+                intent.putExtra("wldm",map.get("wldm"));
+                intent.putExtra("dw",map.get("unit"));
+                intent.putExtra("gch",map.get("ftyId"));
+                intent.putExtra("kcdd",map.get("stkId"));
+                intent.putExtra("ywwlpm",map.get("ywwlpm"));
+                intent.putExtra("wlpm",map.get("wlpm"));
                 context.startActivity(intent);
             }
         });
@@ -93,5 +101,9 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
             lab_12=(TextView)itemView.findViewById(R.id.lab_12);
             content=(LinearLayout)itemView.findViewById(R.id.content);
         }
+    }
+
+    public void setLldh(String lldh) {
+        this.lldh = lldh;
     }
 }

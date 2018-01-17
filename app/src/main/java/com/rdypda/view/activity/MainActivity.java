@@ -1,9 +1,11 @@
 package com.rdypda.view.activity;
 
+import android.content.DialogInterface;
 import android.support.v4.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -27,7 +29,8 @@ import cn.bingoogolapple.bgabanner.BGABannerUtil;
 
 public class MainActivity extends BaseActivity implements IMainView{
     private MainPresenter presenter;
-
+    private String arrayStr;
+    private AlertDialog dialog;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.drawer)
@@ -86,11 +89,17 @@ public class MainActivity extends BaseActivity implements IMainView{
         ButterKnife.bind(this);
         initView();
         presenter=new MainPresenter(this,this);
+        presenter.initPermissionList(arrayStr);
     }
 
     @Override
     protected void initView(){
-
+        dialog=new AlertDialog.Builder(this).setTitle("提示").setNegativeButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).create();
 
 
         setSupportActionBar(toolbar);
@@ -98,6 +107,7 @@ public class MainActivity extends BaseActivity implements IMainView{
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.home);
 
+        arrayStr=getIntent().getStringExtra("permissionList");
 
 
         List<View> views = new ArrayList<>();
@@ -137,6 +147,7 @@ public class MainActivity extends BaseActivity implements IMainView{
                 presenter.goToHl();
                 break;
             case R.id.aldfl:
+                presenter.goToAldfl();
                 break;
             case R.id.tl:
                 presenter.goToTl();
@@ -151,18 +162,25 @@ public class MainActivity extends BaseActivity implements IMainView{
                 presenter.goToYlzck(YlzckActivity.START_TYPE_YKLL);
                 break;
             case R.id.adfl:
+                presenter.goToAdfl();
                 break;
             case R.id.adtl:
+                presenter.goToAdtl();
                 break;
             case R.id.yktldck:
+                presenter.goToYktldck();
                 break;
             case R.id.tmcf:
+                presenter.goToTmcf();
                 break;
             case R.id.tmbd:
+                presenter.goToTmbd();
                 break;
             case R.id.kcpd:
+                presenter.goToKcpd();
                 break;
             case R.id.tmcx:
+                presenter.goToKcpd();
                 break;
         }
     }
@@ -180,5 +198,11 @@ public class MainActivity extends BaseActivity implements IMainView{
     @Override
     public void setUserName(String userName) {
         userNameText.setText(userName);
+    }
+
+    @Override
+    public void showMsgDialog(String msg) {
+        dialog.setMessage(msg);
+        dialog.show();
     }
 }

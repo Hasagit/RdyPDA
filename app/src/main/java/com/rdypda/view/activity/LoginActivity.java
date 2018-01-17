@@ -81,7 +81,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
                 presenter.setRemember(isChecked);
             }
         });
-        userIdEd.setInputType(InputType.TYPE_NULL);
+        //userIdEd.setInputType(InputType.TYPE_NULL);
         //userPwdEd.setInputType(InputType.TYPE_NULL|InputType.TYPE_TEXT_VARIATION_PASSWORD);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             View view= LayoutInflater.from(this).inflate(R.layout.ip_setting_dialog,null);

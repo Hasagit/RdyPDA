@@ -120,7 +120,6 @@ public class LoginPresenter extends BasePresenter {
                 try {
                     if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
                         JSONArray array=value.getJSONArray("usr_mstr");
-                        Intent intent=new Intent(context, MainActivity.class);
                         preferenUtil.setString("usr_yhdm",array.getJSONObject(0).getString("usr_yhdm"));
                         preferenUtil.setString("usr_yhmm",array.getJSONObject(0).getString("usr_yhmm"));
                         preferenUtil.setString("usr_yhmc",array.getJSONObject(0).getString("usr_yhmc"));
@@ -139,6 +138,8 @@ public class LoginPresenter extends BasePresenter {
                             preferenUtil.setString("cmp_gsdm","");
                         }
                         //preferenUtil.setString("cmp_gsdm",data.get(usrCmpIdPosition).get("cmp_gsdm"));
+                        Intent intent=new Intent(context, MainActivity.class);
+                        intent.putExtra("permissionList",value.getString("Table3"));
                         context.startActivity(intent);
                         view.finish();
                     }else {

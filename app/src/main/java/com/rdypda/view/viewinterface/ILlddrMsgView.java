@@ -8,4 +8,8 @@ public interface ILlddrMsgView extends IBaseView{
     void showMessage(String message);
 
     void showBlueToothAddressDialog();
+
+    void setTmxhText(String tmxh);
+
+    void setProgressDialogEnable(String title,boolean enable);
 }

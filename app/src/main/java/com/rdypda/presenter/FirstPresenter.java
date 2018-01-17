@@ -22,7 +22,7 @@ import io.reactivex.disposables.Disposable;
 
 public class FirstPresenter extends BasePresenter{
     private IFirstView view;
-    private Observable<JSONObject>observable;
+    private String arrayStr;
     public FirstPresenter(Context context, IFirstView view) {
         super(context);
         this.view=view;
@@ -73,6 +73,7 @@ public class FirstPresenter extends BasePresenter{
                         preferenUtil.setString("usr_Token",array.getJSONObject(0).getString("usr_Token"));
                         preferenUtil.setString("usr_TokenValid",array.getJSONObject(0).getString("usr_TokenValid"));
                         preferenUtil.setBoolean("isFirstActivityLogin",true);
+                        arrayStr=value.getString("Table3");
                     }else {
                         view.showToastMsg(value.getJSONArray("Table0").getJSONObject(0).getString("cMsg"));
                         preferenUtil.setBoolean("isFirstActivityLogin",false);
@@ -107,6 +108,7 @@ public class FirstPresenter extends BasePresenter{
 
     public void goToMain(){
         Intent intent=new Intent(context, MainActivity.class);
+        intent.putExtra("permissionList",arrayStr);
         context.startActivity(intent);
         view.finish();
     }
