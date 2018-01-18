@@ -3,7 +3,7 @@
     <string name="only_scan_model">NLS-MT66</string>
     <!--打印+扫描设备型号-->
     <string name="print_scan_model">PDA3505</string>
-    <string name="app_name">RdyPDA</string>
+    <string name="app_name">TmesPDA</string>
     <string name="llddr">领料单导入</string>
     <string name="yyjs">原料接收</string>
     <string name="toul">投料</string>

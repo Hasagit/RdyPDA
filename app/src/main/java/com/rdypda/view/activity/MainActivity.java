@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -191,6 +192,9 @@ public class MainActivity extends BaseActivity implements IMainView{
             case android.R.id.home:
                 drawer.openDrawer(Gravity.LEFT);
                 break;
+            case R.id.about:
+                presenter.checkToUpdate();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -204,5 +208,11 @@ public class MainActivity extends BaseActivity implements IMainView{
     public void showMsgDialog(String msg) {
         dialog.setMessage(msg);
         dialog.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
     }
 }

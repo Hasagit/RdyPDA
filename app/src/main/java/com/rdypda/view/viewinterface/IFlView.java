@@ -9,4 +9,8 @@ import java.util.Map;
 
 public interface IFlView extends IBaseView{
     void refreshReceive(List<Map<String, String>>data);
+
+    void setShowMsgDialogEnable(String msg,boolean enable);
+
+    void setShowProgressEnable(boolean enable);
 }

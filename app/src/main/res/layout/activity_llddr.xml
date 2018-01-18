@@ -59,6 +59,7 @@
                                 android:hint="请输入领料单号(必填)"
                                 android:background="@null"
                                 android:textSize="14dp"
+                                android:text="385993"
                                 android:theme="@style/AppTheme"/>
                         </LinearLayout>
                     </FrameLayout>

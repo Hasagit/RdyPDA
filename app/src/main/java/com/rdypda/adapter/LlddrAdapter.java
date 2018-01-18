@@ -76,6 +76,8 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
                     context.startActivity(intent);
                 }else if (startType== MainPresenter.FL){
                     Intent intent=new Intent(context,FlActivity.class);
+                    intent.putExtra("djbh",map.get("djbh"));
+                    intent.putExtra("wldm",map.get("wldm"));
                     context.startActivity(intent);
                 }
             }

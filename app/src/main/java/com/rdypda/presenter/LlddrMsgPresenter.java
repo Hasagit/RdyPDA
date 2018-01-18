@@ -137,6 +137,7 @@ public class LlddrMsgPresenter extends BasePresenter{
                 util.printFont("条码编号:"+tmbh,15,235);
                 util.printQRCode(printMsg,370,55);
                 util.startPrint();
+                Log.e("printMsg",printMsg);
                 e.onNext("");
                 e.onComplete();
             }

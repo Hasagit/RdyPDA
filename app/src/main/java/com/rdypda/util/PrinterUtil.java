@@ -32,7 +32,7 @@ public class PrinterUtil {
     }
 
     public void printQRCode(String str,int x,int y){
-        tscActivity.sendcommand("QRCODE "+x+","+y+",M,6,M,0,M1,S2,\"K"+str+"\" \n");
+        tscActivity.sendcommand("QRCODE "+x+","+y+",M,7,M,0,M1,S2,\"A"+str+"\" \n");
     }
 
     public void startPrint(){

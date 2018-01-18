@@ -12,6 +12,7 @@ import com.rdypda.view.activity.HlActivity;
 import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
 import com.rdypda.view.activity.TlActivity;
+import com.rdypda.view.activity.UpdateActivity;
 import com.rdypda.view.activity.YlzckActivity;
 import com.rdypda.view.viewinterface.IMainView;
 
@@ -77,14 +78,14 @@ public class MainPresenter extends BasePresenter{
                 view.showMsgDialog("你没有权限使用该功能");
             }
         }else if (type==MainPresenter.FL){
-            view.showMsgDialog("敬请期待");
-            /*if (isPermission("MTR502D1")){
+            //view.showMsgDialog("敬请期待");
+            if (isPermission("MTR502D1")){
                 Intent intent=new Intent(context, LlddrActivity.class);
                 intent.putExtra("type",type);
                 context.startActivity(intent);
             }else {
                 view.showMsgDialog("你没有权限使用该功能");
-            }*/
+            }
         }
     }
 
@@ -155,5 +156,10 @@ public class MainPresenter extends BasePresenter{
     //条码查询
     public void goToTmcx(){
         view.showMsgDialog("敬请期待");
+    }
+
+    public void checkToUpdate(){
+        /*Intent intent=new Intent(context, UpdateActivity.class);
+        context.startActivity(intent);*/
     }
 }

@@ -1,5 +1,8 @@
 package com.rdypda.view.activity;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
@@ -31,6 +34,8 @@ public class FlActivity extends BaseActivity implements IFlView {
     TextView num;
     private ReceiveAdapter adapter;
     private FlPresenter presenter;
+    private AlertDialog dialog;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,8 @@ public class FlActivity extends BaseActivity implements IFlView {
         ButterKnife.bind(this);
         initView();
         presenter=new FlPresenter(this,this);
+        presenter.setWldm(getIntent().getStringExtra("wldm"));
+        presenter.setLldh(getIntent().getStringExtra("djbh"));
     }
 
     @Override
@@ -46,6 +53,16 @@ public class FlActivity extends BaseActivity implements IFlView {
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        dialog=new AlertDialog.Builder(this).setTitle("提示").setNegativeButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).create();
+
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setTitle("验证中...");
     }
 
 
@@ -67,7 +84,29 @@ public class FlActivity extends BaseActivity implements IFlView {
     }
 
     @Override
+    public void setShowMsgDialogEnable(String msg, boolean enable) {
+        if (enable){
+            dialog.setMessage(msg);
+            dialog.show();
+        }else {
+            dialog.dismiss();
+        }
+    }
+
+    @Override
+    public void setShowProgressEnable(boolean enable) {
+        if (enable){
+            progressDialog.show();
+        }else {
+            progressDialog.dismiss();
+        }
+    }
+
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        presenter.closeScan();
     }
+
 }
