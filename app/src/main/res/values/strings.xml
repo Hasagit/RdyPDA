@@ -3,7 +3,7 @@
     <string name="only_scan_model">NLS-MT66</string>
     <!--打印+扫描设备型号-->
     <string name="print_scan_model">PDA3505</string>
-    <string name="app_name">TmesPDA</string>
+    <string name="app_name">T-MES</string>
     <string name="llddr">领料单导入</string>
     <string name="yyjs">原料接收</string>
     <string name="toul">投料</string>
@@ -16,7 +16,7 @@
     <string name="id_tip">请输入账号</string>
     <string name="pwd_tip">请输入密码</string>
     <string name="logining">登录中...</string>
-    <string name="main_title">瑞多益科技</string>
+    <string name="main_title">  </string>
     <string name="lld">领料单</string>
     <string name="more_msg">详情</string>
     <string name="receive">物料单/扫描</string>

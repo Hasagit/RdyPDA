@@ -13,4 +13,9 @@ public interface ILlddrView extends IBaseView{
     void showToast(String msg);
 
     void setProgressDialogEnable(boolean enable);
+
+    boolean isFinishCheck();
+
+    boolean isUnFinishCheck();
+
 }

@@ -39,12 +39,16 @@ public class LlddrPresenter extends BasePresenter{
     }
 
     public void queryDataByKey(final String lldh,String wldm,String ddbh){
-         if (lldh.equals("")){
-             view.showToast("领料单号不能为空");
+         if ((!view.isFinishCheck())&(!view.isUnFinishCheck())){
+             view.showToast("至少选中一种状态");
              return;
          }
+         String status="1";
+         if (view.isUnFinishCheck())status="1";
+         if (view.isFinishCheck())status="2";
+         if (view.isUnFinishCheck()&view.isFinishCheck())status="3";
          view.setProgressDialogEnable(true);
-         String sql=String.format("Call Proc_PDA_Get_lld('%s','%s','%s')",lldh,wldm,ddbh);
+         String sql=String.format("Call Proc_PDA_Get_lld('%s','%s','%s','',%s)",lldh,wldm,ddbh,status);
          WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
              @Override
              public void onSubscribe(Disposable d) {
@@ -63,20 +67,11 @@ public class LlddrPresenter extends BasePresenter{
                              for (int i=0;i<array.length();i++){
                                  Map<String,String>map=new HashMap<>();
                                  map.put("djbh",array.getJSONObject(i).getString("llm_djbh"));
+                                 map.put("xsdh",array.getJSONObject(i).getString("llm_ddbh"));
+                                 map.put("klrq",array.getJSONObject(i).getString("llm_ksrq"));
+                                 map.put("kcdd",array.getJSONObject(i).getString("stk_id"));
+                                 map.put("zt",array.getJSONObject(i).getString("llm_Status"));
                                  map.put("wldm",array.getJSONObject(i).getString("llm_wldm"));
-                                 map.put("wlpm",array.getJSONObject(i).getString("itm_wlpm"));
-                                 map.put("ywwlpm",array.getJSONObject(i).getString("itm_ywwlpm"));
-                                 map.put("ddbh",array.getJSONObject(i).getString("llm_ddbh"));
-                                 map.put("czdm",array.getJSONObject(i).getString("llm_czdm"));
-                                 map.put("cust",array.getJSONObject(i).getString("llm_cust"));
-                                 map.put("ddsl",array.getJSONObject(i).getString("llm_ddsl"));
-                                 map.put("tzbh",array.getJSONObject(i).getString("llm_tzbh"));
-                                 map.put("stk",array.getJSONObject(i).getString("llm_stk"));
-                                 map.put("unit",array.getJSONObject(i).getString("llm_unit"));
-                                 map.put("desc",array.getJSONObject(i).getString("llm_desc"));
-                                 map.put("gxdm",array.getJSONObject(i).getString("llm_gxdm"));
-                                 map.put("rwms",array.getJSONObject(i).getString("llm_rwms"));
-                                 map.put("gzzx",array.getJSONObject(i).getString("llm_gzzx"));
                                  data.add(map);
                              }
                              view.showList(data);
@@ -87,6 +82,7 @@ public class LlddrPresenter extends BasePresenter{
                      view.setProgressDialogEnable(false);
                  } catch (JSONException e) {
                      e.printStackTrace();
+                     view.showToast("查询出错！");
                      view.setProgressDialogEnable(false);
                  }
              }

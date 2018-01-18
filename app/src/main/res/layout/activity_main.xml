@@ -101,7 +101,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:layout_gravity="center_vertical"
-                                android:text="最小包装条码打印"
+                                android:text="发料条码打印"
                                 android:textColor="@android:color/black"
                                 android:layout_marginLeft="20dp"/>
                             <ImageView

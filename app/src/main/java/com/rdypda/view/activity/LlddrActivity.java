@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -50,6 +51,10 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
     EditText ddbhEd;
     @BindView(R.id.btn_query)
     PowerButton queryBtn;
+    @BindView(R.id.finish_box)
+    CheckBox finishBox;
+    @BindView(R.id.unfinish_box)
+    CheckBox unFinishBox;
     private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,5 +117,15 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
         }else {
             progressDialog.dismiss();
         }
+    }
+
+    @Override
+    public boolean isFinishCheck() {
+        return finishBox.isChecked();
+    }
+
+    @Override
+    public boolean isUnFinishCheck() {
+        return unFinishBox.isChecked();
     }
 }

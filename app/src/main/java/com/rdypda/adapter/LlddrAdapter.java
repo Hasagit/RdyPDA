@@ -52,20 +52,11 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position, final Map<String, String> map) {
         viewHolder.lab_1.setText(map.get("djbh"));
-        viewHolder.lab_2.setText(map.get("wldm"));
-        viewHolder.lab_3.setText(map.get("wlpm"));
-        viewHolder.lab_4.setText(map.get("ywwlpm"));
-        viewHolder.lab_5.setText(map.get("ddbh"));
-        viewHolder.lab_6.setText(map.get("czdm"));
-        viewHolder.lab_7.setText(map.get("cust"));
-        viewHolder.lab_8.setText(map.get("ddsl"));
-        viewHolder.lab_9.setText(map.get("tzbh"));
-        viewHolder.lab_10.setText(map.get("stk"));
-        viewHolder.lab_11.setText(map.get("unit"));
-        viewHolder.lab_12.setText(map.get("desc"));
-        viewHolder.lab_13.setText(map.get("gxdm"));
-        viewHolder.lab_14.setText(map.get("rwms"));
-        viewHolder.lab_15.setText(map.get("gzzx"));
+        viewHolder.lab_2.setText(map.get("xsdh"));
+        viewHolder.lab_3.setText(map.get("klrq"));
+        viewHolder.lab_4.setText(map.get("kcdd"));
+        viewHolder.lab_5.setText(map.get("zt"));
+        viewHolder.lab_6.setText(map.get("wldm"));
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,15 +90,6 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
         public TextView lab_4;
         public TextView lab_5;
         public TextView lab_6;
-        public TextView lab_7;
-        public TextView lab_8;
-        public TextView lab_9;
-        public TextView lab_10;
-        public TextView lab_11;
-        public TextView lab_12;
-        public TextView lab_13;
-        public TextView lab_14;
-        public TextView lab_15;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -118,15 +100,6 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
             lab_4=(TextView)itemView.findViewById(R.id.lab_4);
             lab_5=(TextView)itemView.findViewById(R.id.lab_5);
             lab_6=(TextView)itemView.findViewById(R.id.lab_6);
-            lab_7=(TextView)itemView.findViewById(R.id.lab_7);
-            lab_8=(TextView)itemView.findViewById(R.id.lab_8);
-            lab_9=(TextView)itemView.findViewById(R.id.lab_9);
-            lab_10=(TextView)itemView.findViewById(R.id.lab_10);
-            lab_11=(TextView)itemView.findViewById(R.id.lab_11);
-            lab_12=(TextView)itemView.findViewById(R.id.lab_12);
-            lab_13=(TextView)itemView.findViewById(R.id.lab_13);
-            lab_14=(TextView)itemView.findViewById(R.id.lab_14);
-            lab_15=(TextView)itemView.findViewById(R.id.lab_15);
         }
     }
 

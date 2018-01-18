@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.rdypda.view.activity.LlddrActivity"
     android:fitsSystemWindows="true">
     <android.support.design.widget.AppBarLayout
@@ -15,7 +16,7 @@
             android:focusableInTouchMode="true"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="135dp"
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:title="@string/lld"
@@ -56,14 +57,14 @@
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:hint="请输入领料单号(必填)"
+                                android:hint="请输入领料单号(选填)"
                                 android:background="@null"
                                 android:textSize="14dp"
-                                android:text="385993"
                                 android:theme="@style/AppTheme"/>
                         </LinearLayout>
                     </FrameLayout>
                     <FrameLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
                         android:layout_weight="1">
@@ -123,10 +124,35 @@
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:hint="请输入订单编号(选填)"
+                                android:hint="请输入销售单号(选填)"
                                 android:background="@null"
                                 android:textSize="14dp"
                                 android:theme="@style/AppTheme"/>
+                        </LinearLayout>
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        >
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center">
+                            <CheckBox
+                                android:theme="@style/GreenTheme"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="完成"
+                                android:id="@+id/finish_box"/>
+                            <CheckBox
+                                android:theme="@style/GreenTheme"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="未完成"
+                                android:layout_marginLeft="20dp"
+                                android:id="@+id/unfinish_box"/>
+
                         </LinearLayout>
                     </FrameLayout>
                 </LinearLayout>
@@ -140,21 +166,105 @@
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-    <FrameLayout
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <android.support.v7.widget.RecyclerView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/lld_list"
-            android:divider="@color/color_toum"
-            ></android.support.v7.widget.RecyclerView>
-    </FrameLayout>
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_horizontal"
+                        android:text="领料单号"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_horizontal"
+                        android:text="销售单号"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_horizontal"
+                        android:text="开拉日期"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_horizontal"
+                        android:text="库存地点"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_horizontal"
+                        android:text="状态"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_horizontal"
+                        android:text="物料编号"/>
+                </LinearLayout>
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/lld_list"
+                android:divider="@color/color_toum"
+                ></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </HorizontalScrollView>
     <ProgressBar
         android:visibility="gone"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/progressbar"
         android:layout_gravity="center"/>
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

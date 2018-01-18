@@ -15,6 +15,13 @@
         <item name="colorAccent">@color/color_first</item>
     </style>
 
+    <style name="GreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/color_green</item>
+        <item name="colorPrimaryDark">@color/color_green</item>
+        <item name="colorAccent">@color/color_green</item>
+    </style>
+
 
     <style name="MainActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->

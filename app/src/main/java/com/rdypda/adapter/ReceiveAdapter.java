@@ -39,7 +39,7 @@ public class ReceiveAdapter extends BaseRecyclerAdapter<ReceiveAdapter.ReceiveVi
 
     @Override
     public void onBindViewHolder(ReceiveViewHolder receiveViewHolder, int i, Map<String, String> map) {
-        receiveViewHolder.wld_text.setText(map.get("wld"));
+        /*receiveViewHolder.wld_text.setText(map.get("wld"));
         receiveViewHolder.time_text.setText(map.get("time"));
         receiveViewHolder.person_text.setText(map.get("person"));
         receiveViewHolder.need_text.setText(map.get("need"));
@@ -48,20 +48,14 @@ public class ReceiveAdapter extends BaseRecyclerAdapter<ReceiveAdapter.ReceiveVi
             receiveViewHolder.scaned_text.setTextColor(context.getResources().getColor(R.color.color_green));
         }else {
             receiveViewHolder.scaned_text.setTextColor(context.getResources().getColor(R.color.color_red));
-        }
+        }*/
     }
 
 
 
     public class ReceiveViewHolder extends BaseRecyclerAdapter.BaseRecyclerViewHolder{
-        public TextView wld_text,person_text,time_text,need_text,scaned_text;
         public ReceiveViewHolder(View itemView) {
             super(itemView);
-            wld_text=(TextView) itemView.findViewById(R.id.wld);
-            person_text=(TextView)itemView.findViewById(R.id.person);
-            time_text=(TextView)itemView.findViewById(R.id.time);
-            need_text=(TextView)itemView.findViewById(R.id.need);
-            scaned_text=(TextView)itemView.findViewById(R.id.scaned);
         }
     }
 
