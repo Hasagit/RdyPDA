@@ -42,18 +42,18 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
 
     @Override
     public void onBindViewHolder(WldViewHolder viewHolder, final int i, final Map<String, String> map) {
-        viewHolder.lab_1.setText(map.get("djbh"));
-        viewHolder.lab_2.setText(map.get("llm_wldm"));
-        viewHolder.lab_3.setText(map.get("ftyId"));
-        viewHolder.lab_4.setText(map.get("stkId"));
-        viewHolder.lab_5.setText(map.get("wldm"));
+        viewHolder.lab_1.setText(map.get("wldm"));
+        viewHolder.lab_2.setText(map.get("qty"));
+        viewHolder.lab_3.setText(map.get("ni_qty"));
+        viewHolder.lab_4.setText(map.get("unit"));
+        /*viewHolder.lab_5.setText(map.get("wldm"));
         viewHolder.lab_6.setText(map.get("wlpm"));
         viewHolder.lab_7.setText(map.get("ywwlpm"));
         viewHolder.lab_8.setText(map.get("qty"));
         viewHolder.lab_9.setText(map.get("unit"));
         viewHolder.lab_10.setText(map.get("jlry"));
         viewHolder.lab_11.setText(map.get("jlrq"));
-        viewHolder.lab_12.setText(map.get("id"));
+        viewHolder.lab_12.setText(map.get("id"));*/
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +65,8 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
                 intent.putExtra("kcdd",map.get("stkId"));
                 intent.putExtra("ywwlpm",map.get("ywwlpm"));
                 intent.putExtra("wlpm",map.get("wlpm"));
+                intent.putExtra("wfsl",map.get("qty"));
+                intent.putExtra("xqsl",map.get("ni_qty"));
                 context.startActivity(intent);
             }
         });
@@ -76,14 +78,14 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
         public TextView lab_2;
         public TextView lab_3;
         public TextView lab_4;
-        public TextView lab_5;
+        /*public TextView lab_5;
         public TextView lab_6;
         public TextView lab_7;
         public TextView lab_8;
         public TextView lab_9;
         public TextView lab_10;
         public TextView lab_11;
-        public TextView lab_12;
+        public TextView lab_12;*/
         public LinearLayout content;
         public WldViewHolder(View itemView) {
             super(itemView);
@@ -91,14 +93,14 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
             lab_2=(TextView)itemView.findViewById(R.id.lab_2);
             lab_3=(TextView)itemView.findViewById(R.id.lab_3);
             lab_4=(TextView)itemView.findViewById(R.id.lab_4);
-            lab_5=(TextView)itemView.findViewById(R.id.lab_5);
+            /*lab_5=(TextView)itemView.findViewById(R.id.lab_5);
             lab_6=(TextView)itemView.findViewById(R.id.lab_6);
             lab_7=(TextView)itemView.findViewById(R.id.lab_7);
             lab_8=(TextView)itemView.findViewById(R.id.lab_8);
             lab_9=(TextView)itemView.findViewById(R.id.lab_9);
             lab_10=(TextView)itemView.findViewById(R.id.lab_10);
             lab_11=(TextView)itemView.findViewById(R.id.lab_11);
-            lab_12=(TextView)itemView.findViewById(R.id.lab_12);
+            lab_12=(TextView)itemView.findViewById(R.id.lab_12);*/
             content=(LinearLayout)itemView.findViewById(R.id.content);
         }
     }

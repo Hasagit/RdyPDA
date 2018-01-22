@@ -226,10 +226,10 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:layout_gravity="center_horizontal"
-                        android:text="库存地点"/>
+                        android:text="状态"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="100dp"
+                    android:layout_width="130dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/table"
                     android:orientation="vertical">
@@ -238,10 +238,10 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:layout_gravity="center_horizontal"
-                        android:text="状态"/>
+                        android:text="库存地点"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="100dp"
+                    android:layout_width="120dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/table"
                     android:orientation="vertical">

@@ -59,7 +59,7 @@
                 />
         </LinearLayout>
         <LinearLayout
-            android:layout_width="100dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             android:background="@drawable/table">
             <TextView
@@ -71,7 +71,7 @@
                 />
         </LinearLayout>
         <LinearLayout
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="match_parent"
             android:background="@drawable/table">
             <TextView

@@ -60,6 +60,7 @@ public class WldPresenter extends BasePresenter{
                             map.put("jlry",array.getJSONObject(i).getString("lld_jlry"));
                             map.put("jlrq",array.getJSONObject(i).getString("lld_jlrq"));
                             map.put("id",array.getJSONObject(i).getString("lld_id"));
+                            map.put("ni_qty",array.getJSONObject(i).getString("lld_ni_qty"));
                             data.add(map);
                         }
                         view.refreshWldRecycler(data);

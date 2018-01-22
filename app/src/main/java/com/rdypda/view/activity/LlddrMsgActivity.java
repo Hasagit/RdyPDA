@@ -42,8 +42,6 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
     Toolbar toolbar;
     @BindView(R.id.setting_btn)
     PowerButton settingBtn;
-    @BindView(R.id.lldh)
-    TextView lldhText;
     @BindView(R.id.wlbh)
     TextView wlbhText;
     @BindView(R.id.tmpch)
@@ -52,17 +50,13 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
     EditText tmslEd;
     @BindView(R.id.dw)
     TextView dwText;
-    @BindView(R.id.gch)
-    TextView gchText;
-    @BindView(R.id.kcdd)
-    TextView kcddText;
-    @BindView(R.id.kw)
-    TextView kwText;
-    @BindView(R.id.cw)
-    TextView cwText;
     @BindView(R.id.tmxh)
     TextView tmxhText;
-    private String lldhStr,wlbhStr,tmpchStr,tmslStr,dwStr,gchStr,kcddStr,kwStr,cwStr,wlpmStr,ywwlpmStr;
+    @BindView(R.id.wfsl)
+    TextView wfslText;
+    @BindView(R.id.xqsl)
+    TextView xqslText;
+    private String lldhStr,wlbhStr,tmpchStr,tmslStr,dwStr,gchStr,kcddStr,kwStr,cwStr,wlpmStr,ywwlpmStr,xqslStr,wfslStr;
     private AlertDialog msgDialog;
     private LlddrMsgPresenter presenter;
     private ProgressDialog progressDialog;
@@ -111,12 +105,12 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
         kwStr=getIntent().getStringExtra("kcdd");
         wlpmStr=getIntent().getStringExtra("wlpm");
         ywwlpmStr=getIntent().getStringExtra("ywwlpm");
-        lldhText.setText(lldhStr);
+        xqslStr=getIntent().getStringExtra("xqsl");
+        wfslStr=getIntent().getStringExtra("wfsl");
         wlbhText.setText(wlbhStr);
         dwText.setText(dwStr);
-        gchText.setText(gchStr);
-        kcddText.setText(kcddStr);
-        kwText.setText(kwStr);
+        wfslText.setText(wfslStr);
+        xqslText.setText(xqslStr);
     }
 
 

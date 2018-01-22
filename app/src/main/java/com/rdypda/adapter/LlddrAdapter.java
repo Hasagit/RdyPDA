@@ -54,8 +54,8 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
         viewHolder.lab_1.setText(map.get("djbh"));
         viewHolder.lab_2.setText(map.get("xsdh"));
         viewHolder.lab_3.setText(map.get("klrq"));
-        viewHolder.lab_4.setText(map.get("kcdd"));
-        viewHolder.lab_5.setText(map.get("zt"));
+        viewHolder.lab_4.setText(map.get("zt"));
+        viewHolder.lab_5.setText(map.get("kcdd"));
         viewHolder.lab_6.setText(map.get("wldm"));
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
