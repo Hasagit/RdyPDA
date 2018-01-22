@@ -2,24 +2,27 @@ package com.rdypda.presenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
-import android.util.Log;
+import android.os.Environment;
 
 import com.rdypda.R;
+import com.rdypda.model.network.WebService;
+import com.rdypda.util.DownloadUtils;
+import com.rdypda.util.DownloadUtilsII;
 import com.rdypda.util.PrintUtil;
 import com.rdypda.view.activity.GdxqActivity;
-import com.rdypda.view.activity.HlActivity;
 import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
-import com.rdypda.view.activity.TlActivity;
-import com.rdypda.view.activity.UpdateActivity;
-import com.rdypda.view.activity.YlzckActivity;
 import com.rdypda.view.viewinterface.IMainView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.util.List;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by DengJf on 2017/12/8.
@@ -78,14 +81,15 @@ public class MainPresenter extends BasePresenter{
                 view.showMsgDialog("你没有权限使用该功能");
             }
         }else if (type==MainPresenter.FL){
-            //view.showMsgDialog("敬请期待");
-            if (isPermission("MTR502D1")){
+            view.showMsgDialog("敬请期待");
+            return;
+            /*if (isPermission("MTR502D1")){
                 Intent intent=new Intent(context, LlddrActivity.class);
                 intent.putExtra("type",type);
                 context.startActivity(intent);
             }else {
                 view.showMsgDialog("你没有权限使用该功能");
-            }
+            }*/
         }
     }
 
@@ -159,7 +163,56 @@ public class MainPresenter extends BasePresenter{
     }
 
     public void checkToUpdate(){
-        /*Intent intent=new Intent(context, UpdateActivity.class);
-        context.startActivity(intent);*/
+        String sql="Call PAD_Get_WebAddr()";
+        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(final JSONObject value) {
+                try {
+                    if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
+                        PackageManager pm = context.getPackageManager();
+                        PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+                        String versionName = pi.versionName;
+                        JSONArray array=value.getJSONArray("Table1");
+                        String appVer=array.getJSONObject(0).getString("v_WebAppVer").trim();
+                        if (!appVer.equals(versionName)){
+                            String urlStr=array.getJSONObject(0).getString("v_WebAppPath");
+                            //String urlStr="http://imtt.dd.qq.com/16891/F782CC27B9CE90B89CD494DC95098B7F.apk?fsname=com.qiyi.video_9.0.0_81010.apk&csr=2097&_track_d99957f7=88ee35aa-5ea6-47b8-a8b0-c95f0e025ca9";
+                            view.showDownloadDialog(urlStr);
+                        }else {
+                            view.showMsgDialog("当前已是最新版本");
+                        }
+                    }else {
+                       view.showMsgDialog(value.getJSONArray("Table0").getJSONObject(0).getString("cMsg") );
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                view.showMsgDialog("服务器繁忙，请重试");
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
+
+
+    public void downloadInstallApk(String urlStr){
+        DownloadUtils downloadUtils=new DownloadUtils(context);
+        downloadUtils.downloadAPK(urlStr,"RdyPDA.apk");
+    }
+
 }

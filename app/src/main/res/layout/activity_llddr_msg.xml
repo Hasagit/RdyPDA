@@ -56,7 +56,7 @@
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
-                    android:background="@drawable/table_left_bottom">
+                    android:background="@drawable/table_left_top">
                     <TextView
                         android:layout_width="80dp"
                         android:layout_marginLeft="10dp"
@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
-                    android:background="@drawable/table_right_bottom">
+                    android:background="@drawable/table_right_top">
                     <TextView
                         android:id="@+id/wlbh"
                         android:layout_width="match_parent"

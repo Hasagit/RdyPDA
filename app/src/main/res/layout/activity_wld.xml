@@ -12,9 +12,17 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:id="@+id/toolbar"
-            app:layout_scrollFlags="enterAlways|scroll"
-            app:title="@string/wld"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark"></android.support.v7.widget.Toolbar>
+            android:theme="@style/ThemeOverlay.AppCompat.Dark">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textSize="16dp"
+                android:text="选择物料号开始打印发料条码"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/white"
+                android:gravity="center_vertical"
+                />
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
     <LinearLayout
         android:layout_width="match_parent"

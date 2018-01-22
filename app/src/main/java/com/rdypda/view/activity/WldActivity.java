@@ -45,7 +45,6 @@ public class WldActivity extends BaseActivity implements IWldView{
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("加载中...");
 

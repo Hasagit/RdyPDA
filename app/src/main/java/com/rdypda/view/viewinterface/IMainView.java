@@ -8,4 +8,10 @@ public interface IMainView extends IBaseView{
     void setUserName(String userName);
 
     void showMsgDialog(String msg);
+
+    void setShowProgressDialogEnable(boolean enable);
+
+    void showDownloadDialog(String url);
+
+    void showToastMsg(String msg);
 }

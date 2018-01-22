@@ -1,5 +1,6 @@
 package com.rdypda.view.activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.support.v4.widget.DrawerLayout;
 
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rdypda.R;
 import com.rdypda.presenter.MainPresenter;
@@ -31,7 +33,8 @@ import cn.bingoogolapple.bgabanner.BGABannerUtil;
 public class MainActivity extends BaseActivity implements IMainView{
     private MainPresenter presenter;
     private String arrayStr;
-    private AlertDialog dialog;
+    private AlertDialog dialog,downloadDialog;
+    private ProgressDialog progressDialog;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.drawer)
@@ -102,6 +105,8 @@ public class MainActivity extends BaseActivity implements IMainView{
             }
         }).create();
 
+
+        progressDialog=new ProgressDialog(this);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
@@ -208,6 +213,37 @@ public class MainActivity extends BaseActivity implements IMainView{
     public void showMsgDialog(String msg) {
         dialog.setMessage(msg);
         dialog.show();
+    }
+
+    @Override
+    public void setShowProgressDialogEnable(boolean enable) {
+        if (enable){
+            progressDialog.show();
+        }else {
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void showDownloadDialog(final String url) {
+        downloadDialog=new AlertDialog.Builder(this).setTitle("提示").setMessage("发现新的版本，是否现在下载更新").setNegativeButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                presenter.downloadInstallApk(url);
+                //Toast.makeText(MainActivity.this,"已创建下载任务",Toast.LENGTH_SHORT).show();
+            }
+        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).create();
+        downloadDialog.show();
+    }
+
+    @Override
+    public void showToastMsg(String msg) {
+        Toast.makeText(MainActivity.this,msg,Toast.LENGTH_SHORT).show();
     }
 
     @Override
