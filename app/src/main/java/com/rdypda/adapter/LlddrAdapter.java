@@ -17,6 +17,7 @@ import com.example.liangmutian.airrecyclerview.swipetoloadlayout.BaseRecyclerAda
 import com.rdypda.R;
 import com.rdypda.presenter.MainPresenter;
 import com.rdypda.view.activity.FlActivity;
+import com.rdypda.view.activity.FlTabActivity;
 import com.rdypda.view.activity.LlddrMsgActivity;
 import com.rdypda.view.activity.WldActivity;
 
@@ -64,9 +65,10 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
                     Intent intent=new Intent(context,WldActivity.class);
                     intent.putExtra("djbh",map.get("djbh"));
                     intent.putExtra("wldm",map.get("wldm"));
+                    intent.putExtra("startType",WldActivity.START_TYPE_LLD);
                     context.startActivity(intent);
                 }else if (startType== MainPresenter.FL){
-                    Intent intent=new Intent(context,FlActivity.class);
+                    Intent intent=new Intent(context,FlTabActivity.class);
                     intent.putExtra("djbh",map.get("djbh"));
                     intent.putExtra("wldm",map.get("wldm"));
                     context.startActivity(intent);

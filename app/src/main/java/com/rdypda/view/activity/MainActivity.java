@@ -31,10 +31,13 @@ import cn.bingoogolapple.bgabanner.BGABanner;
 import cn.bingoogolapple.bgabanner.BGABannerUtil;
 
 public class MainActivity extends BaseActivity implements IMainView{
+
     private MainPresenter presenter;
     private String arrayStr;
     private AlertDialog dialog,downloadDialog;
     private ProgressDialog progressDialog;
+
+    //侧滑菜单
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.drawer)
@@ -107,7 +110,7 @@ public class MainActivity extends BaseActivity implements IMainView{
 
 
         progressDialog=new ProgressDialog(this);
-
+        progressDialog.setTitle("正在检查更新...");
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -251,4 +254,6 @@ public class MainActivity extends BaseActivity implements IMainView{
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+
+
 }

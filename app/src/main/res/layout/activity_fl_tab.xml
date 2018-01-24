@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.rdypda.view.activity.FlTabActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/toolbar"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:title="发料"></android.support.v7.widget.Toolbar>
+        <android.support.design.widget.TabLayout
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:tabTextColor="@android:color/white"
+            app:tabIndicatorColor="@color/color_green"
+            app:tabBackground="@color/colorPrimary"
+            app:tabSelectedTextColor="@color/color_green"
+            android:id="@+id/tab_layout"></android.support.design.widget.TabLayout>
+
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/view_pager"></android.support.v4.view.ViewPager>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -130,11 +130,11 @@ public class LlddrMsgPresenter extends BasePresenter{
             public void subscribe(ObservableEmitter<String> e) throws Exception {
                 String address=preferenUtil.getString("blueToothAddress");
                 util.openPort(address);
-                util.printFont("原料编号:"+lldh,15,55);
-                util.printFont("品名规格:"+wlpm+",",15,105);
-                util.printFont(ywwlpm+" ",15,140);
-                util.printFont("批次号:"+tmpch,15,185);
-                util.printFont("条码编号:"+tmbh,15,235);
+                util.printFont("原料编号:"+lldh.trim(),15,55);
+                util.printFont("品名规格:"+wlpm.trim()+",",15,105);
+                util.printFont(ywwlpm.trim()+" ",15,140);
+                util.printFont("批次号:"+tmpch.trim(),15,185);
+                util.printFont("条码编号:"+tmbh.trim(),15,235);
                 util.printQRCode(printMsg,370,55);
                 util.startPrint();
                 Log.e("printMsg",printMsg);

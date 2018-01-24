@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.liangmutian.airrecyclerview.swipetoloadlayout.BaseRecyclerAdapter;
 import com.rdypda.R;
@@ -21,6 +23,7 @@ public class ReceiveAdapter extends BaseRecyclerAdapter<ReceiveAdapter.ReceiveVi
     private List<Map<String,String>>data;
     private Context context;
     private int resources;
+    private OnItemClickListener listener;
 
 
     public ReceiveAdapter( Context context, int resources,List<Map<String, String>> data) {
@@ -38,40 +41,78 @@ public class ReceiveAdapter extends BaseRecyclerAdapter<ReceiveAdapter.ReceiveVi
     }
 
     @Override
-    public void onBindViewHolder(ReceiveViewHolder receiveViewHolder, int i, Map<String, String> map) {
-        /*receiveViewHolder.wld_text.setText(map.get("wld"));
-        receiveViewHolder.time_text.setText(map.get("time"));
-        receiveViewHolder.person_text.setText(map.get("person"));
-        receiveViewHolder.need_text.setText(map.get("need"));
-        receiveViewHolder.scaned_text.setText(map.get("scaned"));
-        if (map.get("need").equals(map.get("scaned"))){
-            receiveViewHolder.scaned_text.setTextColor(context.getResources().getColor(R.color.color_green));
-        }else {
-            receiveViewHolder.scaned_text.setTextColor(context.getResources().getColor(R.color.color_red));
-        }*/
+    public void onBindViewHolder(final ReceiveViewHolder receiveViewHolder, final int i, final Map<String, String> map) {
+        receiveViewHolder.lab_1.setText(map.get("wldm"));
+        receiveViewHolder.lab_2.setText(map.get("tmsl"));
+        receiveViewHolder.lab_3.setText(map.get("tmxh"));
+        receiveViewHolder.content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener!=null) listener.onItemClick(receiveViewHolder,i,map);
+            }
+        });
     }
 
 
 
     public class ReceiveViewHolder extends BaseRecyclerAdapter.BaseRecyclerViewHolder{
+        public TextView lab_1,lab_2,lab_3;
+        public LinearLayout content;
         public ReceiveViewHolder(View itemView) {
             super(itemView);
+            lab_1=(TextView)itemView.findViewById(R.id.lab_1);
+            lab_2=(TextView)itemView.findViewById(R.id.lab_2);
+            lab_3=(TextView)itemView.findViewById(R.id.lab_3);
+            content=(LinearLayout)itemView.findViewById(R.id.content);
         }
+
     }
 
     public void addData(Map<String,String>map){
-        data.add(0,map);
-        notifyDataSetChanged();
+        boolean isExist=false;
+        for (int i=0;i<data.size();i++){
+            if (map.get("tmxh").equals(data.get(i).get("tmxh"))&&
+                    map.get("tmsl").equals(data.get(i).get("tmsl"))&&
+                    map.get("wldm").equals(data.get(i).get("wldm"))){
+                    isExist=true;
+                    break;
+            }
+        }
+        if (isExist){
+            Toast.makeText(context,"改单已扫描在列表",Toast.LENGTH_SHORT).show();
+        }else {
+            data.add(0,map);
+            notifyDataSetChanged();
+        }
     }
 
-    public void setNum(TextView num_text){
-        int scaned_num=0;
-        int need_num=0;
+    public void deleteData(Map<String,String>map){
+        boolean isExist=false;
         for (int i=0;i<data.size();i++){
-            scaned_num+=Integer.parseInt(data.get(i).get("scaned"));
-            need_num+=Integer.parseInt(data.get(i).get("need"));
+            if (map.get("tmxh").equals(data.get(i).get("tmxh"))&&
+                    map.get("tmsl").equals(data.get(i).get("tmsl"))&&
+                    map.get("wldm").equals(data.get(i).get("wldm"))){
+                data.remove(i);
+                notifyDataSetChanged();
+                isExist=true;
+                break;
+            }
         }
-        num_text.setText(need_num+"/"+scaned_num);
+        if (!isExist){
+            Toast.makeText(context,"改单已在列表移除",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public List<Map<String, String>> getData() {
+        return data;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(ReceiveViewHolder receiveViewHolder,int position,Map<String, String> map);
     }
 
 

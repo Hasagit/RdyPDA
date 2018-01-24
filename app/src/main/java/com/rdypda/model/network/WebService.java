@@ -11,12 +11,15 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -110,6 +113,32 @@ public class WebService {
     }
 
 
+    public static Observable<JSONObject>uploadScanWld(final List<Map<String,String>>data, final String lldh, final String userId, final String cTokenUser){
+        return Observable.create(new ObservableOnSubscribe<JSONObject>() {
+            @Override
+            public void subscribe(ObservableEmitter<JSONObject> e) throws Exception {
+                List<Call<String>>calls=new ArrayList<>();
+                for (int i=0;i<data.size();i++){
+                    Map<String,String>map=data.get(i);
+                    String sqlCommand=String.format("Call Proc_PDA_LLD_Post('%s','%s','%s')",lldh,map.get("wldm"),userId);
+                    Log.e("sqlCommand",sqlCommand);
+                    Call<String> call=getServiceApi().querySqlCommandJosn(sqlCommand,cTokenUser);
+                    calls.add(call);
+                }
+                for (int i=0;i<calls.size();i++){
+                    Response<String>response=calls.get(i).execute();
+                    JSONObject object=stringToJsonObject(response.body());
+                    JSONObject mapObject=new JSONObject();
+                    mapObject.put("wldm",data.get(i).get("wldm"));
+                    mapObject.put("tmxh",data.get(i).get("tmxh"));
+                    mapObject.put("tmsl",data.get(i).get("tmsl"));
+                    object.put("Table2",mapObject);
+                    e.onNext(object);
+                }
+                e.onComplete();
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
 
 
 

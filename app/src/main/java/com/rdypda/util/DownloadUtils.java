@@ -54,7 +54,7 @@ public class DownloadUtils {
 
         }catch (IllegalArgumentException e){
             e.printStackTrace();
-            Toast.makeText(mContext,"url地址不可用",Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext,"下载地址不可用",Toast.LENGTH_SHORT).show();
         }
     }
 

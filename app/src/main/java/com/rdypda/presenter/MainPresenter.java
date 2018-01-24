@@ -81,15 +81,13 @@ public class MainPresenter extends BasePresenter{
                 view.showMsgDialog("你没有权限使用该功能");
             }
         }else if (type==MainPresenter.FL){
-            view.showMsgDialog("敬请期待");
-            return;
-            /*if (isPermission("MTR502D1")){
+            if (isPermission("MTR502D1")){
                 Intent intent=new Intent(context, LlddrActivity.class);
                 intent.putExtra("type",type);
                 context.startActivity(intent);
             }else {
                 view.showMsgDialog("你没有权限使用该功能");
-            }*/
+            }
         }
     }
 
@@ -164,6 +162,7 @@ public class MainPresenter extends BasePresenter{
 
     public void checkToUpdate(){
         String sql="Call PAD_Get_WebAddr()";
+        view.setShowProgressDialogEnable(true);
         WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -172,6 +171,7 @@ public class MainPresenter extends BasePresenter{
 
             @Override
             public void onNext(final JSONObject value) {
+                view.setShowProgressDialogEnable(false);
                 try {
                     if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
                         PackageManager pm = context.getPackageManager();
@@ -199,6 +199,7 @@ public class MainPresenter extends BasePresenter{
             @Override
             public void onError(Throwable e) {
                 e.printStackTrace();
+                view.setShowProgressDialogEnable(false);
                 view.showMsgDialog("服务器繁忙，请重试");
             }
 

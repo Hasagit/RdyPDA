@@ -13,4 +13,8 @@ public interface IFlView extends IBaseView{
     void setShowMsgDialogEnable(String msg,boolean enable);
 
     void setShowProgressEnable(boolean enable);
+
+    void addReceiveData(Map<String,String>item);
+
+    void removeReceiveData(Map<String,String>item);
 }

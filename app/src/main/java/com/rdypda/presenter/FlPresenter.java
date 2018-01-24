@@ -1,6 +1,8 @@
 package com.rdypda.presenter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.util.Log;
 
 import com.rdypda.model.network.WebService;
@@ -27,15 +29,15 @@ public class FlPresenter extends BasePresenter {
     private IFlView view;
     private ScanUtil scanUtil;
     private String lldh,wldm;
+
+
     public FlPresenter(Context context, final IFlView view) {
         super(context);
         this.view=view;
-
-        initScan();
-
+        initScan(context);
     }
 
-    public void initScan(){
+    public void initScan(Context context){
         scanUtil=new ScanUtil(context);
         scanUtil.open();
         scanUtil.setOnScanListener(new ScanUtil.OnScanListener() {
@@ -51,8 +53,151 @@ public class FlPresenter extends BasePresenter {
         });
     }
 
+    public void getScanedData(String lldh, final String wldm){
+        view.setShowProgressEnable(true);
+        String sql =String.format("Call Proc_PDA_GetScanList ('LLD','%s','%s')",lldh+";"+wldm,preferenUtil.getString("userId"));
+        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                try {
+                    if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
+                        String cRetMsg=value.getJSONArray("Table1").getJSONObject(0).getString("cRetMsg");
+                        String[] item=cRetMsg.split(":");
+                        if (item[0].equals("OK")){
+                            JSONArray array=value.getJSONArray("Table2");
+                            List<Map<String,String>>data=new ArrayList<>();
+                            for (int i=0;i<array.length();i++){
+                                Map<String,String>map=new HashMap<>();
+                                map.put("tmxh",array.getJSONObject(i).getString("scan_tmxh"));
+                                map.put("tmsl",array.getJSONObject(i).getString("scan_qty"));
+                                map.put("wldm",wldm);
+                                data.add(map);
+                            }
+                            view.refreshReceive(data);
+                        }else {
+                            view.setShowMsgDialogEnable(item[1],true);
+                        }
+                    }else {
+                        view.setShowMsgDialogEnable(value.getJSONArray("Table0").getJSONObject(0).getString("cMsg"),true);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    view.setShowMsgDialogEnable("数据解析出错",true);
+                }finally {
+                    view.setShowProgressEnable(false);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                view.setShowProgressEnable(false);
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    };
+
+    public void deleteData(final String lldh, final String wldm){
+        view.setShowProgressEnable(true);
+        String sql=String.format("Call Proc_PDA_CancelScan('LLD', '%s', '%s')",lldh+";"+wldm,preferenUtil.getString("userId"));
+        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                try {
+                    if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
+                        String cRetMsg=value.getJSONArray("Table1").getJSONObject(0).getString("cRetMsg");
+                        String[] item=cRetMsg.split(":");
+                        if (item[0].equals("OK")){
+                            getScanedData(lldh,wldm);
+                        }else {
+                            view.setShowMsgDialogEnable(item[1],true);
+                        }
+                    }else {
+                        view.setShowMsgDialogEnable(value.getJSONArray("Table0").getJSONObject(0).getString("cMsg"),true);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    view.setShowMsgDialogEnable("数据解析出错",true);
+                }finally {
+                    view.setShowProgressEnable(false);
+                }
+            }
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                view.setShowMsgDialogEnable("服务器异常",true);
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    public void uploadScanWld(List<Map<String,String>>data){
+        view.setShowProgressEnable(true);
+        WebService.uploadScanWld(data,lldh,preferenUtil.getString("userId"),preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                try {
+                    if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
+                        String[] items=value.getJSONArray("Table1").getJSONObject(0).getString("cRetMsg").split(":");
+                        if (items[0].equals("OK")){
+                            Map<String,String>map=new HashMap<>();
+                            JSONObject object=value.getJSONObject("Table2");
+                            map.put("wldm",object.getString("wldm"));
+                            map.put("tmxh",object.getString("tmxh"));
+                            map.put("tmsl",object.getString("tmsl"));
+                            view.removeReceiveData(map);
+                        }else {
+                            view.setShowMsgDialogEnable(items[1],true);
+                        }
+                    }else {
+                        view.setShowMsgDialogEnable(value.getJSONArray("Table0").getJSONObject(0).getString("cMsg"),true);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    view.setShowMsgDialogEnable("数据解析出错",true);
+                    view.setShowProgressEnable(false);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.setShowMsgDialogEnable("数据解析出错",true);
+                view.setShowProgressEnable(false);
+            }
+
+            @Override
+            public void onComplete() {
+                view.setShowProgressEnable(false);
+                sendUploadFinishReceiver();
+            }
+        });
+    }
 
     public void isValidCode(String qrCode){
+        view.setShowProgressEnable(true);
         String[] items=qrCode.split("\\*");
         final String tmxh=items[2].substring(1,items[2].length());
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','LLD', '%s', '%s')",
@@ -69,36 +214,19 @@ public class FlPresenter extends BasePresenter {
                 try {
                     view.setShowProgressEnable(false);
                     if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
-                        JSONArray array=value.getJSONArray("Table1");
-                        String result=array.getJSONObject(0).getString("cRetMsg");
+                        String result=value.getJSONArray("Table1").getJSONObject(0).getString("cRetMsg");
                         String[] items=result.split(":");
                         if (items[0].equals("OK")){
-                            //获取物料明细
-                            List<Map<String,String>>data=new ArrayList<>();
-                            for (int i=0;i<array.length();i++){
+                            JSONArray array=value.getJSONArray("Table2");
+                            if (array.length()>0){
                                 Map<String,String>map=new HashMap<>();
                                 map.put("tmxh",tmxh);
-                                map.put("kcdd",array.getJSONObject(i).getString("brp_StkId"));
-                                map.put("wldm",array.getJSONObject(i).getString("brp_wldm"));
-                               /* map.put("FtyId",array.getJSONObject(i).getString("brp_FtyId"));
-                                map.put("StkId",array.getJSONObject(i).getString("brp_StkId"));
-                                map.put("wldm",array.getJSONObject(i).getString("brp_wldm"));
-                                map.put("DocNo",array.getJSONObject(i).getString("brp_DocNo"));
-                                map.put("Qty",array.getJSONObject(i).getString("brp_Qty"));
-                                map.put("Unit",array.getJSONObject(i).getString("brp_Unit"));
-                                map.put("LotNo",array.getJSONObject(i).getString("brp_LotNo"));
-                                map.put("Date",array.getJSONObject(i).getString("brp_Date"));
-                                map.put("QrCode",array.getJSONObject(i).getString("brp_QrCode"));
-                                map.put("Sn",array.getJSONObject(i).getString("brp_Sn"));
-                                map.put("pmgg",array.getJSONObject(i).getString("brp_pmgg"));*/
-                                data.add(map);
+                                map.put("tmsl",array.getJSONObject(0).getString("brp_Qty"));
+                                map.put("wldm",array.getJSONObject(0).getString("brp_wldm"));
+                                view.addReceiveData(map);
+                            }else {
+                                view.setShowMsgDialogEnable("条码验证异常",true);
                             }
-                            view.refreshReceive(data);
-
-
-
-
-
                         }else {
                             view.setShowMsgDialogEnable(items[1],true);
                         }
@@ -109,6 +237,8 @@ public class FlPresenter extends BasePresenter {
                     e.printStackTrace();
                     view.setShowProgressEnable(false);
                     view.setShowMsgDialogEnable("验证失败，请重试",true);
+                }finally {
+                    view.setShowProgressEnable(false);
                 }
             }
 
@@ -126,12 +256,6 @@ public class FlPresenter extends BasePresenter {
         });
     }
 
-
-
-
-
-
-
     public void closeScan(){
         scanUtil.close();
     }
@@ -142,5 +266,11 @@ public class FlPresenter extends BasePresenter {
 
     public void setWldm(String wldm) {
         this.wldm = wldm;
+    }
+
+    public void sendUploadFinishReceiver(){
+        Intent intent=new Intent();
+        intent.setAction("com.rdypda.UPDATEWLD");
+        context.sendBroadcast(intent);
     }
 }

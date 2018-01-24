@@ -17,7 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:textSize="16dp"
-                android:text="选择物料号开始打印发料条码"
+                android:id="@+id/title"
                 android:layout_marginTop="10dp"
                 android:textColor="@android:color/white"
                 android:gravity="center_vertical"

@@ -1,26 +1,23 @@
 package com.rdypda.view.activity;
 
 import android.app.ProgressDialog;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rdypda.R;
 import com.rdypda.adapter.LlddrAdapter;
 import com.rdypda.presenter.LlddrPresenter;
+import com.rdypda.presenter.MainPresenter;
 import com.rdypda.view.viewinterface.ILlddrView;
 import com.rdypda.view.widget.PowerButton;
 
@@ -55,6 +52,8 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
     CheckBox finishBox;
     @BindView(R.id.unfinish_box)
     CheckBox unFinishBox;
+    @BindView(R.id.title)
+    TextView title;
     private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +77,11 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
     @Override
     protected void initView() {
         startType=getIntent().getIntExtra("type",0);
-
+        if (startType== MainPresenter.TMDY){
+            title.setText("选择领料单号查看明细清单");
+        }else {
+            title.setText("选择领料单号扫描发料");
+        }
 
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
