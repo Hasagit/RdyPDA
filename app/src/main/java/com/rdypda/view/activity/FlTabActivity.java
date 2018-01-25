@@ -14,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,13 +34,12 @@ import butterknife.ButterKnife;
 public class FlTabActivity extends BaseActivity implements IFlTabView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.view_pager)
-    ViewPager viewPager;
-    @BindView(R.id.tab_layout)
-    TabLayout tabLayout;
+    @BindView(R.id.layout_top)
+    FrameLayout layoutTop;
+    @BindView(R.id.layout_bottom)
+    FrameLayout layoutBottom;
 
     private String djbh,wldm;
-    private ActivityViewPagerAdapter adapter;
     private LocalActivityManager manager;
 
     @Override
@@ -64,18 +65,21 @@ public class FlTabActivity extends BaseActivity implements IFlTabView {
         Intent intent_2=new Intent(this,FlActivity.class);
         intent_2.putExtra("djbh",djbh);
         intent_2.putExtra("wldm",wldm);
-        views.add(getView("1",intent_2));
+        View viewFl=getView("1",intent_2);
         Intent intent_1=new Intent(this,WldActivity.class);
         intent_1.putExtra("djbh",djbh);
         intent_1.putExtra("wldm",wldm);
         intent_1.putExtra("startType",WldActivity.START_TYPE_FLTAB);
-        views.add(getView("0",intent_1));
-        List<String>title=new ArrayList<>();
-        title.add("扫描发料");
-        title.add("物料单");
-        adapter=new ActivityViewPagerAdapter(views,title);
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
+        View viewWld=getView("0",intent_1);
+        viewFl.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        viewWld.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        layoutTop.addView(viewWld);
+        layoutBottom.addView(viewFl);
+
 
     }
 
