@@ -106,7 +106,8 @@ public class MainActivity extends BaseActivity implements IMainView{
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
-        }).create();
+        }).setCancelable(true)
+                .create();
 
 
         progressDialog=new ProgressDialog(this);

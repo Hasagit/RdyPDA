@@ -28,6 +28,8 @@ public class LoginPresenter extends BasePresenter {
     private ILoginView view;
     private List<Map<String,String>>data;
     private boolean isRemember=true;
+
+
     public LoginPresenter(Context context, final ILoginView view) {
         super(context);
         this.view=view;
@@ -45,7 +47,6 @@ public class LoginPresenter extends BasePresenter {
 
         getCompanyList();
     }
-
 
     public void getCompanyList(){
         WebService.getCompanyList().subscribe(new Observer<JSONObject>() {
@@ -174,5 +175,13 @@ public class LoginPresenter extends BasePresenter {
         preferenUtil.setString("ipAddress",address);
         WebService.initUrl(preferenUtil);
         view.showFactoryList(new ArrayList<Map<String, String>>());
+    }
+
+    public String getCurrentIp(){
+        if (preferenUtil.getString("ipAddress").equals("")){
+            return "http://yun.ruiduoyi.com";
+        }else {
+            return preferenUtil.getString("ipAddress");
+        }
     }
 }

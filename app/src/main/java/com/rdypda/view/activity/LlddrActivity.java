@@ -78,9 +78,9 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
     protected void initView() {
         startType=getIntent().getIntExtra("type",0);
         if (startType== MainPresenter.TMDY){
-            title.setText("选择领料单号查看明细清单");
+            title.setText("选择生产单号查看明细清单");
         }else {
-            title.setText("选择领料单号扫描发料");
+            title.setText("选择生产单号扫描发料");
         }
 
         setSupportActionBar(toolbar);

@@ -66,7 +66,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:hint="请输入领料单号(选填)"
+                                android:hint="请输入生产单号(选填)"
                                 android:background="@null"
                                 android:textSize="14dp"
                                 android:theme="@style/AppTheme"/>
@@ -200,7 +200,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:layout_gravity="center_horizontal"
-                        android:text="领料单号"/>
+                        android:text="生产单号"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="100dp"

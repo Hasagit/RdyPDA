@@ -30,8 +30,8 @@
                     android:text="条码打印"
                     android:textColor="@android:color/white"
                     android:layout_gravity="center_vertical"
-                    android:textSize="20dp"
-                    android:textStyle="bold"/>
+                    android:textSize="18dp"
+                    />
                 <com.rdypda.view.widget.PowerButton
                     android:layout_width="27dp"
                     android:layout_height="27dp"

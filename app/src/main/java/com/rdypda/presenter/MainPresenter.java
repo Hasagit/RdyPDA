@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
 
 import com.rdypda.R;
 import com.rdypda.model.network.WebService;
@@ -21,7 +22,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -33,6 +41,7 @@ public class MainPresenter extends BasePresenter{
     private String[] permissionList;
     static final public int TMDY=0;
     static final public int FL=1;
+    private Timer timer;
 
     public MainPresenter(Context context,IMainView view) {
         super(context);
@@ -42,6 +51,7 @@ public class MainPresenter extends BasePresenter{
             PrintUtil util=new PrintUtil(context);
             util.initPost();
         }
+        autoUpdate();
     }
 
     public void initPermissionList(String arrayStr){
@@ -210,10 +220,47 @@ public class MainPresenter extends BasePresenter{
         });
     }
 
-
     public void downloadInstallApk(String urlStr){
         DownloadUtils downloadUtils=new DownloadUtils(context);
         downloadUtils.downloadAPK(urlStr,"RdyPDA.apk");
+    }
+
+    public void autoUpdate(){
+        timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Log.e("autoUpdate","2");
+                Observable.create(new ObservableOnSubscribe<Object>() {
+                    @Override
+                    public void subscribe(ObservableEmitter<Object> e) throws Exception {
+                        checkToUpdate();
+                        Log.e("autoUpdate","1");
+                        e.onComplete();
+                    }
+                }).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Object>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Object value) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+            }
+        },0,1800*1000);
     }
 
 }

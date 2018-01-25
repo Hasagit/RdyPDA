@@ -5,6 +5,7 @@ import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rdypda.R;
 import com.rdypda.adapter.ActivityViewPagerAdapter;
@@ -114,10 +116,20 @@ public class FlTabActivity extends BaseActivity implements IFlTabView {
             deleteDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
             PowerButton delBtn=(PowerButton)view.findViewById(R.id.sure_btn);
             PowerButton cancelBtn=(PowerButton) view.findViewById(R.id.cancel_btn);
+            final TextInputEditText tmEd=(TextInputEditText)view.findViewById(R.id.tm_ed);
             delBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    deleteDialog.dismiss();
+                    String tmxh=tmEd.getText().toString();
+                    if (tmxh.equals("")){
+                        Toast.makeText(FlTabActivity.this,"条码序号不能为空",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Intent intent=new Intent();
+                        intent.setAction("com.rdypda.TMXH");
+                        intent.putExtra("tmxh",tmxh);
+                        sendBroadcast(intent);
+                        deleteDialog.dismiss();
+                    }
                 }
             });
             cancelBtn.setOnClickListener(new View.OnClickListener() {

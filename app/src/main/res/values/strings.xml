@@ -25,7 +25,7 @@
     <string name="tl">投料</string>
     <string name="query_key">搜索关键字</string>
     <string name="wld">物料单</string>
-    <string name="lldh">领料单号</string>
+    <string name="lldh">生产单号</string>
     <string name="wlbh">物料编号</string>
     <string name="wlmc">物料名称</string>
     <string name="wlpc">物料批次</string>

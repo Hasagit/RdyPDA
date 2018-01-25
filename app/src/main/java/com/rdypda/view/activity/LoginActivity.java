@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rdypda.R;
@@ -57,6 +58,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     private ProgressDialog progressDialog;
     private LoginPresenter presenter;
     private int factoryPosition=-1;
+    private TextView currentIpText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
             PowerButton cancleBtn=view.findViewById(R.id.cancle_btn);
             final TextInputEditText ipEd=view.findViewById(R.id.ip_ed);
             final TextInputLayout ipLayout=view.findViewById(R.id.ip_layout);
+            currentIpText=view.findViewById(R.id.current_ip);
             cancleBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -131,6 +134,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
                 presenter.login(factoryPosition,userIdEd.getText().toString(),userPwdEd.getText().toString());
                 break;
             case R.id.setting_btn:
+                currentIpText.setText("当前服务器地址："+presenter.getCurrentIp());
                 ipSettingDialog.show();
                 break;
         }

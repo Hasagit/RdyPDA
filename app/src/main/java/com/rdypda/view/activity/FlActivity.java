@@ -2,7 +2,11 @@ package com.rdypda.view.activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
@@ -47,6 +51,7 @@ public class FlActivity extends BaseActivity implements IFlView {
     private FlPresenter presenter;
     private AlertDialog dialog;
     private ProgressDialog progressDialog;
+    private BroadcastReceiver receiver;
 
 
     @Override
@@ -76,6 +81,17 @@ public class FlActivity extends BaseActivity implements IFlView {
 
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("加载中...");
+
+        receiver=new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String tmxh=intent.getStringExtra("tmxh");
+                String qrCode="**N"+tmxh;
+                presenter.isValidCode(qrCode);
+            }
+        };
+        IntentFilter intentFilter=new IntentFilter("com.rdypda.TMXH");
+        registerReceiver(receiver,intentFilter);
 
     }
 
@@ -186,6 +202,7 @@ public class FlActivity extends BaseActivity implements IFlView {
     protected void onDestroy() {
         super.onDestroy();
         presenter.closeScan();
+        unregisterReceiver(receiver);
     }
 
 }
