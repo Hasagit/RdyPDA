@@ -80,7 +80,7 @@ public class FlActivity extends BaseActivity implements IFlView {
         }).create();
 
         progressDialog=new ProgressDialog(this);
-        progressDialog.setTitle("加载中...");
+        progressDialog.setTitle("请稍后...");
 
         receiver=new BroadcastReceiver() {
             @Override

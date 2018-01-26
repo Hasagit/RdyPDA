@@ -16,6 +16,7 @@ import com.rdypda.util.PrintUtil;
 import com.rdypda.view.activity.GdxqActivity;
 import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
+import com.rdypda.view.activity.TmcfActivity;
 import com.rdypda.view.viewinterface.IMainView;
 
 import org.json.JSONArray;
@@ -152,7 +153,8 @@ public class MainPresenter extends BasePresenter{
 
     //条码拆分
     public void goToTmcf(){
-        view.showMsgDialog("敬请期待");
+        Intent intent=new Intent(context, TmcfActivity.class);
+        context.startActivity(intent);
     }
 
     //条码补打
@@ -170,9 +172,11 @@ public class MainPresenter extends BasePresenter{
         view.showMsgDialog("敬请期待");
     }
 
-    public void checkToUpdate(){
+    public void checkToUpdate(final boolean isAuto){
         String sql="Call PAD_Get_WebAddr()";
-        view.setShowProgressDialogEnable(true);
+        if (!isAuto){
+            view.setShowProgressDialogEnable(true);
+        }
         WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -194,7 +198,9 @@ public class MainPresenter extends BasePresenter{
                             //String urlStr="http://imtt.dd.qq.com/16891/F782CC27B9CE90B89CD494DC95098B7F.apk?fsname=com.qiyi.video_9.0.0_81010.apk&csr=2097&_track_d99957f7=88ee35aa-5ea6-47b8-a8b0-c95f0e025ca9";
                             view.showDownloadDialog(urlStr);
                         }else {
-                            view.showMsgDialog("当前已是最新版本");
+                            if (!isAuto){
+                                view.showMsgDialog("当前已是最新版本");
+                            }
                         }
                     }else {
                        view.showMsgDialog(value.getJSONArray("Table0").getJSONObject(0).getString("cMsg") );
@@ -221,8 +227,31 @@ public class MainPresenter extends BasePresenter{
     }
 
     public void downloadInstallApk(String urlStr){
-        DownloadUtils downloadUtils=new DownloadUtils(context);
-        downloadUtils.downloadAPK(urlStr,"RdyPDA.apk");
+        DownloadUtilsII downloadUtils=new DownloadUtilsII(context);
+        view.setShowDownloadProgressDialogEnable(true);
+        downloadUtils.downloadAPK(urlStr,Environment.getExternalStorageDirectory().getPath(),"RdyPDA.apk").subscribe(new Observer<Integer>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Integer value) {
+                view.setProgressDownloadProgressDialog(value);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                view.showMsgDialog("下载失败");
+                view.setShowDownloadProgressDialogEnable(false);
+            }
+
+            @Override
+            public void onComplete() {
+                view.setShowDownloadProgressDialogEnable(false);
+            }
+        });
     }
 
     public void autoUpdate(){
@@ -234,7 +263,7 @@ public class MainPresenter extends BasePresenter{
                 Observable.create(new ObservableOnSubscribe<Object>() {
                     @Override
                     public void subscribe(ObservableEmitter<Object> e) throws Exception {
-                        checkToUpdate();
+                        checkToUpdate(true);
                         Log.e("autoUpdate","1");
                         e.onComplete();
                     }
@@ -261,6 +290,12 @@ public class MainPresenter extends BasePresenter{
                 });
             }
         },0,1800*1000);
+    }
+
+
+    public void closeTimer(){
+        timer.cancel();
+        timer=null;
     }
 
 }

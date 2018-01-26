@@ -14,4 +14,8 @@ public interface IMainView extends IBaseView{
     void showDownloadDialog(String url);
 
     void showToastMsg(String msg);
+
+    void setShowDownloadProgressDialogEnable(boolean enable);
+
+    void setProgressDownloadProgressDialog(int size);
 }

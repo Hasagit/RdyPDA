@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.util.Log;
 
 import com.rdypda.model.network.WebService;
+import com.rdypda.util.QrCodeUtil;
 import com.rdypda.util.ScanUtil;
 import com.rdypda.view.viewinterface.IFlView;
 
@@ -198,8 +199,8 @@ public class FlPresenter extends BasePresenter {
 
     public void isValidCode(String qrCode){
         view.setShowProgressEnable(true);
-        String[] items=qrCode.split("\\*");
-        final String tmxh=items[2].substring(1,items[2].length());
+        QrCodeUtil qrCodeUtil=new QrCodeUtil(qrCode);
+        final String tmxh=qrCodeUtil.getTmxh();
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','LLD', '%s', '%s')",
                 tmxh,lldh+";"+wldm,preferenUtil.getString("userId"));
         view.setShowProgressEnable(true);

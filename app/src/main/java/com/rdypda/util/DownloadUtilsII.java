@@ -36,10 +36,10 @@ public class DownloadUtilsII {
         this.mContext = mContext;
     }
 
-    public io.reactivex.Observable<String> downloadAPK(final String url_str, final String filePath, final String fileName){
-        return io.reactivex.Observable.create(new ObservableOnSubscribe<String>() {
+    public io.reactivex.Observable<Integer> downloadAPK(final String url_str, final String filePath, final String fileName){
+        return io.reactivex.Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void subscribe(ObservableEmitter<String> e) throws Exception {
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
                 URL url= null;
                 File file=new File(filePath);
                 if (!file.exists()){
@@ -52,18 +52,25 @@ public class DownloadUtilsII {
                 urlConnection.setRequestMethod("GET");
                 urlConnection.setConnectTimeout(5000);
                 urlConnection.connect();
+                double fileSize=urlConnection.getContentLength()/1024;
                 Log.e("getLastModified()",urlConnection.getLastModified()+"");
                 InputStream in=urlConnection.getInputStream();
                 OutputStream out=new FileOutputStream(filePath+"/"+fileName,false);
                 byte[] buff=new byte[1024];
+                int downloadSize=0;
                 int size;
                 while ((size = in.read(buff)) != -1) {
+                    downloadSize++;
+                    if (downloadSize%100==0){
+                        int progress=(int) (downloadSize/fileSize*100);
+                        if (progress<=100)
+                        e.onNext(progress);
+                        Log.e("download",downloadSize/fileSize+"");
+                    }
                     out.write(buff, 0, size);
                 }
                 installAPK(filePath+"/"+fileName);
-                e.onNext("");
                 e.onComplete();
-
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }

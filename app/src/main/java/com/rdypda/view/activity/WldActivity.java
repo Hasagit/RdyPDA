@@ -89,6 +89,9 @@ public class WldActivity extends BaseActivity implements IWldView{
         adapter.setLldh(djbh);
         recyclerView.setLayoutManager(new GridLayoutManager(WldActivity.this,1));
         recyclerView.setAdapter(adapter);
+        if (!(getIntent().getIntExtra("startType",1)==START_TYPE_LLD)){
+            adapter.setOnClickEnable(false);
+        }
     }
 
     @Override

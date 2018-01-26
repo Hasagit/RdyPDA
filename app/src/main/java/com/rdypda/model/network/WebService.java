@@ -112,6 +112,31 @@ public class WebService {
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
+    public static Observable<JSONObject>getQuerySqlCommandJson(final String sqlCommand, final String cTokenUser){
+        Log.e("querySqlCommandJosn",sqlCommand+"\n"+cTokenUser);
+        return Observable.create(new ObservableOnSubscribe<JSONObject>() {
+            @Override
+            public void subscribe(ObservableEmitter<JSONObject> e) throws Exception {
+                Response<String>response=getServiceApi().querySqlCommandJosn(sqlCommand,cTokenUser).execute();
+                JSONObject object=stringToJsonObject(response.body());
+                if (!object.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
+                    throw new Exception(object.getJSONArray("Table0").getJSONObject(0).getString("cMsg"));
+                }
+                String[] item=object.getJSONArray("Table1").getJSONObject(0).getString("cRetMsg").split(":");
+                if (!item[0].equals("OK")){
+                    if (item.length>0){
+                        throw new Exception(item[1]);
+                    }else {
+                        throw new Exception("数据解析出错");
+                    }
+                }
+                e.onNext(object);
+                e.onComplete();
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+
 
     public static Observable<JSONObject>uploadScanWld(final List<Map<String,String>>data, final String lldh, final String userId, final String cTokenUser){
         return Observable.create(new ObservableOnSubscribe<JSONObject>() {

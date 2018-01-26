@@ -10,6 +10,13 @@ import android.net.Uri;
 import android.os.Environment;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import retrofit2.http.Url;
+
 /**
  * Created by DengJf on 2018/1/22.
  */
@@ -27,10 +34,10 @@ public class DownloadUtils {
 
     //下载apk
     public void downloadAPK(String url, String name) {
-
         try {
+            Uri uri=Uri.parse(URLEncoder.encode(url,"utf-8"));
             //创建下载任务
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+            DownloadManager.Request request = new DownloadManager.Request(uri);
             //移动网络情况下是否允许漫游
             request.setAllowedOverRoaming(false);
 
@@ -55,6 +62,8 @@ public class DownloadUtils {
         }catch (IllegalArgumentException e){
             e.printStackTrace();
             Toast.makeText(mContext,"下载地址不可用",Toast.LENGTH_SHORT).show();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 

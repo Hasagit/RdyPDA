@@ -36,6 +36,7 @@ public class MainActivity extends BaseActivity implements IMainView{
     private String arrayStr;
     private AlertDialog dialog,downloadDialog;
     private ProgressDialog progressDialog;
+    private ProgressDialog downloadProgressDialog;
 
     //侧滑菜单
     @BindView(R.id.toolbar)
@@ -127,6 +128,12 @@ public class MainActivity extends BaseActivity implements IMainView{
         views.add(BGABannerUtil.getItemImageView(this, R.drawable.banner_1));
         banner.setData(views);
 
+        downloadProgressDialog=new ProgressDialog(this);
+        downloadProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        downloadProgressDialog.setCancelable(false);
+        downloadProgressDialog.setCanceledOnTouchOutside(false);
+        downloadProgressDialog.setTitle("下载中");
+        downloadProgressDialog.setMax(100);
     }
 
 
@@ -202,7 +209,7 @@ public class MainActivity extends BaseActivity implements IMainView{
                 drawer.openDrawer(Gravity.LEFT);
                 break;
             case R.id.about:
-                presenter.checkToUpdate();
+                presenter.checkToUpdate(false);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -251,10 +258,28 @@ public class MainActivity extends BaseActivity implements IMainView{
     }
 
     @Override
+    public void setShowDownloadProgressDialogEnable(boolean enable) {
+        if (enable){
+            downloadProgressDialog.show();
+        }else {
+            downloadProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void setProgressDownloadProgressDialog(int size) {
+        downloadProgressDialog.setProgress(size);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.closeTimer();
+    }
 }

@@ -24,6 +24,7 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
     private int resources;
     private Context context;
     private String lldh;
+    private boolean onClickEnable=true;
 
     public WldAdapter(Context context,int resources,List<Map<String, String>> data) {
         super(data);
@@ -57,17 +58,19 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, LlddrMsgActivity.class);
-                intent.putExtra("lldh",lldh);
-                intent.putExtra("wldm",map.get("wldm"));
-                intent.putExtra("dw",map.get("unit"));
-                intent.putExtra("gch",map.get("ftyId"));
-                intent.putExtra("kcdd",map.get("stkId"));
-                intent.putExtra("ywwlpm",map.get("ywwlpm"));
-                intent.putExtra("wlpm",map.get("wlpm"));
-                intent.putExtra("wfsl",map.get("qty"));
-                intent.putExtra("xqsl",map.get("ni_qty"));
-                context.startActivity(intent);
+                if (onClickEnable){
+                    Intent intent=new Intent(context, LlddrMsgActivity.class);
+                    intent.putExtra("lldh",lldh);
+                    intent.putExtra("wldm",map.get("wldm"));
+                    intent.putExtra("dw",map.get("unit"));
+                    intent.putExtra("gch",map.get("ftyId"));
+                    intent.putExtra("kcdd",map.get("stkId"));
+                    intent.putExtra("ywwlpm",map.get("ywwlpm"));
+                    intent.putExtra("wlpm",map.get("wlpm"));
+                    intent.putExtra("wfsl",map.get("qty"));
+                    intent.putExtra("xqsl",map.get("ni_qty"));
+                    context.startActivity(intent);
+                }
             }
         });
     }
@@ -107,5 +110,9 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
 
     public void setLldh(String lldh) {
         this.lldh = lldh;
+    }
+
+    public void setOnClickEnable(boolean onClickEnable) {
+        this.onClickEnable = onClickEnable;
     }
 }
