@@ -137,7 +137,6 @@ public class TmbdPresenter extends BasePresenter {
 
     }
 
-
     public void printEven(){
         if (!BluetoothAdapter.getDefaultAdapter().isEnabled()){
             view.showBlueToothAddressDialog();
@@ -202,6 +201,10 @@ public class TmbdPresenter extends BasePresenter {
         });
 
 
+    }
+
+    public void closeScan(){
+        scanUtil.close();
     }
 
 

@@ -18,6 +18,7 @@ import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
 import com.rdypda.view.activity.TmbdActivity;
 import com.rdypda.view.activity.TmcfActivity;
+import com.rdypda.view.activity.TmcxActivity;
 import com.rdypda.view.viewinterface.IMainView;
 
 import org.json.JSONArray;
@@ -171,7 +172,8 @@ public class MainPresenter extends BasePresenter{
 
     //条码查询
     public void goToTmcx(){
-        view.showMsgDialog("敬请期待");
+        Intent intent=new Intent(context, TmcxActivity.class);
+        context.startActivity(intent);
     }
 
     public void checkToUpdate(final boolean isAuto){

@@ -40,4 +40,7 @@
     <string name="sure">确定</string>
     <string name="cancel">取消</string>
     <string name="print_error_model">此设备不支持打印</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

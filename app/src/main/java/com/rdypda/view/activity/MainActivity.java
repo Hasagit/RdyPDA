@@ -197,7 +197,7 @@ public class MainActivity extends BaseActivity implements IMainView{
                 presenter.goToKcpd();
                 break;
             case R.id.tmcx:
-                presenter.goToKcpd();
+                presenter.goToTmcx();
                 break;
         }
     }

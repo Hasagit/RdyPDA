@@ -213,4 +213,10 @@ public class TmbdActivity extends BaseActivity implements ITmbdView {
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        presenter.closeScan();
+        super.onDestroy();
+    }
 }
