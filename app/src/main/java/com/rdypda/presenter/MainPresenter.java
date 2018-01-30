@@ -16,6 +16,7 @@ import com.rdypda.util.PrintUtil;
 import com.rdypda.view.activity.GdxqActivity;
 import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
+import com.rdypda.view.activity.TmbdActivity;
 import com.rdypda.view.activity.TmcfActivity;
 import com.rdypda.view.viewinterface.IMainView;
 
@@ -159,7 +160,8 @@ public class MainPresenter extends BasePresenter{
 
     //条码补打
     public void goToTmbd(){
-        view.showMsgDialog("敬请期待");
+        Intent intent=new Intent(context, TmbdActivity.class);
+        context.startActivity(intent);
     }
 
     //库存盘点

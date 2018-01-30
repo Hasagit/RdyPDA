@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rdypda"
     android:versionCode="3"
-    android:versionName="1.0.0.4">
+    android:versionName="1.0.0.5">
 
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -47,7 +47,8 @@
         </activity>
         <activity android:name=".view.activity.UpdateActivity" />
         <activity android:name=".view.activity.FlTabActivity" />
-        <activity android:name=".view.activity.TmcfActivity"></activity>
+        <activity android:name=".view.activity.TmcfActivity" />
+        <activity android:name=".view.activity.TmbdActivity"></activity>
     </application>
 
 </manifest>
