@@ -95,6 +95,7 @@ public class TmcxPresenter extends BasePresenter{
                         map.put("czrq",arrayKcsw.getJSONObject(i).getString("trx_jlrq"));
                         kcswData.add(map);
                     }
+                    view.refreshKcsw(kcswData);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

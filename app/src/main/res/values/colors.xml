@@ -9,4 +9,6 @@
     <color name="color_green">#5db851</color>
     <color name="color_red">#fb3d02</color>
     <color name="color_first">#dbf1fe</color>
+    <color name="color_kcsw_1">#ddebf7</color>
+    <color name="color_kcsw_2">#f2f2f2</color>
 </resources>

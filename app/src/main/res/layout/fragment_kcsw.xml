@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.rdypda.view.Fragment.KcswFragment">
-    <HorizontalScrollView
+    <!--<HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
-           <!-- <LinearLayout
+           &lt;!&ndash; <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:background="@color/colorPrimary"
@@ -87,8 +87,11 @@
                         android:layout_gravity="center_horizontal"
                         android:text="物料编号"/>
                 </LinearLayout>
-            </LinearLayout>-->
+            </LinearLayout>&ndash;&gt;
         </LinearLayout>
-    </HorizontalScrollView>
-
+    </HorizontalScrollView>-->
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler"></android.support.v7.widget.RecyclerView>
 </FrameLayout>
