@@ -47,14 +47,6 @@ public class WldAdapter extends BaseRecyclerAdapter<WldAdapter.WldViewHolder,Map
         viewHolder.lab_2.setText(map.get("qty"));
         viewHolder.lab_3.setText(map.get("ni_qty"));
         viewHolder.lab_4.setText(map.get("unit"));
-        /*viewHolder.lab_5.setText(map.get("wldm"));
-        viewHolder.lab_6.setText(map.get("wlpm"));
-        viewHolder.lab_7.setText(map.get("ywwlpm"));
-        viewHolder.lab_8.setText(map.get("qty"));
-        viewHolder.lab_9.setText(map.get("unit"));
-        viewHolder.lab_10.setText(map.get("jlry"));
-        viewHolder.lab_11.setText(map.get("jlrq"));
-        viewHolder.lab_12.setText(map.get("id"));*/
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -45,7 +45,7 @@ public class KcswAdapter extends BaseRecyclerAdapter<KcswAdapter.ViewHolder,Map<
         viewHolder.lab_4.setText(map.get("wldm"));
         viewHolder.lab_5.setText(map.get("ph"));
         viewHolder.lab_6.setText(map.get("kcdd")+","+map.get("kw")+","+map.get("cw"));
-        viewHolder.lab_7.setText("事务数量:"+map.get("swsl"));
+        viewHolder.lab_7.setText("事务数量:"+map.get("swsl")+map.get("dw"));
         viewHolder.lab_8.setText(map.get("czry"));
         viewHolder.lab_9.setText(map.get("czrq"));
         if (i%2==0){

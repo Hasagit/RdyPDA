@@ -106,7 +106,11 @@ public class WebService {
             @Override
             public void subscribe(ObservableEmitter<JSONObject> e) throws Exception {
                 Response<String>response=getServiceApi().querySqlCommandJosn(sqlCommand,cTokenUser).execute();
-                e.onNext(stringToJsonObject(response.body()));
+                JSONObject object=stringToJsonObject(response.body());
+                if (!object.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
+                    throw new Exception(object.getJSONArray("Table0").getJSONObject(0).getString("cMsg"));
+                }
+                e.onNext(object);
                 e.onComplete();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());

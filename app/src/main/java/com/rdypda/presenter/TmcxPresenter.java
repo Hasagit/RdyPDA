@@ -93,12 +93,14 @@ public class TmcxPresenter extends BasePresenter{
                         map.put("jysl",arrayKcsw.getJSONObject(i).getString("trx_sysl"));
                         map.put("czry",arrayKcsw.getJSONObject(i).getString("trx_jlrymc"));
                         map.put("czrq",arrayKcsw.getJSONObject(i).getString("trx_jlrq"));
+                        map.put("dw",arrayTmxx.getJSONObject(0).getString("brp_Unit"));
                         kcswData.add(map);
                     }
                     view.refreshKcsw(kcswData);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    view.setShowMsgDialogEnable("Json数据解析出错");
                 }finally {
                     view.setShowProgressDialogEnable(false);
                 }

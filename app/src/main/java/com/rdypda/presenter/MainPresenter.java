@@ -44,6 +44,8 @@ public class MainPresenter extends BasePresenter{
     private String[] permissionList;
     static final public int TMDY=0;
     static final public int FL=1;
+    static final public int YLTL=2;
+    static final public int YLJS=3;
     private Timer timer;
 
     public MainPresenter(Context context,IMainView view) {
@@ -105,10 +107,28 @@ public class MainPresenter extends BasePresenter{
     }
 
 
-    public void goToGdxq(){
-        Intent intent=new Intent(context, GdxqActivity.class);
-        context.startActivity(intent);
+    public void goToYljs(){
+        if (isPermission("MTR511D1")){
+            Intent intent=new Intent(context, LlddrActivity.class);
+            intent.putExtra("type",YLJS);
+            context.startActivity(intent);
+        }else {
+            view.showMsgDialog("你没有权限使用该功能");
+        }
     }
+
+
+    public void goToYltl(){
+        if (isPermission("MTR512D1")){
+            Intent intent=new Intent(context, LlddrActivity.class);
+            intent.putExtra("type",YLTL);
+            context.startActivity(intent);
+        }else {
+            view.showMsgDialog("你没有权限使用该功能");
+        }
+    }
+
+
 
     //原料组仓库
     public void goToYlzck(int type) {
@@ -155,14 +175,22 @@ public class MainPresenter extends BasePresenter{
 
     //条码拆分
     public void goToTmcf(){
-        Intent intent=new Intent(context, TmcfActivity.class);
-        context.startActivity(intent);
+        if (isPermission("STK501D1")){
+            Intent intent=new Intent(context, TmcfActivity.class);
+            context.startActivity(intent);
+        }else {
+            view.showMsgDialog("你没有权限使用该功能");
+        }
     }
 
     //条码补打
     public void goToTmbd(){
-        Intent intent=new Intent(context, TmbdActivity.class);
-        context.startActivity(intent);
+        if (isPermission("STK502D1")){
+            Intent intent=new Intent(context, TmbdActivity.class);
+            context.startActivity(intent);
+        }else {
+            view.showMsgDialog("你没有权限使用该功能");
+        }
     }
 
     //库存盘点
@@ -172,8 +200,12 @@ public class MainPresenter extends BasePresenter{
 
     //条码查询
     public void goToTmcx(){
-        Intent intent=new Intent(context, TmcxActivity.class);
-        context.startActivity(intent);
+        if (isPermission("STK504D1")){
+            Intent intent=new Intent(context, TmcxActivity.class);
+            context.startActivity(intent);
+        }else {
+            view.showMsgDialog("你没有权限使用该功能");
+        }
     }
 
     public void checkToUpdate(final boolean isAuto){

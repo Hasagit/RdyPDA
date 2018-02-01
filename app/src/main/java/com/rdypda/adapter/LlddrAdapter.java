@@ -20,6 +20,7 @@ import com.rdypda.view.activity.FlActivity;
 import com.rdypda.view.activity.FlTabActivity;
 import com.rdypda.view.activity.LlddrMsgActivity;
 import com.rdypda.view.activity.WldActivity;
+import com.rdypda.view.activity.YljsflActivity;
 
 import java.util.List;
 import java.util.Map;
@@ -71,6 +72,18 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
                     Intent intent=new Intent(context,FlTabActivity.class);
                     intent.putExtra("djbh",map.get("djbh"));
                     intent.putExtra("wldm",map.get("wldm"));
+                    context.startActivity(intent);
+                }else if (startType== MainPresenter.YLTL){
+                    Intent intent=new Intent(context,YljsflActivity.class);
+                    intent.putExtra("djbh",map.get("djbh"));
+                    intent.putExtra("wldm",map.get("wldm"));
+                    intent.putExtra("startType",MainPresenter.YLTL);
+                    context.startActivity(intent);
+                }else if (startType== MainPresenter.YLJS){
+                    Intent intent=new Intent(context,YljsflActivity.class);
+                    intent.putExtra("djbh",map.get("djbh"));
+                    intent.putExtra("wldm",map.get("wldm"));
+                    intent.putExtra("startType",MainPresenter.YLJS);
                     context.startActivity(intent);
                 }
             }
