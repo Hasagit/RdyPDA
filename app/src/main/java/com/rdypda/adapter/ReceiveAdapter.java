@@ -93,7 +93,9 @@ public class ReceiveAdapter extends BaseRecyclerAdapter<ReceiveAdapter.ReceiveVi
                     map.get("tmsl").equals(data.get(i).get("tmsl"))&&
                     map.get("wldm").equals(data.get(i).get("wldm"))){
                 data.remove(i);
-                notifyDataSetChanged();
+                notifyItemRemoved(i);
+                notifyItemRangeChanged(0,data.size());
+                //notifyDataSetChanged();
                 isExist=true;
                 break;
             }

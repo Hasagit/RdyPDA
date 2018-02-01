@@ -118,7 +118,7 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
     public void onClick(View view){
         switch (view.getId()){
             case R.id.print_btn:
-                presenter.printEven(lldhStr,wlpmStr,ywwlpmStr,tmxhText.getText().toString(),tmpchEd.getText().toString());
+                presenter.printEven(wlbhStr,wlpmStr,ywwlpmStr,tmxhText.getText().toString(),tmpchEd.getText().toString());
                 break;
             case R.id.setting_btn:
                 showBlueToothAddressDialog();

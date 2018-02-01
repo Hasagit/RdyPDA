@@ -221,30 +221,27 @@ public class MainPresenter extends BasePresenter{
 
             @Override
             public void onNext(final JSONObject value) {
-                view.setShowProgressDialogEnable(false);
                 try {
-                    if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
-                        PackageManager pm = context.getPackageManager();
-                        PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
-                        String versionName = pi.versionName;
-                        JSONArray array=value.getJSONArray("Table1");
-                        String appVer=array.getJSONObject(0).getString("v_WebAppVer").trim();
-                        if (!appVer.equals(versionName)){
-                            String urlStr=array.getJSONObject(0).getString("v_WebAppPath");
-                            //String urlStr="http://imtt.dd.qq.com/16891/F782CC27B9CE90B89CD494DC95098B7F.apk?fsname=com.qiyi.video_9.0.0_81010.apk&csr=2097&_track_d99957f7=88ee35aa-5ea6-47b8-a8b0-c95f0e025ca9";
-                            view.showDownloadDialog(urlStr);
-                        }else {
-                            if (!isAuto){
-                                view.showMsgDialog("当前已是最新版本");
-                            }
-                        }
+                    PackageManager pm = context.getPackageManager();
+                    PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+                    String versionName = pi.versionName;
+                    JSONArray array=value.getJSONArray("Table1");
+                    String appVer=array.getJSONObject(0).getString("v_WebAppVer").trim();
+                    if (!appVer.equals(versionName)){
+                        String urlStr=array.getJSONObject(0).getString("v_WebAppPath");
+                        //String urlStr="http://imtt.dd.qq.com/16891/F782CC27B9CE90B89CD494DC95098B7F.apk?fsname=com.qiyi.video_9.0.0_81010.apk&csr=2097&_track_d99957f7=88ee35aa-5ea6-47b8-a8b0-c95f0e025ca9";
+                        view.showDownloadDialog(urlStr);
                     }else {
-                       view.showMsgDialog(value.getJSONArray("Table0").getJSONObject(0).getString("cMsg") );
+                        if (!isAuto){
+                            view.showMsgDialog("当前已是最新版本");
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (PackageManager.NameNotFoundException e) {
                     e.printStackTrace();
+                }finally {
+                    view.setShowProgressDialogEnable(false);
                 }
             }
 
@@ -252,7 +249,7 @@ public class MainPresenter extends BasePresenter{
             public void onError(Throwable e) {
                 e.printStackTrace();
                 view.setShowProgressDialogEnable(false);
-                view.showMsgDialog("服务器繁忙，请重试");
+                view.showMsgDialog(e.getMessage());
             }
 
             @Override

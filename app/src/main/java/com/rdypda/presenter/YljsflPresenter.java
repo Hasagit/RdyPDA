@@ -56,7 +56,7 @@ public class YljsflPresenter extends BasePresenter{
     public void getKwmList(){
         view.setShowProgressDialogEnable(true);
         String sql="Call Proc_PDA_GetKwmList()";
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -102,7 +102,7 @@ public class YljsflPresenter extends BasePresenter{
         this.wldm=wldm;
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_Get_lld_det('%s','%s')",djbh,wldm);
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -158,6 +158,10 @@ public class YljsflPresenter extends BasePresenter{
             view.setShowDialogMsg("库存地点获取失败，请重新进入");
             return;
         }
+        if (tmxh.equals("")){
+            view.setShowDialogMsg("条码序号有误，请重输");
+            return;
+        }
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_IsValidCode ('%s','%s', '%s', '%s');",tmxh,type,kcdd+";"+wldm+";"+djbh,preferenUtil.getString("userId"));
         WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
@@ -200,6 +204,35 @@ public class YljsflPresenter extends BasePresenter{
         });
     }
 
+    public void cancelScan(final String tmxh){
+        view.setShowProgressDialogEnable(true);
+        String sql=String.format("Call Proc_PDA_CancelScan('MTR_IN', '%s', '%s');",tmxh,preferenUtil.getString("userId"));
+        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                view.removeYljstlRecyclerItem(tmxh);
+                view.setShowProgressDialogEnable(false);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.setShowProgressDialogEnable(false);
+                e.printStackTrace();
+                view.setShowDialogMsg(e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
     public void closeScan(){
         scanUtil.close();
     }
@@ -210,5 +243,9 @@ public class YljsflPresenter extends BasePresenter{
 
     public void setKcdd(String kcdd) {
         this.kcdd = kcdd;
+    }
+
+    public String getKcdd() {
+        return kcdd;
     }
 }

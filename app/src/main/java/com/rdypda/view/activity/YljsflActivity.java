@@ -2,6 +2,9 @@ package com.rdypda.view.activity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,17 +12,25 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rdypda.R;
 import com.rdypda.adapter.WldAdapter;
 import com.rdypda.adapter.YljstlAdapter;
 import com.rdypda.presenter.MainPresenter;
 import com.rdypda.presenter.YljsflPresenter;
+import com.rdypda.util.QrCodeUtil;
 import com.rdypda.view.viewinterface.IYljsflView;
+import com.rdypda.view.widget.PowerButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +94,7 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
         adapter.setOnItemClickListener(new YljstlAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, YljstlAdapter.ViewHolder holder, Map<String, String> map) {
-
+                showDeleteDialog(map.get("wlbh"),map.get("tmsl"),map.get("tmbh"));
             }
         });
 
@@ -141,10 +152,101 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
     }
 
     @Override
-    public void removeYljstlRecyclerItem(Map<String, String> item) {
-        adapter.removeData(item);
+    public void removeYljstlRecyclerItem(String tmxh) {
+        adapter.removeData(tmxh);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.fltab_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.add:
+                showAddDialog();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void showAddDialog(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View view= LayoutInflater.from(this).inflate(R.layout.add_tm_dialog,null);
+            final AlertDialog deleteDialog=new AlertDialog.Builder(this).setView(view).create();
+            deleteDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+            PowerButton delBtn=(PowerButton)view.findViewById(R.id.sure_btn);
+            PowerButton cancelBtn=(PowerButton) view.findViewById(R.id.cancel_btn);
+            final TextInputEditText tmEd=(TextInputEditText)view.findViewById(R.id.tm_ed);
+            delBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String tmxh=tmEd.getText().toString();
+                    if (tmxh.equals("")){
+                        Toast.makeText(YljsflActivity.this,"条码序号不能为空",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Intent intent=new Intent();
+                        intent.setAction("com.rdypda.TMXH");
+                        intent.putExtra("tmxh",tmxh);
+                        sendBroadcast(intent);
+                        if (getIntent().getIntExtra("startType",0)==MainPresenter.YLTL){
+                            presenter.isValidCode(tmxh,"MTR_OUT",presenter.getKcdd());
+                        }else if (getIntent().getIntExtra("startType",0)==MainPresenter.YLJS){
+                            presenter.isValidCode(tmxh,"MTR_IN",presenter.getKcdd());
+                        }
+                        presenter.isValidCode(tmxh,"",presenter.getKcdd());
+                        deleteDialog.dismiss();
+                    }
+                }
+            });
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteDialog.dismiss();
+                }
+            });
+            deleteDialog.show();
+        }
+    }
+
+    public void showDeleteDialog(String wldm,String tmsl,String tmxh){
+        if (getIntent().getIntExtra("startType",0)==MainPresenter.YLTL){
+            //setShowDialogMsg("原料退料不能取消扫描");
+        }else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                View view= LayoutInflater.from(this).inflate(R.layout.wld_dialog,null);
+                final android.app.AlertDialog deleteDialog=new android.app.AlertDialog.Builder(this).setView(view).create();
+                deleteDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+                TextView wldmText=(TextView) view.findViewById(R.id.wlbh);
+                TextView tmslText=(TextView) view.findViewById(R.id.tmsl);
+                TextView tmxhText=(TextView) view.findViewById(R.id.tmbh);
+                PowerButton delBtn=(PowerButton)view.findViewById(R.id.del_btn);
+                PowerButton cancelBtn=(PowerButton) view.findViewById(R.id.cancel_btn);
+                delBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //presenter.deleteData(getIntent().getStringExtra("djbh"),getIntent().getStringExtra("wldm"));
+                        deleteDialog.dismiss();
+                    }
+                });
+                cancelBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deleteDialog.dismiss();
+                    }
+                });
+                wldmText.setText(wldm);
+                tmslText.setText(tmsl);
+                tmxhText.setText(tmxh);
+                deleteDialog.show();
+            }
+        }
+    }
 
     @Override
     protected void onDestroy() {

@@ -82,12 +82,9 @@ public class YljstlAdapter extends BaseRecyclerAdapter<YljstlAdapter.ViewHolder,
         notifyDataSetChanged();
     }
 
-    public void removeData(Map<String,String>map){
+    public void removeData(String tmxh){
         for (int i=0;i<data.size();i++){
-            if (data.get(i).get("wlbh").equals(map.get("wlbh"))&&
-                    data.get(i).get("wlgg").equals(map.get("wlgg"))&&
-                    data.get(i).get("tmsl").equals(map.get("tmsl"))&&
-                    data.get(i).get("tmbh").equals(map.get("tmbh"))){
+            if (data.get(i).get("tmbh").equals(tmxh)){
                 data.remove(i);
                 notifyDataSetChanged();
                 break;

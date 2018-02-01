@@ -95,7 +95,7 @@ public class LlddrMsgPresenter extends BasePresenter{
             @Override
             public void onError(Throwable e) {
                 e.printStackTrace();
-                view.showMessage("条码获取失败，请重试");
+                view.showMessage(e.getMessage());
                 view.setProgressDialogEnable("",false);
             }
 
@@ -108,7 +108,7 @@ public class LlddrMsgPresenter extends BasePresenter{
 
 
 
-    public void printEven(final String lldh, final String wlpm, final String ywwlpm, final String tmbh, final String tmpch){
+    public void printEven(final String wldm, final String wlpm, final String ywwlpm, final String tmbh, final String tmpch){
 
         if (!BluetoothAdapter.getDefaultAdapter().isEnabled()){
             view.showBlueToothAddressDialog();
@@ -130,12 +130,12 @@ public class LlddrMsgPresenter extends BasePresenter{
             public void subscribe(ObservableEmitter<String> e) throws Exception {
                 String address=preferenUtil.getString("blueToothAddress");
                 util.openPort(address);
-                util.printFont("原料编号:"+lldh.trim(),15,55);
+                util.printFont("原料编号:"+wldm.trim(),15,55);
                 util.printFont("品名规格:"+wlpm.trim()+",",15,105);
                 util.printFont(ywwlpm.trim()+" ",15,140);
                 util.printFont("批次号:"+tmpch.trim(),15,185);
                 util.printFont("条码编号:"+tmbh.trim(),15,235);
-                util.printQRCode(printMsg,370,55);
+                util.printQRCode(printMsg,340,55);
                 util.startPrint();
                 Log.e("printMsg",printMsg);
                 e.onNext("");

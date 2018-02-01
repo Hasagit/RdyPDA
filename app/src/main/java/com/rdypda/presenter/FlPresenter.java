@@ -57,7 +57,7 @@ public class FlPresenter extends BasePresenter {
     public void getScanedData(String lldh, final String wldm){
         view.setShowProgressEnable(true);
         String sql =String.format("Call Proc_PDA_GetScanList ('LLD','%s','%s')",lldh+";"+wldm,preferenUtil.getString("userId"));
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -66,26 +66,16 @@ public class FlPresenter extends BasePresenter {
             @Override
             public void onNext(JSONObject value) {
                 try {
-                    if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
-                        String cRetMsg=value.getJSONArray("Table1").getJSONObject(0).getString("cRetMsg");
-                        String[] item=cRetMsg.split(":");
-                        if (item[0].equals("OK")){
-                            JSONArray array=value.getJSONArray("Table2");
-                            List<Map<String,String>>data=new ArrayList<>();
-                            for (int i=0;i<array.length();i++){
-                                Map<String,String>map=new HashMap<>();
-                                map.put("tmxh",array.getJSONObject(i).getString("scan_tmxh"));
-                                map.put("tmsl",array.getJSONObject(i).getString("scan_qty"));
-                                map.put("wldm",wldm);
-                                data.add(map);
-                            }
-                            view.refreshReceive(data);
-                        }else {
-                            view.setShowMsgDialogEnable(item[1],true);
-                        }
-                    }else {
-                        view.setShowMsgDialogEnable(value.getJSONArray("Table0").getJSONObject(0).getString("cMsg"),true);
+                    JSONArray array=value.getJSONArray("Table2");
+                    List<Map<String,String>>data=new ArrayList<>();
+                    for (int i=0;i<array.length();i++){
+                        Map<String,String>map=new HashMap<>();
+                        map.put("tmxh",array.getJSONObject(i).getString("scan_tmxh"));
+                        map.put("tmsl",array.getJSONObject(i).getString("scan_qty"));
+                        map.put("wldm",wldm);
+                        data.add(map);
                     }
+                    view.refreshReceive(data);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     view.setShowMsgDialogEnable("数据解析出错",true);
@@ -98,6 +88,7 @@ public class FlPresenter extends BasePresenter {
             public void onError(Throwable e) {
                 e.printStackTrace();
                 view.setShowProgressEnable(false);
+                view.setShowMsgDialogEnable(e.getMessage(),true);
             }
 
             @Override
@@ -110,7 +101,7 @@ public class FlPresenter extends BasePresenter {
     public void deleteData(final String lldh, final String wldm){
         view.setShowProgressEnable(true);
         String sql=String.format("Call Proc_PDA_CancelScan('LLD', '%s', '%s')",lldh+";"+wldm,preferenUtil.getString("userId"));
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -118,24 +109,7 @@ public class FlPresenter extends BasePresenter {
 
             @Override
             public void onNext(JSONObject value) {
-                try {
-                    if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
-                        String cRetMsg=value.getJSONArray("Table1").getJSONObject(0).getString("cRetMsg");
-                        String[] item=cRetMsg.split(":");
-                        if (item[0].equals("OK")){
-                            getScanedData(lldh,wldm);
-                        }else {
-                            view.setShowMsgDialogEnable(item[1],true);
-                        }
-                    }else {
-                        view.setShowMsgDialogEnable(value.getJSONArray("Table0").getJSONObject(0).getString("cMsg"),true);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    view.setShowMsgDialogEnable("数据解析出错",true);
-                }finally {
-                    view.setShowProgressEnable(false);
-                }
+                getScanedData(lldh,wldm);
             }
             @Override
             public void onError(Throwable e) {
@@ -185,7 +159,7 @@ public class FlPresenter extends BasePresenter {
 
             @Override
             public void onError(Throwable e) {
-                view.setShowMsgDialogEnable("数据解析出错",true);
+                view.setShowMsgDialogEnable(e.getMessage(),true);
                 view.setShowProgressEnable(false);
             }
 
@@ -204,7 +178,7 @@ public class FlPresenter extends BasePresenter {
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','LLD', '%s', '%s')",
                 tmxh,lldh+";"+wldm,preferenUtil.getString("userId"));
         view.setShowProgressEnable(true);
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -214,25 +188,15 @@ public class FlPresenter extends BasePresenter {
             public void onNext(JSONObject value) {
                 try {
                     view.setShowProgressEnable(false);
-                    if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
-                        String result=value.getJSONArray("Table1").getJSONObject(0).getString("cRetMsg");
-                        String[] items=result.split(":");
-                        if (items[0].equals("OK")){
-                            JSONArray array=value.getJSONArray("Table2");
-                            if (array.length()>0){
-                                Map<String,String>map=new HashMap<>();
-                                map.put("tmxh",tmxh);
-                                map.put("tmsl",array.getJSONObject(0).getString("brp_Qty"));
-                                map.put("wldm",array.getJSONObject(0).getString("brp_wldm"));
-                                view.addReceiveData(map);
-                            }else {
-                                view.setShowMsgDialogEnable("条码验证异常",true);
-                            }
-                        }else {
-                            view.setShowMsgDialogEnable(items[1],true);
-                        }
+                    JSONArray array=value.getJSONArray("Table2");
+                    if (array.length()>0){
+                        Map<String,String>map=new HashMap<>();
+                        map.put("tmxh",tmxh);
+                        map.put("tmsl",array.getJSONObject(0).getString("brp_Qty"));
+                        map.put("wldm",array.getJSONObject(0).getString("brp_wldm"));
+                        view.addReceiveData(map);
                     }else {
-                        view.setShowMsgDialogEnable(value.getJSONArray("Table0").getJSONObject(0).getString("cMsg"),true);
+                        view.setShowMsgDialogEnable("条码验证异常",true);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -247,7 +211,7 @@ public class FlPresenter extends BasePresenter {
             public void onError(Throwable e) {
                 e.printStackTrace();
                 view.setShowProgressEnable(false);
-                view.setShowMsgDialogEnable("验证失败，请重试",true);
+                view.setShowMsgDialogEnable(e.getMessage(),true);
             }
 
             @Override

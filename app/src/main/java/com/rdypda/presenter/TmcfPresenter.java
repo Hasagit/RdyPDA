@@ -29,7 +29,7 @@ import io.reactivex.schedulers.Schedulers;
 public class TmcfPresenter extends BasePresenter {
     private ITmcfView view;
     private ScanUtil scanUtil;
-    private String printMsg,lldh,pmgg,pch,xtmxh;
+    private String printMsg,wldm,pmgg,pch,xtmxh;
 
 
     public TmcfPresenter(Context context,ITmcfView view) {
@@ -120,7 +120,7 @@ public class TmcfPresenter extends BasePresenter {
                     printMsg=array.getJSONObject(0).getString("brp_QrCode");
                     xtmxh=array.getJSONObject(0).getString("brp_Sn");
                     pch=array.getJSONObject(0).getString("brp_LotNo");
-                    lldh=array.getJSONObject(0).getString("brp_DocNo");
+                    wldm=array.getJSONObject(0).getString("brp_wldm");
                     pmgg=array.getJSONObject(0).getString("brp_pmgg");
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -172,12 +172,12 @@ public class TmcfPresenter extends BasePresenter {
             public void subscribe(ObservableEmitter<String> e) throws Exception {
                 String address=preferenUtil.getString("blueToothAddress");
                 util.openPort(address);
-                util.printFont("原料编号:"+lldh.trim(),15,55);
+                util.printFont("原料编号:"+wldm.trim(),15,55);
                 util.printFont("品名规格:"+wlpm_1.trim()+",",15,105);
                 util.printFont(wlpm_3.trim()+" ",15,140);
                 util.printFont("批次号:"+pch.trim(),15,185);
                 util.printFont("条码编号:"+xtmxh.trim(),15,235);
-                util.printQRCode(printMsg,370,55);
+                util.printQRCode(printMsg,340,55);
                 util.startPrint();
                 Log.e("printMsg",printMsg);
                 e.onNext("");

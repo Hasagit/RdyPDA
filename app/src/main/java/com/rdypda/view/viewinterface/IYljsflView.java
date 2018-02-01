@@ -18,5 +18,5 @@ public interface IYljsflView {
 
     void addYljstlRecyclerItem(Map<String,String>item);
 
-    void removeYljstlRecyclerItem(Map<String,String>item);
+    void removeYljstlRecyclerItem(String tmxh);
 }

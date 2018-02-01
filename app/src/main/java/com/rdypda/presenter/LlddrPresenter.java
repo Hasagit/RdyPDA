@@ -58,31 +58,28 @@ public class LlddrPresenter extends BasePresenter{
              @Override
              public void onNext(JSONObject value) {
                  try {
-                     if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
-                         JSONArray array=value.getJSONArray("Table1");
-                         if (array.length()==0){
-                             view.showToast("没有符合查询条件的领料单");
-                         }else {
-                             List<Map<String,String>>data=new ArrayList<>();
-                             for (int i=0;i<array.length();i++){
-                                 Map<String,String>map=new HashMap<>();
-                                 map.put("djbh",array.getJSONObject(i).getString("llm_djbh"));
-                                 map.put("xsdh",array.getJSONObject(i).getString("llm_ddbh"));
-                                 map.put("klrq",array.getJSONObject(i).getString("llm_ksrq"));
-                                 map.put("kcdd",array.getJSONObject(i).getString("stk_id"));
-                                 map.put("zt",array.getJSONObject(i).getString("llm_Status"));
-                                 map.put("wldm",array.getJSONObject(i).getString("llm_wldm"));
-                                 data.add(map);
-                             }
-                             view.showList(data);
-                         }
+                     JSONArray array=value.getJSONArray("Table1");
+                     if (array.length()==0){
+                         view.showToast("没有符合查询条件的领料单");
                      }else {
-                         view.showToast(value.getJSONArray("Table0").getJSONObject(0).getString("cMsg"));
+                         List<Map<String,String>>data=new ArrayList<>();
+                         for (int i=0;i<array.length();i++){
+                             Map<String,String>map=new HashMap<>();
+                             map.put("djbh",array.getJSONObject(i).getString("llm_djbh"));
+                             map.put("xsdh",array.getJSONObject(i).getString("llm_ddbh"));
+                             map.put("klrq",array.getJSONObject(i).getString("llm_ksrq"));
+                             map.put("kcdd",array.getJSONObject(i).getString("stk_id"));
+                             map.put("zt",array.getJSONObject(i).getString("llm_Status"));
+                             map.put("wldm",array.getJSONObject(i).getString("llm_wldm"));
+                             data.add(map);
+                         }
+                         view.showList(data);
                      }
                      view.setProgressDialogEnable(false);
                  } catch (JSONException e) {
                      e.printStackTrace();
                      view.showToast("查询出错！");
+                 }finally {
                      view.setProgressDialogEnable(false);
                  }
              }
@@ -90,7 +87,8 @@ public class LlddrPresenter extends BasePresenter{
              @Override
              public void onError(Throwable e) {
                 e.printStackTrace();
-                view.showToast("查询失败");
+                view.showToast(e.getMessage());
+                view.setProgressDialogEnable(false);
              }
 
              @Override
