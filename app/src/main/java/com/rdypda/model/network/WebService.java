@@ -63,19 +63,6 @@ public class WebService {
         }
     }
 
-
-    public static Observable<JSONArray>getQuerySqlResult(final String sql){
-        return Observable.create(new ObservableOnSubscribe<JSONArray>() {
-            @Override
-            public void subscribe(ObservableEmitter<JSONArray> e) throws Exception {
-                Response<String>response=getServiceApi().getQuerysqlResult(sql,"nopassword").execute();
-                e.onNext(stringToJsonArray(response.body()));
-                e.onComplete();
-            }
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-    }
-
-
     public static Observable<JSONObject>getCompanyList(){
         return Observable.create(new ObservableOnSubscribe<JSONObject>() {
             @Override
@@ -87,7 +74,6 @@ public class WebService {
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
-
     public static Observable<JSONObject>usrLogon(final String usrCmpId, final String usrId, final String usrPwd){
         return Observable.create(new ObservableOnSubscribe<JSONObject>() {
             @Override
@@ -98,7 +84,6 @@ public class WebService {
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
-
 
     public static Observable<JSONObject>querySqlCommandJosn(final String sqlCommand, final String cTokenUser){
         Log.e("querySqlCommandJosn",sqlCommand+"\n"+cTokenUser);
@@ -139,8 +124,6 @@ public class WebService {
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
-
-
 
     public static Observable<JSONObject>uploadScanWld(final List<Map<String,String>>data, final String lldh, final String userId, final String cTokenUser){
         return Observable.create(new ObservableOnSubscribe<JSONObject>() {

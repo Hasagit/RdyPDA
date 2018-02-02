@@ -72,7 +72,7 @@ public class FlPresenter extends BasePresenter {
                         Map<String,String>map=new HashMap<>();
                         map.put("tmxh",array.getJSONObject(i).getString("scan_tmxh"));
                         map.put("tmsl",array.getJSONObject(i).getString("scan_qty"));
-                        map.put("wldm",wldm);
+                        map.put("wldm",array.getJSONObject(i).getString("brp_wldm"));
                         data.add(map);
                     }
                     view.refreshReceive(data);
@@ -124,9 +124,10 @@ public class FlPresenter extends BasePresenter {
         });
     }
 
-    public void uploadScanWld(List<Map<String,String>>data){
+    public void uploadScanWld(){
         view.setShowProgressEnable(true);
-        WebService.uploadScanWld(data,lldh,preferenUtil.getString("userId"),preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        String sql=String.format("Call Proc_PDA_LLD_Post('%s','%s','%s')",lldh,wldm,preferenUtil.getString("userId"));
+        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -134,39 +135,21 @@ public class FlPresenter extends BasePresenter {
 
             @Override
             public void onNext(JSONObject value) {
-                try {
-                    if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
-                        String[] items=value.getJSONArray("Table1").getJSONObject(0).getString("cRetMsg").split(":");
-                        if (items[0].equals("OK")){
-                            Map<String,String>map=new HashMap<>();
-                            JSONObject object=value.getJSONObject("Table2");
-                            map.put("wldm",object.getString("wldm"));
-                            map.put("tmxh",object.getString("tmxh"));
-                            map.put("tmsl",object.getString("tmsl"));
-                            view.removeReceiveData(map);
-                        }else {
-                            view.setShowMsgDialogEnable(items[1],true);
-                        }
-                    }else {
-                        view.setShowMsgDialogEnable(value.getJSONArray("Table0").getJSONObject(0).getString("cMsg"),true);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    view.setShowMsgDialogEnable("数据解析出错",true);
-                    view.setShowProgressEnable(false);
-                }
+                view.refreshReceive(new ArrayList<Map<String, String>>());
+                view.setShowProgressEnable(false);
             }
 
             @Override
             public void onError(Throwable e) {
+                e.printStackTrace();
                 view.setShowMsgDialogEnable(e.getMessage(),true);
                 view.setShowProgressEnable(false);
+
             }
 
             @Override
             public void onComplete() {
-                view.setShowProgressEnable(false);
-                sendUploadFinishReceiver();
+
             }
         });
     }

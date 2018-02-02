@@ -163,7 +163,7 @@ public class YljsflPresenter extends BasePresenter{
             return;
         }
         view.setShowProgressDialogEnable(true);
-        String sql=String.format("Call Proc_PDA_IsValidCode ('%s','%s', '%s', '%s');",tmxh,type,kcdd+";"+wldm+";"+djbh,preferenUtil.getString("userId"));
+        String sql=String.format("Call Proc_PDA_IsValidCode ('%s','%s', '%s', '%s');",tmxh,type,kcdd+";"+djbh+";"+wldm,preferenUtil.getString("userId"));
         WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {

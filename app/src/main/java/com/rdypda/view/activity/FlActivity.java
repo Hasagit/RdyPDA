@@ -100,7 +100,7 @@ public class FlActivity extends BaseActivity implements IFlView {
         switch (view.getId()){
             case R.id.save_btn:
                 if (adapter!=null){
-                    presenter.uploadScanWld(adapter.getData());
+                    presenter.uploadScanWld();
                 }else {
                     Toast.makeText(FlActivity.this,"扫描列表未初始化，请重新进入",Toast.LENGTH_SHORT).show();
                 }
@@ -156,15 +156,6 @@ public class FlActivity extends BaseActivity implements IFlView {
             Toast.makeText(FlActivity.this,"扫描列表未初始化，请重新进入",Toast.LENGTH_SHORT).show();
         }else {
             adapter.addData(item);
-        }
-    }
-
-    @Override
-    public void removeReceiveData(Map<String, String> item) {
-        if (adapter!=null){
-            adapter.deleteData(item);
-        }else {
-            Toast.makeText(FlActivity.this,"扫描列表未初始化，请重新进入",Toast.LENGTH_SHORT).show();
         }
     }
 

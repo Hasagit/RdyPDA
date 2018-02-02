@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.liangmutian.airrecyclerview.swipetoloadlayout.BaseRecyclerAdapter;
 import com.rdypda.R;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -84,29 +85,6 @@ public class ReceiveAdapter extends BaseRecyclerAdapter<ReceiveAdapter.ReceiveVi
             data.add(0,map);
             notifyDataSetChanged();
         }
-    }
-
-    public void deleteData(Map<String,String>map){
-        boolean isExist=false;
-        for (int i=0;i<data.size();i++){
-            if (map.get("tmxh").equals(data.get(i).get("tmxh"))&&
-                    map.get("tmsl").equals(data.get(i).get("tmsl"))&&
-                    map.get("wldm").equals(data.get(i).get("wldm"))){
-                data.remove(i);
-                notifyItemRemoved(i);
-                notifyItemRangeChanged(0,data.size());
-                //notifyDataSetChanged();
-                isExist=true;
-                break;
-            }
-        }
-        if (!isExist){
-            Toast.makeText(context,"改单已在列表移除",Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public List<Map<String, String>> getData() {
-        return data;
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

@@ -16,5 +16,4 @@ public interface IFlView extends IBaseView{
 
     void addReceiveData(Map<String,String>item);
 
-    void removeReceiveData(Map<String,String>item);
 }

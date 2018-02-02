@@ -54,10 +54,10 @@ public class LlddrMsgPresenter extends BasePresenter{
             view.showMessage("请先输入条码数量");
             return;
         }
-        if (!tmbh.equals("")){
+       /* if (!tmbh.equals("")){
             view.showMessage("已经获取条码");
             return;
-        }
+        }*/
         view.setProgressDialogEnable("获取中...",true);
         String sql=String.format("Call Proc_GenQrcode('MRP','MR','%s','%s','%s',%s,'%s','%s','%s','%s','','%s')",
                 lldh,wlbh,tmpch,tmsl,dw,gch,kcdd,kcdd,preferenUtil.getString("userId"));
