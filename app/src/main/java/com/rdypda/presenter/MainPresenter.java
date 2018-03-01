@@ -4,16 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
-import com.rdypda.R;
 import com.rdypda.model.network.WebService;
 import com.rdypda.util.DownloadUtils;
-import com.rdypda.util.DownloadUtilsII;
-import com.rdypda.util.PrintUtil;
-import com.rdypda.view.activity.GdxqActivity;
 import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
 import com.rdypda.view.activity.TmbdActivity;
@@ -52,10 +47,6 @@ public class MainPresenter extends BasePresenter{
         super(context);
         this.view = view;
         view.setUserName("你好，"+preferenUtil.getString("usr_yhmc"));
-        if (Build.MODEL.equals(context.getResources().getString(R.string.print_scan_model))){
-            PrintUtil util=new PrintUtil(context);
-            util.initPost();
-        }
         autoUpdate();
     }
 
@@ -282,7 +273,7 @@ public class MainPresenter extends BasePresenter{
     }
 
     public void downloadInstallApk(String urlStr){
-        DownloadUtilsII downloadUtils=new DownloadUtilsII(context);
+        DownloadUtils downloadUtils=new DownloadUtils(context);
         view.setShowDownloadProgressDialogEnable(true);
         downloadUtils.downloadAPK(urlStr,Environment.getExternalStorageDirectory().getPath(),"RdyPDA.apk").subscribe(new Observer<Integer>() {
             @Override

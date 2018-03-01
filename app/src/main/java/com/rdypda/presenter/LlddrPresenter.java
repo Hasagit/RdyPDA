@@ -38,7 +38,7 @@ public class LlddrPresenter extends BasePresenter{
     public void refreshListData(){
     }
 
-    public void queryDataByKey(final String lldh,String wldm,String ddbh){
+    public void queryDataByKey(final String lldh,String wldm,String ddbh,int starType){
          if ((!view.isFinishCheck())&(!view.isUnFinishCheck())){
              view.showToast("至少选中一种状态");
              return;
@@ -48,7 +48,12 @@ public class LlddrPresenter extends BasePresenter{
          if (view.isFinishCheck())status="2";
          if (view.isUnFinishCheck()&view.isFinishCheck())status="3";
          view.setProgressDialogEnable(true);
-         String sql=String.format("Call Proc_PDA_Get_lld('%s','%s','%s','',%s)",lldh,wldm,ddbh,status);
+        String sql="";
+         if (starType==MainPresenter.YLJS|starType==MainPresenter.YLTL){
+             sql=String.format("Call Proc_PDA_Get_lld2('%s','%s','%s','',%s)",lldh,wldm,ddbh,status);
+         }else {
+             sql=String.format("Call Proc_PDA_Get_lld('%s','%s','%s','',%s)",lldh,wldm,ddbh,status);
+         }
          WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
              @Override
              public void onSubscribe(Disposable d) {

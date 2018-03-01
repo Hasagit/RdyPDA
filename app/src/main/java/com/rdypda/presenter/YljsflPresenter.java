@@ -28,7 +28,7 @@ public class YljsflPresenter extends BasePresenter{
     private ScanUtil scanUtil;
     private String djbh,wldm;
     private int startType=0;
-    private String kcdd;
+    private String kcdd="";
 
     public YljsflPresenter(Context context,IYljsflView view) {
         super(context);
@@ -67,6 +67,7 @@ public class YljsflPresenter extends BasePresenter{
                 try {
                     JSONArray array=value.getJSONArray("Table1");
                     List<String>data=new ArrayList<>();
+                    data.add("");
                     for (int i=0;i<array.length();i++){
                         String dh=array.getJSONObject(i).getString("kwm_ftyid")+"; "+
                                 array.getJSONObject(i).getString("kwm_stkId")+"; "+
@@ -154,7 +155,7 @@ public class YljsflPresenter extends BasePresenter{
     }
 
     public void isValidCode(String tmxh,String type,String kcdd){
-        if (kcdd==null){
+        if (kcdd.equals("")){
             view.setShowDialogMsg("库存地点获取失败，请重新进入");
             return;
         }

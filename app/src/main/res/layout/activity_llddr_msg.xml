@@ -175,6 +175,7 @@
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
                     <EditText
+                        android:inputType="number"
                         android:id="@+id/tmpch"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
@@ -209,6 +210,7 @@
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
                     <EditText
+                        android:inputType="number"
                         android:id="@+id/tmsl"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"

@@ -69,7 +69,7 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
         switch (view.getId()){
             case R.id.btn_query:
                 showList(new ArrayList<Map<String, String>>());
-                presenter.queryDataByKey(lldhEd.getText().toString(),wldmEd.getText().toString(),ddbhEd.getText().toString());
+                presenter.queryDataByKey(lldhEd.getText().toString(),wldmEd.getText().toString(),ddbhEd.getText().toString(),startType);
                 break;
         }
     }

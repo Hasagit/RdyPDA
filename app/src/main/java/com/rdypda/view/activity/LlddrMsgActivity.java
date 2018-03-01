@@ -1,21 +1,15 @@
 package com.rdypda.view.activity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.provider.Settings;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -24,13 +18,9 @@ import android.widget.TextView;
 import com.rdypda.R;
 import com.rdypda.model.cache.PreferenUtil;
 import com.rdypda.presenter.LlddrMsgPresenter;
-import com.rdypda.util.PrintUtil;
 import com.rdypda.view.viewinterface.ILlddrMsgView;
 import com.rdypda.view.widget.PowerButton;
 
-import org.w3c.dom.Text;
-
-import java.util.List;
 import java.util.Set;
 
 import butterknife.BindView;
@@ -224,6 +214,5 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.closePrint();
     }
 }

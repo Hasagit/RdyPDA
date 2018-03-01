@@ -2,22 +2,15 @@ package com.rdypda.presenter;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.os.Build;
-import android.posapi.PrintQueue;
 import android.util.Log;
 
-import com.rdypda.R;
 import com.rdypda.model.network.WebService;
-import com.rdypda.util.PrintUtil;
 import com.rdypda.util.PrinterUtil;
 import com.rdypda.view.viewinterface.ILlddrMsgView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -32,17 +25,12 @@ import io.reactivex.schedulers.Schedulers;
 
 public class LlddrMsgPresenter extends BasePresenter{
     private ILlddrMsgView view;
-    private PrintUtil printUtil;
     private String printMsg;
 
     public LlddrMsgPresenter( Context context,ILlddrMsgView view) {
         super(context);
         this.view = view;
         this.context = context;
-        if (Build.MODEL.equals(context.getResources().getString(R.string.print_scan_model))){
-            printUtil=new PrintUtil(context);
-            printUtil.initPrintQueue();
-        }
     }
 
     public void getTmxh(String tmpch,String tmsl,String lldh,String wlbh,String dw,String gch,String kcdd,String tmbh){
@@ -54,10 +42,6 @@ public class LlddrMsgPresenter extends BasePresenter{
             view.showMessage("请先输入条码数量");
             return;
         }
-       /* if (!tmbh.equals("")){
-            view.showMessage("已经获取条码");
-            return;
-        }*/
         view.setProgressDialogEnable("获取中...",true);
         String sql=String.format("Call Proc_GenQrcode('MRP','MR','%s','%s','%s',%s,'%s','%s','%s','%s','','%s')",
                 lldh,wlbh,tmpch,tmsl,dw,gch,kcdd,kcdd,preferenUtil.getString("userId"));
@@ -168,9 +152,4 @@ public class LlddrMsgPresenter extends BasePresenter{
 
     }
 
-    public void closePrint(){
-        if (printUtil!=null){
-            printUtil.closePrint();
-        }
-    }
 }

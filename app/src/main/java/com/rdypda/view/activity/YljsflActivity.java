@@ -133,7 +133,7 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
         if (data.size()>0){
             presenter.setKcdd(data.get(0));
         }else {
-            presenter.setKcdd(null);
+            presenter.setKcdd("");
         }
     }
 

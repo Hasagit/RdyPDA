@@ -6,120 +6,84 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.database.Observable;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 
-import retrofit2.http.Url;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by DengJf on 2018/1/22.
  */
 
 public class DownloadUtils {
-    //下载器
-    private DownloadManager downloadManager;
-    //上下文
     private Context mContext;
-    //下载的ID
-    private long downloadId;
-    public  DownloadUtils(Context context){
-        this.mContext = context;
+
+    public DownloadUtils(Context mContext) {
+        this.mContext = mContext;
     }
 
-    //下载apk
-    public void downloadAPK(String url, String name) {
-        try {
-            Uri uri=Uri.parse(URLEncoder.encode(url,"utf-8"));
-            //创建下载任务
-            DownloadManager.Request request = new DownloadManager.Request(uri);
-            //移动网络情况下是否允许漫游
-            request.setAllowedOverRoaming(false);
-
-            //在通知栏中显示，默认就是显示的
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-            request.setTitle("新版本Apk");
-            request.setDescription("Apk Downloading");
-            request.setVisibleInDownloadsUi(true);
-
-            //设置下载的路径
-            request.setDestinationInExternalPublicDir(Environment.getExternalStorageDirectory().getAbsolutePath() , name);
-
-            //获取DownloadManager
-            downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-            //将下载请求加入下载队列，加入下载队列后会给该任务返回一个long型的id，通过该id可以取消任务，重启任务、获取下载的文件等等
-            downloadId = downloadManager.enqueue(request);
-
-            //注册广播接收者，监听下载状态
-            mContext.registerReceiver(receiver,
-                    new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-
-        }catch (IllegalArgumentException e){
-            e.printStackTrace();
-            Toast.makeText(mContext,"下载地址不可用",Toast.LENGTH_SHORT).show();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //广播监听下载的各个状态
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            checkStatus();
-        }
-    };
-
-
-    //检查下载状态
-    private void checkStatus() {
-        DownloadManager.Query query = new DownloadManager.Query();
-        //通过下载的id查找
-        query.setFilterById(downloadId);
-        Cursor c = downloadManager.query(query);
-        if (c.moveToFirst()) {
-            int status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
-            switch (status) {
-                //下载暂停
-                case DownloadManager.STATUS_PAUSED:
-                    break;
-                //下载延迟
-                case DownloadManager.STATUS_PENDING:
-                    break;
-                //正在下载
-                case DownloadManager.STATUS_RUNNING:
-                    break;
-                //下载完成
-                case DownloadManager.STATUS_SUCCESSFUL:
-                    //下载完成安装APK
-                    installAPK();
-                    break;
-                //下载失败
-                case DownloadManager.STATUS_FAILED:
-                    Toast.makeText(mContext, "下载失败", Toast.LENGTH_SHORT).show();
-                    break;
+    public io.reactivex.Observable<Integer> downloadAPK(final String url_str, final String filePath, final String fileName){
+        return io.reactivex.Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                URL url= null;
+                File file=new File(filePath);
+                if (!file.exists()){
+                    file.mkdir();
+                }
+                url = new URL(url_str);
+                HttpURLConnection urlConnection=(HttpURLConnection) url.openConnection();
+                urlConnection.setDoInput(true);
+                urlConnection.setUseCaches(false);
+                urlConnection.setRequestMethod("GET");
+                urlConnection.setConnectTimeout(5000);
+                urlConnection.connect();
+                double fileSize=urlConnection.getContentLength()/1024;
+                Log.e("getLastModified()",urlConnection.getLastModified()+"");
+                InputStream in=urlConnection.getInputStream();
+                OutputStream out=new FileOutputStream(filePath+"/"+fileName,false);
+                byte[] buff=new byte[1024];
+                int downloadSize=0;
+                int size;
+                while ((size = in.read(buff)) != -1) {
+                    downloadSize++;
+                    if (downloadSize%100==0){
+                        int progress=(int) (downloadSize/fileSize*100);
+                        if (progress<=100)
+                        e.onNext(progress);
+                        Log.e("download",downloadSize/fileSize+"");
+                    }
+                    out.write(buff, 0, size);
+                }
+                installAPK(filePath+"/"+fileName);
+                e.onComplete();
             }
-        }
-        c.close();
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     //下载到本地后执行安装
-    private void installAPK() {
+    private void installAPK(String filePath) {
         //获取下载文件的Uri
-        Uri downloadFileUri = downloadManager.getUriForDownloadedFile(downloadId);
+        Uri downloadFileUri = Uri.fromFile(new File(filePath));
         if (downloadFileUri != null) {
             Intent intent= new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(downloadFileUri, "application/vnd.android.package-archive");
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);
-            mContext.unregisterReceiver(receiver);
         }
     }
-
 }
-

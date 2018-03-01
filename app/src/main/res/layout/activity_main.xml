@@ -96,6 +96,12 @@
                             android:orientation="horizontal"
                             android:id="@+id/tmdy"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/print_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -103,7 +109,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="发料条码打印"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -122,6 +128,12 @@
                             android:id="@+id/fl"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/fl_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -129,7 +141,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="发料"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -178,6 +190,12 @@
                             android:id="@+id/yljs"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/yljs_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -185,7 +203,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="原料接收"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -203,6 +221,12 @@
                             android:id="@+id/yltl"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/yltl_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -210,7 +234,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="原料退料"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -218,8 +242,6 @@
                                 android:layout_gravity="center_vertical"/>
                         </LinearLayout>
                     </LinearLayout>
-
-
 
 
                     <LinearLayout
@@ -260,6 +282,12 @@
                             android:id="@+id/hl"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/hl_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -267,7 +295,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="混料"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -285,6 +313,12 @@
                             android:id="@+id/aldfl"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/adfl_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -292,7 +326,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="按料单发料"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -310,6 +344,12 @@
                             android:id="@+id/tl"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/tl_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -317,7 +357,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="退料"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -335,6 +375,12 @@
                             android:id="@+id/gdtldylz"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/gdtldylz_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -342,7 +388,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="工单退料到原料组"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -350,7 +396,6 @@
                                 android:layout_gravity="center_vertical"/>
                         </LinearLayout>
                     </LinearLayout>
-
 
 
                     <LinearLayout
@@ -391,6 +436,12 @@
                             android:id="@+id/cpsmrk"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/cpsmrk_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -398,7 +449,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="产品扫描入库"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -416,6 +467,12 @@
                             android:id="@+id/ykll"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/ykll_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -423,7 +480,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="移库领料"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -431,7 +488,6 @@
                                 android:layout_gravity="center_vertical"/>
                         </LinearLayout>
                     </LinearLayout>
-
 
 
                     <LinearLayout
@@ -472,6 +528,12 @@
                             android:id="@+id/adfl"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/adfl2_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -479,7 +541,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="按单发料"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -497,6 +559,12 @@
                             android:id="@+id/adtl"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/adtl_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -504,7 +572,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="按单退料"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -522,6 +590,12 @@
                             android:id="@+id/yktldck"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/yklldck_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -529,7 +603,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="移库退料到仓库"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -537,8 +611,6 @@
                                 android:layout_gravity="center_vertical"/>
                         </LinearLayout>
                     </LinearLayout>
-
-
 
 
                     <LinearLayout
@@ -579,6 +651,12 @@
                             android:id="@+id/tmcf"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/tmcf_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -586,7 +664,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="条码拆分"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -604,6 +682,12 @@
                             android:id="@+id/tmbd"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/tmbd_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -611,7 +695,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="条码补打"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -629,6 +713,12 @@
                             android:id="@+id/kcpd"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/kcpd_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -636,7 +726,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="库存盘点"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -654,6 +744,12 @@
                             android:id="@+id/tmcx"
                             android:orientation="horizontal"
                             >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/tmcx_icon"/>
                             <TextView
                                 android:layout_width="10dp"
                                 android:layout_height="wrap_content"
@@ -661,7 +757,195 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="条码查询"
                                 android:textColor="@android:color/black"
-                                android:layout_marginLeft="20dp"/>
+                                />
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/more"
+                                android:layout_gravity="center_vertical"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:orientation="horizontal">
+                                <LinearLayout
+                                    android:layout_width="10dp"
+                                    android:layout_height="1dp"
+                                    android:background="@drawable/diver_ii"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1"></LinearLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:textSize="10dp"
+                                    android:text="原料混料"/>
+                                <LinearLayout
+                                    android:layout_width="10dp"
+                                    android:layout_height="1dp"
+                                    android:background="@drawable/diver_ii"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1"></LinearLayout>
+                            </LinearLayout>
+                        </FrameLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@drawable/diver"></LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="@drawable/white_btn_bg"
+                            android:id="@+id/hlbz"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/hlbz_icon"/>
+                            <TextView
+                                android:layout_width="10dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical"
+                                android:text="混料包装"
+                                android:textColor="@android:color/black"
+                                />
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/more"
+                                android:layout_gravity="center_vertical"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@drawable/diver"></LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="@drawable/white_btn_bg"
+                            android:id="@+id/ltjl"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/ltjl_icon"/>
+                            <TextView
+                                android:layout_width="10dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical"
+                                android:text="料筒加料"
+                                android:textColor="@android:color/black"
+                                />
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/more"
+                                android:layout_gravity="center_vertical"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@drawable/diver"></LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="@drawable/white_btn_bg"
+                            android:id="@+id/wydrk"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/wydrk_icon"/>
+                            <TextView
+                                android:layout_width="10dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical"
+                                android:text="无源单入库"
+                                android:textColor="@android:color/black"
+                                />
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/more"
+                                android:layout_gravity="center_vertical"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@drawable/diver"></LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="@drawable/white_btn_bg"
+                            android:id="@+id/wydck"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/wydck_icon"/>
+                            <TextView
+                                android:layout_width="10dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical"
+                                android:text="无源单出库"
+                                android:textColor="@android:color/black"
+                                />
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/more"
+                                android:layout_gravity="center_vertical"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@drawable/diver"></LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="@drawable/white_btn_bg"
+                            android:id="@+id/yk"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/yk_icon"/>
+                            <TextView
+                                android:layout_width="10dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical"
+                                android:text="移库"
+                                android:textColor="@android:color/black"
+                                />
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="40dp"
@@ -686,13 +970,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:background="@color/colorPrimary">
-                <TextView
-                    android:id="@+id/user_name"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="@android:color/white"
-                    />
+                    android:orientation="vertical">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/b_img"/>
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@android:color/white"
+                        />
+                </LinearLayout>
             </FrameLayout>
             <LinearLayout
                 android:layout_width="match_parent"
