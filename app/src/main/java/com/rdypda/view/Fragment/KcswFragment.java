@@ -30,7 +30,7 @@ public class KcswFragment extends Fragment {
     }
 
     public void refreshKcsw(List<Map<String,String>>data){
-        KcswAdapter adapter=new KcswAdapter(getContext(),R.layout.kcsw_item,data);
+        KcswAdapter adapter=new KcswAdapter(getContext(),R.layout.item_kcsw,data);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
         recyclerView.setAdapter(adapter);
     }

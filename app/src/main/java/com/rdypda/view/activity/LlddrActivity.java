@@ -107,7 +107,7 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
 
     @Override
     public void showList(List<Map<String, String>> data) {
-        adapter=new LlddrAdapter(LlddrActivity.this,R.layout.lllddr_item,data,startType);
+        adapter=new LlddrAdapter(LlddrActivity.this,R.layout.item_lllddr,data,startType);
         lldListView.setLayoutManager(new GridLayoutManager(LlddrActivity.this,1));
         lldListView.setAdapter(adapter);
     }

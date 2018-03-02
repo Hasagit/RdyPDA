@@ -4,9 +4,7 @@ import android.app.AlertDialog;
 import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.os.Build;
-import android.support.design.widget.TabLayout;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -17,11 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rdypda.R;
-import com.rdypda.adapter.ActivityViewPagerAdapter;
 import com.rdypda.view.viewinterface.IFlTabView;
 import com.rdypda.view.widget.PowerButton;
 
@@ -115,7 +111,7 @@ public class FlTabActivity extends BaseActivity implements IFlTabView {
 
     public void showAddDialog(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            View view= LayoutInflater.from(this).inflate(R.layout.add_tm_dialog,null);
+            View view= LayoutInflater.from(this).inflate(R.layout.dialog_add_tm,null);
             final AlertDialog deleteDialog=new AlertDialog.Builder(this).setView(view).create();
             deleteDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
             PowerButton delBtn=(PowerButton)view.findViewById(R.id.sure_btn);

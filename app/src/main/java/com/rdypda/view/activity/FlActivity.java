@@ -9,14 +9,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +23,6 @@ import android.widget.Toast;
 import com.rdypda.R;
 import com.rdypda.adapter.ReceiveAdapter;
 import com.rdypda.presenter.FlPresenter;
-import com.rdypda.presenter.LoginPresenter;
 import com.rdypda.view.viewinterface.IFlView;
 import com.rdypda.view.widget.PowerButton;
 
@@ -120,7 +115,7 @@ public class FlActivity extends BaseActivity implements IFlView {
 
     @Override
     public void refreshReceive(List<Map<String, String>> data) {
-        adapter=new ReceiveAdapter(this,R.layout.fl_wl_item,data);
+        adapter=new ReceiveAdapter(this,R.layout.item_fl_wl,data);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new ReceiveAdapter.OnItemClickListener() {
@@ -161,7 +156,7 @@ public class FlActivity extends BaseActivity implements IFlView {
 
     public void showDeleteDialog(String wldm,String tmsl,String tmxh){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            View view= LayoutInflater.from(this).inflate(R.layout.wld_dialog,null);
+            View view= LayoutInflater.from(this).inflate(R.layout.dialog_wld,null);
             final AlertDialog deleteDialog=new AlertDialog.Builder(this).setView(view).create();
             deleteDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
             TextView wldmText=(TextView) view.findViewById(R.id.wlbh);

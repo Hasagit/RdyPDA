@@ -1,11 +1,9 @@
 package com.rdypda.view.activity;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import com.rdypda.R;
 import com.rdypda.adapter.GdxqAdapter;
@@ -55,7 +53,7 @@ public class GdxqActivity extends BaseActivity implements IGdxqView{
 
     @Override
     public void refreshRecyclerView(List<Map<String, String>> data) {
-        adapter=new GdxqAdapter(GdxqActivity.this,R.layout.gdxq_item,data);
+        adapter=new GdxqAdapter(GdxqActivity.this,R.layout.item_gdxq,data);
         recyclerView.setLayoutManager(new GridLayoutManager(GdxqActivity.this,1));
         recyclerView.setAdapter(adapter);
     }

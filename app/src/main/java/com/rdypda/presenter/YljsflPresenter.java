@@ -156,7 +156,7 @@ public class YljsflPresenter extends BasePresenter{
 
     public void isValidCode(String tmxh,String type,String kcdd){
         if (kcdd.equals("")){
-            view.setShowDialogMsg("库存地点获取失败，请重新进入");
+            view.setShowDialogMsg("请先选择库位");
             return;
         }
         if (tmxh.equals("")){

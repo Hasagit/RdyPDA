@@ -10,7 +10,6 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -96,7 +95,7 @@ public class TmbdActivity extends BaseActivity implements ITmbdView {
 
     public void showAddDialog(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            View view= LayoutInflater.from(this).inflate(R.layout.add_tm_dialog,null);
+            View view= LayoutInflater.from(this).inflate(R.layout.dialog_add_tm,null);
             final AlertDialog deleteDialog=new AlertDialog.Builder(this).setView(view).create();
             deleteDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
             PowerButton delBtn=(PowerButton)view.findViewById(R.id.sure_btn);

@@ -2,14 +2,12 @@ package com.rdypda.view.activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -86,7 +84,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
         //userIdEd.setInputType(InputType.TYPE_NULL);
         //userPwdEd.setInputType(InputType.TYPE_NULL|InputType.TYPE_TEXT_VARIATION_PASSWORD);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            View view= LayoutInflater.from(this).inflate(R.layout.ip_setting_dialog,null);
+            View view= LayoutInflater.from(this).inflate(R.layout.dialog_ip_setting,null);
             ipSettingDialog=new AlertDialog.Builder(this).setView(view).create();
             ipSettingDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
             PowerButton sureBtn=view.findViewById(R.id.sure_btn);

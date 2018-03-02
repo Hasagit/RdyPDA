@@ -1,16 +1,36 @@
 package com.rdypda.view.activity;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.rdypda.R;
+import com.rdypda.adapter.HlAdapter;
+import com.rdypda.adapter.HlScanedAdapter;
 import com.rdypda.presenter.HlPresenter;
 import com.rdypda.view.viewinterface.IHlView;
+import com.rdypda.view.widget.PowerButton;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,12 +39,19 @@ public class HlActivity extends BaseActivity implements IHlView {
     private HlPresenter presenter;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.sblb)
+    Spinner sblbSp;
+    @BindView(R.id.sbmx)
+    Spinner sbmxSp;
+    @BindView(R.id.hl_1_list)
+    RecyclerView hlList;
+    @BindView(R.id.hl_2_list)
+    RecyclerView scanedList;
     @BindView(R.id.save_btn)
     FloatingActionButton saveBtn;
-    @BindView(R.id.print_btn)
-    FloatingActionButton printBtn;
-    @BindView(R.id.hl_list)
-    RecyclerView hlReceiclerView;
+    private ProgressDialog progressDialog;
+    private AlertDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +66,122 @@ public class HlActivity extends BaseActivity implements IHlView {
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setTitle("请稍后...");
+
+        dialog=new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).create();
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.uploadHl();
+            }
+        });
+    }
+
+    @Override
+    public void showTmMsgDialog(String hljh, final String tmxh, String wlbh, String wlgg, final String tmsl){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View view= LayoutInflater.from(this).inflate(R.layout.dialog_hl,null);
+            final AlertDialog msgDilaog=new AlertDialog.Builder(this)
+                    .setView(view)
+                    .setCancelable(false)
+                    .create();
+            msgDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+            TextView hljhText=(TextView)view.findViewById(R.id.hljh);
+            TextView tmxhText=(TextView)view.findViewById(R.id.tmbh);
+            TextView wlbhText=(TextView)view.findViewById(R.id.wlbh);
+            TextView wlggText=(TextView)view.findViewById(R.id.wlgg);
+            TextView tmslText=(TextView)view.findViewById(R.id.tmsl);
+            final EditText tlslText=(EditText) view.findViewById(R.id.tlsl);
+            PowerButton sureBtn=(PowerButton)view.findViewById(R.id.sure_btn);
+            PowerButton cancelBtn=(PowerButton)view.findViewById(R.id.cancel_btn);
+            hljhText.setText(hljh);
+            tmxhText.setText(tmxh);
+            wlbhText.setText(wlbh);
+            wlggText.setText(wlgg);
+            tmslText.setText(tmsl);
+            sureBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenter.uploadQty(tmxh,tlslText.getText().toString(),tmsl);
+                    msgDilaog.dismiss();
+                }
+            });
+
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    msgDilaog.dismiss();
+                }
+            });
+            msgDilaog.show();
+        }
+    }
+
+    @Override
+    public void refreshScanedList(List<Map<String, String>> data) {
+        HlScanedAdapter adapter=new HlScanedAdapter(HlActivity.this,R.layout.item_hl_scaned,data);
+        scanedList.setLayoutManager(new GridLayoutManager(HlActivity.this,1));
+        scanedList.setAdapter(adapter);
+        adapter.setOnItemClickListener(new HlScanedAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, Map<String, String> map) {
+                /*if (presenter.getHljh().equals("")){
+                    showMsgDialog("设备明细不能为空");
+                    return;
+                }
+                showTmMsgDialog(presenter.getHljh(),
+                        map.get("lab_1"),
+                        map.get("lab_3"),
+                        map.get("lab_4"),
+                        map.get("lab_2"));*/
+            }
+        });
+
+        adapter.setOnItemLongClickListener(new HlScanedAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(int position, final Map<String, String> map) {
+                AlertDialog dialog=new AlertDialog.Builder(HlActivity.this)
+                        .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("删除", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                presenter.delScanedData(map.get("lab_1"));
+                            }
+                        })
+                        .setNeutralButton("全部删除", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                presenter.delScanedData("");
+                            }
+                        })
+                        .setTitle("提示")
+                        .setMessage("确定删除“"+map.get("lab_1")+"”此记录？")
+                        .create();
+                dialog.show();
+            }
+        });
+    }
+
+    @Override
+    public void refreshHlList(List<Map<String, String>> data) {
+        HlAdapter adapter=new HlAdapter(HlActivity.this,R.layout.item_hl_scaned,data);
+        hlList.setAdapter(adapter);
+        hlList.setLayoutManager(new GridLayoutManager(HlActivity.this,1));
     }
 
     @Override
@@ -49,5 +192,88 @@ public class HlActivity extends BaseActivity implements IHlView {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setShowProgressDialogEnable(boolean enable) {
+        if (enable){
+            progressDialog.show();
+        }else {
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void showMsgDialog(String msg) {
+        dialog.setMessage(msg);
+        dialog.show();
+    }
+
+    @Override
+    public void refreshSblb(final List<String> data) {
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlActivity.this,android.R.layout.simple_spinner_dropdown_item,data);
+        sblbSp.setAdapter(adapter);
+        if (data.size()>0){
+            String[] item=data.get(0).split(",");
+            if (item.length>0){
+                presenter.getSbmc(item[0]);
+            }else {
+                showMsgDialog("数据解析出错");
+            }
+        }
+        sblbSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                refreshSbmx(new ArrayList<String>());
+                presenter.setHljh("");
+                String[] item=data.get(position).split(",");
+                if (item.length>0){
+                    presenter.getSbmc(item[0]);
+                }else {
+                    showMsgDialog("数据解析出错");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    @Override
+    public void refreshSbmx(final List<String> data) {
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlActivity.this,android.R.layout.simple_spinner_dropdown_item,data);
+        sbmxSp.setAdapter(adapter);
+        if(data.size()>0){
+            String[]item=data.get(0).split(",");
+            if (item.length>0){
+                presenter.setHljh(item[0]);
+            }else {
+                showMsgDialog("数据解析出错");
+            }
+        }
+        sbmxSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String[]item=data.get(position).split(",");
+                if (item.length>0){
+                    presenter.setHljh(item[0]);
+                }else {
+                    showMsgDialog("数据解析出错");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.closeScanUtil();
     }
 }

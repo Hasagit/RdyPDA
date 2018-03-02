@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.rdypda.model.network.WebService;
 import com.rdypda.util.DownloadUtils;
+import com.rdypda.view.activity.HlActivity;
 import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
 import com.rdypda.view.activity.TmbdActivity;
@@ -131,9 +132,21 @@ public class MainPresenter extends BasePresenter{
 
     //混料
     public void goToHl(){
+        if (isPermission("MOM503D1")){
+            Intent intent=new Intent(context, HlActivity.class);
+            context.startActivity(intent);
+        }else {
+            view.showMsgDialog("你没有权限使用该功能");
+        }
+    }
+
+    //按料单发料
+    public void goToAldfl(){
         view.showMsgDialog("敬请期待");
-        String sql="insert Into kcm_mstr (kcm_ftyid, kcm_stkid, kcm_kwdm, kcm_cwdm, kcm_ph, kcm_wldm, kcm_kcsl, kcm_wfpl, kcm_jlrq, kcm_jlry)Select '333','NSS','NSS','','','84060143-002',10,10,now(),'ADMIN' On Duplicate Key Update kcm_kcsl = kcm_kcsl + 10, kcm_wfpl = kcm_wfpl + 10;";
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        /*String sql="Insert Into kcm_mstr (kcm_ftyid, kcm_stkid, kcm_kwdm, kcm_cwdm, kcm_ph, kcm_wldm, kcm_kcsl, kcm_wfpl, kcm_jlrq, kcm_jlry)\n" +
+                "            Select '333', 'NSS', 'NSS', '', '', '81010001-000', 10, 10, Now(), 'ADMIN'\n" +
+                "            On Duplicate Key Update kcm_kcsl = kcm_kcsl + 10, kcm_wfpl = kcm_wfpl + 10, kcm_ggrq = Now(), kcm_ggry = 'ADMIN';";
+        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -141,26 +154,19 @@ public class MainPresenter extends BasePresenter{
 
             @Override
             public void onNext(JSONObject value) {
-                Log.e("value",value.toString());
+
             }
 
             @Override
             public void onError(Throwable e) {
-                e.printStackTrace();
+
             }
 
             @Override
             public void onComplete() {
 
             }
-        });
-        /*Intent intent=new Intent(context, HlActivity.class);
-        context.startActivity(intent);*/
-    }
-
-    //按料单发料
-    public void goToAldfl(){
-        view.showMsgDialog("敬请期待");
+        });*/
     }
 
     //退料
