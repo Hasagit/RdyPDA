@@ -29,7 +29,7 @@ import io.reactivex.schedulers.Schedulers;
 public class TmbdPresenter extends BasePresenter {
     private ITmbdView view;
     private ScanUtil scanUtil;
-    private String wldm,pmgg,pch,xtmxh,printMsg;
+    private String wldm,zwPmgg,ywPmgg,pch,xtmxh,printMsg;
 
     public TmbdPresenter(Context context,ITmbdView view) {
         super(context);
@@ -114,7 +114,8 @@ public class TmbdPresenter extends BasePresenter {
                     xtmxh=array.getJSONObject(0).getString("brp_Sn");
                     pch=array.getJSONObject(0).getString("brp_LotNo");
                     wldm=array.getJSONObject(0).getString("brp_wldm");
-                    pmgg=array.getJSONObject(0).getString("brp_pmgg");
+                    zwPmgg=array.getJSONObject(0).getString("itm_wlpm");
+                    ywPmgg=array.getJSONObject(0).getString("itm_ywwlpm");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }finally {
@@ -148,16 +149,10 @@ public class TmbdPresenter extends BasePresenter {
             return;
         }
         if (printMsg==null){
-            view.setShowMsgDialog("请先获取条码序号");
+            view.setShowMsgDialog("请先扫描或输入条码序号");
             return;
         }
-        String[] pmggItem=pmgg.split(",");
-        final String wlpm_1=pmggItem[0];
-        String wlpm_2="";
-        for (int i=1;i<pmggItem.length;i++){
-            wlpm_2=wlpm_2+pmggItem[i]+"\t";
-        }
-        final String wlpm_3=wlpm_2;
+
         view.setShowProgressDialogEnable(true);
         final PrinterUtil util=new PrinterUtil();
         Observable.create(new ObservableOnSubscribe<String>() {
@@ -166,8 +161,8 @@ public class TmbdPresenter extends BasePresenter {
                 String address=preferenUtil.getString("blueToothAddress");
                 util.openPort(address);
                 util.printFont("原料编号:"+wldm.trim(),15,55);
-                util.printFont("品名规格:"+wlpm_1.trim()+",",15,105);
-                util.printFont(wlpm_3.trim()+" ",15,140);
+                util.printFont("品名规格:"+zwPmgg.trim()+",",15,105);
+                util.printFont(ywPmgg.trim()+" ",15,140);
                 util.printFont("批次号:"+pch.trim(),15,185);
                 util.printFont("条码编号:"+xtmxh.trim(),15,235);
                 util.printQRCode(printMsg,340,55,7);
