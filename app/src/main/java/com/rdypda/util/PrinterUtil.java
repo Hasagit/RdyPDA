@@ -32,8 +32,8 @@ public class PrinterUtil {
         tscActivity.barcode(x,y,"128",70,1,0,1,1,barcode);
     }
 
-    public void printQRCode(String str,int x,int y){
-        tscActivity.sendcommand("QRCODE "+x+","+y+",M,7,M,0,M1,S2,\"A"+str+"\" \n");
+    public void printQRCode(String str,int x,int y,int weight){
+        tscActivity.sendcommand("QRCODE "+x+","+y+",M,"+weight+",M,0,M1,S2,\"A"+str+"\" \n");
     }
 
     public void startPrint(){

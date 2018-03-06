@@ -10,6 +10,7 @@ import android.util.Log;
 import com.rdypda.model.network.WebService;
 import com.rdypda.util.DownloadUtils;
 import com.rdypda.view.activity.HlActivity;
+import com.rdypda.view.activity.HlbzActivity;
 import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
 import com.rdypda.view.activity.TmbdActivity;
@@ -225,6 +226,12 @@ public class MainPresenter extends BasePresenter{
         }else {
             view.showMsgDialog("你没有权限使用该功能");
         }
+    }
+
+    //混料包装
+    public void goTohlbz(){
+        Intent intent=new Intent(context, HlbzActivity.class);
+        context.startActivity(intent);
     }
 
     public void checkToUpdate(final boolean isAuto){

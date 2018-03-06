@@ -31,7 +31,7 @@ public class HlPresenter extends BasePresenter {
     public HlPresenter(Context context,IHlView view) {
         super(context);
         this.view=view;
-        getSblb();
+        getSbmc("T03");
         getScanedData();
         initScanUtil();
     }
@@ -80,6 +80,7 @@ public class HlPresenter extends BasePresenter {
                     getScanedData();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    view.showMsgDialog(e.getMessage());
                 }
             }
 
@@ -88,45 +89,6 @@ public class HlPresenter extends BasePresenter {
                 e.printStackTrace();
                 view.setShowProgressDialogEnable(false);
                 view.showMsgDialog(e.getMessage());
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-    }
-
-    public void getSblb(){
-        String sql="Call Proc_PDA_Get_DeviceType()";
-        view.setShowProgressDialogEnable(true);
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(JSONObject value) {
-                view.setShowProgressDialogEnable(false);
-                try {
-                    JSONArray array=value.getJSONArray("Table1");
-                    List<String>data=new ArrayList<>();
-                    for (int i=0;i<array.length();i++){
-                        data.add(array.getJSONObject(i).getString("lbm_lbdm")+","
-                                +array.getJSONObject(i).getString("lbm_lbmc"));
-                    }
-                    view.refreshSblb(data);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                view.setShowProgressDialogEnable(false);
-                view.showMsgDialog(e.getMessage());
-                e.printStackTrace();
             }
 
             @Override
@@ -152,12 +114,12 @@ public class HlPresenter extends BasePresenter {
                     JSONArray array=value.getJSONArray("Table1");
                     List<String>data=new ArrayList<>();
                     for (int i=0;i<array.length();i++){
-                        data.add(array.getJSONObject(i).getString("lbm_lbdm")+","
-                                +array.getJSONObject(i).getString("lbm_lbmc"));
+                        data.add(array.getJSONObject(i).getString("lbm_lbdm"));
                     }
                     view.refreshSbmx(data);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    view.showMsgDialog(e.getMessage());
                 }
 
             }
@@ -205,6 +167,7 @@ public class HlPresenter extends BasePresenter {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    view.showMsgDialog(e.getMessage());
                 }
             }
 

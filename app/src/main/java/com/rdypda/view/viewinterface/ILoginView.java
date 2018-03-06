@@ -8,7 +8,7 @@ import java.util.Map;
  */
 
 public interface ILoginView extends IBaseView{
-    void showFactoryList(List<Map<String,String>>data);
+    void showFactoryList(List<Map<String,String>>data,int position);
 
     void showToastMsg(String msg);
 

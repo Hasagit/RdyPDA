@@ -13,8 +13,6 @@ public interface IHlView extends IBaseView{
 
     void showMsgDialog(String msg);
 
-    void refreshSblb(List<String> data);
-
     void refreshSbmx(List<String> data);
 
     void showTmMsgDialog(String hljh,String tmxh,String wlbh,String wlgg,String tmsl);

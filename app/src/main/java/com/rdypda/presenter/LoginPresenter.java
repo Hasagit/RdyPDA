@@ -39,7 +39,6 @@ public class LoginPresenter extends BasePresenter {
             preferenUtil.setString("usr_yhmm","");
             preferenUtil.setString("usr_yhmc","");
             preferenUtil.setString("usr_bmdm","");
-            preferenUtil.setString("usr_gsdm","");
             preferenUtil.setString("usr_flag","");
             preferenUtil.setString("usr_Token","");
             preferenUtil.setString("usr_TokenValid","");
@@ -61,13 +60,17 @@ public class LoginPresenter extends BasePresenter {
                     if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
                         JSONArray array=value.getJSONArray("cmp_mstr");
                         data=new ArrayList<>();
+                        int position=0;
                         for (int i=0;i<array.length();i++){
                             Map<String,String>item=new HashMap<>();
                             item.put("cmp_gsdm",array.getJSONObject(i).getString("cmp_gsdm"));
                             item.put("cmp_gsmc",array.getJSONObject(i).getString("cmp_gsmc"));
+                            if (preferenUtil.getString("usr_gsdm").equals(array.getJSONObject(i).getString("cmp_gsdm"))){
+                                position=i;
+                            }
                             data.add(item);
                         }
-                        view.showFactoryList(data);
+                        view.showFactoryList(data,position);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -174,7 +177,7 @@ public class LoginPresenter extends BasePresenter {
     public void setIpAddress(String address){
         preferenUtil.setString("ipAddress",address);
         WebService.initUrl(preferenUtil);
-        view.showFactoryList(new ArrayList<Map<String, String>>());
+        view.showFactoryList(new ArrayList<Map<String, String>>(),0);
     }
 
     public String getCurrentIp(){

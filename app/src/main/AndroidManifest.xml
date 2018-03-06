@@ -50,7 +50,8 @@
         <activity android:name=".view.activity.TmcfActivity" />
         <activity android:name=".view.activity.TmbdActivity" />
         <activity android:name=".view.activity.TmcxActivity" />
-        <activity android:name=".view.activity.YljsflActivity"></activity>
+        <activity android:name=".view.activity.YljsflActivity" />
+        <activity android:name=".view.activity.HlbzActivity"></activity>
     </application>
 
 </manifest>

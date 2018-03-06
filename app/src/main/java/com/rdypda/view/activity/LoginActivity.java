@@ -139,7 +139,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     @Override
-    public void showFactoryList(List<Map<String,String>> data) {
+    public void showFactoryList(List<Map<String,String>> data,int p) {
         List<String>spinnerData=new ArrayList<>();
         for (int i=0;i<data.size();i++){
             spinnerData.add(data.get(i).get("cmp_gsmc"));
@@ -149,6 +149,10 @@ public class LoginActivity extends BaseActivity implements ILoginView {
         }
         ArrayAdapter<String>adapter=new ArrayAdapter<String>(LoginActivity.this,android.R.layout.simple_spinner_dropdown_item,spinnerData);
         factoryList.setAdapter(adapter);
+        if (p>0){
+            factoryList.setSelection(p,true);
+            factoryPosition=p;
+        }
         factoryList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
