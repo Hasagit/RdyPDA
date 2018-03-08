@@ -18,7 +18,7 @@ public class PrinterUtil {
     public void openPort(String address){
         tscActivity.openport(address);
         //41
-        tscActivity.setup(75,43,4,10,0,0,0);
+        tscActivity.setup(75,42,4,10,0,0,0);
         tscActivity.clearbuffer();
     }
 

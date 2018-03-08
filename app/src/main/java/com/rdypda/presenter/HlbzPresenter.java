@@ -308,7 +308,7 @@ public class HlbzPresenter extends BasePresenter {
                 util.printFont("生产日期:"+date.trim(),15,190);
                 util.printFont("包装数量:"+bzsl.trim(),15,235);
                 util.printFont("条码编号:"+tmbh.trim(),15,280);
-                util.printQRCode(printMsg,335,55,6);
+                util.printQRCode(printMsg,335,135,5);
                 util.startPrint();
                 Log.e("printMsg",printMsg);
                 e.onNext("");

@@ -214,4 +214,10 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
         zsList.setAdapter(adapter);
         zsList.setLayoutManager(new GridLayoutManager(SbtlActivity.this,1));
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.closeScanUtil();
+    }
 }

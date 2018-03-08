@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:focusable="true"
+    android:background="@android:color/white"
     android:focusableInTouchMode="true"
     tools:context="com.rdypda.view.activity.SbtlActivity">
     <android.support.v7.widget.Toolbar

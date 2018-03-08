@@ -255,6 +255,10 @@ public class HlPresenter extends BasePresenter {
 
     public void uploadHl(){
         view.setShowProgressDialogEnable(true);
+        if (hljh.equals("")){
+            view.showMsgDialog("设备明细不能为空！");
+            return;
+        }
         String sql=String.format("Call Proc_PDA_HL_Post('%s','%s');",hljh,preferenUtil.getString("userId"));
         WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override

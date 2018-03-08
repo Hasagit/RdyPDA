@@ -48,7 +48,8 @@
         <activity android:name=".view.activity.TmcxActivity" />
         <activity android:name=".view.activity.YljsflActivity" />
         <activity android:name=".view.activity.HlbzActivity" />
-        <activity android:name=".view.activity.SbtlActivity"></activity>
+        <activity android:name=".view.activity.SbtlActivity" />
+        <activity android:name=".view.activity.SbljActivity"></activity>
     </application>
 
 </manifest>
