@@ -13,6 +13,7 @@ import com.rdypda.view.activity.HlActivity;
 import com.rdypda.view.activity.HlbzActivity;
 import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
+import com.rdypda.view.activity.SbtlActivity;
 import com.rdypda.view.activity.TmbdActivity;
 import com.rdypda.view.activity.TmcfActivity;
 import com.rdypda.view.activity.TmcxActivity;
@@ -231,6 +232,12 @@ public class MainPresenter extends BasePresenter{
     //混料包装
     public void goTohlbz(){
         Intent intent=new Intent(context, HlbzActivity.class);
+        context.startActivity(intent);
+    }
+
+    //设备投料
+    public void goToSbtl(){
+        Intent intent=new Intent(context, SbtlActivity.class);
         context.startActivity(intent);
     }
 

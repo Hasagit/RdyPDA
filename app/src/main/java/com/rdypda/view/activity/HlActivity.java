@@ -211,14 +211,14 @@ public class HlActivity extends BaseActivity implements IHlView {
     public void refreshSbmx(final List<String> data) {
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlActivity.this,android.R.layout.simple_spinner_dropdown_item,data);
         sbmxSp.setAdapter(adapter);
-        if(data.size()>0){
+        /*if(data.size()>0){
             String[]item=data.get(0).split(",");
             if (item.length>0){
                 presenter.setHljh(item[0]);
             }else {
                 showMsgDialog("数据解析出错");
             }
-        }
+        }*/
         sbmxSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

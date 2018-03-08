@@ -140,7 +140,7 @@ public class MainActivity extends BaseActivity implements IMainView{
     @OnClick({R.id.switch_layout,R.id.exit_layout,R.id.tmdy,R.id.fl,R.id.yljs,
             R.id.yltl,R.id.hl,R.id.aldfl,R.id.tl,R.id.gdtldylz,R.id.cpsmrk,R.id.ykll,
             R.id.adfl,R.id.adtl,R.id.yktldck,R.id.tmcf,R.id.tmbd,R.id.kcpd,R.id.tmcx,
-            R.id.hlbz})
+            R.id.hlbz,R.id.sbtl})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tmdy:
@@ -202,6 +202,9 @@ public class MainActivity extends BaseActivity implements IMainView{
                 break;
             case R.id.hlbz:
                 presenter.goTohlbz();
+                break;
+            case R.id.sbtl:
+                presenter.goToSbtl();
                 break;
 
         }

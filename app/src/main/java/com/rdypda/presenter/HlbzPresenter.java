@@ -59,6 +59,7 @@ public class HlbzPresenter extends BasePresenter {
                 try {
                     JSONArray array=value.getJSONArray("Table1");
                     List<String>data=new ArrayList<>();
+                    data.add("");
                     for (int i=0;i<array.length();i++){
                         data.add(array.getJSONObject(i).getString("lbm_lbdm"));
                     }

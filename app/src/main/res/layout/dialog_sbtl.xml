@@ -2,65 +2,36 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    tools:context="com.rdypda.view.activity.LlddrMsgActivity">
-    <android.support.design.widget.AppBarLayout
+    android:focusableInTouchMode="true">
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark"
-            android:id="@+id/toolbar"
-            >
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="条码打印"
-                    android:textColor="@android:color/white"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="18dp"
-                    />
-                <com.rdypda.view.widget.PowerButton
-                    android:layout_width="27dp"
-                    android:layout_height="27dp"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/setting_btn"
-                    android:background="@drawable/setting_icon"
-                    android:layout_gravity="right|center_vertical"/>
-            </FrameLayout>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+        android:layout_height="50dp"
+        app:title="扫描结果"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:background="@color/colorPrimary"></android.support.v7.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
+                android:layout_marginTop="10dp"
                 android:background="@android:color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:orientation="horizontal"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
                 <LinearLayout
                     android:layout_width="100dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/table_left_top">
                     <TextView
@@ -68,15 +39,15 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/wlbh"/>
+                        android:text="条码编号"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_top">
                     <TextView
-                        android:id="@+id/wlbh"
+                        android:id="@+id/tmbh"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
@@ -87,13 +58,13 @@
             <LinearLayout
                 android:background="@android:color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:orientation="horizontal"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
                 <LinearLayout
                     android:layout_width="100dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/table_left_bottom">
                     <TextView
@@ -101,15 +72,15 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="需求数量"/>
+                        android:text="原料编号"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
                     <TextView
-                        android:id="@+id/xqsl"
+                        android:id="@+id/ylbh"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
@@ -120,13 +91,13 @@
             <LinearLayout
                 android:background="@android:color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:orientation="horizontal"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
                 <LinearLayout
                     android:layout_width="100dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/table_left_bottom">
                     <TextView
@@ -134,15 +105,15 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="未发数量"/>
+                        android:text="原料规格"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
                     <TextView
-                        android:id="@+id/wfsl"
+                        android:id="@+id/ylgg"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
@@ -153,47 +124,13 @@
             <LinearLayout
                 android:background="@android:color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:orientation="horizontal"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
                 <LinearLayout
                     android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/table_left_bottom">
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="条码批次号"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/table_right_bottom">
-                    <EditText
-                        android:id="@+id/tmpch"
-                        android:layout_width="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="15dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:background="@android:color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-                <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/table_left_bottom">
                     <TextView
@@ -205,16 +142,16 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
-                    <EditText
+                    <TextView
                         android:inputType="numberDecimal"
                         android:id="@+id/tmsl"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:textSize="15dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         />
                 </LinearLayout>
@@ -222,13 +159,13 @@
             <LinearLayout
                 android:background="@android:color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:orientation="horizontal"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
                 <LinearLayout
                     android:layout_width="100dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/table_left_bottom">
                     <TextView
@@ -236,15 +173,15 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="单位"/>
+                        android:text="投入总数"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
                     <TextView
-                        android:id="@+id/dw"
+                        android:id="@+id/trzs"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
@@ -255,13 +192,13 @@
             <LinearLayout
                 android:background="@android:color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:orientation="horizontal"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
                 <LinearLayout
                     android:layout_width="100dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/table_left_bottom">
                     <TextView
@@ -269,43 +206,83 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="条码序号"/>
+                        android:text="包装数量"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@drawable/table_right_bottom">
+                    <EditText
+                        android:id="@+id/bzsl"
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@drawable/table_left_bottom">
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="条码编号"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/table_right_bottom">
                     <TextView
-                        android:id="@+id/tmxh"
-                        android:layout_width="match_parent"
-                        android:layout_marginLeft="10dp"
+                        android:id="@+id/qrcode"
                         android:textColor="@color/color_green"
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         />
                 </LinearLayout>
             </LinearLayout>
-
-            <com.rdypda.view.widget.PowerButton
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/color_green"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="30dp"
-                android:id="@+id/get_tm_btn"
-                android:textColor="@android:color/white"
-                android:text="获取条码序号"/>
-
-            <com.rdypda.view.widget.PowerButton
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/color_green"
-                android:layout_margin="20dp"
-                android:id="@+id/print_btn"
-                android:textColor="@android:color/white"
-                android:text="@string/dy"/>
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <com.rdypda.view.widget.PowerButton
+            android:layout_width="10dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/color_green"
+            android:text="加料"
+            android:textColor="@android:color/white"
+            android:id="@+id/jl__btn"
+            android:theme="@style/AppTheme"/>
+        <com.rdypda.view.widget.PowerButton
+            android:layout_width="10dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:textColor="@color/color_green"
+            android:text="取消"
+            android:id="@+id/cancel_btn"
+            android:theme="@style/AppTheme"
+            />
+    </LinearLayout>
+
 </LinearLayout>

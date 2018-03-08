@@ -31,6 +31,7 @@ import com.rdypda.adapter.HlbzAdapter;
 import com.rdypda.model.cache.PreferenUtil;
 import com.rdypda.presenter.HlbzPresenter;
 import com.rdypda.util.HlQrCodeUtil;
+import com.rdypda.util.QrCodeUtil;
 import com.rdypda.view.viewinterface.IHlbzView;
 import com.rdypda.view.widget.PowerButton;
 
@@ -119,7 +120,7 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
     public void refreshSbmx(final List<String> data) {
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlbzActivity.this,android.R.layout.simple_spinner_dropdown_item,data);
         sbmxSp.setAdapter(adapter);
-        if(data.size()>0){
+        /*if(data.size()>0){
             String[]item=data.get(0).split(",");
             if (item.length>0){
                 presenter.setHljh(item[0]);
@@ -127,14 +128,16 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
             }else {
                 showMsgDialog("数据解析出错");
             }
-        }
+        }*/
         sbmxSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String[]item=data.get(position).split(",");
                 if (item.length>0){
                     presenter.setHljh(item[0]);
-                    presenter.getHlqd();
+                    if (position!=0){
+                        presenter.getHlqd();
+                    }
                 }else {
                     showMsgDialog("数据解析出错");
                 }
@@ -206,7 +209,7 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
                             ylggText.getText().toString(),
                             szggText.getText().toString(),
                             map.get("zyry"),
-                            bzslEd.getText().toString()+new HlQrCodeUtil(qrCode.getText().toString()).getDw(),
+                            bzslEd.getText().toString()+new QrCodeUtil(qrCode.getText().toString()).getDw(),
                             tmbhText.getText().toString(),
                             new HlbzPresenter.OnPrintListener() {
                                 @Override

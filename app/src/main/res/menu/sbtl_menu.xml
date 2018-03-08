@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="设备连接"
+        android:id="@+id/sblj"
+        app:showAsAction="never"></item>
+    <item
+        android:title="设备下料"
+        android:id="@+id/sbxl"
+        app:showAsAction="never"></item>
+</menu>

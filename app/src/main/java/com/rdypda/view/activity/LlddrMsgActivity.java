@@ -81,6 +81,7 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
                 .create();
         progressDialog=new ProgressDialog(this);
         progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

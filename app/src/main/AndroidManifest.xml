@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rdypda"
     android:versionCode="3"
-    android:versionName="1.0.1.6">
+    android:versionName="1.0.1.9">
 
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.qs.wiget.App"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
@@ -30,9 +29,6 @@
         <activity android:name=".view.activity.FlActivity" />
         <activity android:name=".view.activity.GdxqActivity" />
         <activity android:name=".view.activity.WldActivity" />
-
-        <service android:name="com.qs.service.ScanService" />
-
         <activity android:name=".view.activity.YlzckActivity" />
         <activity android:name=".view.activity.HlActivity" />
         <activity android:name=".view.activity.TlActivity" />
@@ -51,7 +47,8 @@
         <activity android:name=".view.activity.TmbdActivity" />
         <activity android:name=".view.activity.TmcxActivity" />
         <activity android:name=".view.activity.YljsflActivity" />
-        <activity android:name=".view.activity.HlbzActivity"></activity>
+        <activity android:name=".view.activity.HlbzActivity" />
+        <activity android:name=".view.activity.SbtlActivity"></activity>
     </application>
 
 </manifest>
