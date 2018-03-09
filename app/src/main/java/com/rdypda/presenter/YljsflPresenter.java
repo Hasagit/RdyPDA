@@ -55,7 +55,7 @@ public class YljsflPresenter extends BasePresenter{
 
     public void getKwmList(){
         view.setShowProgressDialogEnable(true);
-        String sql="Call Proc_PDA_GetKwmList()";
+        String sql="Call Proc_PDA_GetStkList();";
         WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -67,15 +67,18 @@ public class YljsflPresenter extends BasePresenter{
                 try {
                     JSONArray array=value.getJSONArray("Table1");
                     List<String>data=new ArrayList<>();
+                    List<String>dataDm=new ArrayList<>();
+                    dataDm.add("");
                     data.add("");
                     for (int i=0;i<array.length();i++){
-                        String dh=array.getJSONObject(i).getString("kwm_ftyid")+"; "+
-                                array.getJSONObject(i).getString("kwm_stkId")+"; "+
-                                array.getJSONObject(i).getString("kwm_kwdm")+"; "+
-                                array.getJSONObject(i).getString("kwm_cwdm");
-                        data.add(dh);
+                        String dh=array.getJSONObject(i).getString("stk_ftyId")+";"+
+                                array.getJSONObject(i).getString("stk_stkId")+";"+
+                                array.getJSONObject(i).getString("stk_stkId")+";";
+                        String mc=array.getJSONObject(i).getString("stk_stkmc");
+                        data.add(mc);
+                        dataDm.add(dh);
                     }
-                    view.refreshKcddSp(data);
+                    view.refreshKcddSp(data,dataDm);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     view.setShowDialogMsg("Json解析出错");

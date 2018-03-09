@@ -6,4 +6,13 @@ package com.rdypda.view.viewinterface;
 
 public interface IFirstView extends IBaseView{
     void showToastMsg(String msg);
+
+
+    void setShowDownloadProgressDialogEnable(boolean enable);
+
+    void setProgressDownloadProgressDialog(int size);
+
+    void showMsgDialog(String msg);
+
+    void showDownloadDialog(String url);
 }

@@ -113,14 +113,15 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
         dialog.show();
     }
 
+
     @Override
-    public void refreshKcddSp(final List<String> data) {
+    public void refreshKcddSp(final List<String> data, final List<String> dataDm) {
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(YljsflActivity.this,android.R.layout.simple_spinner_dropdown_item,data);
         kcddSp.setAdapter(adapter);
         kcddSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                presenter.setKcdd(data.get(position));
+                presenter.setKcdd(dataDm.get(position));
             }
 
             @Override
@@ -129,7 +130,7 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
             }
         });
         if (data.size()>0){
-            presenter.setKcdd(data.get(0));
+            presenter.setKcdd(dataDm.get(0));
         }else {
             presenter.setKcdd("");
         }

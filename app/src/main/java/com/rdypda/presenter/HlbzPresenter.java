@@ -188,13 +188,12 @@ public class HlbzPresenter extends BasePresenter {
                 try {
                     JSONArray array=value.getJSONArray("Table1");
                     List<String>data=new ArrayList<>();
+                    List<String>dataMc=new ArrayList<>();
                     for (int i=0;i<array.length();i++){
-                        data.add(array.getJSONObject(i).getString("stk_ftyId")+","+
-                                array.getJSONObject(i).getString("stk_stkId")+","+
-                                array.getJSONObject(i).getString("stk_stkmc")
-                        );
+                        data.add(array.getJSONObject(i).getString("stk_stkId"));
+                        dataMc.add(array.getJSONObject(i).getString("stk_stkmc"));
                     }
-                    view.showKcDialog(map,data,preferenUtil.getString("usr_gsdm"));
+                    view.showKcDialog(map,data,dataMc,preferenUtil.getString("usr_gsdm"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                     view.showMsgDialog(e.getMessage());

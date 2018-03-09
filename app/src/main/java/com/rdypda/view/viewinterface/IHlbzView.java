@@ -21,7 +21,7 @@ public interface IHlbzView {
 
     void showPrintDialog(Map<String,String>map,String gsdm,String kw);
 
-    void showKcDialog(Map<String,String>map,List<String>data,String gsdm);
+    void showKcDialog(Map<String,String>map,List<String>data,List<String>dataMc,String gsdm);
 
     void showBlueToothAddressDialog();
 

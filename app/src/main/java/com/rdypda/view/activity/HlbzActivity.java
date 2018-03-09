@@ -228,14 +228,11 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
     }
 
     @Override
-    public void showKcDialog(final Map<String, String> map, final List<String>data, final String gsdm) {
+    public void showKcDialog(final Map<String, String> map, final List<String>data,List<String>dataMc, final String gsdm) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             kcdd="";
             if (data.size()>0){
-                String[]item=data.get(0).split(",");
-                if (item.length>1){
-                    kcdd=item[1];
-                }
+                kcdd=data.get(0);
             }
             View view= LayoutInflater.from(this).inflate(R.layout.dialog_kc,null);
             final AlertDialog kcDilaog=new AlertDialog.Builder(this)
@@ -245,15 +242,12 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
             Spinner jskwSp=(Spinner)view.findViewById(R.id.jskw);
             PowerButton sureBtn=(PowerButton)view.findViewById(R.id.sure_btn);
             PowerButton cancelBtn=(PowerButton)view.findViewById(R.id.cancel_btn);
-            ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlbzActivity.this,android.R.layout.simple_spinner_dropdown_item,data);
+            ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlbzActivity.this,android.R.layout.simple_spinner_dropdown_item,dataMc);
             jskwSp.setAdapter(adapter);
             jskwSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    String[]item=data.get(position).split(",");
-                    if (item.length>1){
-                        kcdd=item[1];
-                    }
+                    kcdd=data.get(position);
                 }
 
                 @Override

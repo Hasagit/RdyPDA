@@ -12,7 +12,7 @@ public interface IYljsflView {
 
     void setShowDialogMsg(String msg);
 
-    void refreshKcddSp(List<String>data);
+    void refreshKcddSp(List<String>data,List<String>dataDm);
 
     void refreshWldRecycler(List<Map<String,String>>data);
 
