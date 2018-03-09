@@ -143,4 +143,8 @@ public class SbljPresenter extends BasePresenter{
         this.type = type;
     }
 
+    public void closeScanUtil(){
+        scanUtil.close();
+    }
+
 }

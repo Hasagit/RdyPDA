@@ -171,5 +171,9 @@ public class SbljActivity extends BaseActivity implements ISbljView{
         return klbhEd.getText().toString();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        presenter.closeScanUtil();
+        super.onDestroy();
+    }
 }
