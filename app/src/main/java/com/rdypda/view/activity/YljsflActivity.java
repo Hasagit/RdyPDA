@@ -84,6 +84,8 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
         }).create();
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("请稍后");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
 
 
         adapter=new YljstlAdapter(YljsflActivity.this,R.layout.item_yljstl,new ArrayList<Map<String, String>>());

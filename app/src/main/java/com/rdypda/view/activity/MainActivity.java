@@ -113,6 +113,8 @@ public class MainActivity extends BaseActivity implements IMainView{
 
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("正在检查更新...");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -140,7 +142,7 @@ public class MainActivity extends BaseActivity implements IMainView{
     @OnClick({R.id.switch_layout,R.id.exit_layout,R.id.tmdy,R.id.fl,R.id.yljs,
             R.id.yltl,R.id.hl,R.id.aldfl,R.id.tl,R.id.gdtldylz,R.id.cpsmrk,R.id.ykll,
             R.id.adfl,R.id.adtl,R.id.yktldck,R.id.tmcf,R.id.tmbd,R.id.kcpd,R.id.tmcx,
-            R.id.hlbz,R.id.sbtl,R.id.sblj})
+            R.id.hlbz,R.id.sbtl,R.id.sblj,R.id.sbxl})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tmdy:
@@ -208,6 +210,9 @@ public class MainActivity extends BaseActivity implements IMainView{
                 break;
             case R.id.sblj:
                 presenter.goToSblj();
+                break;
+            case R.id.sbxl:
+                presenter.goTosbxl();
                 break;
 
         }

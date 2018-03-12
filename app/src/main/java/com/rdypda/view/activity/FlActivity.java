@@ -75,6 +75,8 @@ public class FlActivity extends BaseActivity implements IFlView {
         }).create();
 
         progressDialog=new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("请稍后...");
 
         receiver=new BroadcastReceiver() {

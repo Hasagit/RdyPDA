@@ -65,6 +65,8 @@ public class SbljActivity extends BaseActivity implements ISbljView{
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("提示");
         progressDialog.setMessage("请稍后...");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();

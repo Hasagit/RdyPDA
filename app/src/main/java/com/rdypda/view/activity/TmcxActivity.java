@@ -72,6 +72,8 @@ public class TmcxActivity extends BaseActivity implements ITmcxView {
             }
         }).create();
         progressDialog=new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("请稍后");
     }
 

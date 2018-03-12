@@ -66,6 +66,8 @@ public class HlActivity extends BaseActivity implements IHlView {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         progressDialog=new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("请稍后...");
 
         dialog=new AlertDialog.Builder(this)

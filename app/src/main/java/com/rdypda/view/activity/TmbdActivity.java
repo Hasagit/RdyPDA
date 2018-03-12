@@ -68,6 +68,8 @@ public class TmbdActivity extends BaseActivity implements ITmbdView {
             }
         }).create();
         progressDialog=new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("请稍后...");
     }
 

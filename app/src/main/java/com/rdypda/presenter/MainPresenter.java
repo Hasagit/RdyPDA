@@ -15,6 +15,7 @@ import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
 import com.rdypda.view.activity.SbljActivity;
 import com.rdypda.view.activity.SbtlActivity;
+import com.rdypda.view.activity.SbxlActivity;
 import com.rdypda.view.activity.TmbdActivity;
 import com.rdypda.view.activity.TmcfActivity;
 import com.rdypda.view.activity.TmcxActivity;
@@ -245,6 +246,12 @@ public class MainPresenter extends BasePresenter{
     //设备连接
     public void goToSblj(){
         Intent intent=new Intent(context, SbljActivity.class);
+        context.startActivity(intent);
+    }
+
+    //设备下料
+    public void goTosbxl(){
+        Intent intent=new Intent(context, SbxlActivity.class);
         context.startActivity(intent);
     }
 

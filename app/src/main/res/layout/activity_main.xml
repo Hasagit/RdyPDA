@@ -898,6 +898,37 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:background="@drawable/white_btn_bg"
+                            android:id="@+id/sbxl"
+                            android:orientation="horizontal"
+                            >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_margin="15dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/sbxl_icon"/>
+                            <TextView
+                                android:layout_width="10dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical"
+                                android:text="设备下料"
+                                android:textColor="@android:color/black"
+                                />
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/more"
+                                android:layout_gravity="center_vertical"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@drawable/diver"></LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="@drawable/white_btn_bg"
                             android:id="@+id/wydrk"
                             android:orientation="horizontal"
                             >

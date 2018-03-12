@@ -74,6 +74,8 @@ public class TmcfActivity extends BaseActivity implements ITmcfView {
         }).create();
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("请稍后...");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
 
     }
 

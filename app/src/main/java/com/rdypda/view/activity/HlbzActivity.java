@@ -74,6 +74,8 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("提示");
         progressDialog.setMessage("请稍后...");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         dialog=new AlertDialog.Builder(this)
                 .setTitle("提示")
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {

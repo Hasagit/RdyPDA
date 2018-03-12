@@ -91,6 +91,8 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         progressDialog =new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("查询中...");
 
     }

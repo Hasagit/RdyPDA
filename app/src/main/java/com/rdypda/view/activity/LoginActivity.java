@@ -71,6 +71,8 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     protected void initView(){
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle(getResources().getString(R.string.logining));
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");

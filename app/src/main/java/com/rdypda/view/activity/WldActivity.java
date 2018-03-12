@@ -64,6 +64,8 @@ public class WldActivity extends BaseActivity implements IWldView{
         }
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("加载中...");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
 
         wldm=getIntent().getStringExtra("wldm");
         djbh=getIntent().getStringExtra("djbh");

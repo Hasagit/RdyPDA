@@ -72,6 +72,8 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("提示");
         progressDialog.setMessage("请稍后...");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         dialog=new AlertDialog.Builder(this).setTitle("提示")
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     @Override
