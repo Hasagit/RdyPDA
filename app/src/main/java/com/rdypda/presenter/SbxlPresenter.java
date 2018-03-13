@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.rdypda.model.network.WebService;
 import com.rdypda.util.PrinterUtil;
+import com.rdypda.util.ScanUtil;
 import com.rdypda.view.viewinterface.ISbxlView;
 
 import org.json.JSONArray;
@@ -35,12 +36,26 @@ import io.reactivex.schedulers.Schedulers;
 public class SbxlPresenter extends BasePresenter {
     private ISbxlView view;
     private String date;
+    private ScanUtil scanUtil;
     private String hldh="";
     private String ftyIdAndstkId=";";
     private String printMsg="";
     public SbxlPresenter(Context context,ISbxlView view) {
         super(context);
         this.view=view;
+        scanUtil=new ScanUtil(context);
+        scanUtil.open();
+        scanUtil.setOnScanListener(new ScanUtil.OnScanListener() {
+            @Override
+            public void onSuccess(String result) {
+                getScanList(result);
+            }
+
+            @Override
+            public void onFail(String error) {
+
+            }
+        });
         getKc();
         getScrq();
     }
@@ -404,6 +419,12 @@ public class SbxlPresenter extends BasePresenter {
 
             }
         });
+    }
+
+    public void closeScanUtil(){
+        if (scanUtil!=null){
+            scanUtil.close();
+        }
     }
 
 }

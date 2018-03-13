@@ -35,13 +35,9 @@ public class FirstPresenter extends BasePresenter {
         WebService.initUrl(preferenUtil);
 
 
-        //checkToUpdate();
+        checkToUpdate();
 
-        if (preferenUtil.getString("userId").equals("")) {
-            preferenUtil.setInt("goToWhere", 0);
-        } else {
-            login(preferenUtil.getString("cmp_gsdm"), preferenUtil.getString("userId"), preferenUtil.getString("userPwd"));
-        }
+
 
         new Thread(new Runnable() {
             @Override
@@ -130,7 +126,8 @@ public class FirstPresenter extends BasePresenter {
 
     public void checkToUpdate() {
         String sql = "Call PAD_Get_WebAddr()";
-        WebService.querySqlCommandJosn(sql, preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        String token="RDYWEBSERVICEAUTOCALLADMIN";
+        WebService.querySqlCommandJosn(sql, token).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -146,7 +143,6 @@ public class FirstPresenter extends BasePresenter {
                     String appVer = array.getJSONObject(0).getString("v_WebAppVer").trim();
                     if (!appVer.equals(versionName)) {
                         String urlStr = array.getJSONObject(0).getString("v_WebAppPath");
-                        //String urlStr="http://imtt.dd.qq.com/16891/F782CC27B9CE90B89CD494DC95098B7F.apk?fsname=com.qiyi.video_9.0.0_81010.apk&csr=2097&_track_d99957f7=88ee35aa-5ea6-47b8-a8b0-c95f0e025ca9";
                         preferenUtil.setInt("goToWhere", 2);
                         view.showDownloadDialog(urlStr);
                     } else {
@@ -197,7 +193,8 @@ public class FirstPresenter extends BasePresenter {
             @Override
             public void onError(Throwable e) {
                 e.printStackTrace();
-                view.showMsgDialog("下载失败");
+                view.showToastMsg("下载失败");
+                goToLogin();
                 view.setShowDownloadProgressDialogEnable(false);
             }
 

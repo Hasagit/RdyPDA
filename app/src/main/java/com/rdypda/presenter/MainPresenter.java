@@ -369,7 +369,7 @@ public class MainPresenter extends BasePresenter{
                     }
                 });
             }
-        },0,1800*1000);
+        },1800*1000,1800*1000);
     }
 
 

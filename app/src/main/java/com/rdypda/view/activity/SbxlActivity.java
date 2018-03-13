@@ -95,6 +95,13 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        hlBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMsgDialog("请先输入并验证设备编号");
+            }
+        });
+
     }
 
     @OnClick({R.id.sb_sure_btn,R.id.ql_btn})
@@ -160,7 +167,7 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
     }
 
     @Override
-    public void refreshZsList(List<Map<String, String>> data) {
+    public void refreshZsList(final List<Map<String, String>> data) {
         SbtlZsAdapter adapter=new SbtlZsAdapter(SbxlActivity.this,R.layout.item_sbtl_zs,data);
         zsList.setAdapter(adapter);
         zsList.setLayoutManager(new GridLayoutManager(SbxlActivity.this,1));
@@ -171,12 +178,22 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
             }
         });
         if (data.size()>1){
-            hlBtn.setEnabled(true);
-            Map<String,String>map=data.get(0);
-            map.put("ylgg",data.get(0).get("ylgg")+"(MIX)");
-            showScanDialog(map);
+            hlBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Map<String,String>map=data.get(0);
+                    map.put("ylgg",data.get(0).get("ylgg")+"(MIX)");
+                    showScanDialog(map);
+                }
+            });
+
         }else {
-            hlBtn.setEnabled(false);
+            hlBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(SbxlActivity.this,"料筒未投料，不能执行此操作",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
@@ -312,6 +329,10 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
     }
 
     public void showClearDialog(final String sbbh){
+        if (sbbh.equals("")){
+            showMsgDialog("请先输入并验证设备");
+            return;
+        }
         AlertDialog clearDialog=new AlertDialog.Builder(SbxlActivity.this)
                 .setTitle("提示")
                 .setMessage("确认"+sbbh+"清料吗？\n清料后会将料筒已投料数据清除，但余料不会自动回仓。")
@@ -329,5 +350,11 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
                     }
                 }).create();
         clearDialog.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.closeScanUtil();
+        super.onDestroy();
     }
 }
