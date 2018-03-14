@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +25,7 @@ import com.rdypda.view.activity.LlddrMsgActivity;
 import com.rdypda.view.activity.WldActivity;
 import com.rdypda.view.activity.YljsflActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,17 +56,40 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
 
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position, final Map<String, String> map) {
+    public void onBindViewHolder(final ViewHolder viewHolder, final int position, Map<String, String> map) {
         viewHolder.lab_1.setText(map.get("djbh"));
         viewHolder.lab_2.setText(map.get("xsdh"));
         viewHolder.lab_3.setText(map.get("klrq"));
         viewHolder.lab_4.setText(map.get("zt"));
         viewHolder.lab_5.setText(map.get("kcdd"));
         viewHolder.lab_6.setText(map.get("wldm"));
+
+        viewHolder.isCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    data.get(position).put("isCheck","1");
+                }else {
+                    data.get(position).put("isCheck","0");
+                }
+            }
+        });
+        if (data.get(position).get("isCheck").equals("0")){
+            viewHolder.isCheckBox.setChecked(false);
+        }else {
+            viewHolder.isCheckBox.setChecked(true);
+        }
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (startType== MainPresenter.TMDY){
+                if (data.get(position).get("isCheck").equals("0")){
+                    data.get(position).put("isCheck","1");
+                    viewHolder.isCheckBox.setChecked(true);
+                }else {
+                    data.get(position).put("isCheck","0");
+                    viewHolder.isCheckBox.setChecked(false);
+                }
+                /*if (startType== MainPresenter.TMDY){
                     Intent intent=new Intent(context,WldActivity.class);
                     intent.putExtra("djbh",map.get("djbh"));
                     intent.putExtra("wldm",map.get("wldm"));
@@ -85,7 +112,7 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
                     intent.putExtra("wldm",map.get("wldm"));
                     intent.putExtra("startType",MainPresenter.YLJS);
                     context.startActivity(intent);
-                }
+                }*/
             }
         });
     }
@@ -105,6 +132,7 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
         public TextView lab_4;
         public TextView lab_5;
         public TextView lab_6;
+        public CheckBox isCheckBox;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -115,7 +143,30 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
             lab_4=(TextView)itemView.findViewById(R.id.lab_4);
             lab_5=(TextView)itemView.findViewById(R.id.lab_5);
             lab_6=(TextView)itemView.findViewById(R.id.lab_6);
+            isCheckBox=(CheckBox)itemView.findViewById(R.id.check_box);
         }
     }
 
+    public List<Map<String,String>> getCheckData(){
+        List<Map<String,String>> checkData=new ArrayList();
+        for (int i=0;i<data.size();i++){
+            if (data.get(i).get("isCheck").equals("1")){
+                checkData.add(data.get(i));
+            }
+        }
+        return checkData;
+    }
+
+    public void setAllIsCheck(boolean enable){
+        if (enable){
+            for (int i=0;i<data.size();i++){
+                data.get(i).put("isCheck","1");
+            }
+        }else {
+            for (int i=0;i<data.size();i++){
+                data.get(i).put("isCheck","0");
+            }
+        }
+        notifyDataSetChanged();
+    }
 }

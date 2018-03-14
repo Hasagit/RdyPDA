@@ -60,7 +60,6 @@
                             android:layout_marginRight="10dp"
                             >
                             <EditText
-                                android:inputType="number"
                                 android:layout_marginLeft="10dp"
                                 android:id="@+id/edit_lldh"
                                 android:layout_width="10dp"
@@ -127,7 +126,6 @@
                             android:layout_marginRight="10dp"
                             >
                             <EditText
-                                android:inputType="number"
                                 android:layout_marginLeft="10dp"
                                 android:id="@+id/edit_ddbh"
                                 android:layout_width="10dp"
@@ -176,101 +174,128 @@
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-    <HorizontalScrollView
+    <FrameLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <LinearLayout
-            android:orientation="vertical"
+        android:layout_height="match_parent">
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:background="@color/colorPrimary"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/table"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="center_horizontal"
-                        android:text="生产单号"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/table"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="center_horizontal"
-                        android:text="销售单号"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/table"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="center_horizontal"
-                        android:text="开拉日期"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/table"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="center_horizontal"
-                        android:text="状态"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="130dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/table"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="center_horizontal"
-                        android:text="库存地点"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="120dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/table"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="center_horizontal"
-                        android:text="物料编号"/>
-                </LinearLayout>
-            </LinearLayout>
-            <android.support.v7.widget.RecyclerView
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/lld_list"
-                android:divider="@color/color_toum"
-                ></android.support.v7.widget.RecyclerView>
-        </LinearLayout>
-    </HorizontalScrollView>
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:background="@color/colorPrimary"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table"
+                        android:orientation="vertical">
+                        <CheckBox
+                            android:theme="@style/GreenTheme"
+                            android:id="@+id/all_check"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_horizontal"
+                            android:text="全选"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_horizontal"
+                            android:text="生产单号"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_horizontal"
+                            android:text="销售单号"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_horizontal"
+                            android:text="开拉日期"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_horizontal"
+                            android:text="状态"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="130dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_horizontal"
+                            android:text="库存地点"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/table"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_horizontal"
+                            android:text="物料编号"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/lld_list"
+                    android:divider="@color/color_toum"
+                    ></android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+        </HorizontalScrollView>
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/selected"
+            android:id="@+id/sure_btn"/>
+    </FrameLayout>
     <ProgressBar
         android:visibility="gone"
         android:layout_width="50dp"

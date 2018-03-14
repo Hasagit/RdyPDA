@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -54,6 +55,8 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
     CheckBox unFinishBox;
     @BindView(R.id.title)
     TextView title;
+    @BindView(R.id.all_check)
+    CheckBox allCheckBox;
     private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +67,19 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
         presenter=new LlddrPresenter(this,this);
     }
 
-    @OnClick({R.id.btn_query})
+    @OnClick({R.id.btn_query,R.id.sure_btn})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.btn_query:
                 showList(new ArrayList<Map<String, String>>());
                 presenter.queryDataByKey(lldhEd.getText().toString(),wldmEd.getText().toString(),ddbhEd.getText().toString(),startType);
+                break;
+            case R.id.sure_btn:
+                if (adapter!=null){
+                    presenter.sureEvent(adapter.getCheckData(),startType);
+                }else {
+                    showToast("请先选择一个或多个生产单号进行操作");
+                }
                 break;
         }
     }
@@ -95,6 +105,15 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("查询中...");
 
+        allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (adapter!=null){
+                    adapter.setAllIsCheck(isChecked);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -112,6 +131,7 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
         adapter=new LlddrAdapter(LlddrActivity.this,R.layout.item_lllddr,data,startType);
         lldListView.setLayoutManager(new GridLayoutManager(LlddrActivity.this,1));
         lldListView.setAdapter(adapter);
+        allCheckBox.setChecked(false);
     }
 
     @Override

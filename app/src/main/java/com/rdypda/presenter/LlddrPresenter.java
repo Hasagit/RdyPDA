@@ -1,9 +1,13 @@
 package com.rdypda.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 
 import com.rdypda.model.network.WebService;
+import com.rdypda.view.activity.FlTabActivity;
+import com.rdypda.view.activity.WldActivity;
+import com.rdypda.view.activity.YljsflActivity;
 import com.rdypda.view.viewinterface.ILlddrView;
 
 import org.json.JSONArray;
@@ -76,6 +80,7 @@ public class LlddrPresenter extends BasePresenter{
                              map.put("kcdd",array.getJSONObject(i).getString("stk_id"));
                              map.put("zt",array.getJSONObject(i).getString("llm_Status"));
                              map.put("wldm",array.getJSONObject(i).getString("llm_wldm"));
+                             map.put("isCheck","0");
                              data.add(map);
                          }
                          view.showList(data);
@@ -101,6 +106,57 @@ public class LlddrPresenter extends BasePresenter{
 
              }
          });
+
+
+    }
+
+    public void sureEvent(List<Map<String,String>>data,int startType){
+        if (data.size()==0){
+            view.showToast("请先选择一个或多个生产单号进行操作");
+            return;
+        }
+        String kcdd=data.get(0).get("kcdd");
+        boolean isKcddSame=true;
+        String lldhs="";
+        for (int i=0;i<data.size();i++){
+            if (!kcdd.equals(data.get(i).get("kcdd"))){
+                isKcddSame=false;
+            }
+            if (i+1!=data.size()){
+                lldhs=lldhs+data.get(i).get("djbh")+",";
+            }else {
+                lldhs=lldhs+data.get(i).get("djbh");
+            }
+        }
+        if (!isKcddSame){
+            view.showToast("所选生产单号库存地点必须一致");
+            return;
+        }
+
+        if (startType== MainPresenter.TMDY){
+            Intent intent=new Intent(context,WldActivity.class);
+            intent.putExtra("djbh",lldhs);
+            intent.putExtra("wldm","");
+            intent.putExtra("startType",WldActivity.START_TYPE_LLD);
+            context.startActivity(intent);
+        }else if (startType== MainPresenter.FL){
+            Intent intent=new Intent(context,FlTabActivity.class);
+            intent.putExtra("djbh",lldhs);
+            intent.putExtra("wldm","");
+            context.startActivity(intent);
+        }else if (startType== MainPresenter.YLTL){
+            Intent intent=new Intent(context,YljsflActivity.class);
+            intent.putExtra("djbh",lldhs);
+            intent.putExtra("wldm","");
+            intent.putExtra("startType",MainPresenter.YLTL);
+            context.startActivity(intent);
+        }else if (startType== MainPresenter.YLJS){
+            Intent intent=new Intent(context,YljsflActivity.class);
+            intent.putExtra("djbh",lldhs);
+            intent.putExtra("wldm","");
+            intent.putExtra("startType",MainPresenter.YLJS);
+            context.startActivity(intent);
+        }
 
 
     }

@@ -56,9 +56,9 @@ public class WldPresenter extends BasePresenter{
                         map.put("ywwlpm",array.getJSONObject(i).getString("itm_ywwlpm"));
                         map.put("qty",array.getJSONObject(i).getString("lld_qty"));
                         map.put("unit",array.getJSONObject(i).getString("lld_unit"));
-                        map.put("jlry",array.getJSONObject(i).getString("lld_jlry"));
-                        map.put("jlrq",array.getJSONObject(i).getString("lld_jlrq"));
-                        map.put("id",array.getJSONObject(i).getString("lld_id"));
+                        //map.put("jlry",array.getJSONObject(i).getString("lld_jlry"));
+                        //map.put("jlrq",array.getJSONObject(i).getString("lld_jlrq"));
+                        //map.put("id",array.getJSONObject(i).getString("lld_id"));
                         map.put("ni_qty",array.getJSONObject(i).getString("lld_ni_qty"));
                         data.add(map);
                     }
