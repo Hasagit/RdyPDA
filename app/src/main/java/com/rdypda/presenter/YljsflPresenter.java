@@ -101,62 +101,6 @@ public class YljsflPresenter extends BasePresenter{
         });
     }
 
-    public void getLldDet(String djbh,String wldm){
-        this.djbh=djbh;
-        this.wldm=wldm;
-        view.setShowProgressDialogEnable(true);
-        String sql=String.format("Call Proc_PDA_Get_lld_det('%s','%s')",djbh,wldm);
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(JSONObject value) {
-                try {
-                    JSONArray array=value.getJSONArray("Table1");
-                    List<Map<String,String>>data=new ArrayList<>();
-                    for (int i=0;i<array.length();i++){
-                        Map<String,String>map=new HashMap<>();
-                        map.put("djbh",array.getJSONObject(i).getString("lld_djbh"));
-                        map.put("llm_wldm",array.getJSONObject(i).getString("lld_llm_wldm"));
-                        map.put("ftyId",array.getJSONObject(i).getString("lld_ftyId"));
-                        map.put("stkId",array.getJSONObject(i).getString("lld_stkId"));
-                        map.put("wldm",array.getJSONObject(i).getString("lld_wldm"));
-                        map.put("wlpm",array.getJSONObject(i).getString("itm_wlpm"));
-                        map.put("ywwlpm",array.getJSONObject(i).getString("itm_ywwlpm"));
-                        map.put("qty",array.getJSONObject(i).getString("lld_nr_qty"));
-                        map.put("unit",array.getJSONObject(i).getString("lld_unit"));
-                        map.put("jlry",array.getJSONObject(i).getString("lld_jlry"));
-                        map.put("jlrq",array.getJSONObject(i).getString("lld_jlrq"));
-                        map.put("id",array.getJSONObject(i).getString("lld_id"));
-                        map.put("ni_qty",array.getJSONObject(i).getString("lll_qty_v2"));
-                        data.add(map);
-                    }
-                    view.refreshWldRecycler(data);
-                } catch (JSONException e) {
-                    view.setShowDialogMsg("Json解析出错");
-                    e.printStackTrace();
-                }finally {
-                    view.setShowProgressDialogEnable(false);
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                e.printStackTrace();
-                view.setShowProgressDialogEnable(false);
-                view.setShowDialogMsg(e.getMessage());
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-    }
-
     public void isValidCode(String tmxh,String type,String kcdd){
         if (kcdd.equals("")){
             view.setShowDialogMsg("请先选择库位");
@@ -184,7 +128,6 @@ public class YljsflPresenter extends BasePresenter{
                     map.put("tmsl",array.getJSONObject(0).getString("brp_Qty"));
                     map.put("tmbh",array.getJSONObject(0).getString("brp_Sn"));
                     view.addYljstlRecyclerItem(map);
-                    getLldDet(djbh,wldm);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     view.setShowDialogMsg("Json解析出错");

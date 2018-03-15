@@ -47,8 +47,6 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
     Toolbar toolbar;
     @BindView(R.id.kcdd_sp)
     Spinner kcddSp;
-    @BindView(R.id.wld_recycler)
-    RecyclerView wldRecycler;
     @BindView(R.id.jstl_recycler)
     RecyclerView jstlRecycler;
 
@@ -59,7 +57,6 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
         ButterKnife.bind(this);
         initView();
         presenter=new YljsflPresenter(this,this);
-        presenter.getLldDet(djbh,wldm);
         presenter.setStartType(getIntent().getIntExtra("startType",0));
     }
 
@@ -139,15 +136,6 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
     }
 
     @Override
-    public void refreshWldRecycler(List<Map<String, String>> data) {
-        WldAdapter adapter=new WldAdapter(YljsflActivity.this,R.layout.item_wld,data);
-        adapter.setLldh(djbh);
-        wldRecycler.setLayoutManager(new GridLayoutManager(YljsflActivity.this,1));
-        wldRecycler.setAdapter(adapter);
-        adapter.setOnClickEnable(false);
-    }
-
-    @Override
     public void addYljstlRecyclerItem(Map<String, String> item) {
         adapter.addData(item);
     }
@@ -215,7 +203,7 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
         }
     }
 
-    public void showDeleteDialog(String wldm,String tmsl,String tmxh){
+    public void showDeleteDialog(String wldm, String tmsl, final String tmxh){
         if (getIntent().getIntExtra("startType",0)==MainPresenter.YLTL){
             //setShowDialogMsg("原料退料不能取消扫描");
         }else {
@@ -231,7 +219,7 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
                 delBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //presenter.deleteData(getIntent().getStringExtra("djbh"),getIntent().getStringExtra("wldm"));
+                        presenter.cancelScan(tmxh);
                         deleteDialog.dismiss();
                     }
                 });

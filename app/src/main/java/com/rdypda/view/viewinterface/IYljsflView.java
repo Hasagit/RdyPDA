@@ -14,7 +14,6 @@ public interface IYljsflView {
 
     void refreshKcddSp(List<String>data,List<String>dataDm);
 
-    void refreshWldRecycler(List<Map<String,String>>data);
 
     void addYljstlRecyclerItem(Map<String,String>item);
 

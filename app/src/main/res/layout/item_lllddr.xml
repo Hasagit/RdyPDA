@@ -11,6 +11,7 @@
         android:background="@drawable/white_btn_bg"
         android:orientation="horizontal">
         <LinearLayout
+            android:id="@+id/check_box_layout"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:background="@drawable/table">

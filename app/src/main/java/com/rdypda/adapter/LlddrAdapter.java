@@ -38,6 +38,7 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
     private Context context;
     private int resource;
     private int startType;
+    private boolean checkEnable=true;
 
     public LlddrAdapter( Context context, int resource,List<Map<String, String>> data,int type) {
         super(data);
@@ -63,7 +64,11 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
         viewHolder.lab_4.setText(map.get("zt"));
         viewHolder.lab_5.setText(map.get("kcdd"));
         viewHolder.lab_6.setText(map.get("wldm"));
-
+        if (checkEnable){
+            viewHolder.checkBoxLayout.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.checkBoxLayout.setVisibility(View.GONE);
+        }
         viewHolder.isCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -89,30 +94,6 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
                     data.get(position).put("isCheck","0");
                     viewHolder.isCheckBox.setChecked(false);
                 }
-                /*if (startType== MainPresenter.TMDY){
-                    Intent intent=new Intent(context,WldActivity.class);
-                    intent.putExtra("djbh",map.get("djbh"));
-                    intent.putExtra("wldm",map.get("wldm"));
-                    intent.putExtra("startType",WldActivity.START_TYPE_LLD);
-                    context.startActivity(intent);
-                }else if (startType== MainPresenter.FL){
-                    Intent intent=new Intent(context,FlTabActivity.class);
-                    intent.putExtra("djbh",map.get("djbh"));
-                    intent.putExtra("wldm",map.get("wldm"));
-                    context.startActivity(intent);
-                }else if (startType== MainPresenter.YLTL){
-                    Intent intent=new Intent(context,YljsflActivity.class);
-                    intent.putExtra("djbh",map.get("djbh"));
-                    intent.putExtra("wldm",map.get("wldm"));
-                    intent.putExtra("startType",MainPresenter.YLTL);
-                    context.startActivity(intent);
-                }else if (startType== MainPresenter.YLJS){
-                    Intent intent=new Intent(context,YljsflActivity.class);
-                    intent.putExtra("djbh",map.get("djbh"));
-                    intent.putExtra("wldm",map.get("wldm"));
-                    intent.putExtra("startType",MainPresenter.YLJS);
-                    context.startActivity(intent);
-                }*/
             }
         });
     }
@@ -125,7 +106,7 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
 
 
     public class ViewHolder extends BaseRecyclerAdapter.BaseRecyclerViewHolder{
-        public LinearLayout content;
+        public LinearLayout content,checkBoxLayout;
         public TextView lab_1;
         public TextView lab_2;
         public TextView lab_3;
@@ -144,6 +125,7 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
             lab_5=(TextView)itemView.findViewById(R.id.lab_5);
             lab_6=(TextView)itemView.findViewById(R.id.lab_6);
             isCheckBox=(CheckBox)itemView.findViewById(R.id.check_box);
+            checkBoxLayout=(LinearLayout)itemView.findViewById(R.id.check_box_layout);
         }
     }
 
@@ -168,5 +150,9 @@ public class LlddrAdapter extends BaseRecyclerAdapter<LlddrAdapter.ViewHolder,Ma
             }
         }
         notifyDataSetChanged();
+    }
+
+    public void setCheckEnable(boolean checkEnable) {
+        this.checkEnable = checkEnable;
     }
 }

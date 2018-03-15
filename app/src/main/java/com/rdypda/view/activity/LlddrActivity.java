@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +58,8 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
     TextView title;
     @BindView(R.id.all_check)
     CheckBox allCheckBox;
+    @BindView(R.id.check_box_layout)
+    LinearLayout checkBoxLayout;
     private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +79,14 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
                 presenter.queryDataByKey(lldhEd.getText().toString(),wldmEd.getText().toString(),ddbhEd.getText().toString(),startType);
                 break;
             case R.id.sure_btn:
-                if (adapter!=null){
-                    presenter.sureEvent(adapter.getCheckData(),startType);
+                if (!(startType==MainPresenter.YLJS|startType==MainPresenter.YLTL)){
+                    if (adapter!=null){
+                        presenter.sureEvent(adapter.getCheckData(),startType);
+                    }else {
+                        showToast("请先选择一个或多个生产单号进行操作");
+                    }
                 }else {
-                    showToast("请先选择一个或多个生产单号进行操作");
+                    presenter.sureEvent(new ArrayList<Map<String, String>>(),startType);
                 }
                 break;
         }
@@ -116,8 +123,10 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
             presenter.getScanedData();
         }else if (startType==MainPresenter.YLJS){
             title.setText("选择生产单号扫描接收");
+            checkBoxLayout.setVisibility(View.GONE);
         }else if (startType==MainPresenter.YLTL){
             title.setText("选择生产单号扫描退料");
+            checkBoxLayout.setVisibility(View.GONE);
         }
     }
 
@@ -134,6 +143,9 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
     @Override
     public void showList(List<Map<String, String>> data) {
         adapter=new LlddrAdapter(LlddrActivity.this,R.layout.item_lllddr,data,startType);
+        if (startType==MainPresenter.YLJS|startType==MainPresenter.YLTL){
+            adapter.setCheckEnable(false);
+        }
         lldListView.setLayoutManager(new GridLayoutManager(LlddrActivity.this,1));
         lldListView.setAdapter(adapter);
         allCheckBox.setChecked(false);

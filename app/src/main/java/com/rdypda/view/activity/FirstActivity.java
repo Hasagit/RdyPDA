@@ -82,13 +82,16 @@ public class FirstActivity extends BaseActivity implements IFirstView {
             }
         })
                 .create();
+        if (!FirstActivity.this.isDestroyed())
         downloadDialog.show();
     }
 
     @Override
     public void showMsgDialog(String msg) {
-        dialog.setMessage(msg);
-        dialog.show();
+        if (!FirstActivity.this.isDestroyed()){
+            dialog.setMessage(msg);
+            dialog.show();
+        }
     }
 
 
