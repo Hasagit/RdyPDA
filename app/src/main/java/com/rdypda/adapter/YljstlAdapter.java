@@ -42,7 +42,7 @@ public class YljstlAdapter extends BaseRecyclerAdapter<YljstlAdapter.ViewHolder,
     public void onBindViewHolder(final ViewHolder viewHolder, final int i, final Map<String, String> map) {
         viewHolder.lab_1.setText(map.get("wlbh"));
         viewHolder.lab_2.setText(map.get("wlgg"));
-        viewHolder.lab_2.setText(map.get("tmsl"));
+        viewHolder.lab_3.setText(map.get("tmsl"));
         viewHolder.lab_4.setText(map.get("tmbh"));
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override

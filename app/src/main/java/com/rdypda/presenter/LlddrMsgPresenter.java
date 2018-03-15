@@ -2,10 +2,13 @@ package com.rdypda.presenter;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.rdypda.model.network.WebService;
 import com.rdypda.util.PrinterUtil;
+import com.rdypda.view.activity.FlActivity;
+import com.rdypda.view.activity.FlTabActivity;
 import com.rdypda.view.viewinterface.ILlddrMsgView;
 
 import org.json.JSONArray;
@@ -152,4 +155,17 @@ public class LlddrMsgPresenter extends BasePresenter{
 
     }
 
+
+    public void goToFl(String tmxh,String djbh){
+        if (tmxh.equals("")){
+            view.showMessage("请先获取条码序号");
+            return;
+        }
+        Intent intent=new Intent(context, FlTabActivity.class);
+        intent.putExtra("starType",FlActivity.START_TYPE_LLDDRMSG);
+        intent.putExtra("tmxh",tmxh);
+        intent.putExtra("djbh",djbh);
+        intent.putExtra("wldm","");
+        context.startActivity(intent);
+    }
 }

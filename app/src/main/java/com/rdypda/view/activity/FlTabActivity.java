@@ -61,6 +61,8 @@ public class FlTabActivity extends BaseActivity implements IFlTabView {
         Intent intent_2=new Intent(this,FlActivity.class);
         intent_2.putExtra("djbh",djbh);
         intent_2.putExtra("wldm",wldm);
+        intent_2.putExtra("starType",getIntent().getIntExtra("starType",0));
+        intent_2.putExtra("tmxh",getIntent().getStringExtra("tmxh"));
         View viewFl=getView("1",intent_2);
         Intent intent_1=new Intent(this,WldActivity.class);
         intent_1.putExtra("djbh",djbh);

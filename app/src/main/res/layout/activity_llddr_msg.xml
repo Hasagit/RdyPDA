@@ -236,39 +236,6 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="单位"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/table_right_bottom">
-                    <TextView
-                        android:id="@+id/dw"
-                        android:layout_width="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:background="@android:color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-                <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:background="@drawable/table_left_bottom">
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:text="条码序号"/>
                 </LinearLayout>
                 <LinearLayout
@@ -302,10 +269,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/color_green"
-                android:layout_margin="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
                 android:id="@+id/print_btn"
                 android:textColor="@android:color/white"
                 android:text="@string/dy"/>
+
+            <com.rdypda.view.widget.PowerButton
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/color_green"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/fl_btn"
+                android:textColor="@android:color/white"
+                android:text="发料"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

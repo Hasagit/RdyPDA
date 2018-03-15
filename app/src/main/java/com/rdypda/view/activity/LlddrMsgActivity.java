@@ -38,8 +38,6 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
     EditText tmpchEd;
     @BindView(R.id.tmsl)
     EditText tmslEd;
-    @BindView(R.id.dw)
-    TextView dwText;
     @BindView(R.id.tmxh)
     TextView tmxhText;
     @BindView(R.id.wfsl)
@@ -99,13 +97,12 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
         xqslStr=getIntent().getStringExtra("xqsl");
         wfslStr=getIntent().getStringExtra("wfsl");
         wlbhText.setText(wlbhStr);
-        dwText.setText(dwStr);
         wfslText.setText(wfslStr);
         xqslText.setText(xqslStr);
     }
 
 
-    @OnClick({R.id.print_btn,R.id.setting_btn,R.id.get_tm_btn})
+    @OnClick({R.id.print_btn,R.id.setting_btn,R.id.get_tm_btn,R.id.fl_btn})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.print_btn:
@@ -117,6 +114,9 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
             case R.id.get_tm_btn:
                 presenter.getTmxh(tmpchEd.getText().toString(),tmslEd.getText().toString(),lldhStr,
                         wlbhStr,dwStr,gchStr,kcddStr,tmxhText.getText().toString());
+                break;
+            case R.id.fl_btn:
+                presenter.goToFl(tmxhText.getText().toString(),getIntent().getStringExtra("lldh"));
                 break;
         }
     }

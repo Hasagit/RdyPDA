@@ -47,6 +47,7 @@ public class FlActivity extends BaseActivity implements IFlView {
     private AlertDialog dialog;
     private ProgressDialog progressDialog;
     private BroadcastReceiver receiver;
+    public static int START_TYPE_LLDDRMSG=1;
 
 
     @Override
@@ -59,13 +60,13 @@ public class FlActivity extends BaseActivity implements IFlView {
         presenter.setWldm(getIntent().getStringExtra("wldm"));
         presenter.setLldh(getIntent().getStringExtra("djbh"));
         presenter.getScanedData();
+        if (getIntent().getIntExtra("starType",0)==START_TYPE_LLDDRMSG){
+            presenter.isValidCode(getIntent().getStringExtra("tmxh"));
+        }
     }
 
     @Override
     protected void initView() {
-        //setSupportActionBar(toolbar);
-        //ActionBar actionBar=getSupportActionBar();
-        //actionBar.setDisplayHomeAsUpEnabled(true);
         toolbar.setVisibility(View.GONE);
         dialog=new AlertDialog.Builder(this).setTitle("提示").setNegativeButton("确定", new DialogInterface.OnClickListener() {
             @Override

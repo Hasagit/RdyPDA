@@ -203,7 +203,7 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
         }
     }
 
-    public void showDeleteDialog(String wldm, String tmsl, final String tmxh){
+    public void showDeleteDialog(String wldm,String tmsl,String tmxh){
         if (getIntent().getIntExtra("startType",0)==MainPresenter.YLTL){
             //setShowDialogMsg("原料退料不能取消扫描");
         }else {
@@ -219,7 +219,7 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
                 delBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        presenter.cancelScan(tmxh);
+                        //presenter.deleteData(getIntent().getStringExtra("djbh"),getIntent().getStringExtra("wldm"));
                         deleteDialog.dismiss();
                     }
                 });

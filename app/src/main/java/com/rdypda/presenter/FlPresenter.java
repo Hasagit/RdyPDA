@@ -44,7 +44,7 @@ public class FlPresenter extends BasePresenter {
         scanUtil.setOnScanListener(new ScanUtil.OnScanListener() {
             @Override
             public void onSuccess(String result) {
-                isValidCode(result);
+                isValidCode(new QrCodeUtil(result).getTmxh());
             }
 
             @Override
@@ -155,10 +155,8 @@ public class FlPresenter extends BasePresenter {
         });
     }
 
-    public void isValidCode(String qrCode){
+    public void isValidCode(final String tmxh){
         view.setShowProgressEnable(true);
-        QrCodeUtil qrCodeUtil=new QrCodeUtil(qrCode);
-        final String tmxh=qrCodeUtil.getTmxh();
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','LLD', '%s', '%s')",
                 tmxh,lldh,preferenUtil.getString("userId"));
         view.setShowProgressEnable(true);
