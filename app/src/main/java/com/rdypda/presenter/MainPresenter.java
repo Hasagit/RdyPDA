@@ -6,7 +6,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
+import android.widget.ExpandableListView;
 
+import com.rdypda.R;
 import com.rdypda.model.network.WebService;
 import com.rdypda.util.DownloadUtils;
 import com.rdypda.view.activity.HlActivity;
@@ -25,6 +28,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -53,6 +58,7 @@ public class MainPresenter extends BasePresenter{
         this.view = view;
         view.setUserName("你好，"+preferenUtil.getString("usr_yhmc"));
         autoUpdate();
+        initExpandableListView();
     }
 
     public void initPermissionList(String arrayStr){
@@ -63,6 +69,163 @@ public class MainPresenter extends BasePresenter{
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void initExpandableListView(){
+        List<String> groupTitles=new ArrayList<>();
+        final List<List<String>> titles=new ArrayList<>();
+        List<List<Integer>> imgs=new ArrayList<>();
+        groupTitles.add("原料仓发料");
+        groupTitles.add("原料组仓库");
+        groupTitles.add("注塑生产与投料");
+        groupTitles.add("注塑产品管理");
+        groupTitles.add("组装发料退料");
+        groupTitles.add("条码管理");
+        groupTitles.add("原料混料");
+
+        //原料仓发料
+        List<String>ylcflArray=new ArrayList<>();
+        ylcflArray.add("发料条码打印");
+        ylcflArray.add("发料");
+        titles.add(ylcflArray);
+        List<Integer>ylcflResources=new ArrayList<>();
+        ylcflResources.add(R.drawable.print_icon);
+        ylcflResources.add(R.drawable.fl_icon);
+        imgs.add(ylcflResources);
+
+        //原料组仓库
+        List<String>ylzckArray=new ArrayList<>();
+        ylzckArray.add("原料接收");
+        ylzckArray.add("原料退料");
+        titles.add(ylzckArray);
+        List<Integer>ylzckResources=new ArrayList<>();
+        ylzckResources.add(R.drawable.yljs_icon);
+        ylzckResources.add(R.drawable.yltl_icon);
+        imgs.add(ylzckResources);
+
+        //注塑生产与投料
+        List<String>zsscytlArray=new ArrayList<>();
+        zsscytlArray.add("混料");
+        zsscytlArray.add("按料单发料");
+        zsscytlArray.add("退料");
+        zsscytlArray.add("工单退料到原料组");
+        titles.add(zsscytlArray);
+        List<Integer>zsscytlResources=new ArrayList<>();
+        zsscytlResources.add(R.drawable.hl_icon);
+        zsscytlResources.add(R.drawable.adfl_icon);
+        zsscytlResources.add(R.drawable.tl_icon);
+        zsscytlResources.add(R.drawable.gdtldylz_icon);
+        imgs.add(zsscytlResources);
+
+        //注塑产品管理
+        List<String>zscpglArray=new ArrayList<>();
+        zscpglArray.add("产品扫描入库");
+        zscpglArray.add("移库领料");
+        titles.add(zscpglArray);
+        List<Integer>zscpglResources=new ArrayList<>();
+        zscpglResources.add(R.drawable.cpsmrk_icon);
+        zscpglResources.add(R.drawable.ykll_icon);
+        imgs.add(zscpglResources);
+
+        //组装发料退料
+        List<String>zzfltlArray=new ArrayList<>();
+        zzfltlArray.add("按单发料");
+        zzfltlArray.add("按单退料");
+        zzfltlArray.add("移库退料到仓库");
+        titles.add(zzfltlArray);
+        List<Integer>zzfltlResources=new ArrayList<>();
+        zzfltlResources.add(R.drawable.adfl2_icon);
+        zzfltlResources.add(R.drawable.adtl_icon);
+        zzfltlResources.add(R.drawable.yklldck_icon);
+        imgs.add(zzfltlResources);
+
+        //条码管理
+        List<String>tmglArray=new ArrayList<>();
+        tmglArray.add("条码拆分");
+        tmglArray.add("条码补打");
+        tmglArray.add("库存盘点");
+        tmglArray.add("条码查询");
+        titles.add(tmglArray);
+        List<Integer>tmglResources=new ArrayList<>();
+        tmglResources.add(R.drawable.tmcf_icon);
+        tmglResources.add(R.drawable.tmbd_icon);
+        tmglResources.add(R.drawable.kcpd_icon);
+        tmglResources.add(R.drawable.tmcx_icon);
+        imgs.add(tmglResources);
+
+        //原料混料
+        List<String>ylhlArray=new ArrayList<>();
+        ylhlArray.add("混料包装");
+        ylhlArray.add("设备投料");
+        ylhlArray.add("设备连接");
+        ylhlArray.add("设备下料");
+        ylhlArray.add("无源单入库");
+        ylhlArray.add("无源单出库");
+        ylhlArray.add("移库");
+        titles.add(ylhlArray);
+        List<Integer>ylhlResources=new ArrayList<>();
+        ylhlResources.add(R.drawable.hlbz_icon);
+        ylhlResources.add(R.drawable.ltjl_icon);
+        ylhlResources.add(R.drawable.sblj_icon);
+        ylhlResources.add(R.drawable.sbxl_icon);
+        ylhlResources.add(R.drawable.wydrk_icon);
+        ylhlResources.add(R.drawable.wydck_icon);
+        ylhlResources.add(R.drawable.yk_icon);
+        imgs.add(ylhlResources);
+
+
+
+        view.refreshExpandableListVie(groupTitles, titles, imgs, new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                String check=titles.get(groupPosition).get(childPosition);
+                switch (titles.get(groupPosition).get(childPosition)){
+                    case "发料条码打印":
+                        goToLlddr(MainPresenter.TMDY);
+                        break;
+                    case "发料":
+                        goToLlddr(MainPresenter.FL);
+                        break;
+                    case "原料接收":
+                        goToYljs();
+                        break;
+                    case "原料退料":
+                        goToYltl();
+                        break;
+                    case "按料单发料":
+                        goToAldfl();
+                        break;
+                    case "混料":
+                        goToHl();
+                        break;
+                    case "条码拆分":
+                        goToTmcf();
+                        break;
+                    case "条码补打":
+                        goToTmbd();
+                        break;
+                    case "库存盘点":
+                        goToKcpd();
+                        break;
+                    case "条码查询":
+                        goToTmcx();
+                        break;
+                    case "混料包装":
+                        goTohlbz();
+                        break;
+                    case "设备投料":
+                        goToSbtl();
+                        break;
+                    case "设备连接":
+                        goToSblj();
+                        break;
+                    case "设备下料":
+                        goTosbxl();
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     public boolean isPermission(String functionCode){
@@ -102,7 +265,7 @@ public class MainPresenter extends BasePresenter{
         }
     }
 
-
+    //原料接收
     public void goToYljs(){
         if (isPermission("MTR511D1")){
             Intent intent=new Intent(context, LlddrActivity.class);
@@ -113,7 +276,7 @@ public class MainPresenter extends BasePresenter{
         }
     }
 
-
+    //原料退料
     public void goToYltl(){
         if (isPermission("MTR512D1")){
             Intent intent=new Intent(context, LlddrActivity.class);
@@ -123,8 +286,6 @@ public class MainPresenter extends BasePresenter{
             view.showMsgDialog("你没有权限使用该功能");
         }
     }
-
-
 
     //原料组仓库
     public void goToYlzck(int type) {
@@ -146,9 +307,9 @@ public class MainPresenter extends BasePresenter{
 
     //按料单发料
     public void goToAldfl(){
-        view.showMsgDialog("敬请期待");
-        /*String sql="Insert Into kcm_mstr (kcm_ftyid, kcm_stkid, kcm_kwdm, kcm_cwdm, kcm_ph, kcm_wldm, kcm_kcsl, kcm_wfpl, kcm_jlrq, kcm_jlry)\n" +
-                "            Select '333', 'NSS', 'NSS', '', '', '81010001-000', 10, 10, Now(), 'ADMIN'\n" +
+        /*view.showMsgDialog("敬请期待");
+        String sql="Insert Into kcm_mstr (kcm_ftyid, kcm_stkid, kcm_kwdm, kcm_cwdm, kcm_ph, kcm_wldm, kcm_kcsl, kcm_wfpl, kcm_jlrq, kcm_jlry)\n" +
+                "            Select '333', 'WHS', 'WHS', '', '', '81050004-000', 10, 10, Now(), 'ADMIN'\n" +
                 "            On Duplicate Key Update kcm_kcsl = kcm_kcsl + 10, kcm_wfpl = kcm_wfpl + 10, kcm_ggrq = Now(), kcm_ggry = 'ADMIN';";
         WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
@@ -184,7 +345,6 @@ public class MainPresenter extends BasePresenter{
     public void goToAdfl(){
         view.showMsgDialog("敬请期待");
     }
-
 
     //按单退料
     public void goToAdtl(){
@@ -371,7 +531,6 @@ public class MainPresenter extends BasePresenter{
             }
         },1800*1000,1800*1000);
     }
-
 
     public void closeTimer(){
         timer.cancel();

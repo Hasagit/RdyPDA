@@ -58,7 +58,7 @@ public class FlActivity extends BaseActivity implements IFlView {
         presenter=new FlPresenter(this,this);
         presenter.setWldm(getIntent().getStringExtra("wldm"));
         presenter.setLldh(getIntent().getStringExtra("djbh"));
-        presenter.getScanedData(getIntent().getStringExtra("djbh"),getIntent().getStringExtra("wldm"));
+        presenter.getScanedData();
     }
 
     @Override
@@ -169,7 +169,7 @@ public class FlActivity extends BaseActivity implements IFlView {
             delBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    presenter.deleteData(getIntent().getStringExtra("djbh"),getIntent().getStringExtra("wldm"));
+                    presenter.deleteData();
                     deleteDialog.dismiss();
                 }
             });

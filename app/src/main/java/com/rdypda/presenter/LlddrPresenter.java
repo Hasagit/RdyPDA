@@ -160,4 +160,45 @@ public class LlddrPresenter extends BasePresenter{
 
 
     }
+
+    public void getScanedData(){
+        view.setProgressDialogEnable(true);
+        String sql =String.format("Call Proc_PDA_GetScanList ('LLD','','%s')",preferenUtil.getString("userId"));
+        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                view.setProgressDialogEnable(false);
+                try {
+                    JSONArray array=value.getJSONArray("Table2");
+                    if (array.length()>0){
+                        Intent intent=new Intent(context,FlTabActivity.class);
+                        intent.putExtra("djbh",array.getJSONObject(0).getString("scan_djbh"));
+                        intent.putExtra("wldm","");
+                        context.startActivity(intent);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    view.showToast(e.getMessage());
+                }finally {
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                view.setProgressDialogEnable(false);
+                view.showToast(e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    };
 }

@@ -12,14 +12,17 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rdypda.R;
+import com.rdypda.adapter.MainAdapter;
 import com.rdypda.presenter.MainPresenter;
 import com.rdypda.view.viewinterface.IMainView;
+import com.rdypda.view.widget.MyExpandableListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,43 +54,10 @@ public class MainActivity extends BaseActivity implements IMainView{
     @BindView(R.id.banner)
     BGABanner banner;
 
-    //功能按钮
-    @BindView(R.id.tmdy)
-    LinearLayout tmdy_btn;
-    @BindView(R.id.fl)
-    LinearLayout fl_btn;
-    @BindView(R.id.yljs)
-    LinearLayout yljs_btn;
-    @BindView(R.id.yltl)
-    LinearLayout yltl_btn;
-    @BindView(R.id.hl)
-    LinearLayout hl_btn;
-    @BindView(R.id.aldfl)
-    LinearLayout aldfl_btn;
-    @BindView(R.id.tl)
-    LinearLayout tl_btn;
-    @BindView(R.id.gdtldylz)
-    LinearLayout gdtldylz_btn;
-    @BindView(R.id.cpsmrk)
-    LinearLayout cpsmrk_btn;
-    @BindView(R.id.ykll)
-    LinearLayout ykll_btn;
-    @BindView(R.id.adfl)
-    LinearLayout adfl_btn;
-    @BindView(R.id.adtl)
-    LinearLayout adtl_btn;
-    @BindView(R.id.yktldck)
-    LinearLayout yctldck_btn;
-    @BindView(R.id.tmcf)
-    LinearLayout tmcf_btn;
-    @BindView(R.id.tmbd)
-    LinearLayout tmbd_btn;
-    @BindView(R.id.kcpd)
-    LinearLayout kcpd_btn;
-    @BindView(R.id.tmcx)
-    LinearLayout tmcx_btn;
     @BindView(R.id.user_name)
     TextView userNameText;
+    @BindView(R.id.expanded_menu)
+    MyExpandableListView expandableListView;
 
 
     @Override
@@ -139,7 +109,7 @@ public class MainActivity extends BaseActivity implements IMainView{
     }
 
 
-    @OnClick({R.id.switch_layout,R.id.exit_layout,R.id.tmdy,R.id.fl,R.id.yljs,
+   /* @OnClick({R.id.switch_layout,R.id.exit_layout,R.id.tmdy,R.id.fl,R.id.yljs,
             R.id.yltl,R.id.hl,R.id.aldfl,R.id.tl,R.id.gdtldylz,R.id.cpsmrk,R.id.ykll,
             R.id.adfl,R.id.adtl,R.id.yktldck,R.id.tmcf,R.id.tmbd,R.id.kcpd,R.id.tmcx,
             R.id.hlbz,R.id.sbtl,R.id.sblj,R.id.sbxl})
@@ -216,7 +186,7 @@ public class MainActivity extends BaseActivity implements IMainView{
                 break;
 
         }
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -285,6 +255,14 @@ public class MainActivity extends BaseActivity implements IMainView{
     @Override
     public void setProgressDownloadProgressDialog(int size) {
         downloadProgressDialog.setProgress(size);
+    }
+
+    @Override
+    public void refreshExpandableListVie(List<String> groupTitles, List<List<String>> titles, List<List<Integer>> imgs,ExpandableListView.OnChildClickListener onChildClickListener) {
+        MainAdapter adapter=new MainAdapter(MainActivity.this,R.layout.item_main_title,
+                R.layout.item_main_group_title,groupTitles,titles,imgs);
+        expandableListView.setAdapter(adapter);
+        expandableListView.setOnChildClickListener(onChildClickListener);
     }
 
     @Override

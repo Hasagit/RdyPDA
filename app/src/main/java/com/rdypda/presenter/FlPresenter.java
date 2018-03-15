@@ -54,9 +54,9 @@ public class FlPresenter extends BasePresenter {
         });
     }
 
-    public void getScanedData(String lldh, final String wldm){
+    public void getScanedData(){
         view.setShowProgressEnable(true);
-        String sql =String.format("Call Proc_PDA_GetScanList ('LLD','%s','%s')",lldh+";"+wldm,preferenUtil.getString("userId"));
+        String sql =String.format("Call Proc_PDA_GetScanList ('LLD','','%s')",preferenUtil.getString("userId"));
         WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -98,9 +98,9 @@ public class FlPresenter extends BasePresenter {
         });
     };
 
-    public void deleteData(final String lldh, final String wldm){
+    public void deleteData(){
         view.setShowProgressEnable(true);
-        String sql=String.format("Call Proc_PDA_CancelScan('LLD', '%s', '%s')",lldh+";"+wldm,preferenUtil.getString("userId"));
+        String sql=String.format("Call Proc_PDA_CancelScan('LLD', '', '%s')",preferenUtil.getString("userId"));
         WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -109,12 +109,13 @@ public class FlPresenter extends BasePresenter {
 
             @Override
             public void onNext(JSONObject value) {
-                getScanedData(lldh,wldm);
+                getScanedData();
             }
             @Override
             public void onError(Throwable e) {
                 e.printStackTrace();
-                view.setShowMsgDialogEnable("服务器异常",true);
+                view.setShowProgressEnable(false);
+                view.setShowMsgDialogEnable(e.getMessage(),true);
             }
 
             @Override
@@ -126,7 +127,7 @@ public class FlPresenter extends BasePresenter {
 
     public void uploadScanWld(){
         view.setShowProgressEnable(true);
-        String sql=String.format("Call Proc_PDA_LLD_Post('%s','%s','%s')",lldh,wldm,preferenUtil.getString("userId"));
+        String sql=String.format("Call Proc_PDA_LLD_Post('%s')",preferenUtil.getString("userId"));
         WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -159,7 +160,7 @@ public class FlPresenter extends BasePresenter {
         QrCodeUtil qrCodeUtil=new QrCodeUtil(qrCode);
         final String tmxh=qrCodeUtil.getTmxh();
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','LLD', '%s', '%s')",
-                tmxh,lldh+";"+wldm,preferenUtil.getString("userId"));
+                tmxh,lldh,preferenUtil.getString("userId"));
         view.setShowProgressEnable(true);
         WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
