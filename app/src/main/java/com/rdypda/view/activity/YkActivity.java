@@ -1,9 +1,10 @@
 package com.rdypda.view.activity;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,8 +20,8 @@ import com.example.liangmutian.airrecyclerview.swipetoloadlayout.BaseRecyclerAda
 import com.rdypda.R;
 import com.rdypda.adapter.WydrckScanAdapter;
 import com.rdypda.adapter.WydrckZsAdapter;
-import com.rdypda.presenter.WydrckPresenter;
-import com.rdypda.view.viewinterface.IWydrckView;
+import com.rdypda.presenter.YkPresenter;
+import com.rdypda.view.viewinterface.IYkView;
 import com.rdypda.view.viewinterface.OnItemClickListener;
 
 import java.util.ArrayList;
@@ -29,18 +30,14 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import retrofit2.http.PUT;
 
-public class WydrckActivity extends BaseActivity implements IWydrckView {
-    private ProgressDialog progressDialog;
+public class YkActivity extends BaseActivity implements IYkView {
     private AlertDialog dialog;
-    private WydrckPresenter presenter;
+    private ProgressDialog progressDialog;
+    private YkPresenter presenter;
     private WydrckScanAdapter scanAdapter;
     private WydrckZsAdapter zsAdapter;
-    private int startType;
-    public static int START_TYPE_WYDCK=1;
-    public static int START_TYPE_WYDRK=0;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.zs_list)
@@ -52,23 +49,22 @@ public class WydrckActivity extends BaseActivity implements IWydrckView {
     @BindView(R.id.tmbh_ed)
     EditText tmbhEd;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wydrck);
+        setContentView(R.layout.activity_yk);
         ButterKnife.bind(this);
         initView();
-        presenter=new WydrckPresenter(this,this);
-        presenter.setStartType(startType);
+        presenter=new YkPresenter(this,this);
     }
 
     @Override
     protected void initView() {
-        startType=getIntent().getIntExtra("startType",0);
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("提示");
-        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage("请稍后...");
         dialog=new AlertDialog.Builder(this).setTitle("提示")
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
@@ -83,20 +79,6 @@ public class WydrckActivity extends BaseActivity implements IWydrckView {
         actionBar.setDisplayHomeAsUpEnabled(true);
         refreshScanList(new ArrayList<Map<String, String>>());
         refreshZsList(new ArrayList<Map<String, String>>());
-        if (startType==START_TYPE_WYDRK){
-            actionBar.setTitle("无源单入库");
-        }else {
-            actionBar.setTitle("无源单出库");
-        }
-    }
-
-    @OnClick({R.id.tm_sure_btn})
-    public void onClick(View view){
-        switch (view.getId()){
-            case R.id.tm_sure_btn:
-                presenter.isValidCode(tmbhEd.getText().toString());
-                break;
-        }
     }
 
     @Override
@@ -110,12 +92,6 @@ public class WydrckActivity extends BaseActivity implements IWydrckView {
     }
 
     @Override
-    public void showMsgDialog(String msg) {
-        dialog.setMessage(msg);
-        dialog.show();
-    }
-
-    @Override
     public void setShowProgressDialogEnable(boolean enable) {
         if (enable){
             progressDialog.show();
@@ -125,8 +101,14 @@ public class WydrckActivity extends BaseActivity implements IWydrckView {
     }
 
     @Override
+    public void showMsgDialog(String msg) {
+        dialog.setMessage(msg);
+        dialog.show();
+    }
+
+    @Override
     public void refreshJskwSp(List<String> mcData, final List<String> idData) {
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(WydrckActivity.this,android.R.layout.simple_spinner_dropdown_item,mcData);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(YkActivity.this,android.R.layout.simple_spinner_dropdown_item,mcData);
         jskwSp.setAdapter(adapter);
         presenter.setFtyIdAndstkId(";");
         jskwSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -144,15 +126,15 @@ public class WydrckActivity extends BaseActivity implements IWydrckView {
 
     @Override
     public void refreshZsList(List<Map<String, String>> data) {
-        zsAdapter=new WydrckZsAdapter(WydrckActivity.this,R.layout.item_wydrck_zs,data);
-        zsList.setLayoutManager(new GridLayoutManager(WydrckActivity.this,1));
+        zsAdapter=new WydrckZsAdapter(YkActivity.this,R.layout.item_wydrck_zs,data);
+        zsList.setLayoutManager(new GridLayoutManager(YkActivity.this,1));
         zsList.setAdapter(zsAdapter);
     }
 
     @Override
     public void refreshScanList(List<Map<String, String>> data) {
-        scanAdapter=new WydrckScanAdapter(WydrckActivity.this,R.layout.item_wydrck_scan,data);
-        scanedList.setLayoutManager(new GridLayoutManager(WydrckActivity.this,1));
+        scanAdapter=new WydrckScanAdapter(YkActivity.this,R.layout.item_wydrck_scan,data);
+        scanedList.setLayoutManager(new GridLayoutManager(YkActivity.this,1));
         scanedList.setAdapter(scanAdapter);
         scanAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -194,7 +176,7 @@ public class WydrckActivity extends BaseActivity implements IWydrckView {
     }
 
     public void showDelDialog(final String tmxh, final String wlbh, final String tmsl){
-        AlertDialog delDialog=new AlertDialog.Builder(WydrckActivity.this).setTitle("提示")
+        android.app.AlertDialog delDialog=new android.app.AlertDialog.Builder(YkActivity.this).setTitle("提示")
                 .setMessage("是否删除条码"+tmxh)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rdypda"
     android:versionCode="3"
-    android:versionName="1.0.2.7">
+    android:versionName="1.0.2.9">
 
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -51,7 +51,8 @@
         <activity android:name=".view.activity.SbtlActivity" />
         <activity android:name=".view.activity.SbljActivity" />
         <activity android:name=".view.activity.SbxlActivity" />
-        <activity android:name=".view.activity.WydrckActivity"></activity>
+        <activity android:name=".view.activity.WydrckActivity" />
+        <activity android:name=".view.activity.YkActivity"></activity>
     </application>
 
 </manifest>

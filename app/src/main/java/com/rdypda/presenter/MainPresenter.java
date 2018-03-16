@@ -23,6 +23,7 @@ import com.rdypda.view.activity.TmbdActivity;
 import com.rdypda.view.activity.TmcfActivity;
 import com.rdypda.view.activity.TmcxActivity;
 import com.rdypda.view.activity.WydrckActivity;
+import com.rdypda.view.activity.YkActivity;
 import com.rdypda.view.viewinterface.IMainView;
 
 import org.json.JSONArray;
@@ -229,6 +230,9 @@ public class MainPresenter extends BasePresenter{
                     case "无源单出库":
                         goToWydck();
                         break;
+                    case "移库":
+                        goToYk();
+                        break;
                 }
                 return true;
             }
@@ -433,6 +437,12 @@ public class MainPresenter extends BasePresenter{
     public void goToWydck(){
         Intent intent=new Intent(context, WydrckActivity.class);
         intent.putExtra("startType",WydrckActivity.START_TYPE_WYDCK);
+        context.startActivity(intent);
+    }
+
+    //移库
+    public void goToYk(){
+        Intent intent=new Intent(context, YkActivity.class);
         context.startActivity(intent);
     }
 

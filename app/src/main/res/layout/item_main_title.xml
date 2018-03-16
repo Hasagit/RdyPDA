@@ -13,7 +13,10 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="15dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
             android:scaleType="fitXY"
             android:id="@+id/img"/>
         <TextView
@@ -22,6 +25,7 @@
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:id="@+id/title"
+            android:textColor="@android:color/black"
             />
         <ImageView
             android:layout_width="20dp"

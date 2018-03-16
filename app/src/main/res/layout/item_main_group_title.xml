@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="15dp"
+
             android:scaleType="fitXY"
             android:id="@+id/img"/>
         <TextView
@@ -24,6 +24,7 @@
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:id="@+id/title"
+            android:textColor="@color/colorPrimary"
             android:textSize="16dp"
             />
     </LinearLayout>
