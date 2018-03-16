@@ -22,6 +22,7 @@ import com.rdypda.view.activity.SbxlActivity;
 import com.rdypda.view.activity.TmbdActivity;
 import com.rdypda.view.activity.TmcfActivity;
 import com.rdypda.view.activity.TmcxActivity;
+import com.rdypda.view.activity.WydrckActivity;
 import com.rdypda.view.viewinterface.IMainView;
 
 import org.json.JSONArray;
@@ -222,6 +223,12 @@ public class MainPresenter extends BasePresenter{
                     case "设备下料":
                         goTosbxl();
                         break;
+                    case "无源单入库":
+                        goToWydrk();
+                        break;
+                    case "无源单出库":
+                        goToWydck();
+                        break;
                 }
                 return true;
             }
@@ -307,9 +314,9 @@ public class MainPresenter extends BasePresenter{
 
     //按料单发料
     public void goToAldfl(){
-        /*view.showMsgDialog("敬请期待");
+        view.showMsgDialog("敬请期待");
         String sql="Insert Into kcm_mstr (kcm_ftyid, kcm_stkid, kcm_kwdm, kcm_cwdm, kcm_ph, kcm_wldm, kcm_kcsl, kcm_wfpl, kcm_jlrq, kcm_jlry)\n" +
-                "            Select '333', 'WHS', 'WHS', '', '', '81050004-000', 10, 10, Now(), 'ADMIN'\n" +
+                "            Select '333', 'WHS', 'WHS', '', '', '81050059-000', 10, 10, Now(), 'ADMIN'\n" +
                 "            On Duplicate Key Update kcm_kcsl = kcm_kcsl + 10, kcm_wfpl = kcm_wfpl + 10, kcm_ggrq = Now(), kcm_ggry = 'ADMIN';";
         WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
@@ -331,7 +338,7 @@ public class MainPresenter extends BasePresenter{
             public void onComplete() {
 
             }
-        });*/
+        });
     }
 
     //退料
@@ -412,6 +419,20 @@ public class MainPresenter extends BasePresenter{
     //设备下料
     public void goTosbxl(){
         Intent intent=new Intent(context, SbxlActivity.class);
+        context.startActivity(intent);
+    }
+
+    //无源单入库
+    public void goToWydrk(){
+        Intent intent=new Intent(context, WydrckActivity.class);
+        intent.putExtra("startType",WydrckActivity.START_TYPE_WYDRK);
+        context.startActivity(intent);
+    }
+
+    //无源单出库
+    public void goToWydck(){
+        Intent intent=new Intent(context, WydrckActivity.class);
+        intent.putExtra("startType",WydrckActivity.START_TYPE_WYDCK);
         context.startActivity(intent);
     }
 
