@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,8 +49,14 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
     Toolbar toolbar;
     @BindView(R.id.kcdd_sp)
     Spinner kcddSp;
+    @BindView(R.id.wld_recycler)
+    RecyclerView wldRecycler;
     @BindView(R.id.jstl_recycler)
     RecyclerView jstlRecycler;
+    @BindView(R.id.kw_layout)
+    LinearLayout kwLayout;
+    @BindView(R.id.wld_layout)
+    HorizontalScrollView wldLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +65,12 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
         ButterKnife.bind(this);
         initView();
         presenter=new YljsflPresenter(this,this);
+        if (getIntent().getIntExtra("startType",0)==MainPresenter.YLJS){
+            wldLayout.setVisibility(View.GONE);
+            presenter.getKwmList();
+        }else {
+            presenter.getLldDet(djbh,wldm);
+        }
         presenter.setStartType(getIntent().getIntExtra("startType",0));
     }
 
@@ -72,6 +86,8 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
             actionBar.setTitle("原料接收");
         }else if(getIntent().getIntExtra("startType",0)== MainPresenter.YLTL){
             actionBar.setTitle("原料退料");
+            kwLayout.setVisibility(View.GONE);
+
         }
         dialog=new AlertDialog.Builder(this).setTitle("提示").setNegativeButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -136,6 +152,15 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
     }
 
     @Override
+    public void refreshWldRecycler(List<Map<String, String>> data) {
+        WldAdapter adapter=new WldAdapter(YljsflActivity.this,R.layout.item_wld,data);
+        adapter.setLldh(djbh);
+        wldRecycler.setLayoutManager(new GridLayoutManager(YljsflActivity.this,1));
+        wldRecycler.setAdapter(adapter);
+        adapter.setOnClickEnable(false);
+    }
+
+    @Override
     public void addYljstlRecyclerItem(Map<String, String> item) {
         adapter.addData(item);
     }
@@ -163,6 +188,7 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     public void showAddDialog(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -203,7 +229,8 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
         }
     }
 
-    public void showDeleteDialog(String wldm,String tmsl,String tmxh){
+
+    public void showDeleteDialog(String wldm, String tmsl, final String tmxh){
         if (getIntent().getIntExtra("startType",0)==MainPresenter.YLTL){
             //setShowDialogMsg("原料退料不能取消扫描");
         }else {
@@ -219,7 +246,7 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
                 delBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //presenter.deleteData(getIntent().getStringExtra("djbh"),getIntent().getStringExtra("wldm"));
+                        presenter.cancelScan(tmxh);
                         deleteDialog.dismiss();
                     }
                 });

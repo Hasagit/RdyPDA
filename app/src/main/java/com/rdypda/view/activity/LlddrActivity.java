@@ -79,7 +79,7 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
                 presenter.queryDataByKey(lldhEd.getText().toString(),wldmEd.getText().toString(),ddbhEd.getText().toString(),startType);
                 break;
             case R.id.sure_btn:
-                if (!(startType==MainPresenter.YLJS|startType==MainPresenter.YLTL)){
+                if (startType!=MainPresenter.YLJS){
                     if (adapter!=null){
                         presenter.sureEvent(adapter.getCheckData(),startType);
                     }else {
@@ -122,11 +122,10 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
             title.setText("选择生产单号扫描发料");
             presenter.getScanedData();
         }else if (startType==MainPresenter.YLJS){
-            title.setText("选择生产单号扫描接收");
+            title.setText("查看生产单号扫描接收");
             checkBoxLayout.setVisibility(View.GONE);
         }else if (startType==MainPresenter.YLTL){
             title.setText("选择生产单号扫描退料");
-            checkBoxLayout.setVisibility(View.GONE);
         }
     }
 
@@ -143,12 +142,11 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
     @Override
     public void showList(List<Map<String, String>> data) {
         adapter=new LlddrAdapter(LlddrActivity.this,R.layout.item_lllddr,data,startType);
-        if (startType==MainPresenter.YLJS|startType==MainPresenter.YLTL){
-            adapter.setCheckEnable(false);
-        }
         lldListView.setLayoutManager(new GridLayoutManager(LlddrActivity.this,1));
         lldListView.setAdapter(adapter);
-        allCheckBox.setChecked(false);
+        if (startType==MainPresenter.YLJS){
+            adapter.setCheckEnable(false);
+        }
     }
 
     @Override

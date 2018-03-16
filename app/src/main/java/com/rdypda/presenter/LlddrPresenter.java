@@ -112,25 +112,27 @@ public class LlddrPresenter extends BasePresenter{
 
     public void sureEvent(List<Map<String,String>>data,int startType){
         String lldhs="";
-        if (data.size()==0){
+        if (data.size()==0&startType!=MainPresenter.YLJS){
             view.showToast("请先选择一个或多个生产单号进行操作");
             return;
         }
-        String kcdd=data.get(0).get("kcdd");
-        boolean isKcddSame=true;
-        for (int i=0;i<data.size();i++){
-            if (!kcdd.equals(data.get(i).get("kcdd"))){
-                isKcddSame=false;
+        if (startType!=MainPresenter.YLJS){
+            String kcdd=data.get(0).get("kcdd");
+            boolean isKcddSame=true;
+            for (int i=0;i<data.size();i++){
+                if (!kcdd.equals(data.get(i).get("kcdd"))){
+                    isKcddSame=false;
+                }
+                if (i+1!=data.size()){
+                    lldhs=lldhs+data.get(i).get("djbh")+",";
+                }else {
+                    lldhs=lldhs+data.get(i).get("djbh");
+                }
             }
-            if (i+1!=data.size()){
-                lldhs=lldhs+data.get(i).get("djbh")+",";
-            }else {
-                lldhs=lldhs+data.get(i).get("djbh");
+            if (!isKcddSame){
+                view.showToast("所选生产单号库存地点必须一致");
+                return;
             }
-        }
-        if (!isKcddSame){
-            view.showToast("所选生产单号库存地点必须一致");
-            return;
         }
 
         if (startType== MainPresenter.TMDY){
@@ -152,7 +154,7 @@ public class LlddrPresenter extends BasePresenter{
             context.startActivity(intent);
         }else if (startType== MainPresenter.YLJS){
             Intent intent=new Intent(context,YljsflActivity.class);
-            intent.putExtra("djbh",lldhs);
+            intent.putExtra("djbh","");
             intent.putExtra("wldm","");
             intent.putExtra("startType",MainPresenter.YLJS);
             context.startActivity(intent);

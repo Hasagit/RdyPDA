@@ -319,8 +319,8 @@ public class MainPresenter extends BasePresenter{
     //按料单发料
     public void goToAldfl(){
         view.showMsgDialog("敬请期待");
-        String sql="Insert Into kcm_mstr (kcm_ftyid, kcm_stkid, kcm_kwdm, kcm_cwdm, kcm_ph, kcm_wldm, kcm_kcsl, kcm_wfpl, kcm_jlrq, kcm_jlry)\n" +
-                "            Select '333', 'WHS', 'WHS', '', '', '81050059-000', 10, 10, Now(), 'ADMIN'\n" +
+        /*String sql="Insert Into kcm_mstr (kcm_ftyid, kcm_stkid, kcm_kwdm, kcm_cwdm, kcm_ph, kcm_wldm, kcm_kcsl, kcm_wfpl, kcm_jlrq, kcm_jlry)\n" +
+                "            Select '333', 'WHS', 'WHS', '', '', '81010001-000', 10, 10, Now(), 'ADMIN'\n" +
                 "            On Duplicate Key Update kcm_kcsl = kcm_kcsl + 10, kcm_wfpl = kcm_wfpl + 10, kcm_ggrq = Now(), kcm_ggry = 'ADMIN';";
         WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
@@ -342,7 +342,7 @@ public class MainPresenter extends BasePresenter{
             public void onComplete() {
 
             }
-        });
+        });*/
     }
 
     //退料
