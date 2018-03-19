@@ -216,6 +216,10 @@ public class HlbzPresenter extends BasePresenter {
 
     public void getTmxh(String hldh, String bzsl, String gsdm,
                         String kcdd, final TextView tmxh, final TextView qrcode){
+        if (!tmxh.getText().toString().equals("")){
+            view.showMsgDialog("已经获取条码编号，请不要重复操作");
+            return;
+        }
         if (bzsl.equals("")){
             view.showMsgDialog("请先输入包装数量");
             return;
@@ -271,6 +275,66 @@ public class HlbzPresenter extends BasePresenter {
             }
         });
     }
+
+    public void getTmxh(String hldh, String bzsl, String gsdm,
+                        String kcdd, final TextView tmxh, final List<String>qrcodes, final List<String>tmbhs){
+        if (bzsl.equals("")){
+            view.showMsgDialog("请先输入包装数量");
+            return;
+        }
+        if (date.equals("")){
+            view.showMsgDialog("获取日期失败，请重试");
+            getScrq();
+            return;
+        }
+        view.setShowProgressDialogEnable(true);
+        String sql=String.format("Call Proc_GenQrcode3('BRP','HL','%s',%s,'%s','%s','%s','%s','','%s');",
+                hldh,bzsl,date,gsdm,kcdd,kcdd,preferenUtil.getString("userId"));
+        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                view.setShowProgressDialogEnable(false);
+                try {
+                    JSONArray array=value.getJSONArray("Table1");
+                    String result=array.getJSONObject(0).getString("cRetMsg");
+                    String[] item=result.split(":");
+                    String[] code;
+                    if (item.length>0){
+                        code=item[1].split(";");
+                        if (code.length>0){
+                            tmxh.setText(tmxh.getText().toString()+"\n"+code[0]);
+                            tmbhs.add(code[0]);
+                            qrcodes.add(code[1]);
+                        }else {
+                            view.showMsgDialog("数据解析出错\n"+result);
+                        }
+                    }else {
+                        view.showMsgDialog("数据解析出错\n"+result);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                view.setShowProgressDialogEnable(false);
+                view.showMsgDialog(e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
 
     public void printEven(final String printMsg, final String ylgg,
                           final String szgg, final String zyry,
@@ -377,5 +441,17 @@ public class HlbzPresenter extends BasePresenter {
 
     public interface OnPrintListener{
         void onFinish();
+    }
+
+    public void getContinTm(Map<String, String> map, String gsdm, String kcdd,String bzsl,int ldsl,TextView tmxhText,List<String>qrCodes,List<String>tmbhs){
+        for (int i=0;i<ldsl;i++){
+            getTmxh(map.get("hldh"),
+                    bzsl,
+                    gsdm,
+                    kcdd,
+                    tmxhText,
+                    qrCodes,
+                    tmbhs);
+        }
     }
 }

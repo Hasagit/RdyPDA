@@ -49,6 +49,7 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
     private AlertDialog dialog;
     private boolean isUpload=false;
     private String kcdd="";
+    private int i;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.sbmx)
@@ -122,15 +123,6 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
     public void refreshSbmx(final List<String> data) {
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlbzActivity.this,android.R.layout.simple_spinner_dropdown_item,data);
         sbmxSp.setAdapter(adapter);
-        /*if(data.size()>0){
-            String[]item=data.get(0).split(",");
-            if (item.length>0){
-                presenter.setHljh(item[0]);
-                presenter.getHlqd();
-            }else {
-                showMsgDialog("数据解析出错");
-            }
-        }*/
         sbmxSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -166,7 +158,7 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
     }
 
     @Override
-    public void showPrintDialog(final Map<String, String> map, final String gsdm, String kw) {
+    public void showPrintDialog(final Map<String, String> map, final String gsdm) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             isUpload=false;
             View view= LayoutInflater.from(this).inflate(R.layout.dialog_hlbz,null);
@@ -185,6 +177,7 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
             final TextView qrCode=(TextView)view.findViewById(R.id.qrcode);
             PowerButton getTmBtn=(PowerButton)view.findViewById(R.id.get_tm__btn);
             PowerButton printBtn=(PowerButton)view.findViewById(R.id.print_btn);
+            PowerButton continPrintBtn=(PowerButton)view.findViewById(R.id.contin_print_btn);
             hljhText.setText(map.get("hljh"));
             ylggText.setText(map.get("ylgg"));
             szggText.setText(map.get("szgg"));
@@ -224,6 +217,20 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
                             }
                     );
 
+                }
+            });
+            continPrintBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!tmbhText.getText().toString().equals("")){
+                        showMsgDialog("已经获取条码编号，请不要重复操作");
+                        return;
+                    }
+                    if (bzslEd.getText().toString().equals("")){
+                        showMsgDialog("请先输入包装数量");
+                        return;
+                    }
+                    showContinPrintDialog(map,gsdm,kcdd,bzslEd.getText().toString());
                 }
             });
         }
@@ -270,7 +277,7 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
                         showMsgDialog("请先选择接收库位");
                         return;
                     }
-                    showPrintDialog(map,gsdm,kcdd);
+                    showPrintDialog(map,gsdm);
                     kcDilaog.dismiss();
                 }
             });
@@ -359,5 +366,80 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
                 })
                 .create();
         dialog.show();
+    }
+
+    @Override
+    public void showContinPrintDialog(final Map<String, String> map, final String gsdm, final String kw, final String bzsl) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View view= LayoutInflater.from(this).inflate(R.layout.dialog_hlbz_contin_print,null);
+            isUpload=false;
+            final AlertDialog continPrintDilaog=new AlertDialog.Builder(this)
+                    .setView(view)
+                    .create();
+            continPrintDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+            final EditText dyfs=(EditText) view.findViewById(R.id.dyfs);
+            final TextView tmxhText=(TextView)view.findViewById(R.id.tmbh);
+            PowerButton getContinTm=(PowerButton)view.findViewById(R.id.get_tm_btn);
+            PowerButton printBtn=(PowerButton)view.findViewById(R.id.print_btn);
+            final List<String>printMsgs=new ArrayList<>();
+            final List<String>tmbhs=new ArrayList<>();
+            getContinTm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!tmxhText.getText().toString().equals("")){
+                        showMsgDialog("已经获取条码编号，请不要重复操作");
+                        return;
+                    }
+                    if (dyfs.getText().toString().equals("")){
+                        showMsgDialog("请先输入打印份数");
+                        return;
+                    }
+                    presenter.getContinTm(map,gsdm,kw,bzsl,Integer.parseInt(dyfs.getText().toString()),tmxhText,printMsgs,tmbhs);
+                }
+            });
+            printBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (tmxhText.getText().equals("")){
+                        showMsgDialog("请先获取条码编号");
+                        return;
+                    }
+                    i=0;
+                    continPrintEven(printMsgs,
+                            map.get("ylgg"),
+                            map.get("szgg"),
+                            map.get("zyry"),
+                            bzsl,tmbhs,map.get("hldh"));
+                }
+            });
+            continPrintDilaog.show();
+        }
+    }
+
+    public void continPrintEven(final List<String> printMsg, final String ylgg, final String szgg, final String zyry, final String bzsl, final List<String> tmbh, final String hldh){
+        if (i<printMsg.size()){
+            final int j=i;
+            presenter.printEven(printMsg.get(i),
+                    ylgg,
+                    szgg,
+                    zyry,
+                    bzsl,
+                    tmbh.get(i),
+                    new HlbzPresenter.OnPrintListener() {
+                        @Override
+                        public void onFinish() {
+                            continPrintEven(printMsg,ylgg,szgg,zyry,bzsl,tmbh,hldh);
+                            if (!isUpload){
+                                presenter.hlPacking(hldh,tmbh.get(j));
+                            }
+                            if (j==printMsg.size()-1){
+                                isUpload=true;
+                            }
+
+                        }
+                    }
+            );
+            i++;
+        }
     }
 }

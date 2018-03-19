@@ -19,11 +19,13 @@ public interface IHlbzView {
 
     void refreshBzList(List<Map<String,String>>data);
 
-    void showPrintDialog(Map<String,String>map,String gsdm,String kw);
+    void showPrintDialog(Map<String,String>map,String gsdm);
 
     void showKcDialog(Map<String,String>map,List<String>data,List<String>dataMc,String gsdm);
 
     void showBlueToothAddressDialog();
 
     void showReloadHlPackingDialog(String hlbh,String tmxh);
+
+    void showContinPrintDialog(Map<String,String>map,String gsdm,String kw,String bzsl);
 }

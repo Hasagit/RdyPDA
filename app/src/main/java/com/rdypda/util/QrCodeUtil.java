@@ -21,6 +21,8 @@ public class QrCodeUtil {
         object=new JSONObject();
         String[] items=qrcode.split("\\*");
         for (int i=0;i<items.length;i++){
+            if (items[i].length()<2)
+                break;
             String key=items[i].substring(0,2);
             String values=items[i].substring(2,items[i].length());
             try {

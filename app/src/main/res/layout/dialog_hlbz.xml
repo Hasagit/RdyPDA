@@ -335,11 +335,21 @@
             android:layout_width="10dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:background="@color/color_green"
+            android:background="@android:color/white"
             android:text="获取条码编号"
-            android:textColor="@android:color/white"
+            android:textColor="@color/color_green"
             android:id="@+id/get_tm__btn"
             android:theme="@style/AppTheme"/>
+        <com.rdypda.view.widget.PowerButton
+            android:layout_width="10dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/color_green"
+            android:textColor="@android:color/white"
+            android:text="连打"
+            android:id="@+id/contin_print_btn"
+            android:theme="@style/AppTheme"
+            />
         <com.rdypda.view.widget.PowerButton
             android:layout_width="10dp"
             android:layout_height="50dp"
