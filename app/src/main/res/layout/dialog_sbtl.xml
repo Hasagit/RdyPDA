@@ -206,7 +206,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="包装数量"/>
+                        android:text="投料数量"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

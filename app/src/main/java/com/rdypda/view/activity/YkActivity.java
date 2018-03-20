@@ -30,6 +30,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class YkActivity extends BaseActivity implements IYkView {
     private AlertDialog dialog;
@@ -79,6 +80,15 @@ public class YkActivity extends BaseActivity implements IYkView {
         actionBar.setDisplayHomeAsUpEnabled(true);
         refreshScanList(new ArrayList<Map<String, String>>());
         refreshZsList(new ArrayList<Map<String, String>>());
+    }
+
+    @OnClick({R.id.tm_sure_btn})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.tm_sure_btn:
+                presenter.isValidCode(tmbhEd.getText().toString());
+                break;
+        }
     }
 
     @Override

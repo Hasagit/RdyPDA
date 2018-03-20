@@ -5,4 +5,8 @@
         android:title="检查更新"
         android:id="@+id/about"
         app:showAsAction="never"></item>
+    <item
+        android:title="设置蓝牙"
+        android:id="@+id/setting"
+        app:showAsAction="never"></item>
 </menu>

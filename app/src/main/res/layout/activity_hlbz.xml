@@ -111,6 +111,7 @@
             </LinearLayout>
             <android.support.v7.widget.RecyclerView
                 android:layout_width="530dp"
+                android:scrollbars="vertical"
                 android:layout_height="match_parent"
                 android:id="@+id/bz_list"></android.support.v7.widget.RecyclerView>
         </LinearLayout>

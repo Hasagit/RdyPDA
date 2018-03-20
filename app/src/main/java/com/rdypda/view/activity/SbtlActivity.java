@@ -96,8 +96,14 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     presenter.setType(presenter.SCAN_TYPE_SB);
+                    sbbhEd.setFocusable(true);
+                    sbbhEd.setFocusableInTouchMode(true);
+                    sbbhEd.requestFocus();
                 }else {
                     presenter.setType(presenter.SCAN_TYPE_TM);
+                    wltmEd.setFocusable(true);
+                    wltmEd.setFocusableInTouchMode(true);
+                    wltmEd.requestFocus();
                 }
             }
         });
@@ -185,6 +191,7 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
             ylggText.setText(ylgg);
             tmslText.setText(tmsl);
             trzsText.setText(trzs);
+            bzslEd.setText(tmsl);
             jlBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -195,7 +202,7 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
             cancelBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    msgDilaog.dismiss();
+                    presenter.cancelScan(tmbh,msgDilaog);
                 }
             });
 
@@ -215,6 +222,12 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
         SbtlZsAdapter adapter=new SbtlZsAdapter(SbtlActivity.this,R.layout.item_sbtl_zs,data);
         zsList.setAdapter(adapter);
         zsList.setLayoutManager(new GridLayoutManager(SbtlActivity.this,1));
+    }
+
+    @Override
+    public void setSbRadioCheck(boolean check) {
+        sbRadio.setChecked(check);
+        tmRadio.setChecked(!check);
     }
 
     @Override

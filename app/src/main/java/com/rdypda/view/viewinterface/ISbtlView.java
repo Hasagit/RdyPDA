@@ -24,4 +24,6 @@ public interface ISbtlView {
     void refreshScanList(List<Map<String,String>>data);
 
     void refreshZsList(List<Map<String,String>>data);
+
+    void setSbRadioCheck(boolean check);
 }

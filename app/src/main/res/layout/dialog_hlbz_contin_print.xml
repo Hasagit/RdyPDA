@@ -48,6 +48,7 @@
                     android:background="@drawable/table_right_bottom">
                     <EditText
                         android:id="@+id/dyfs"
+                        android:inputType="number"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"

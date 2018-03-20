@@ -394,6 +394,10 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
                         showMsgDialog("请先输入打印份数");
                         return;
                     }
+                    if (Integer.parseInt(dyfs.getText().toString())>10){
+                        showMsgDialog("最大连打份数为10");
+                        return;
+                    }
                     presenter.getContinueTm(map,gsdm,kw,bzsl,Integer.parseInt(dyfs.getText().toString()),tmxhText,printMsgs,tmbhs);
                 }
             });

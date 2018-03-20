@@ -1,7 +1,11 @@
 package com.rdypda.view.activity;
 
 import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.provider.Settings;
 import android.support.v4.widget.DrawerLayout;
 
 import android.os.Bundle;
@@ -20,12 +24,14 @@ import android.widget.Toast;
 
 import com.rdypda.R;
 import com.rdypda.adapter.MainAdapter;
+import com.rdypda.model.cache.PreferenUtil;
 import com.rdypda.presenter.MainPresenter;
 import com.rdypda.view.viewinterface.IMainView;
 import com.rdypda.view.widget.MyExpandableListView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -130,6 +136,9 @@ public class MainActivity extends BaseActivity implements IMainView{
             case R.id.about:
                 presenter.checkToUpdate(false);
                 break;
+            case R.id.setting:
+                showBlueToothAddressDialog();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -188,6 +197,65 @@ public class MainActivity extends BaseActivity implements IMainView{
     @Override
     public void setProgressDownloadProgressDialog(int size) {
         downloadProgressDialog.setProgress(size);
+    }
+
+
+    public void showBlueToothAddressDialog() {
+        final android.app.AlertDialog.Builder builder=new android.app.AlertDialog.Builder(this,3);
+        builder.setTitle("请选择蓝牙设备");
+        builder.setPositiveButton("找不到设备？", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS));
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("  ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        BluetoothAdapter adapter=BluetoothAdapter.getDefaultAdapter();
+        if (!adapter.isEnabled()){
+            android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(this,3);
+            dialog.setTitle("提示");
+            dialog.setMessage("是否打开蓝牙");
+            dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS));
+                    dialog.dismiss();
+                }
+            });
+            dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.create().show();
+        }else {
+            Set<BluetoothDevice> devicesSet = adapter.getBondedDevices();
+            Object[] devices=devicesSet.toArray();
+            final String[] itemName=new String[devices.length];
+            final String[] itemAddress=new String[devices.length];
+            for(int i=0;i<devices.length;i++){
+                BluetoothDevice device=(BluetoothDevice)devices[i];
+                itemName[i]=device.getName();
+                itemAddress[i]=device.getAddress();
+            }
+            builder.setItems(itemName, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    PreferenUtil preferenUtil=new PreferenUtil(MainActivity.this);
+                    preferenUtil.setString("blueToothAddress",itemAddress[which]);
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
+        }
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.rdypda.util;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.tscdll.TSCActivity;
 import com.rdypda.model.cache.PreferenUtil;
@@ -26,11 +27,13 @@ public class PrinterUtil {
         tscActivity.openport(address);
         //41
         if (preferenUtil.getInt("printNum")==0){
-            tscActivity.setup(75,42,4,10,0,0,0);
-            preferenUtil.setInt("printNum",1);
-        }else {
             tscActivity.setup(75,43,4,10,0,0,0);
+            preferenUtil.setInt("printNum",1);
+            Log.e("printNum",0+"");
+        }else if (preferenUtil.getInt("printNum")==1){
+            tscActivity.setup(75,42,4,10,0,0,0);
             preferenUtil.setInt("printNum",0);
+            Log.e("printNum",1+"");
         }
         tscActivity.clearbuffer();
     }

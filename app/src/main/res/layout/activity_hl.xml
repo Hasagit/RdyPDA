@@ -87,6 +87,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
+                    android:scrollbars="vertical"
                     android:id="@+id/hl_1_list"></android.support.v7.widget.RecyclerView>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -138,6 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:id="@+id/hl_2_list"
+                    android:scrollbars="vertical"
                     android:layout_marginBottom="50dp"></android.support.v7.widget.RecyclerView>
             </LinearLayout>
         </ScrollView>

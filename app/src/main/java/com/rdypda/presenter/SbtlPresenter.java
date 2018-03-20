@@ -1,5 +1,6 @@
 package com.rdypda.presenter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 
 import com.rdypda.model.network.WebService;
@@ -79,6 +80,7 @@ public class SbtlPresenter extends BasePresenter {
                         view.setSbbText(sbbh);
                         getScanList(sbbh);
                         view.showMsgDialog("设备验证成功！");
+                        view.setSbRadioCheck(false);
                     }else {
                         SbtlPresenter.this.sbbh="";
                         view.setSbbText("");
@@ -282,6 +284,35 @@ public class SbtlPresenter extends BasePresenter {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                view.setShowProgressDialogEnable(false);
+                view.showMsgDialog(e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    public void cancelScan(String tmbh, final AlertDialog dialog){
+        view.setShowProgressDialogEnable(true);
+        String sql=String.format("Call Proc_PDA_CancelScan('MTR_TL', '%s','%s');",tmbh,preferenUtil.getString("userId"));
+        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                view.setShowProgressDialogEnable(false);
+                dialog.dismiss();
             }
 
             @Override

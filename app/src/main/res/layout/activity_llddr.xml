@@ -284,6 +284,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/lld_list"
+                    android:scrollbars="vertical"
                     android:divider="@color/color_toum"
                     ></android.support.v7.widget.RecyclerView>
             </LinearLayout>
