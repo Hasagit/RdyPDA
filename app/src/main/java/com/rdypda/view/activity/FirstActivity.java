@@ -50,6 +50,8 @@ public class FirstActivity extends BaseActivity implements IFirstView {
 
     @Override
     public void setShowDownloadProgressDialogEnable(boolean enable) {
+        if (isDestroyed())
+            return;
         if (enable){
             downloadProgressDialog.show();
         }else {

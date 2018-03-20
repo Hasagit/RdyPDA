@@ -154,7 +154,7 @@ public class TmbdPresenter extends BasePresenter {
         }
 
         view.setShowProgressDialogEnable(true);
-        final PrinterUtil util=new PrinterUtil();
+        final PrinterUtil util=new PrinterUtil(context);
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {

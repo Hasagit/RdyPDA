@@ -50,7 +50,6 @@ public class TmcfPresenter extends BasePresenter {
         });
     }
 
-
     public void isValidCode(final String tmxh, String userId){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','SPLIT','','%s')",tmxh,userId);
@@ -166,7 +165,7 @@ public class TmcfPresenter extends BasePresenter {
         }
         final String wlpm_3=wlpm_2;
         view.setShowProgressDialogEnable(true);
-        final PrinterUtil util=new PrinterUtil();
+        final PrinterUtil util=new PrinterUtil(context);
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {

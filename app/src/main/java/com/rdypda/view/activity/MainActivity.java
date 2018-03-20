@@ -109,84 +109,17 @@ public class MainActivity extends BaseActivity implements IMainView{
     }
 
 
-   /* @OnClick({R.id.switch_layout,R.id.exit_layout,R.id.tmdy,R.id.fl,R.id.yljs,
-            R.id.yltl,R.id.hl,R.id.aldfl,R.id.tl,R.id.gdtldylz,R.id.cpsmrk,R.id.ykll,
-            R.id.adfl,R.id.adtl,R.id.yktldck,R.id.tmcf,R.id.tmbd,R.id.kcpd,R.id.tmcx,
-            R.id.hlbz,R.id.sbtl,R.id.sblj,R.id.sbxl})
+   @OnClick({R.id.switch_layout,R.id.exit_layout})
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.tmdy:
-                presenter.goToLlddr(MainPresenter.TMDY);
-                break;
             case R.id.switch_layout:
                 presenter.goToLogin();
                 break;
             case R.id.exit_layout:
                 finish();
                 break;
-            case R.id.fl:
-                presenter.goToLlddr(MainPresenter.FL);
-                break;
-            case R.id.yljs:
-                presenter.goToYljs();
-                break;
-            case R.id.yltl:
-                presenter.goToYltl();
-                break;
-            case R.id.hl:
-                presenter.goToHl();
-                break;
-            case R.id.aldfl:
-                presenter.goToAldfl();
-                break;
-            case R.id.tl:
-                presenter.goToTl();
-                break;
-            case R.id.gdtldylz:
-                presenter.goToYlzck(YlzckActivity.START_TYPE_GDTLDYLZ);
-                break;
-            case R.id.cpsmrk:
-                presenter.goToYlzck(YlzckActivity.STRAT_TYPE_CPSMCR);
-                break;
-            case R.id.ykll:
-                presenter.goToYlzck(YlzckActivity.START_TYPE_YKLL);
-                break;
-            case R.id.adfl:
-                presenter.goToAdfl();
-                break;
-            case R.id.adtl:
-                presenter.goToAdtl();
-                break;
-            case R.id.yktldck:
-                presenter.goToYktldck();
-                break;
-            case R.id.tmcf:
-                presenter.goToTmcf();
-                break;
-            case R.id.tmbd:
-                presenter.goToTmbd();
-                break;
-            case R.id.kcpd:
-                presenter.goToKcpd();
-                break;
-            case R.id.tmcx:
-                presenter.goToTmcx();
-                break;
-            case R.id.hlbz:
-                presenter.goTohlbz();
-                break;
-            case R.id.sbtl:
-                presenter.goToSbtl();
-                break;
-            case R.id.sblj:
-                presenter.goToSblj();
-                break;
-            case R.id.sbxl:
-                presenter.goTosbxl();
-                break;
-
         }
-    }*/
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

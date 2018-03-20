@@ -349,7 +349,7 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
     public void showReloadHlPackingDialog(final String hlbh, final String tmxh) {
         AlertDialog dialog=new AlertDialog.Builder(HlbzActivity.this)
                 .setTitle("提示")
-                .setMessage("打印提交失败！")
+                .setMessage(tmxh+"打印提交失败！")
                 .setCancelable(false)
                 .setPositiveButton("重新提交", new DialogInterface.OnClickListener() {
                     @Override
@@ -394,7 +394,7 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
                         showMsgDialog("请先输入打印份数");
                         return;
                     }
-                    presenter.getContinTm(map,gsdm,kw,bzsl,Integer.parseInt(dyfs.getText().toString()),tmxhText,printMsgs,tmbhs);
+                    presenter.getContinueTm(map,gsdm,kw,bzsl,Integer.parseInt(dyfs.getText().toString()),tmxhText,printMsgs,tmbhs);
                 }
             });
             printBtn.setOnClickListener(new View.OnClickListener() {

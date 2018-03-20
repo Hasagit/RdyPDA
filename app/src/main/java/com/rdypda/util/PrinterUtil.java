@@ -1,6 +1,9 @@
 package com.rdypda.util;
 
+import android.content.Context;
+
 import com.example.tscdll.TSCActivity;
+import com.rdypda.model.cache.PreferenUtil;
 
 import java.io.UnsupportedEncodingException;
 
@@ -11,14 +14,24 @@ import java.io.UnsupportedEncodingException;
 public class PrinterUtil {
     private String Address;
     private TSCActivity tscActivity;
-    public PrinterUtil() {
+    private Context context;
+    private PreferenUtil preferenUtil;
+    public PrinterUtil(Context context) {
         tscActivity=new TSCActivity();
+        this.context=context;
+        preferenUtil=new PreferenUtil(context);
     }
 
     public void openPort(String address){
         tscActivity.openport(address);
         //41
-        tscActivity.setup(75,43,4,10,0,0,0);
+        if (preferenUtil.getInt("printNum")==0){
+            tscActivity.setup(75,42,4,10,0,0,0);
+            preferenUtil.setInt("printNum",1);
+        }else {
+            tscActivity.setup(75,43,4,10,0,0,0);
+            preferenUtil.setInt("printNum",0);
+        }
         tscActivity.clearbuffer();
     }
 

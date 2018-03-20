@@ -359,7 +359,7 @@ public class HlbzPresenter extends BasePresenter {
             return;
         }
         view.setShowProgressDialogEnable(true);
-        final PrinterUtil util=new PrinterUtil();
+        final PrinterUtil util=new PrinterUtil(context);
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
@@ -443,7 +443,84 @@ public class HlbzPresenter extends BasePresenter {
         void onFinish();
     }
 
-    public void getContinTm(Map<String, String> map, String gsdm, String kcdd,String bzsl,int ldsl,TextView tmxhText,List<String>qrCodes,List<String>tmbhs){
+    public void getContinueTm(Map<String, String> map, String gsdm, String kcdd, String bzsl, final int ldsl, final TextView tmxhText, final List<String>qrCodes,final List<String>tmbhs){
+        /*for (int i=0;i<ldsl;i++){
+            getTmxh(map.get("hldh"),
+                    bzsl,
+                    gsdm,
+                    kcdd,
+                    tmxhText,
+                    qrCodes,
+                    tmbhs);
+
+        }*/
+        if (bzsl.equals("")){
+            view.showMsgDialog("请先输入包装数量");
+            return;
+        }
+        if (date.equals("")){
+            view.showMsgDialog("获取日期失败，请重试");
+            getScrq();
+            return;
+        }
+        view.setShowProgressDialogEnable(true);
+        String sqlItem=String.format("Call Proc_GenQrcode3('BRP','HL','%s',%s,'%s','%s','%s','%s','','%s');",
+                map.get("hldh"),bzsl,date,gsdm,kcdd,kcdd,preferenUtil.getString("userId"));
+        String sql="";
+        for (int i=0;i<ldsl;i++){
+            sql=sql+sqlItem+"\n";
+        }
+        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                view.setShowProgressDialogEnable(false);
+                for (int i=0;i<ldsl;i++){
+                    try {
+                        int position=i+1;
+                        JSONArray array=value.getJSONArray("Table"+position);
+                        String result=array.getJSONObject(0).getString("cRetMsg");
+                        String[] item=result.split(":");
+                        String[] code;
+                        if (item.length>0){
+                            code=item[1].split(";");
+                            if (code.length>0){
+                                tmxhText.setText(tmxhText.getText().toString()+"\n"+code[0]);
+                                tmbhs.add(code[0]);
+                                qrCodes.add(code[1]);
+                            }else {
+                                view.showMsgDialog("数据解析出错\n"+result);
+                            }
+                        }else {
+                            view.showMsgDialog("数据解析出错\n"+result);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        view.showMsgDialog("数据解析出错\n");
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.setShowProgressDialogEnable(false);
+                view.showMsgDialog(e.getMessage());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+
+    public void getContinueTest(Map<String, String> map, String gsdm, String kcdd, String bzsl, final int ldsl, final TextView tmxhText, final List<String>qrCodes,final List<String>tmbhs){
         for (int i=0;i<ldsl;i++){
             getTmxh(map.get("hldh"),
                     bzsl,
@@ -452,6 +529,8 @@ public class HlbzPresenter extends BasePresenter {
                     tmxhText,
                     qrCodes,
                     tmbhs);
+
         }
     }
+
 }

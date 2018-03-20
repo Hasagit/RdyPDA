@@ -111,7 +111,7 @@ public class LlddrMsgPresenter extends BasePresenter{
             return;
         }
         view.setProgressDialogEnable("打印中...",true);
-        final PrinterUtil util=new PrinterUtil();
+        final PrinterUtil util=new PrinterUtil(context);
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
