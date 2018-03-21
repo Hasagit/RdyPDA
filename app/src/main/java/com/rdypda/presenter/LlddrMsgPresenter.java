@@ -14,6 +14,11 @@ import com.rdypda.view.viewinterface.ILlddrMsgView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -168,4 +173,78 @@ public class LlddrMsgPresenter extends BasePresenter{
         intent.putExtra("wldm","");
         context.startActivity(intent);
     }
+
+    public void uploadScanWld(){
+        view.setProgressDialogEnable("请稍后...",true);
+        String sql=String.format("Call Proc_PDA_LLD_Post('%s')",preferenUtil.getString("userId"));
+        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                view.setProgressDialogEnable("",false);
+                view.showMessage("操作成功！");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                view.showMessage(e.getMessage());
+                view.setProgressDialogEnable("",false);
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    public void isValidCode(final String tmxh,String lldh){
+        String sql=String.format("Call Proc_PDA_IsValidCode('%s','LLD', '%s', '%s')",
+                tmxh,lldh,preferenUtil.getString("userId"));
+        view.setProgressDialogEnable("请稍后...",true);
+        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                try {
+                    view.setProgressDialogEnable("",false);
+                    JSONArray array=value.getJSONArray("Table2");
+                    if (array.length()>0){
+                        uploadScanWld();
+                    }else {
+                        view.showMessage("条码验证异常");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    view.setProgressDialogEnable("",false);
+                    view.showMessage("验证失败，请重试");
+                }finally {
+                    view.setProgressDialogEnable("",false);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                view.setProgressDialogEnable("",false);
+                view.showMessage(e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
 }

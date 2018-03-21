@@ -116,7 +116,7 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
                         wlbhStr,dwStr,gchStr,kcddStr,tmxhText.getText().toString());
                 break;
             case R.id.fl_btn:
-                presenter.goToFl(tmxhText.getText().toString(),getIntent().getStringExtra("lldh"));
+                presenter.isValidCode(tmxhText.getText().toString(),getIntent().getStringExtra("lldh"));
                 break;
         }
     }
