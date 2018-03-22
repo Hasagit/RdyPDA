@@ -98,8 +98,6 @@ public class LlddrMsgPresenter extends BasePresenter{
         });
     }
 
-
-
     public void printEven(final String wldm, final String wlpm, final String ywwlpm, final String tmbh, final String tmpch){
 
         if (!BluetoothAdapter.getDefaultAdapter().isEnabled()){
@@ -160,20 +158,6 @@ public class LlddrMsgPresenter extends BasePresenter{
 
     }
 
-
-    public void goToFl(String tmxh,String djbh){
-        if (tmxh.equals("")){
-            view.showMessage("请先获取条码序号");
-            return;
-        }
-        Intent intent=new Intent(context, FlTabActivity.class);
-        intent.putExtra("starType",FlActivity.START_TYPE_LLDDRMSG);
-        intent.putExtra("tmxh",tmxh);
-        intent.putExtra("djbh",djbh);
-        intent.putExtra("wldm","");
-        context.startActivity(intent);
-    }
-
     public void uploadScanWld(){
         view.setProgressDialogEnable("请稍后...",true);
         String sql=String.format("Call Proc_PDA_LLD_Post('%s')",preferenUtil.getString("userId"));
@@ -186,6 +170,7 @@ public class LlddrMsgPresenter extends BasePresenter{
             @Override
             public void onNext(JSONObject value) {
                 view.setProgressDialogEnable("",false);
+                view.setTmxhText("");
                 view.showMessage("操作成功！");
             }
 

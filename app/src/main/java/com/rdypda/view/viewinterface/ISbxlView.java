@@ -18,7 +18,7 @@ public interface ISbxlView {
 
     void refreshZsList(List<Map<String,String>>data);
 
-    void showScanDialog(Map<String,String>map);
+    void showScanDialog(Map<String,String>map,int type);
 
     void showBlueToothAddressDialog();
 

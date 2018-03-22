@@ -89,7 +89,6 @@ public class MainPresenter extends BasePresenter{
         List<String>ylcflArray=new ArrayList<>();
         ylcflArray.add("发料条码打印");
         ylcflArray.add("发料");
-        titles.add(ylcflArray);
         List<Integer>ylcflResources=new ArrayList<>();
         ylcflResources.add(R.drawable.print_icon);
         ylcflResources.add(R.drawable.fl_icon);

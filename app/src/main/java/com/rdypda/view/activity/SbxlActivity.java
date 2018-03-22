@@ -174,7 +174,7 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, Map<String, String> map, BaseRecyclerAdapter.BaseRecyclerViewHolder holder) {
-                showScanDialog(map);
+                showScanDialog(map,presenter.HL);
             }
         });
         if (data.size()>1){
@@ -183,7 +183,7 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
                 public void onClick(View v) {
                     Map<String,String>map=data.get(0);
                     map.put("ylgg",data.get(0).get("ylgg")+"(MIX)");
-                    showScanDialog(map);
+                    showScanDialog(map,presenter.HLS);
                 }
             });
 
@@ -191,14 +191,15 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
             hlBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(SbxlActivity.this,"料筒未投料，不能执行此操作",Toast.LENGTH_SHORT).show();
+                    hlBtn.setEnabled(false);
+                    //Toast.makeText(SbxlActivity.this,"料筒未投料，不能执行此操作",Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
     @Override
-    public void showScanDialog(final Map<String,String>map) {
+    public void showScanDialog(final Map<String,String>map, final int type) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             hadUpload=false;
             View view= LayoutInflater.from(this).inflate(R.layout.dialog_sbxl,null);
@@ -225,7 +226,8 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
                     presenter.getTmxh(sbbhText.getText().toString(),
                             bzslEd.getText().toString(),
                             map.get("dw"),
-                            tmbhText
+                            tmbhText,
+                            type
                             );
                 }
             });

@@ -37,9 +37,11 @@ public class SbxlPresenter extends BasePresenter {
     private ISbxlView view;
     private String date;
     private ScanUtil scanUtil;
-    private String hldh="";
+    private String hldh="";//当混料单只有一条时，混料单号用此参数
+    private String hldhs="";//当混料单有多条时，混料单号用此参数
     private String ftyIdAndstkId=";";
     private String printMsg="";
+    public int HLS=0,HL=1;
     public SbxlPresenter(Context context,ISbxlView view) {
         super(context);
         this.view=view;
@@ -110,6 +112,7 @@ public class SbxlPresenter extends BasePresenter {
             return;
         }
         hldh="";
+        hldhs="";
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_GetScanList ('MTR_TL', '%s', '');",sbbh);
         WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
@@ -137,14 +140,10 @@ public class SbxlPresenter extends BasePresenter {
                         map.put("jlsj",arrayScan.getJSONObject(i).getString("tll_jlrq"));
                         map.put("zyry",arrayScan.getJSONObject(i).getString("tll_jlrymc"));
                         map.put("hldh",arrayScan.getJSONObject(i).getString("tll_wldm"));
-                        hldh=arrayScan.getJSONObject(i).getString("tll_wldm");
-                        String lastThreeChar=hldh.substring(hldh.length()-3,hldh.length());
-                        if (!lastThreeChar.equals("(H)")){
-                            hldh=hldh+"(H)";
-                        }
                         dataScan.add(map);
                     }
                     List<Map<String,String>>dataZs=new ArrayList<>();
+                    String hl="";
                     for (int i=0;i<arrayZs.length();i++){
                         Map<String,String>map=new HashMap<>();
                         map.put("ylgg",arrayZs.getJSONObject(i).getString("tld_wlpm"));
@@ -156,7 +155,18 @@ public class SbxlPresenter extends BasePresenter {
                         map.put("scrq",date);
                         map.put("zyry",preferenUtil.getString("usr_yhmc"));
                         map.put("dw",arrayZs.getJSONObject(i).getString("itm_unit"));
+                        if (i==0){
+                            hl=arrayZs.getJSONObject(i).getString("tld_wldm");
+                            hldh=arrayZs.getJSONObject(i).getString("tld_wldm");
+                        }else {
+                            hl=hl+","+arrayZs .getJSONObject(i).getString("tld_wldm");
+                        }
                         dataZs.add(map);
+                    }
+                    if (dataZs.size()==1){
+                        getHldhs(hldh);
+                    }else if (dataZs.size()>1){
+                        getHldhs(hl);
                     }
                     view.refreshZsList(dataZs);
                     view.refreshScanList(dataScan);
@@ -217,10 +227,20 @@ public class SbxlPresenter extends BasePresenter {
         });
     }
 
-    public void getTmxh(String sbbh, String bzsl, String dw, final TextView tmbhText){
-        if (hldh.equals("")){
-            view.showMsgDialog("混料单号不能为空");
-            return;
+    public void getTmxh(String sbbh, String bzsl, String dw, final TextView tmbhText,int type){
+        String hldhed="";
+        if (type==HL){
+            hldhed=hldh;
+            if (hldh.equals("")){
+                view.showMsgDialog("混料单号不能为空");
+                return;
+            }
+        }else if (type==HLS){
+            hldhed=hldhs;
+            if (hldhs.equals("")){
+                view.showMsgDialog("混料单号不能为空");
+                return;
+            }
         }
         if (bzsl.equals("")){
             view.showMsgDialog("请先输入包装数量");
@@ -242,7 +262,7 @@ public class SbxlPresenter extends BasePresenter {
         printMsg="";
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_GenQrcode('BRP','XL','%s','%s','',%s,'%s','%s','%s','%s','','%s','%s');",
-                sbbh,hldh,bzsl,dw,items[0],items[1],items[1],preferenUtil.getString("userid"),date);
+                sbbh,hldhed,bzsl,dw,items[0],items[1],items[1],preferenUtil.getString("userid"),date);
         WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -359,6 +379,42 @@ public class SbxlPresenter extends BasePresenter {
 
     }
 
+    public void getHldhs(String hldh){
+        view.setShowProgressDialogEnable(true);
+        String sql=String.format("Call Proc_GenHlWldm2('%s','%s');",
+                hldh,preferenUtil.getString("userId"));
+        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                try {
+                    hldhs=value.getJSONArray("Table1").getJSONObject(0).getString("cRetStr");
+                    view.setShowProgressDialogEnable(false);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    view.showMsgDialog(e.getMessage());
+                    view.setShowProgressDialogEnable(false);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                view.showMsgDialog(e.getMessage());
+                view.setShowProgressDialogEnable(false);
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
     public void xlPacking(final String sbbh, final String tmbh){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_XL_Packing('%s', '%s', '%s');",sbbh,tmbh,preferenUtil.getString("userId"));
@@ -404,6 +460,8 @@ public class SbxlPresenter extends BasePresenter {
             public void onNext(JSONObject value) {
                 view.setShowProgressDialogEnable(false);
                 view.showMsgDialog("操作成功");
+                view.refreshZsList(new ArrayList<Map<String, String>>());
+                view.refreshScanList(new ArrayList<Map<String, String>>());
                 getScanList(sbbh);
             }
 

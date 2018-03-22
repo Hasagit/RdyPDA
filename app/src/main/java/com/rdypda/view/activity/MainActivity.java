@@ -95,6 +95,7 @@ public class MainActivity extends BaseActivity implements IMainView{
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.home);
+        actionBar.setTitle(" ");
 
         arrayStr=getIntent().getStringExtra("permissionList");
 
@@ -115,7 +116,7 @@ public class MainActivity extends BaseActivity implements IMainView{
     }
 
 
-   @OnClick({R.id.switch_layout,R.id.exit_layout})
+   @OnClick({R.id.switch_layout,R.id.exit_layout,R.id.left_content})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.switch_layout:

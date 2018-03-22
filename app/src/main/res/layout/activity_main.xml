@@ -93,6 +93,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/left_content"
+                android:orientation="vertical"
                 android:background="@drawable/white_btn_bg"
                 android:layout_weight="1"></LinearLayout>
             <LinearLayout
