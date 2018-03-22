@@ -60,13 +60,13 @@ public class MainPresenter extends BasePresenter{
         this.view = view;
         view.setUserName("你好，"+preferenUtil.getString("usr_yhmc"));
         autoUpdate();
-        initExpandableListView();
     }
 
     public void initPermissionList(String arrayStr){
         try {
             JSONArray permissionArray=new JSONArray(arrayStr);
             permissionList=permissionArray.getJSONObject(0).getString("cPrgList").split(";");
+            initExpandableListView();
             //Log.e("permissionList",permissionList.toString());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -79,100 +79,179 @@ public class MainPresenter extends BasePresenter{
         List<List<Integer>> imgs=new ArrayList<>();
         groupTitles.add("原料仓发料");
         groupTitles.add("原料组仓库");
-        groupTitles.add("注塑生产与投料");
+        groupTitles.add("混料与烤料");
         groupTitles.add("注塑产品管理");
         groupTitles.add("组装发料退料");
         groupTitles.add("条码管理");
-        groupTitles.add("原料混料");
 
         //原料仓发料
         List<String>ylcflArray=new ArrayList<>();
-        ylcflArray.add("发料条码打印");
-        ylcflArray.add("发料");
         List<Integer>ylcflResources=new ArrayList<>();
-        ylcflResources.add(R.drawable.print_icon);
-        ylcflResources.add(R.drawable.fl_icon);
+
+
+        if (isPermission("MTR501D11")){
+            ylcflArray.add("发料条码打印");
+            ylcflResources.add(R.drawable.print_icon);
+        }
+
+
+        if (isPermission("MTR502D12")){
+            ylcflArray.add("发料");
+            ylcflResources.add(R.drawable.fl_icon);
+        }
+
+        titles.add(ylcflArray);
         imgs.add(ylcflResources);
 
         //原料组仓库
         List<String>ylzckArray=new ArrayList<>();
-        ylzckArray.add("原料接收");
-        ylzckArray.add("原料退料");
-        titles.add(ylzckArray);
         List<Integer>ylzckResources=new ArrayList<>();
-        ylzckResources.add(R.drawable.yljs_icon);
-        ylzckResources.add(R.drawable.yltl_icon);
+
+        if (isPermission("MTR511D1")){
+            ylzckArray.add("原料接收");
+            ylzckResources.add(R.drawable.yljs_icon);
+        }
+
+        if (isPermission("MTR512D1")){
+            ylzckArray.add("原料退料");
+            ylzckResources.add(R.drawable.yltl_icon);
+        }
+
+        if (isPermission("HLKL05")){
+            ylzckArray.add("无源单入库");
+            ylzckResources.add(R.drawable.wydrk_icon);
+        }
+
+        if (isPermission("HLKL06")){
+            ylzckArray.add("无源单出库");
+            ylzckResources.add(R.drawable.wydck_icon);
+        }
+
+
+        titles.add(ylzckArray);
         imgs.add(ylzckResources);
 
         //注塑生产与投料
         List<String>zsscytlArray=new ArrayList<>();
-        zsscytlArray.add("混料");
-        zsscytlArray.add("按料单发料");
-        zsscytlArray.add("退料");
-        zsscytlArray.add("工单退料到原料组");
-        titles.add(zsscytlArray);
         List<Integer>zsscytlResources=new ArrayList<>();
-        zsscytlResources.add(R.drawable.hl_icon);
-        zsscytlResources.add(R.drawable.adfl_icon);
-        zsscytlResources.add(R.drawable.tl_icon);
-        zsscytlResources.add(R.drawable.gdtldylz_icon);
+
+        if (isPermission("MOM501D1")){
+            zsscytlArray.add("混料");
+            zsscytlResources.add(R.drawable.hl_icon);
+        }
+
+        if (isPermission("MOM502D1")){
+            zsscytlArray.add("按料单发料");
+            zsscytlResources.add(R.drawable.adfl_icon);
+        }
+
+        if (isPermission("MOM503D1")){
+            zsscytlArray.add("退料");
+            zsscytlResources.add(R.drawable.tl_icon);
+        }
+
+        if (isPermission("HLKL08")){
+            zsscytlArray.add("工单退料到原料组");
+            zsscytlResources.add(R.drawable.gdtldylz_icon);
+        }
+
+        if (isPermission("HLKL01")){
+            zsscytlArray.add("混料包装");
+            zsscytlResources.add(R.drawable.hlbz_icon);
+        }
+
+        if (isPermission("HLKL02")){
+            zsscytlArray.add("设备投料");
+            zsscytlResources.add(R.drawable.ltjl_icon);
+        }
+
+        if (isPermission("HLKL03")){
+            zsscytlArray.add("设备连接");
+            zsscytlResources.add(R.drawable.sblj_icon);
+        }
+
+        if (isPermission("HLKL04")){
+            zsscytlArray.add("设备下料");
+            zsscytlResources.add(R.drawable.sbxl_icon);
+        }
+
+
+        titles.add(zsscytlArray);
         imgs.add(zsscytlResources);
 
         //注塑产品管理
         List<String>zscpglArray=new ArrayList<>();
-        zscpglArray.add("产品扫描入库");
-        zscpglArray.add("移库领料");
-        titles.add(zscpglArray);
         List<Integer>zscpglResources=new ArrayList<>();
-        zscpglResources.add(R.drawable.cpsmrk_icon);
-        zscpglResources.add(R.drawable.ykll_icon);
+
+        if (isPermission("PRD501D1")){
+            zscpglArray.add("产品扫描入库");
+            zscpglResources.add(R.drawable.cpsmrk_icon);
+        }
+
+        if (isPermission("PRD502D1")){
+            zscpglArray.add("移库领料");
+            zscpglResources.add(R.drawable.ykll_icon);
+        }
+
+        titles.add(zscpglArray);
         imgs.add(zscpglResources);
 
         //组装发料退料
         List<String>zzfltlArray=new ArrayList<>();
-        zzfltlArray.add("按单发料");
-        zzfltlArray.add("按单退料");
-        zzfltlArray.add("移库退料到仓库");
-        titles.add(zzfltlArray);
         List<Integer>zzfltlResources=new ArrayList<>();
-        zzfltlResources.add(R.drawable.adfl2_icon);
-        zzfltlResources.add(R.drawable.adtl_icon);
-        zzfltlResources.add(R.drawable.yklldck_icon);
+
+        if (isPermission("MOE501D1")){
+            zzfltlArray.add("按单发料");
+            zzfltlResources.add(R.drawable.adfl2_icon);
+        }
+
+        if (isPermission("MOE502D1")){
+            zzfltlArray.add("按单退料");
+            zzfltlResources.add(R.drawable.adtl_icon);
+        }
+
+        if (isPermission("MOE503D1")){
+            zzfltlArray.add("移库退料到仓库");
+            zzfltlResources.add(R.drawable.yklldck_icon);
+        }
+
+
+        titles.add(zzfltlArray);
         imgs.add(zzfltlResources);
 
         //条码管理
         List<String>tmglArray=new ArrayList<>();
-        tmglArray.add("条码拆分");
-        tmglArray.add("条码补打");
-        tmglArray.add("库存盘点");
-        tmglArray.add("条码查询");
-        titles.add(tmglArray);
         List<Integer>tmglResources=new ArrayList<>();
-        tmglResources.add(R.drawable.tmcf_icon);
-        tmglResources.add(R.drawable.tmbd_icon);
-        tmglResources.add(R.drawable.kcpd_icon);
-        tmglResources.add(R.drawable.tmcx_icon);
+
+        if (isPermission("STK501D1")){
+            tmglArray.add("条码拆分");
+            tmglResources.add(R.drawable.tmcf_icon);
+        }
+
+        if (isPermission("STK502D1")){
+            tmglArray.add("条码补打");
+            tmglResources.add(R.drawable.tmbd_icon);
+        }
+
+        if (isPermission("STK503D1")){
+            tmglArray.add("库存盘点");
+            tmglResources.add(R.drawable.kcpd_icon);
+        }
+
+        if (isPermission("STK504D1")){
+            tmglArray.add("条码查询");
+            tmglResources.add(R.drawable.tmcx_icon);
+        }
+
+        if (isPermission("HLKL07")){
+            tmglArray.add("移库");
+            tmglResources.add(R.drawable.yk_icon);
+        }
+
+
+        titles.add(tmglArray);
         imgs.add(tmglResources);
 
-        //原料混料
-        List<String>ylhlArray=new ArrayList<>();
-        ylhlArray.add("混料包装");
-        ylhlArray.add("设备投料");
-        ylhlArray.add("设备连接");
-        ylhlArray.add("设备下料");
-        ylhlArray.add("无源单入库");
-        ylhlArray.add("无源单出库");
-        ylhlArray.add("移库");
-        titles.add(ylhlArray);
-        List<Integer>ylhlResources=new ArrayList<>();
-        ylhlResources.add(R.drawable.hlbz_icon);
-        ylhlResources.add(R.drawable.ltjl_icon);
-        ylhlResources.add(R.drawable.sblj_icon);
-        ylhlResources.add(R.drawable.sbxl_icon);
-        ylhlResources.add(R.drawable.wydrk_icon);
-        ylhlResources.add(R.drawable.wydck_icon);
-        ylhlResources.add(R.drawable.yk_icon);
-        imgs.add(ylhlResources);
 
 
 
@@ -231,6 +310,9 @@ public class MainPresenter extends BasePresenter{
                         break;
                     case "移库":
                         goToYk();
+                        break;
+                    case "工单退料到原料组":
+                        goToGdtldylz();
                         break;
                 }
                 return true;
@@ -441,6 +523,12 @@ public class MainPresenter extends BasePresenter{
 
     //移库
     public void goToYk(){
+        Intent intent=new Intent(context, YkActivity.class);
+        context.startActivity(intent);
+    }
+
+    //工单退料到原料组
+    public void goToGdtldylz(){
         Intent intent=new Intent(context, YkActivity.class);
         context.startActivity(intent);
     }
