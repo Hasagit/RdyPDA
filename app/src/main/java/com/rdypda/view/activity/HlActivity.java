@@ -49,6 +49,7 @@ public class HlActivity extends BaseActivity implements IHlView {
     FloatingActionButton saveBtn;
     private ProgressDialog progressDialog;
     private AlertDialog dialog;
+    private List<String>idData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,20 +133,6 @@ public class HlActivity extends BaseActivity implements IHlView {
         HlScanedAdapter adapter=new HlScanedAdapter(HlActivity.this,R.layout.item_hl_scaned,data);
         scanedList.setLayoutManager(new GridLayoutManager(HlActivity.this,1));
         scanedList.setAdapter(adapter);
-        adapter.setOnItemClickListener(new HlScanedAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, Map<String, String> map) {
-                /*if (presenter.getHljh().equals("")){
-                    showMsgDialog("设备明细不能为空");
-                    return;
-                }
-                showTmMsgDialog(presenter.getHljh(),
-                        map.get("lab_1"),
-                        map.get("lab_3"),
-                        map.get("lab_4"),
-                        map.get("lab_2"));*/
-            }
-        });
 
         adapter.setOnItemLongClickListener(new HlScanedAdapter.OnItemLongClickListener() {
             @Override
@@ -185,6 +172,23 @@ public class HlActivity extends BaseActivity implements IHlView {
     }
 
     @Override
+    public void setSbmcSelect(String sbbh) {
+        if (idData!=null){
+            for (int i=0;i<idData.size();i++){
+                if (idData.get(i).equals(sbbh)){
+                    sbmxSp.setSelection(i,true);
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void setSbmcEnable(boolean enable) {
+        sbmxSp.setEnabled(enable);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
@@ -210,26 +214,15 @@ public class HlActivity extends BaseActivity implements IHlView {
     }
 
     @Override
-    public void refreshSbmx(final List<String> data) {
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlActivity.this,android.R.layout.simple_spinner_dropdown_item,data);
+    public void refreshSbmx(final List<String> idData, final List<String>mcData) {
+        this.idData=idData;
+        presenter.setHljh("");
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlActivity.this,android.R.layout.simple_spinner_dropdown_item,mcData);
         sbmxSp.setAdapter(adapter);
-        /*if(data.size()>0){
-            String[]item=data.get(0).split(",");
-            if (item.length>0){
-                presenter.setHljh(item[0]);
-            }else {
-                showMsgDialog("数据解析出错");
-            }
-        }*/
         sbmxSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String[]item=data.get(position).split(",");
-                if (item.length>0){
-                    presenter.setHljh(item[0]);
-                }else {
-                    showMsgDialog("数据解析出错");
-                }
+                presenter.setHljh(idData.get(position));
             }
 
             @Override

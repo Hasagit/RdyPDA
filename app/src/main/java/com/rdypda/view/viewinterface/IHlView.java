@@ -13,13 +13,17 @@ public interface IHlView extends IBaseView{
 
     void showMsgDialog(String msg);
 
-    void refreshSbmx(List<String> data);
+    void refreshSbmx(List<String> idData,List<String>mcData);
 
     void showTmMsgDialog(String hljh,String tmxh,String wlbh,String wlgg,String tmsl);
 
     void refreshScanedList(List<Map<String,String>>data);
 
     void refreshHlList(List<Map<String,String>>data);
+
+    void setSbmcSelect(String sbbh);
+
+    void setSbmcEnable(boolean enable);
 
 
 }

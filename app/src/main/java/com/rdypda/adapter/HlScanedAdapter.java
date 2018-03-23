@@ -55,10 +55,10 @@ public class HlScanedAdapter extends BaseRecyclerAdapter<HlScanedAdapter.ViewHol
         viewHolder.content.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (onItemClickListener!=null){
+                if (onItemLongClickListener!=null){
                     onItemLongClickListener.onItemLongClick(i,map);
                 }
-                return false;
+                return true;
             }
         });
     }

@@ -84,8 +84,7 @@ public class FlActivity extends BaseActivity implements IFlView {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String tmxh=intent.getStringExtra("tmxh");
-                String qrCode="AA*BB*BR"+tmxh;
-                presenter.isValidCode(qrCode);
+                presenter.isValidCode(tmxh);
             }
         };
         IntentFilter intentFilter=new IntentFilter("com.rdypda.TMXH");

@@ -96,7 +96,7 @@ public class MainPresenter extends BasePresenter{
 
 
         if (isPermission("MTR502D12")){
-            ylcflArray.add("发料");
+            ylcflArray.add("仓库发料");
             ylcflResources.add(R.drawable.fl_icon);
         }
 
@@ -263,7 +263,7 @@ public class MainPresenter extends BasePresenter{
                     case "发料条码打印":
                         goToLlddr(MainPresenter.TMDY);
                         break;
-                    case "发料":
+                    case "仓库发料":
                         goToLlddr(MainPresenter.FL);
                         break;
                     case "原料接收":
@@ -339,44 +339,28 @@ public class MainPresenter extends BasePresenter{
     //条码打印 or 发料
     public void goToLlddr(int type){
         if (type==MainPresenter.TMDY){
-            if (isPermission("MTR502D1")){
-                Intent intent=new Intent(context, LlddrActivity.class);
-                intent.putExtra("type",type);
-                context.startActivity(intent);
-            }else {
-                view.showMsgDialog("你没有权限使用该功能");
-            }
+            Intent intent=new Intent(context, LlddrActivity.class);
+            intent.putExtra("type",type);
+            context.startActivity(intent);
         }else if (type==MainPresenter.FL){
-            if (isPermission("MTR502D1")){
-                Intent intent=new Intent(context, LlddrActivity.class);
-                intent.putExtra("type",type);
-                context.startActivity(intent);
-            }else {
-                view.showMsgDialog("你没有权限使用该功能");
-            }
+            Intent intent=new Intent(context, LlddrActivity.class);
+            intent.putExtra("type",type);
+            context.startActivity(intent);
         }
     }
 
     //原料接收
     public void goToYljs(){
-        if (isPermission("MTR511D1")){
-            Intent intent=new Intent(context, LlddrActivity.class);
-            intent.putExtra("type",YLJS);
-            context.startActivity(intent);
-        }else {
-            view.showMsgDialog("你没有权限使用该功能");
-        }
+        Intent intent=new Intent(context, LlddrActivity.class);
+        intent.putExtra("type",YLJS);
+        context.startActivity(intent);
     }
 
     //原料退料
     public void goToYltl(){
-        if (isPermission("MTR512D1")){
-            Intent intent=new Intent(context, LlddrActivity.class);
-            intent.putExtra("type",YLTL);
-            context.startActivity(intent);
-        }else {
-            view.showMsgDialog("你没有权限使用该功能");
-        }
+        Intent intent=new Intent(context, LlddrActivity.class);
+        intent.putExtra("type",YLTL);
+        context.startActivity(intent);
     }
 
     //原料组仓库
@@ -389,12 +373,8 @@ public class MainPresenter extends BasePresenter{
 
     //混料
     public void goToHl(){
-        if (isPermission("MOM503D1")){
-            Intent intent=new Intent(context, HlActivity.class);
-            context.startActivity(intent);
-        }else {
-            view.showMsgDialog("你没有权限使用该功能");
-        }
+        Intent intent=new Intent(context, HlActivity.class);
+        context.startActivity(intent);
     }
 
     //按料单发料
@@ -450,22 +430,14 @@ public class MainPresenter extends BasePresenter{
 
     //条码拆分
     public void goToTmcf(){
-        if (isPermission("STK501D1")){
-            Intent intent=new Intent(context, TmcfActivity.class);
-            context.startActivity(intent);
-        }else {
-            view.showMsgDialog("你没有权限使用该功能");
-        }
+        Intent intent=new Intent(context, TmcfActivity.class);
+        context.startActivity(intent);
     }
 
     //条码补打
     public void goToTmbd(){
-        if (isPermission("STK502D1")){
-            Intent intent=new Intent(context, TmbdActivity.class);
-            context.startActivity(intent);
-        }else {
-            view.showMsgDialog("你没有权限使用该功能");
-        }
+        Intent intent=new Intent(context, TmbdActivity.class);
+        context.startActivity(intent);
     }
 
     //库存盘点
@@ -475,12 +447,8 @@ public class MainPresenter extends BasePresenter{
 
     //条码查询
     public void goToTmcx(){
-        if (isPermission("STK504D1")){
-            Intent intent=new Intent(context, TmcxActivity.class);
-            context.startActivity(intent);
-        }else {
-            view.showMsgDialog("你没有权限使用该功能");
-        }
+        Intent intent=new Intent(context, TmcxActivity.class);
+        context.startActivity(intent);
     }
 
     //混料包装

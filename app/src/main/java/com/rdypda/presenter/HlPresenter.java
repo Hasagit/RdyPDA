@@ -32,7 +32,6 @@ public class HlPresenter extends BasePresenter {
         super(context);
         this.view=view;
         getSbmc("T03");
-        getScanedData();
         initScanUtil();
     }
 
@@ -59,8 +58,8 @@ public class HlPresenter extends BasePresenter {
             return;
         }
         view.setShowProgressDialogEnable(true);
-        String sql=String.format("Call Proc_PDA_IsValidCode('%s', 'MTR_HL', '', '%s')",
-                tmxh,preferenUtil.getString("userId"));
+        String sql=String.format("Call Proc_PDA_IsValidCode('%s', 'MTR_HL', '%s', '%s')",
+                tmxh,hljh,preferenUtil.getString("userId"));
         WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -112,12 +111,16 @@ public class HlPresenter extends BasePresenter {
                 view.setShowProgressDialogEnable(false);
                 try {
                     JSONArray array=value.getJSONArray("Table1");
-                    List<String>data=new ArrayList<>();
-                    data.add("");
+                    List<String>idData=new ArrayList<>();
+                    List<String>mcData=new ArrayList<>();
+                    mcData.add("");
+                    idData.add("");
                     for (int i=0;i<array.length();i++){
-                        data.add(array.getJSONObject(i).getString("lbm_lbdm"));
+                        idData.add(array.getJSONObject(i).getString("lbm_lbdm"));
+                        mcData.add(array.getJSONObject(i).getString("lbm_lbmc"));
                     }
-                    view.refreshSbmx(data);
+                    view.refreshSbmx(idData,mcData);
+                    getScanedData();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     view.showMsgDialog(e.getMessage());
@@ -161,9 +164,16 @@ public class HlPresenter extends BasePresenter {
                         map.put("lab_2",array.getJSONObject(i).getString("scan_qty"));
                         map.put("lab_3",array.getJSONObject(i).getString("brp_wldm"));
                         map.put("lab_4",array.getJSONObject(i).getString("brp_pmgg"));
+                        hljh=array.getJSONObject(i).getString("scan_djbh");
                         data.add(map);
                     }
+                    view.setSbmcSelect(hljh);
                     view.refreshScanedList(data);
+                    if (data.size()>0){
+                        view.setSbmcEnable(false);
+                    }else {
+                        view.setSbmcEnable(true);
+                    }
                     initHlData(data);
 
                 } catch (JSONException e) {
@@ -300,10 +310,6 @@ public class HlPresenter extends BasePresenter {
 
     public void setHljh(String hljh) {
         this.hljh = hljh;
-    }
-
-    public String getHljh() {
-        return hljh;
     }
 
     public void initHlData(List<Map<String,String>>dataScan){
