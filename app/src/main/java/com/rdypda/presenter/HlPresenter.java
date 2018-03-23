@@ -313,32 +313,35 @@ public class HlPresenter extends BasePresenter {
     }
 
     public void initHlData(List<Map<String,String>>dataScan){
-        List<Map<String,String>>dataSz=new ArrayList<>();
-        List<Map<String,String>>dataYl=new ArrayList<>();
         List<Map<String,String>>dataHl=new ArrayList<>();
         for (int i=0;i<dataScan.size();i++){
-            String twoNum=dataScan.get(i).get("lab_3").substring(0,2);
-            if (twoNum.equals("81")){
-                dataYl.add(dataScan.get(i));
-            }else if (twoNum.equals("84")){
-                dataSz.add(dataScan.get(i));
-            }
-        }
-        for (int i=0;i<dataYl.size();i++){
-            Map<String,String>map=new HashMap<>();
-            map.put("wlgg",dataYl.get(i).get("lab_4"));
-            map.put("wlbh",dataYl.get(i).get("lab_3"));
-            double hlsl=0;
-            if (dataYl.size()==dataSz.size()){
-                hlsl=Double.parseDouble(dataYl.get(i).get("lab_2"))+Double.parseDouble(dataSz.get(i).get("lab_2"));
+            if (i==0){
+                Map<String,String>map=new HashMap<>();
+                map.put("wlbh",dataScan.get(i).get("lab_3"));
+                map.put("hlsl",dataScan.get(i).get("lab_2"));
+                map.put("wlgg",dataScan.get(i).get("lab_4"));
+                dataHl.add(map);
             }else {
-                hlsl=Double.parseDouble(dataYl.get(i).get("lab_2"));
-            }
-            map.put("hlsl",hlsl+"");
-            dataHl.add(map);
-        }
-        view.refreshHlList(dataHl);
+                boolean isExist=false;
+                for (int j=0;j<dataHl.size();j++){
+                    if (dataHl.get(j).get("wlbh").equals(dataScan.get(i).get("lab_3"))){
+                        Double sum=Double.parseDouble(dataHl.get(j).get("hlsl"))+Double.parseDouble(dataScan.get(i).get("lab_2"));
+                        dataHl.get(j).put("hlsl",sum+"");
+                        isExist=true;
+                        break;
+                    }
+                }
+                if (!isExist){
+                    Map<String,String>map=new HashMap<>();
+                    map.put("wlbh",dataScan.get(i).get("lab_3"));
+                    map.put("hlsl",dataScan.get(i).get("lab_2"));
+                    map.put("wlgg",dataScan.get(i).get("lab_4"));
+                    dataHl.add(map);
+                }
 
+            }
+            }
+        view.refreshHlList(dataHl);
 
     }
 }

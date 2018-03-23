@@ -3,8 +3,10 @@ package com.rdypda.view.activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,11 +23,13 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rdypda.R;
 import com.rdypda.adapter.HlAdapter;
 import com.rdypda.adapter.HlScanedAdapter;
 import com.rdypda.presenter.HlPresenter;
+import com.rdypda.presenter.MainPresenter;
 import com.rdypda.view.viewinterface.IHlView;
 import com.rdypda.view.widget.PowerButton;
 
@@ -188,15 +193,6 @@ public class HlActivity extends BaseActivity implements IHlView {
         sbmxSp.setEnabled(enable);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void setShowProgressDialogEnable(boolean enable) {
@@ -230,6 +226,55 @@ public class HlActivity extends BaseActivity implements IHlView {
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.fltab_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.add:
+                showAddDialog();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void showAddDialog(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View view= LayoutInflater.from(this).inflate(R.layout.dialog_add_tm,null);
+            final android.support.v7.app.AlertDialog deleteDialog=new android.support.v7.app.AlertDialog.Builder(this).setView(view).create();
+            deleteDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+            PowerButton delBtn=(PowerButton)view.findViewById(R.id.sure_btn);
+            PowerButton cancelBtn=(PowerButton) view.findViewById(R.id.cancel_btn);
+            final TextInputEditText tmEd=(TextInputEditText)view.findViewById(R.id.tm_ed);
+            delBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String tmxh=tmEd.getText().toString();
+                    if (tmxh.equals("")){
+                        Toast.makeText(HlActivity.this,"条码序号不能为空",Toast.LENGTH_SHORT).show();
+                    }else {
+                        presenter.isValidCode(tmxh);
+                        deleteDialog.dismiss();
+                    }
+                }
+            });
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteDialog.dismiss();
+                }
+            });
+            deleteDialog.show();
+        }
     }
 
     @Override
