@@ -5,4 +5,11 @@ package com.rdypda.view.viewinterface;
  */
 
 public interface IFlTabView {
+
+    void setShowProgressDialogEnable(boolean enable);
+
+    void showMsgDialog(String msg);
+
+    void finish();
+
 }

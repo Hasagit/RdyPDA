@@ -18,4 +18,6 @@ public interface ILlddrView extends IBaseView{
 
     boolean isUnFinishCheck();
 
+    void finish();
+
 }

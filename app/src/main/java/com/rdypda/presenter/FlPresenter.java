@@ -36,6 +36,7 @@ public class FlPresenter extends BasePresenter {
         super(context);
         this.view=view;
         initScan(context);
+        setScanNum(0);
     }
 
     public void initScan(Context context){
@@ -219,5 +220,9 @@ public class FlPresenter extends BasePresenter {
         Intent intent=new Intent();
         intent.setAction("com.rdypda.UPDATEWLD");
         context.sendBroadcast(intent);
+    }
+
+    public void setScanNum(int num){
+        preferenUtil.setInt("scanNum",num);
     }
 }

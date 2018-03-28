@@ -117,6 +117,7 @@ public class FlActivity extends BaseActivity implements IFlView {
 
     @Override
     public void refreshReceive(List<Map<String, String>> data) {
+        presenter.setScanNum(data.size());
         adapter=new ReceiveAdapter(this,R.layout.item_fl_wl,data);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
         recyclerView.setAdapter(adapter);
@@ -153,6 +154,7 @@ public class FlActivity extends BaseActivity implements IFlView {
             Toast.makeText(FlActivity.this,"扫描列表未初始化，请重新进入",Toast.LENGTH_SHORT).show();
         }else {
             adapter.addData(item);
+            presenter.setScanNum(adapter.getItemCount());
         }
     }
 

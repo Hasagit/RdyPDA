@@ -344,4 +344,33 @@ public class HlPresenter extends BasePresenter {
         view.refreshHlList(dataHl);
 
     }
+
+    public void cancelScaned(){
+        view.setShowProgressDialogEnable(true);
+        String sql=String.format(" Call Proc_PDA_CancelScan('MTR_HL', '', '%s');",preferenUtil.getString("userId"));
+        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                view.setShowProgressDialogEnable(false);
+                view.finish();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                view.showMsgDialog(e.getMessage());
+                view.setShowProgressDialogEnable(false);
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
 }

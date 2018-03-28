@@ -2,6 +2,8 @@ package com.rdypda.view.activity;
 
 import android.app.AlertDialog;
 import android.app.LocalActivityManager;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.TextInputEditText;
@@ -18,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.rdypda.R;
+import com.rdypda.presenter.FlTabPresenter;
 import com.rdypda.view.viewinterface.IFlTabView;
 import com.rdypda.view.widget.PowerButton;
 
@@ -37,6 +40,9 @@ public class FlTabActivity extends BaseActivity implements IFlTabView {
 
     private String djbh,wldm;
     private LocalActivityManager manager;
+    private FlTabPresenter presenter;
+    private ProgressDialog progressDialog;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,7 @@ public class FlTabActivity extends BaseActivity implements IFlTabView {
         manager = new LocalActivityManager(this, true);
         manager.dispatchCreate(savedInstanceState);
         initView();
+        presenter=new FlTabPresenter(this,this);
     }
 
     @Override
@@ -78,7 +85,19 @@ public class FlTabActivity extends BaseActivity implements IFlTabView {
         layoutTop.addView(viewWld);
         layoutBottom.addView(viewFl);
 
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setTitle("提示");
+        progressDialog.setMessage("请稍后...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCanceledOnTouchOutside(false);
 
+        dialog=new AlertDialog.Builder(this).setTitle("提示")
+                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create();
     }
 
     private View getView(String id, Intent intent) {
@@ -95,7 +114,11 @@ public class FlTabActivity extends BaseActivity implements IFlTabView {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                finish();
+                if (presenter.getScanNum()>0){
+                    showReturnDialog();
+                }else {
+                    finish();
+                }
                 break;
             case R.id.add:
                 showAddDialog();
@@ -144,4 +167,48 @@ public class FlTabActivity extends BaseActivity implements IFlTabView {
         }
     }
 
+    public void showReturnDialog(){
+        AlertDialog returnDialog=new AlertDialog.Builder(FlTabActivity.this).setTitle("提示")
+                .setCancelable(false)
+                .setMessage("是否清除扫描记录？")
+                .setPositiveButton("否", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.cancelScaned();
+                    }
+                })
+                .create();
+        returnDialog.show();
+    }
+
+    @Override
+    public void setShowProgressDialogEnable(boolean enable) {
+        if (enable){
+            progressDialog.show();
+        }else {
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void showMsgDialog(String msg) {
+        dialog.setMessage(msg);
+        dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (presenter.getScanNum()>0){
+            showReturnDialog();
+        }else {
+            finish();
+        }
+
+    }
 }

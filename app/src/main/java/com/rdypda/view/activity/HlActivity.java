@@ -238,7 +238,11 @@ public class HlActivity extends BaseActivity implements IHlView {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                finish();
+                if (scanedList.getChildCount()>0){
+                    showReturnDialog();
+                }else {
+                    finish();
+                }
                 break;
             case R.id.add:
                 showAddDialog();
@@ -274,6 +278,35 @@ public class HlActivity extends BaseActivity implements IHlView {
                 }
             });
             deleteDialog.show();
+        }
+    }
+
+    public void showReturnDialog(){
+        AlertDialog returnDialog=new AlertDialog.Builder(HlActivity.this).setTitle("提示")
+                .setCancelable(false)
+                .setMessage("是否清除扫描记录？")
+                .setPositiveButton("否", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.cancelScaned();
+                    }
+                })
+                .create();
+        returnDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (scanedList.getChildCount()>0){
+            showReturnDialog();
+        }else {
+            finish();
         }
     }
 

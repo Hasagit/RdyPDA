@@ -36,11 +36,9 @@ public class LlddrPresenter extends BasePresenter{
     public LlddrPresenter(Context context,ILlddrView view) {
         super(context);
         this.view=view;
-        refreshListData();
     }
 
-    public void refreshListData(){
-    }
+
 
     public void queryDataByKey(final String lldh,String wldm,String ddbh,int starType){
          if ((!view.isFinishCheck())&(!view.isUnFinishCheck())){
@@ -160,7 +158,7 @@ public class LlddrPresenter extends BasePresenter{
             context.startActivity(intent);
         }
 
-
+        view.finish();
     }
 
     public void getScanedData(){
@@ -182,6 +180,7 @@ public class LlddrPresenter extends BasePresenter{
                         intent.putExtra("djbh",array.getJSONObject(0).getString("scan_djbh"));
                         intent.putExtra("wldm","");
                         context.startActivity(intent);
+                        view.finish();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
