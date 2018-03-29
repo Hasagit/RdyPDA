@@ -39,6 +39,7 @@ public class FlPresenter extends BasePresenter {
         setScanNum(0);
     }
 
+    //初始化扫描
     public void initScan(Context context){
         scanUtil=new ScanUtil(context);
         scanUtil.open();
@@ -55,6 +56,7 @@ public class FlPresenter extends BasePresenter {
         });
     }
 
+    //获取已扫描记录
     public void getScanedData(){
         view.setShowProgressEnable(true);
         String sql =String.format("Call Proc_PDA_GetScanList ('LLD','','%s')",preferenUtil.getString("userId"));
@@ -99,6 +101,7 @@ public class FlPresenter extends BasePresenter {
         });
     };
 
+    //删除已经扫描记录
     public void deleteData(){
         view.setShowProgressEnable(true);
         String sql=String.format("Call Proc_PDA_CancelScan('LLD', '', '%s')",preferenUtil.getString("userId"));
@@ -126,6 +129,7 @@ public class FlPresenter extends BasePresenter {
         });
     }
 
+    //确认发料
     public void uploadScanWld(){
         view.setShowProgressEnable(true);
         String sql=String.format("Call Proc_PDA_LLD_Post('%s')",preferenUtil.getString("userId"));
@@ -156,6 +160,7 @@ public class FlPresenter extends BasePresenter {
         });
     }
 
+    //条码验证
     public void isValidCode(final String tmxh){
         view.setShowProgressEnable(true);
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','LLD', '%s', '%s')",
@@ -204,6 +209,7 @@ public class FlPresenter extends BasePresenter {
         });
     }
 
+    //关闭扫描
     public void closeScan(){
         scanUtil.close();
     }
@@ -216,12 +222,7 @@ public class FlPresenter extends BasePresenter {
         this.wldm = wldm;
     }
 
-    public void sendUploadFinishReceiver(){
-        Intent intent=new Intent();
-        intent.setAction("com.rdypda.UPDATEWLD");
-        context.sendBroadcast(intent);
-    }
-
+    //扫描数量
     public void setScanNum(int num){
         preferenUtil.setInt("scanNum",num);
     }

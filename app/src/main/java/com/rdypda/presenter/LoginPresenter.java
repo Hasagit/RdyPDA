@@ -47,6 +47,7 @@ public class LoginPresenter extends BasePresenter {
         getCompanyList();
     }
 
+    //获取工厂列表
     public void getCompanyList(){
         WebService.getCompanyList().subscribe(new Observer<JSONObject>() {
             @Override
@@ -90,6 +91,7 @@ public class LoginPresenter extends BasePresenter {
         });
     }
 
+    //登录验证
     public void login(final int usrCmpIdPosition, final String usrId, final String usrPwd){
         view.setUserIdErrorEnable(false);
         view.setPwdErrorEnable(false);
@@ -174,12 +176,14 @@ public class LoginPresenter extends BasePresenter {
         isRemember = remember;
     }
 
+    //设置ip
     public void setIpAddress(String address){
         preferenUtil.setString("ipAddress",address);
         WebService.initUrl(preferenUtil);
         view.showFactoryList(new ArrayList<Map<String, String>>(),0);
     }
 
+    //获取当前ip
     public String getCurrentIp(){
         if (preferenUtil.getString("ipAddress").equals("")){
             return "http://yun.ruiduoyi.com";

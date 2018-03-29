@@ -62,7 +62,7 @@ public class FirstPresenter extends BasePresenter {
 
     }
 
-
+    //登录请求
     public void login(final String cmp_gsdm, final String usrId, final String usrPwd) {
         WebService.usrLogon(cmp_gsdm, usrId, usrPwd).subscribe(new Observer<JSONObject>() {
             @Override
@@ -124,6 +124,7 @@ public class FirstPresenter extends BasePresenter {
         view.finish();
     }
 
+    //查询服务器App版本
     public void checkToUpdate() {
         String sql = "Call PAD_Get_WebAddr()";
         String token="RDYWEBSERVICEAUTOCALLADMIN";
@@ -176,6 +177,7 @@ public class FirstPresenter extends BasePresenter {
         });
     }
 
+    //下载App
     public void downloadInstallApk(String urlStr) {
         DownloadUtils downloadUtils = new DownloadUtils(context);
         view.setShowDownloadProgressDialogEnable(true);

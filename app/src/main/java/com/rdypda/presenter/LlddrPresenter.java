@@ -39,7 +39,7 @@ public class LlddrPresenter extends BasePresenter{
     }
 
 
-
+    //查询领料单
     public void queryDataByKey(final String lldh,String wldm,String ddbh,int starType){
          if ((!view.isFinishCheck())&(!view.isUnFinishCheck())){
              view.showToast("至少选中一种状态");
@@ -108,6 +108,7 @@ public class LlddrPresenter extends BasePresenter{
 
     }
 
+    //根据启动类型去特定的Activity
     public void sureEvent(List<Map<String,String>>data,int startType){
         String lldhs="";
         if (data.size()==0&startType!=MainPresenter.YLJS){
@@ -161,6 +162,7 @@ public class LlddrPresenter extends BasePresenter{
         view.finish();
     }
 
+    //获取发料已扫描记录，如果大于1则直接进入发料界面
     public void getScanedData(){
         view.setProgressDialogEnable(true);
         String sql =String.format("Call Proc_PDA_GetScanList ('LLD','','%s')",preferenUtil.getString("userId"));

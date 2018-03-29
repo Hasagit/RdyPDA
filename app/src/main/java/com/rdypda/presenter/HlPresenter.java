@@ -35,6 +35,7 @@ public class HlPresenter extends BasePresenter {
         initScanUtil();
     }
 
+    //初始化扫描
     public void initScanUtil(){
         scanUtil=new ScanUtil(context);
         scanUtil.open();
@@ -52,6 +53,7 @@ public class HlPresenter extends BasePresenter {
         });
     }
 
+    //条码验证
     public void isValidCode(String tmxh){
         if (hljh.equals("")){
             view.showMsgDialog("设备明细不能为空");
@@ -97,6 +99,7 @@ public class HlPresenter extends BasePresenter {
         });
     }
 
+    //获取设备名称
     public void getSbmc(String lbdm){
         String sql=String.format("Call Proc_PDA_Get_DeviceList('','%s');",lbdm);
         view.setShowProgressDialogEnable(true);
@@ -143,6 +146,7 @@ public class HlPresenter extends BasePresenter {
         });
     }
 
+    //获取已扫描记录
     public void getScanedData(){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_GetScanList ('MTR_HL', '', '%s');",preferenUtil.getString("userId"));
@@ -196,6 +200,7 @@ public class HlPresenter extends BasePresenter {
         });
     }
 
+    //删除已扫描记录
     public void delScanedData(String tmxh){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_CancelScan('MTR_HL', '%s', '%s');",tmxh,preferenUtil.getString("userId"));
@@ -225,6 +230,7 @@ public class HlPresenter extends BasePresenter {
         });
     }
 
+    //确认投入数量
     public void uploadQty(String tmxh,String qty,String tmsl){
         if (qty.equals("")){
             view.showMsgDialog("请先输入投料数量");
@@ -263,6 +269,7 @@ public class HlPresenter extends BasePresenter {
         });
     }
 
+    //混料提交
     public void uploadHl(){
         if (hljh.equals("")){
             view.showMsgDialog("设备明细不能为空！");
@@ -304,6 +311,7 @@ public class HlPresenter extends BasePresenter {
         });
     }
 
+    //关闭扫描
     public void closeScanUtil(){
         scanUtil.close();
     }
@@ -312,6 +320,7 @@ public class HlPresenter extends BasePresenter {
         this.hljh = hljh;
     }
 
+    //根据已经扫描的数据初始化Hl列表
     public void initHlData(List<Map<String,String>>dataScan){
         List<Map<String,String>>dataHl=new ArrayList<>();
         for (int i=0;i<dataScan.size();i++){

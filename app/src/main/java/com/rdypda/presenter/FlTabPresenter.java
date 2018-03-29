@@ -22,6 +22,7 @@ public class FlTabPresenter extends BasePresenter {
         this.view=view;
     }
 
+    //清除扫描记录
     public void cancelScaned(){
         view.setShowProgressDialogEnable(true);
         String sql=String.format(" Call Proc_PDA_CancelScan('LLD', '', '%s');",preferenUtil.getString("userId"));
@@ -51,6 +52,7 @@ public class FlTabPresenter extends BasePresenter {
         });
     }
 
+    //获取扫描数量
     public int getScanNum(){
         return preferenUtil.getInt("scanNum");
     }

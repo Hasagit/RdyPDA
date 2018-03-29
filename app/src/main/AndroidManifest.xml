@@ -27,7 +27,6 @@
         <activity android:name=".view.activity.LlddrActivity" />
         <activity android:name=".view.activity.LlddrMsgActivity" />
         <activity android:name=".view.activity.FlActivity" />
-        <activity android:name=".view.activity.GdxqActivity" />
         <activity android:name=".view.activity.WldActivity" />
         <activity android:name=".view.activity.YlzckActivity" />
         <activity android:name=".view.activity.HlActivity" />

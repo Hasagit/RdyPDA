@@ -11,6 +11,7 @@ import com.rdypda.R;
 import com.rdypda.presenter.FirstPresenter;
 import com.rdypda.view.viewinterface.IFirstView;
 
+//第一个活动
 public class FirstActivity extends BaseActivity implements IFirstView {
     private FirstPresenter presenter;
     private ProgressDialog downloadProgressDialog;

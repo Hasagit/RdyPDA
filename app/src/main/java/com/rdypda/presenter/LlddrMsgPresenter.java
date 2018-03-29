@@ -41,6 +41,7 @@ public class LlddrMsgPresenter extends BasePresenter{
         this.context = context;
     }
 
+    //获取条码序号
     public void getTmxh(String tmpch,String tmsl,String lldh,String wlbh,String dw,String gch,String kcdd,String tmbh){
         if (tmpch.equals("")){
             view.showMessage("请先输入条码批次号");
@@ -98,6 +99,7 @@ public class LlddrMsgPresenter extends BasePresenter{
         });
     }
 
+    //打印事件
     public void printEven(final String wldm, final String wlpm, final String ywwlpm, final String tmbh, final String tmpch){
 
         if (!BluetoothAdapter.getDefaultAdapter().isEnabled()){
@@ -158,6 +160,7 @@ public class LlddrMsgPresenter extends BasePresenter{
 
     }
 
+    //发料
     public void uploadScanWld(){
         view.setProgressDialogEnable("请稍后...",true);
         String sql=String.format("Call Proc_PDA_LLD_Post('%s')",preferenUtil.getString("userId"));
@@ -189,6 +192,7 @@ public class LlddrMsgPresenter extends BasePresenter{
         });
     }
 
+    //发料条码验证
     public void isValidCode(final String tmxh,String lldh){
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','LLD', '%s', '%s')",
                 tmxh,lldh,preferenUtil.getString("userId"));
