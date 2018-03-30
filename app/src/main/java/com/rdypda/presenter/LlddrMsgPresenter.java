@@ -3,22 +3,15 @@ package com.rdypda.presenter;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.util.Log;
 
 import com.rdypda.model.network.WebService;
 import com.rdypda.util.PrinterUtil;
-import com.rdypda.view.activity.FlActivity;
-import com.rdypda.view.activity.FlTabActivity;
 import com.rdypda.view.viewinterface.ILlddrMsgView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -55,7 +48,7 @@ public class LlddrMsgPresenter extends BasePresenter{
         view.setProgressDialogEnable("获取中...",true);
         String sql=String.format("Call Proc_GenQrcode('MRP','MR','%s','%s','%s',%s,'%s','%s','%s','%s','','%s','')",
                 lldh,wlbh,tmpch,tmsl,dw,gch,kcdd,kcdd,preferenUtil.getString("userId"));
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -165,7 +158,7 @@ public class LlddrMsgPresenter extends BasePresenter{
     public void uploadScanWld(){
         view.setProgressDialogEnable("请稍后...",true);
         String sql=String.format("Call Proc_PDA_LLD_Post('%s')",preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -199,7 +192,7 @@ public class LlddrMsgPresenter extends BasePresenter{
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','LLD', '%s', '%s')",
                 tmxh,lldh,preferenUtil.getString("userId"));
         view.setProgressDialogEnable("请稍后...",true);
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 

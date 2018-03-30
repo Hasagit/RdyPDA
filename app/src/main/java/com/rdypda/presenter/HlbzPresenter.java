@@ -48,7 +48,7 @@ public class HlbzPresenter extends BasePresenter {
     public void getSbmc(String lbdm){
         String sql=String.format("Call Proc_PDA_Get_DeviceList('','%s');",lbdm);
         view.setShowProgressDialogEnable(true);
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -94,7 +94,7 @@ public class HlbzPresenter extends BasePresenter {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = formatter.format(currentTime);
         String sql=String.format("Call Proc_check_Prod_Day('%s');",dateString);
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -131,7 +131,7 @@ public class HlbzPresenter extends BasePresenter {
         }
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_GetHlmList('%s','%s');",hljh,preferenUtil.getString("userId"));
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -180,7 +180,7 @@ public class HlbzPresenter extends BasePresenter {
     public void getKc(final Map<String,String>map){
         view.setShowProgressDialogEnable(true);
         String sql="Call Proc_PDA_GetStkList();";
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -237,7 +237,7 @@ public class HlbzPresenter extends BasePresenter {
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_GenQrcode3('BRP','HL','%s',%s,'%s','%s','%s','%s','','%s');",
                 hldh,bzsl,date,gsdm,kcdd,kcdd,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -296,7 +296,7 @@ public class HlbzPresenter extends BasePresenter {
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_GenQrcode3('BRP','HL','%s',%s,'%s','%s','%s','%s','','%s');",
                 hldh,bzsl,date,gsdm,kcdd,kcdd,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -416,7 +416,7 @@ public class HlbzPresenter extends BasePresenter {
     public void hlPacking(final String hldh, final String tmbh){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_HL_Packing('%s','%s','%s');",hldh,tmbh,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -479,7 +479,7 @@ public class HlbzPresenter extends BasePresenter {
         for (int i=0;i<ldsl;i++){
             sql=sql+sqlItem+"\n";
         }
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 

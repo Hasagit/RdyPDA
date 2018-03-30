@@ -62,7 +62,7 @@ public class HlPresenter extends BasePresenter {
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_IsValidCode('%s', 'MTR_HL', '%s', '%s')",
                 tmxh,hljh,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -103,7 +103,7 @@ public class HlPresenter extends BasePresenter {
     public void getSbmc(String lbdm){
         String sql=String.format("Call Proc_PDA_Get_DeviceList('','%s');",lbdm);
         view.setShowProgressDialogEnable(true);
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -150,7 +150,7 @@ public class HlPresenter extends BasePresenter {
     public void getScanedData(){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_GetScanList ('MTR_HL', '', '%s');",preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -204,7 +204,7 @@ public class HlPresenter extends BasePresenter {
     public void delScanedData(String tmxh){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_CancelScan('MTR_HL', '%s', '%s');",tmxh,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -242,7 +242,7 @@ public class HlPresenter extends BasePresenter {
         }
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_HL_QtyUpdate('%s', %s, '%s')",tmxh,qty,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -277,7 +277,7 @@ public class HlPresenter extends BasePresenter {
         }
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_HL_Post('%s','%s');",hljh,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -357,7 +357,7 @@ public class HlPresenter extends BasePresenter {
     public void cancelScaned(){
         view.setShowProgressDialogEnable(true);
         String sql=String.format(" Call Proc_PDA_CancelScan('MTR_HL', '', '%s');",preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 

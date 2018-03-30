@@ -19,7 +19,6 @@ import java.util.Map;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import retrofit2.http.PUT;
 
 /**
  * Created by DengJf on 2018/3/7.
@@ -64,7 +63,7 @@ public class SbtlPresenter extends BasePresenter {
         view.setSbbText("");
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_Get_DeviceList('%s','');",sbbh);
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -122,7 +121,7 @@ public class SbtlPresenter extends BasePresenter {
         }
         view.setWltmText("");
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','MTR_TL','%s','%s');",tmbh,sbbh,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -164,7 +163,7 @@ public class SbtlPresenter extends BasePresenter {
     public void getTlzs(final String tmbh, final String ylbh, final String ylgg, final String tmsl){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_GetScanList ('MTR_TL', '%s', '');",sbbh);
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -218,7 +217,7 @@ public class SbtlPresenter extends BasePresenter {
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_QtyUpdate('%s','MTR_TL','%s',%s,'%s')",
                 tmxh,sbbh,bzsl,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -248,7 +247,7 @@ public class SbtlPresenter extends BasePresenter {
     public void getScanList(String sbbh){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_GetScanList ('MTR_TL', '%s', '');",sbbh);
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -303,7 +302,7 @@ public class SbtlPresenter extends BasePresenter {
     public void cancelScan(String tmbh, final AlertDialog dialog){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_CancelScan('MTR_TL', '%s','%s');",tmbh,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 

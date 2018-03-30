@@ -16,7 +16,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -128,7 +127,7 @@ public class FirstPresenter extends BasePresenter {
     public void checkToUpdate() {
         String sql = "Call PAD_Get_WebAddr()";
         String token="RDYWEBSERVICEAUTOCALLADMIN";
-        WebService.querySqlCommandJosn(sql, token).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql, token).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 

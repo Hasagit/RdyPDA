@@ -65,7 +65,7 @@ public class SbxlPresenter extends BasePresenter {
     public void getKc(){
         view.setShowProgressDialogEnable(true);
         String sql="Call Proc_PDA_GetStkList();";
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -115,7 +115,7 @@ public class SbxlPresenter extends BasePresenter {
         hldhs="";
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_GetScanList ('MTR_TL', '%s', '');",sbbh);
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -197,7 +197,7 @@ public class SbxlPresenter extends BasePresenter {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = formatter.format(currentTime);
         String sql=String.format("Call Proc_check_Prod_Day('%s');",dateString);
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -263,7 +263,7 @@ public class SbxlPresenter extends BasePresenter {
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_GenQrcode('BRP','XL','%s','%s','',%s,'%s','%s','%s','%s','','%s','%s');",
                 sbbh,hldhed,bzsl,dw,items[0],items[1],items[1],preferenUtil.getString("userid"),date);
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -383,7 +383,7 @@ public class SbxlPresenter extends BasePresenter {
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_GenHlWldm2('%s','%s');",
                 hldh,preferenUtil.getString("userId"));
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -418,7 +418,7 @@ public class SbxlPresenter extends BasePresenter {
     public void xlPacking(final String sbbh, final String tmbh){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_XL_Packing('%s', '%s', '%s');",sbbh,tmbh,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -452,7 +452,7 @@ public class SbxlPresenter extends BasePresenter {
         }
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_XL_Clear('%s', '%s');",sbbh,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 

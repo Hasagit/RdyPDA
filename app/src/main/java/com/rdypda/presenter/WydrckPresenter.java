@@ -55,7 +55,7 @@ public class WydrckPresenter extends BasePresenter {
     public void getKc(){
         view.setShowProgressDialogEnable(true);
         String sql="Call Proc_PDA_GetStkList();";
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -119,7 +119,7 @@ public class WydrckPresenter extends BasePresenter {
         }
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','%s', '%s;%s;%s; ', '%s');",
                 tmbh,type,kw[0],kw[1],kw[1],preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -170,7 +170,7 @@ public class WydrckPresenter extends BasePresenter {
             type="CHWY";
         }
         String sql=String.format("Call Proc_PDA_CancelScan('%s', '%s', '%s');",type,tmxh,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 

@@ -5,7 +5,6 @@ import android.content.Context;
 import com.rdypda.model.network.WebService;
 import com.rdypda.util.ScanUtil;
 import com.rdypda.view.viewinterface.ISbljView;
-import com.rdypda.view.widget.PowerButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,7 +60,7 @@ public class SbljPresenter extends BasePresenter{
     public void getConnectedDevice(String sbbh){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_Get_JtmList('%s');",sbbh);
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -112,7 +111,7 @@ public class SbljPresenter extends BasePresenter{
         }
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_Jtm_Dev_Binding('%s', '%s', '%s');",jtbh,klbh,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 

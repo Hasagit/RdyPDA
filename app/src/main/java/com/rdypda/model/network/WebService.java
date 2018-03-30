@@ -88,8 +88,8 @@ public class WebService {
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static Observable<JSONObject>querySqlCommandJosn(final String sqlCommand, final String cTokenUser){
-        Log.e("querySqlCommandJosn",sqlCommand+"\n"+cTokenUser);
+    public static Observable<JSONObject> querySqlCommandJson(final String sqlCommand, final String cTokenUser){
+        Log.e("querySqlCommandJson",sqlCommand+"\n"+cTokenUser);
         return Observable.create(new ObservableOnSubscribe<JSONObject>() {
             @Override
             public void subscribe(ObservableEmitter<JSONObject> e) throws Exception {
@@ -104,8 +104,8 @@ public class WebService {
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static Observable<JSONObject>getQuerySqlCommandJson(final String sqlCommand, final String cTokenUser){
-        Log.e("querySqlCommandJosn",sqlCommand+"\n"+cTokenUser);
+    public static Observable<JSONObject> doQuerySqlCommandResultJson(final String sqlCommand, final String cTokenUser){
+        Log.e("querySqlCommandJson",sqlCommand+"\n"+cTokenUser);
         return Observable.create(new ObservableOnSubscribe<JSONObject>() {
             @Override
             public void subscribe(ObservableEmitter<JSONObject> e) throws Exception {

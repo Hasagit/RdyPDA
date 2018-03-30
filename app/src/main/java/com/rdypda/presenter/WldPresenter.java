@@ -34,7 +34,7 @@ public class WldPresenter extends BasePresenter{
     public void getLldDet(String djbh,String wldm){
         view.setProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_Get_lld_det('%s','%s')",djbh,wldm);
-        WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 

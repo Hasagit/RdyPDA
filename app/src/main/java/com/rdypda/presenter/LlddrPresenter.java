@@ -2,7 +2,6 @@ package com.rdypda.presenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
 
 import com.rdypda.model.network.WebService;
 import com.rdypda.view.activity.FlTabActivity;
@@ -19,12 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by DengJf on 2017/12/8.
@@ -56,7 +51,7 @@ public class LlddrPresenter extends BasePresenter{
          }else {
              sql=String.format("Call Proc_PDA_Get_lld('%s','%s','%s','',%s)",lldh,wldm,ddbh,status);
          }
-         WebService.querySqlCommandJosn(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+         WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
              @Override
              public void onSubscribe(Disposable d) {
 
@@ -166,7 +161,7 @@ public class LlddrPresenter extends BasePresenter{
     public void getScanedData(){
         view.setProgressDialogEnable(true);
         String sql =String.format("Call Proc_PDA_GetScanList ('LLD','','%s')",preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 

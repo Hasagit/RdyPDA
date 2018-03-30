@@ -53,7 +53,7 @@ public class TmbdPresenter extends BasePresenter {
     public void isValidCode(String tmbh){
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','REPRINT','','%s')",tmbh,preferenUtil.getString("userId"));
         view.setShowProgressDialogEnable(true);
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -97,7 +97,7 @@ public class TmbdPresenter extends BasePresenter {
         }
         view.setShowProgressDialogEnable(true);
         String sql=String.format(" Call Proc_PDA_SplitBarcode('%s', '%s', '%s')",tmxh,tmsl,preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 

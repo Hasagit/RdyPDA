@@ -26,7 +26,7 @@ public class FlTabPresenter extends BasePresenter {
     public void cancelScaned(){
         view.setShowProgressDialogEnable(true);
         String sql=String.format(" Call Proc_PDA_CancelScan('LLD', '', '%s');",preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 

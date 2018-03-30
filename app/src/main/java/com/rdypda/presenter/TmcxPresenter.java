@@ -53,7 +53,7 @@ public class TmcxPresenter extends BasePresenter{
         view.refreshKcsw(new ArrayList<Map<String, String>>());
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_BarcodeQuery('%s')",tmxh);
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 

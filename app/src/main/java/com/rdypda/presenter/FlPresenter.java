@@ -2,8 +2,6 @@ package com.rdypda.presenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.util.Log;
 
 import com.rdypda.model.network.WebService;
 import com.rdypda.util.QrCodeUtil;
@@ -60,7 +58,7 @@ public class FlPresenter extends BasePresenter {
     public void getScanedData(){
         view.setShowProgressEnable(true);
         String sql =String.format("Call Proc_PDA_GetScanList ('LLD','','%s')",preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -105,7 +103,7 @@ public class FlPresenter extends BasePresenter {
     public void deleteData(){
         view.setShowProgressEnable(true);
         String sql=String.format("Call Proc_PDA_CancelScan('LLD', '', '%s')",preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -133,7 +131,7 @@ public class FlPresenter extends BasePresenter {
     public void uploadScanWld(){
         view.setShowProgressEnable(true);
         String sql=String.format("Call Proc_PDA_LLD_Post('%s')",preferenUtil.getString("userId"));
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -167,7 +165,7 @@ public class FlPresenter extends BasePresenter {
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','LLD', '%s', '%s')",
                 tmxh,lldh,preferenUtil.getString("userId"));
         view.setShowProgressEnable(true);
-        WebService.getQuerySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+        WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
