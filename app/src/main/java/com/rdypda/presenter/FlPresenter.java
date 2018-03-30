@@ -143,6 +143,7 @@ public class FlPresenter extends BasePresenter {
             public void onNext(JSONObject value) {
                 view.refreshReceive(new ArrayList<Map<String, String>>());
                 view.setShowProgressEnable(false);
+                sendUpdateWldReceiver();
             }
 
             @Override
@@ -225,5 +226,10 @@ public class FlPresenter extends BasePresenter {
     //扫描数量
     public void setScanNum(int num){
         preferenUtil.setInt("scanNum",num);
+    }
+
+    public void sendUpdateWldReceiver(){
+        Intent intent=new Intent("com.rdypda.UPDATEWLD");
+        context.sendBroadcast(intent);
     }
 }

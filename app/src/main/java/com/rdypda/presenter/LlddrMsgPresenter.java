@@ -3,6 +3,7 @@ package com.rdypda.presenter;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.util.Log;
 
 import com.rdypda.model.network.WebService;
@@ -175,6 +176,7 @@ public class LlddrMsgPresenter extends BasePresenter{
                 view.setProgressDialogEnable("",false);
                 view.setTmxhText("");
                 view.showMessage("操作成功！");
+                sendUpdateWldReceiver();
             }
 
             @Override
@@ -234,6 +236,11 @@ public class LlddrMsgPresenter extends BasePresenter{
 
             }
         });
+    }
+
+    public void sendUpdateWldReceiver(){
+        Intent intent=new Intent("com.rdypda.UPDATEWLD");
+        context.sendBroadcast(intent);
     }
 
 }

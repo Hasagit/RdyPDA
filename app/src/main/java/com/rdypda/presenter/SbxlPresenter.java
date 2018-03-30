@@ -427,6 +427,8 @@ public class SbxlPresenter extends BasePresenter {
             @Override
             public void onNext(JSONObject value) {
                 view.setShowProgressDialogEnable(false);
+                getScanList(sbbh);
+
             }
 
             @Override

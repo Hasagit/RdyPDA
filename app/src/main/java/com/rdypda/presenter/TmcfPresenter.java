@@ -29,7 +29,7 @@ import io.reactivex.schedulers.Schedulers;
 public class TmcfPresenter extends BasePresenter {
     private ITmcfView view;
     private ScanUtil scanUtil;
-    private String printMsg,wldm,pmgg,pch,xtmxh;
+    private String printMsg,wldm,pmgg,pch,xtmxh,szgg,ylgg,bzsl,date,zyry;
 
 
     public TmcfPresenter(Context context,ITmcfView view) {
@@ -113,6 +113,7 @@ public class TmcfPresenter extends BasePresenter {
 
             @Override
             public void onNext(JSONObject value) {
+                view.setShowProgressDialogEnable(false);
                 try {
                     JSONArray array=value.getJSONArray("Table2");
                     view.setNewCodeMsg(cf_1+","+xtmsl,array.getJSONObject(0).getString("brp_Sn"));
@@ -121,11 +122,15 @@ public class TmcfPresenter extends BasePresenter {
                     pch=array.getJSONObject(0).getString("brp_LotNo");
                     wldm=array.getJSONObject(0).getString("brp_wldm");
                     pmgg=array.getJSONObject(0).getString("brp_pmgg");
+                    szgg=array.getJSONObject(0).getString("sz_wlgg");
+                    ylgg=array.getJSONObject(0).getString("wl_wlgg");
+                    date=array.getJSONObject(0).getString("brp_Prd_Date");
+                    bzsl=array.getJSONObject(0).getString("brp_Qty")+array.getJSONObject(0).getString("brp_Unit");
+                    zyry=array.getJSONObject(0).getString("brp_Rec_Name");
+                    printEven();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     view.setShowMsgDialogEnable("数据解析出错",true);
-                }finally {
-                    view.setShowProgressDialogEnable(false);
                 }
             }
 
@@ -169,18 +174,34 @@ public class TmcfPresenter extends BasePresenter {
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
-                String address=preferenUtil.getString("blueToothAddress");
-                util.openPort(address);
-                util.printFont("原料编号:"+wldm.trim(),15,55);
-                util.printFont("品名规格:"+wlpm_1.trim()+",",15,105);
-                util.printFont(wlpm_3.trim()+" ",15,140);
-                util.printFont("批次号:"+pch.trim(),15,185);
-                util.printFont("条码编号:"+xtmxh.trim(),15,235);
-                util.printQRCode(printMsg,340,55,7);
-                util.startPrint();
-                Log.e("printMsg",printMsg);
-                e.onNext("");
-                e.onComplete();
+                if (xtmxh.substring(0,2).equals("HL")){
+                    String address=preferenUtil.getString("blueToothAddress");
+                    util.openPort(address);
+                    util.printFont("原料规格:"+ylgg.trim(),15,55);
+                    util.printFont("色种规格:"+szgg.trim()+",",15,100);
+                    util.printFont("作业人员:"+zyry.trim(),15,145);
+                    util.printFont("生产日期:"+date.trim(),15,190);
+                    util.printFont("包装数量:"+bzsl.trim(),15,235);
+                    util.printFont("条码编号:"+xtmxh.trim(),15,280);
+                    util.printQRCode(printMsg,335,135,5);
+                    util.startPrint();
+                    Log.e("printMsg",printMsg);
+                    e.onNext("");
+                    e.onComplete();
+                }else {
+                    String address=preferenUtil.getString("blueToothAddress");
+                    util.openPort(address);
+                    util.printFont("原料编号:"+wldm.trim(),15,55);
+                    util.printFont("品名规格:"+wlpm_1.trim()+",",15,105);
+                    util.printFont(wlpm_3.trim()+" ",15,140);
+                    util.printFont("批次号:"+pch.trim(),15,185);
+                    util.printFont("条码编号:"+xtmxh.trim(),15,235);
+                    util.printQRCode(printMsg,340,55,7);
+                    util.startPrint();
+                    Log.e("printMsg",printMsg);
+                    e.onNext("");
+                    e.onComplete();
+                }
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
             @Override

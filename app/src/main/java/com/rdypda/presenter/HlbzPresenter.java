@@ -149,7 +149,7 @@ public class HlbzPresenter extends BasePresenter {
                         map.put("szgg",array.getJSONObject(i).getString("sz_wlgg"));
                         map.put("dbzsl",array.getJSONObject(i).getString("hlm_osqty"));
                         map.put("hldh",array.getJSONObject(i).getString("hlm_djbh"));
-                        map.put("zyry",array.getJSONObject(i).getString("hlm_jlrymc"));
+                        map.put("zyry",array.getJSONObject(i).getString("hlm_jlry"));
                         map.put("hljh",array.getJSONObject(i).getString("hlm_jtbh"));
                         map.put("hlzl",array.getJSONObject(i).getString("hlm_qty"));
                         map.put("ybzsl",array.getJSONObject(i).getString("hlm_bz_qty"));

@@ -67,7 +67,6 @@ public class MainPresenter extends BasePresenter{
             JSONArray permissionArray=new JSONArray(arrayStr);
             permissionList=permissionArray.getJSONObject(0).getString("cPrgList").split(";");
             initExpandableListView();
-            //Log.e("permissionList",permissionList.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -80,7 +79,7 @@ public class MainPresenter extends BasePresenter{
         groupTitles.add("原料仓发料");
         groupTitles.add("原料组仓库");
         groupTitles.add("混料与烤料");
-        groupTitles.add("注塑产品管理");
+        //groupTitles.add("注塑产品管理");
         groupTitles.add("组装发料退料");
         groupTitles.add("条码管理");
 
@@ -117,21 +116,12 @@ public class MainPresenter extends BasePresenter{
             ylzckResources.add(R.drawable.yltl_icon);
         }
 
-        if (isPermission("HLKL05")){
-            ylzckArray.add("无源单入库");
-            ylzckResources.add(R.drawable.wydrk_icon);
-        }
-
-        if (isPermission("HLKL06")){
-            ylzckArray.add("无源单出库");
-            ylzckResources.add(R.drawable.wydck_icon);
-        }
 
 
         titles.add(ylzckArray);
         imgs.add(ylzckResources);
 
-        //注塑生产与投料
+        //混料与烤料
         List<String>zsscytlArray=new ArrayList<>();
         List<Integer>zsscytlResources=new ArrayList<>();
 
@@ -140,10 +130,10 @@ public class MainPresenter extends BasePresenter{
             zsscytlResources.add(R.drawable.hl_icon);
         }
 
-        if (isPermission("MOM502D1")){
+        /*if (isPermission("MOM502D1")){
             zsscytlArray.add("按料单发料");
             zsscytlResources.add(R.drawable.adfl_icon);
-        }
+        }*/
 
         if (isPermission("MOM503D1")){
             zsscytlArray.add("退料");
@@ -180,7 +170,7 @@ public class MainPresenter extends BasePresenter{
         imgs.add(zsscytlResources);
 
         //注塑产品管理
-        List<String>zscpglArray=new ArrayList<>();
+        /*List<String>zscpglArray=new ArrayList<>();
         List<Integer>zscpglResources=new ArrayList<>();
 
         if (isPermission("PRD501D1")){
@@ -194,7 +184,7 @@ public class MainPresenter extends BasePresenter{
         }
 
         titles.add(zscpglArray);
-        imgs.add(zscpglResources);
+        imgs.add(zscpglResources);*/
 
         //组装发料退料
         List<String>zzfltlArray=new ArrayList<>();
@@ -244,8 +234,18 @@ public class MainPresenter extends BasePresenter{
         }
 
         if (isPermission("HLKL07")){
-            tmglArray.add("移库");
+            tmglArray.add("物料移库");
             tmglResources.add(R.drawable.yk_icon);
+        }
+
+        if (isPermission("HLKL05")){
+            tmglArray.add("无源单入库");
+            tmglResources.add(R.drawable.wydrk_icon);
+        }
+
+        if (isPermission("HLKL06")){
+            tmglArray.add("无源单出库");
+            tmglResources.add(R.drawable.wydck_icon);
         }
 
 
@@ -308,7 +308,7 @@ public class MainPresenter extends BasePresenter{
                     case "无源单出库":
                         goToWydck();
                         break;
-                    case "移库":
+                    case "物料移库":
                         goToYk();
                         break;
                     case "工单退料到原料组":

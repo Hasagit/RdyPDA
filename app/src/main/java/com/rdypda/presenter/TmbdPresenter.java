@@ -29,7 +29,7 @@ import io.reactivex.schedulers.Schedulers;
 public class TmbdPresenter extends BasePresenter {
     private ITmbdView view;
     private ScanUtil scanUtil;
-    private String wldm,zwPmgg,ywPmgg,pch,xtmxh,printMsg;
+    private String wldm,zwPmgg,ywPmgg,pch,xtmxh,printMsg,szgg,ylgg,bzsl,date,zyry;;
 
     public TmbdPresenter(Context context,ITmbdView view) {
         super(context);
@@ -116,6 +116,11 @@ public class TmbdPresenter extends BasePresenter {
                     wldm=array.getJSONObject(0).getString("brp_wldm");
                     zwPmgg=array.getJSONObject(0).getString("itm_wlpm");
                     ywPmgg=array.getJSONObject(0).getString("itm_ywwlpm");
+                    szgg=array.getJSONObject(0).getString("sz_wlgg");
+                    ylgg=array.getJSONObject(0).getString("wl_wlgg");
+                    date=array.getJSONObject(0).getString("brp_Prd_Date");
+                    bzsl=array.getJSONObject(0).getString("brp_Qty")+array.getJSONObject(0).getString("brp_Unit");
+                    zyry=array.getJSONObject(0).getString("brp_Rec_Name");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }finally {
@@ -158,18 +163,34 @@ public class TmbdPresenter extends BasePresenter {
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
-                String address=preferenUtil.getString("blueToothAddress");
-                util.openPort(address);
-                util.printFont("原料编号:"+wldm.trim(),15,55);
-                util.printFont("品名规格:"+zwPmgg.trim()+",",15,105);
-                util.printFont(ywPmgg.trim()+" ",15,140);
-                util.printFont("批次号:"+pch.trim(),15,185);
-                util.printFont("条码编号:"+xtmxh.trim(),15,235);
-                util.printQRCode(printMsg,340,55,7);
-                util.startPrint();
-                Log.e("printMsg",printMsg);
-                e.onNext("");
-                e.onComplete();
+                if (xtmxh.substring(0,2).equals("HL")){
+                    String address=preferenUtil.getString("blueToothAddress");
+                    util.openPort(address);
+                    util.printFont("原料规格:"+ylgg.trim(),15,55);
+                    util.printFont("色种规格:"+szgg.trim()+",",15,100);
+                    util.printFont("作业人员:"+zyry.trim(),15,145);
+                    util.printFont("生产日期:"+date.trim(),15,190);
+                    util.printFont("包装数量:"+bzsl.trim(),15,235);
+                    util.printFont("条码编号:"+xtmxh.trim(),15,280);
+                    util.printQRCode(printMsg,335,135,5);
+                    util.startPrint();
+                    Log.e("printMsg",printMsg);
+                    e.onNext("");
+                    e.onComplete();
+                }else{
+                    String address=preferenUtil.getString("blueToothAddress");
+                    util.openPort(address);
+                    util.printFont("原料编号:"+wldm.trim(),15,55);
+                    util.printFont("品名规格:"+zwPmgg.trim()+",",15,105);
+                    util.printFont(ywPmgg.trim()+" ",15,140);
+                    util.printFont("批次号:"+pch.trim(),15,185);
+                    util.printFont("条码编号:"+xtmxh.trim(),15,235);
+                    util.printQRCode(printMsg,340,55,7);
+                    util.startPrint();
+                    Log.e("printMsg",printMsg);
+                    e.onNext("");
+                    e.onComplete();
+                }
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
             @Override

@@ -73,7 +73,7 @@ public class TmcxPresenter extends BasePresenter{
                     tmxxMap.put("pmgg",arrayTmxx.getJSONObject(0).getString("brp_pmgg"));
                     tmxxMap.put("scrq",arrayTmxx.getJSONObject(0).getString("brp_Prd_Date"));
                     tmxxMap.put("gc",arrayTmxx.getJSONObject(0).getString("brp_FtyId"));
-                    tmxxMap.put("kcdd",arrayTmxx.getJSONObject(0).getString("brp_StkId"));
+                    tmxxMap.put("kcdd",arrayTmxx.getJSONObject(0).getString("stk_stkmc"));
                     tmxxMap.put("dycs",arrayTmxx.getJSONObject(0).getString("brp_dycs"));
                     tmxxMap.put("qrcode",arrayTmxx.getJSONObject(0).getString("brp_QrCode"));
                     view.setTmxxMsg(tmxxMap);

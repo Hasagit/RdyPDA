@@ -200,6 +200,10 @@ public class LlddrMsgActivity extends BaseActivity implements ILlddrMsgView{
     @Override
     public void setTmxhText(String tmxh) {
         tmxhText.setText(tmxh);
+        if (tmxh.equals("")){
+            tmslEd.setText("");
+            tmpchEd.setText("");
+        }
     }
 
     @Override
