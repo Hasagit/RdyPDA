@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -21,6 +22,7 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -31,11 +33,12 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 
 public class WebService {
-    //123
     public static String URL="http://yun.ruiduoyi.com:8080/Service.asmx/";
+    //测试
     //public static String URL="http://192.168.213.62:8080/Service.asmx/";
     public static Retrofit retrofit;
     public static  ServiceApi serviceApi;
+    public static OkHttpClient okHttpClient;
 
     public static void initUrl(PreferenUtil preferenUtil){
         if (!preferenUtil.getString("ipAddress").equals("")){
@@ -46,10 +49,22 @@ public class WebService {
         }
     }
 
+    public static OkHttpClient getOkHttpClient(){
+        if (okHttpClient==null){
+            okHttpClient = new OkHttpClient.Builder().
+                    connectTimeout(5, TimeUnit.SECONDS).
+                    readTimeout(5, TimeUnit.SECONDS).
+                    writeTimeout(5, TimeUnit.SECONDS).build();
+        }
+        return okHttpClient;
+    }
+
+
     public static Retrofit getRetrofit(){
         if (retrofit==null){
             retrofit=new Retrofit.Builder()
                     .baseUrl(URL)
+                    .client(getOkHttpClient())
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .build();
             return retrofit;
@@ -99,7 +114,6 @@ public class WebService {
                 if (!object.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
                     throw new Exception(object.getJSONArray("Table0").getJSONObject(0).getString("cMsg"));
                 }
-
                 e.onNext(object);
                 e.onComplete();
             }
