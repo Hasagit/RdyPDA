@@ -31,8 +31,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 
 public class WebService {
-    //public static String URL="http://yun.ruiduoyi.com:8080/Service.asmx/";
-    public static String URL="http://192.168.213.62:8080/Service.asmx/";
+    public static String URL="http://yun.ruiduoyi.com:8080/Service.asmx/";
+    //public static String URL="http://192.168.213.62:8080/Service.asmx/";
     public static Retrofit retrofit;
     public static  ServiceApi serviceApi;
 
@@ -98,6 +98,7 @@ public class WebService {
                 if (!object.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")){
                     throw new Exception(object.getJSONArray("Table0").getJSONObject(0).getString("cMsg"));
                 }
+
                 e.onNext(object);
                 e.onComplete();
             }

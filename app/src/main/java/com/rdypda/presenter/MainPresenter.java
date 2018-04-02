@@ -87,7 +87,7 @@ public class MainPresenter extends BasePresenter{
         List<String>ylcflArray=new ArrayList<>();
         List<Integer>ylcflResources=new ArrayList<>();
 
-
+        //根据权限，是否显示
         if (isPermission("MTR501D11")){
             ylcflArray.add("发料条码打印");
             ylcflResources.add(R.drawable.print_icon);

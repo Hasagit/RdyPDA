@@ -11,7 +11,7 @@ import com.rdypda.R;
 import com.rdypda.presenter.FirstPresenter;
 import com.rdypda.view.viewinterface.IFirstView;
 
-//第一个活动
+//第一个活动，
 public class FirstActivity extends BaseActivity implements IFirstView {
     private FirstPresenter presenter;
     private ProgressDialog downloadProgressDialog;
@@ -83,8 +83,7 @@ public class FirstActivity extends BaseActivity implements IFirstView {
                 dialog.dismiss();
                 presenter.goToLogin();
             }
-        })
-                .create();
+        }).create();
         if (!FirstActivity.this.isDestroyed())
         downloadDialog.show();
     }

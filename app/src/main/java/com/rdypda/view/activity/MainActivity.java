@@ -42,6 +42,9 @@ import cn.bingoogolapple.bgabanner.BGABannerUtil;
 public class MainActivity extends BaseActivity implements IMainView{
 
     private MainPresenter presenter;
+    /**
+     * 权限列表
+     */
     private String arrayStr;
     private AlertDialog dialog,downloadDialog;
     private ProgressDialog progressDialog;

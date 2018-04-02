@@ -33,7 +33,7 @@ public class FirstPresenter extends BasePresenter {
         preferenUtil.setInt("goToWhere", 0);
         WebService.initUrl(preferenUtil);
 
-
+        //更新
         checkToUpdate();
 
 
@@ -73,6 +73,7 @@ public class FirstPresenter extends BasePresenter {
             public void onNext(JSONObject value) {
                 try {
                     if (value.getJSONArray("Table0").getJSONObject(0).getString("cStatus").equals("SUCCESS")) {
+                        //登录成功
                         JSONArray array = value.getJSONArray("usr_mstr");
                         preferenUtil.setString("usr_yhdm", array.getJSONObject(0).getString("usr_yhdm"));
                         preferenUtil.setString("usr_yhmm", array.getJSONObject(0).getString("usr_yhmm"));
@@ -141,14 +142,19 @@ public class FirstPresenter extends BasePresenter {
                     String versionName = pi.versionName;
                     JSONArray array = value.getJSONArray("Table1");
                     String appVer = array.getJSONObject(0).getString("v_WebAppVer").trim();
+                    //如果不相等
                     if (!appVer.equals(versionName)) {
                         String urlStr = array.getJSONObject(0).getString("v_WebAppPath");
+                        //2是不做处理
                         preferenUtil.setInt("goToWhere", 2);
+                        //显示是否下载
                         view.showDownloadDialog(urlStr);
                     } else {
+                        //如果没登录过
                         if (preferenUtil.getString("userId").equals("")) {
                             preferenUtil.setInt("goToWhere", 0);
                         } else {
+                            //如果登录过
                             login(preferenUtil.getString("cmp_gsdm"), preferenUtil.getString("userId"), preferenUtil.getString("userPwd"));
                         }
                     }
@@ -180,6 +186,7 @@ public class FirstPresenter extends BasePresenter {
     public void downloadInstallApk(String urlStr) {
         DownloadUtils downloadUtils = new DownloadUtils(context);
         view.setShowDownloadProgressDialogEnable(true);
+        //下载后安装新版本
         downloadUtils.downloadAPK(urlStr, Environment.getExternalStorageDirectory().getPath(), "RdyPDA.apk").subscribe(new Observer<Integer>() {
             @Override
             public void onSubscribe(Disposable d) {
