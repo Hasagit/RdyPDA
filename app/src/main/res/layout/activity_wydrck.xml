@@ -54,7 +54,37 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"></Spinner>
                     </LinearLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/ll_gdh_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="工单号：" />
+
+                        <EditText
+                            android:id="@+id/gdh_ed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:hint="请输入工单号"
+                            android:textSize="15dp" />
+
+                        <com.rdypda.view.widget.PowerButton
+                            android:id="@+id/gd_sure_btn"
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/color_green"
+                            android:text="确定"
+                            android:textColor="@android:color/white" />
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"

@@ -116,8 +116,6 @@ public class MainPresenter extends BasePresenter{
             ylzckResources.add(R.drawable.yltl_icon);
         }
 
-
-
         titles.add(ylzckArray);
         imgs.add(ylzckResources);
 
@@ -257,14 +255,13 @@ public class MainPresenter extends BasePresenter{
         if (isPermission("HLKL06")){
             tmglArray.add("无源单出库");
             tmglResources.add(R.drawable.wydck_icon);
+        }//isPermission("HLKL09")
+        if (isPermission("HLKL09")){
+            tmglArray.add("工单退货");
+            tmglResources.add(R.drawable.gdth_icon);
         }
-
-
         titles.add(tmglArray);
         imgs.add(tmglResources);
-
-
-
 
         view.refreshExpandableListVie(groupTitles, titles, imgs, new ExpandableListView.OnChildClickListener() {
             @Override
@@ -319,6 +316,9 @@ public class MainPresenter extends BasePresenter{
                     case "无源单出库":
                         goToWydck();
                         break;
+                    case "工单退货":
+                        goToGdth();
+                        break;
                     case "物料移库":
                         goToYk();
                         break;
@@ -342,6 +342,8 @@ public class MainPresenter extends BasePresenter{
             }
         });
     }
+
+
 
     public boolean isPermission(String functionCode){
         boolean isExist=false;
@@ -513,6 +515,14 @@ public class MainPresenter extends BasePresenter{
         context.startActivity(intent);
     }
 
+    /**
+     * 工单退货
+     */
+    private void goToGdth() {
+        Intent intent=new Intent(context, WydrckActivity.class);
+        intent.putExtra("startType",WydrckActivity.START_TYPE_GDTH);
+        context.startActivity(intent);
+    }
     //移库
     public void goToYk(){
         Intent intent=new Intent(context, YkActivity.class);

@@ -127,6 +127,10 @@ public class SbtlPresenter extends BasePresenter {
         });
     }
 
+    /**
+     * 验证条码
+     * @param tmbh 条码编号
+     */
     public void isValidCode(final String tmbh){
         if (tmbh.equals("")){
             view.showMsgDialog("物料条码不能为空！");
@@ -175,6 +179,13 @@ public class SbtlPresenter extends BasePresenter {
         });
     }
 
+    /**
+     * 获取投料总数
+     * @param tmbh 条码编号
+     * @param ylbh 原料编号
+     * @param ylgg 原料规格
+     * @param tmsl 条码数量
+     */
     public void getTlzs(final String tmbh, final String ylbh, final String ylgg, final String tmsl){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_GetScanList ('MTR_TL', '%s', '');",sbbh);

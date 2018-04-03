@@ -27,4 +27,8 @@ public interface IWydrckView {
     void removeZsData(String wlbh,String tmsl);
 
     void setTmEd(String tmbh);
+
+    void setGdhEd(String gdh);
+
+    void onQueryGdhSucceed(String result);
 }

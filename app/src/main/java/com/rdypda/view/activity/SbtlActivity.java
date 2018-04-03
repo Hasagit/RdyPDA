@@ -104,6 +104,7 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
+                    //设置扫描类型，条码，还是设备
                     presenter.setType(presenter.SCAN_TYPE_SB);
                     sbbhEd.setFocusable(true);
                     sbbhEd.setFocusableInTouchMode(true);
@@ -141,6 +142,10 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
         }
     }
 
+    /**
+     * 点击进行设备，条码验证
+     * @param view
+     */
     @OnClick({R.id.tm_sure_btn,R.id.sb_sure_btn})
     public void onClick(View view){
         switch (view.getId()){
@@ -179,7 +184,6 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
         dialog.setMessage(msg);
         dialog.show();
     }
-
     @Override
     public void setShowScanDialogEnable(boolean enable,String type) {
         if (enable){
@@ -263,13 +267,13 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
     }
 
     @Override
-    public void showQueryList(String[] sbdm, String[] sbmc) {
+    public void showQueryList(final String[] sbdm, String[] sbmc) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this,3);
         builder.setItems(sbmc, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-
+                setSbbText(sbdm[which]);
             }
         });
         builder.create().show();
