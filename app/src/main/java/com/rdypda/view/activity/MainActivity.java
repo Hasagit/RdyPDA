@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity implements IMainView{
         views.add(BGABannerUtil.getItemImageView(this, R.drawable.banner_2));
         views.add(BGABannerUtil.getItemImageView(this, R.drawable.banner_3));
         views.add(BGABannerUtil.getItemImageView(this, R.drawable.banner_4));
-        views.add(BGABannerUtil.getItemImageView(this, R.drawable.banner_1));
+        //views.add(BGABannerUtil.getItemImageView(this, R.drawable.banner_1));
         banner.setData(views);
 
         downloadProgressDialog=new ProgressDialog(this);

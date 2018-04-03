@@ -50,6 +50,7 @@ public class TmcfPresenter extends BasePresenter {
         });
     }
 
+    //条码验证
     public void isValidCode(final String tmxh, String userId){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','SPLIT','','%s')",tmxh,userId);
@@ -85,6 +86,7 @@ public class TmcfPresenter extends BasePresenter {
         });
     }
 
+    //获取拆分条码序号
     public void getTmxh(final String tmxh, String ytmsl, final String xtmsl){
         if (tmxh.equals("")){
             view.setShowMsgDialogEnable("请先扫描拆分条码",true);
@@ -148,6 +150,7 @@ public class TmcfPresenter extends BasePresenter {
         });
     }
 
+    //打印事件
     public void printEven(){
         if (!BluetoothAdapter.getDefaultAdapter().isEnabled()){
             view.showBlueToothAddressDialog();

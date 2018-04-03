@@ -37,8 +37,7 @@
                         android:layout_height="50dp"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_marginLeft="10dp"
-                            android:layout_width="90dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical|left"
                             android:id="@+id/sp_title"/>
@@ -64,8 +63,7 @@
                         android:layout_height="50dp"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_marginLeft="10dp"
-                            android:layout_width="90dp"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
                             android:text="物料条码："
                             android:gravity="left|center_vertical"/>
@@ -75,7 +73,7 @@
                             android:layout_weight="1"
                             android:id="@+id/wltm_ed"
                             android:textSize="15dp"
-                            android:hint="请输入物料条码"/>
+                            android:hint="请输入或扫描物料条码"/>
                         <com.rdypda.view.widget.PowerButton
                             android:layout_width="50dp"
                             android:layout_height="match_parent"

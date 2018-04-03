@@ -56,6 +56,7 @@ public class SbtlPresenter extends BasePresenter {
         });
     }
 
+    //验证设备
     public void isValidDevice(final String sbbh, int startType){
         if (sbbh.equals("")){
             view.showMsgDialog("设备编号不能为空！");
@@ -85,7 +86,8 @@ public class SbtlPresenter extends BasePresenter {
                     JSONArray array=value.getJSONArray("Table1");
                     if (array.length()==1){
                         SbtlPresenter.this.sbbh=sbbh;
-                        view.setSbbText(sbbh);
+                        SbtlPresenter.this.sbbh=array.getJSONObject(0).getString("lbm_lbdm");
+                        view.setSbbText(array.getJSONObject(0).getString("lbm_lbmc"));
                         getScanList(sbbh);
                         view.showMsgDialog("验证成功！");
                         view.setSbRadioCheck(false);
@@ -127,6 +129,7 @@ public class SbtlPresenter extends BasePresenter {
         });
     }
 
+    //验证条码
     public void isValidCode(final String tmbh){
         if (tmbh.equals("")){
             view.showMsgDialog("物料条码不能为空！");
@@ -137,6 +140,7 @@ public class SbtlPresenter extends BasePresenter {
             return;
         }
         view.setWltmText("");
+        view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','MTR_TL','%s','%s');",tmbh,sbbh,preferenUtil.getString("userId"));
         WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
@@ -175,6 +179,7 @@ public class SbtlPresenter extends BasePresenter {
         });
     }
 
+    //获取投料总数列表
     public void getTlzs(final String tmbh, final String ylbh, final String ylgg, final String tmsl){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_GetScanList ('MTR_TL', '%s', '');",sbbh);
@@ -216,6 +221,7 @@ public class SbtlPresenter extends BasePresenter {
         });
     }
 
+    //投料数量确认
     public void tlSure(String tmxh,String bzsl,String tmsl){
         if (bzsl.equals("")){
             view.showMsgDialog("包装数量不能为空！");
@@ -259,6 +265,7 @@ public class SbtlPresenter extends BasePresenter {
         });
     }
 
+    //获取扫描列表
     public void getScanList(String sbbh){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_GetScanList ('MTR_TL', '%s', '');",sbbh);
@@ -314,6 +321,7 @@ public class SbtlPresenter extends BasePresenter {
         });
     }
 
+    //取消扫描记录
     public void cancelScan(String tmbh, final AlertDialog dialog){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_CancelScan('MTR_TL', '%s','%s');",tmbh,preferenUtil.getString("userId"));
@@ -355,5 +363,9 @@ public class SbtlPresenter extends BasePresenter {
 
     public void setStartType(int startType) {
         this.startType = startType;
+    }
+
+    public void setSbbh(String sbbh) {
+        this.sbbh = sbbh;
     }
 }

@@ -44,6 +44,7 @@ public class TmcxPresenter extends BasePresenter{
         });
     }
 
+    //查询条码
     public void barcodeQuery(String tmxh){
         if (tmxh.equals("")){
             view.setShowMsgDialogEnable("请先输入条码序号");

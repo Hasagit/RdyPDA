@@ -52,6 +52,7 @@ public class YljsflPresenter extends BasePresenter{
         });
     }
 
+    //获取接收库位
     public void getKwmList(){
         view.setShowProgressDialogEnable(true);
         String sql="Call Proc_PDA_GetStkList();";
@@ -100,6 +101,7 @@ public class YljsflPresenter extends BasePresenter{
         });
     }
 
+    //刷新已接收物料
     public void getLldDet(String djbh,String wldm){
         this.djbh=djbh;
         this.wldm=wldm;
@@ -153,6 +155,7 @@ public class YljsflPresenter extends BasePresenter{
         });
     }
 
+    //条码验证
     public void isValidCode(String tmxh,String type,String kcdd){
         if (kcdd.equals("")&startType==MainPresenter.YLJS){
             view.setShowDialogMsg("请先选择库位");
@@ -211,6 +214,7 @@ public class YljsflPresenter extends BasePresenter{
         });
     }
 
+    //取消扫描记录
     public void cancelScan(final String tmxh){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_CancelScan('MTR_IN', '%s', '%s');",tmxh,preferenUtil.getString("userId"));

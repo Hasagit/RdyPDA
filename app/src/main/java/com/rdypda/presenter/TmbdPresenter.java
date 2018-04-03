@@ -49,7 +49,7 @@ public class TmbdPresenter extends BasePresenter {
         });
     }
 
-
+    //条码验证
     public void isValidCode(String tmbh){
         String sql=String.format("Call Proc_PDA_IsValidCode('%s','REPRINT','','%s')",tmbh,preferenUtil.getString("userId"));
         view.setShowProgressDialogEnable(true);
@@ -86,6 +86,7 @@ public class TmbdPresenter extends BasePresenter {
         });
     }
 
+    //验证条码是否能补打
     public void splitBarcode(String tmxh,String tmsl){
         if (tmxh.equals("")){
             view.setShowMsgDialog("请先扫描条码或者手动录入条码");
@@ -143,6 +144,7 @@ public class TmbdPresenter extends BasePresenter {
 
     }
 
+    //打印事件
     public void printEven(){
         if (!BluetoothAdapter.getDefaultAdapter().isEnabled()){
             view.showBlueToothAddressDialog();

@@ -49,6 +49,7 @@ public class YkPresenter extends BasePresenter {
         getKc();
     }
 
+    //获取接收库位
     public void getKc(){
         view.setShowProgressDialogEnable(true);
         String sql="Call Proc_PDA_GetStkList();";
@@ -93,6 +94,7 @@ public class YkPresenter extends BasePresenter {
         });
     }
 
+    //条码验证
     public void isValidCode(String tmbh){
         if (tmbh.equals("")){
             view.showMsgDialog("请先输入条码编号");

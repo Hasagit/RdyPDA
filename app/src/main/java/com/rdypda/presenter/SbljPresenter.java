@@ -57,6 +57,7 @@ public class SbljPresenter extends BasePresenter{
         getConnectedDevice("");
     }
 
+    //获取设备连接列表
     public void getConnectedDevice(String sbbh){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_Get_JtmList('%s');",sbbh);
@@ -100,6 +101,7 @@ public class SbljPresenter extends BasePresenter{
         });
     }
 
+    //根据机台编号和烤炉编号获取设备连接列表
     public void connectDevice(final String jtbh, String klbh){
         if (jtbh.equals("")){
             view.showMsgDialog("请先输入机台编号");

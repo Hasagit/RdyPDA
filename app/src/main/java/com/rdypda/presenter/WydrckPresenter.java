@@ -117,7 +117,7 @@ public class WydrckPresenter extends BasePresenter {
         }else {
             type="CHWY";
         }
-        String sql=String.format("Call Proc_PDA_IsValidCode('%s','%s', '%s;%s;%s; ', '%s');",
+        String sql=String.format("Call Proc_PDA_IsValidCode('%s','%s', '%s;%s;%s;', '%s');",
                 tmbh,type,kw[0],kw[1],kw[1],preferenUtil.getString("userId"));
         WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override

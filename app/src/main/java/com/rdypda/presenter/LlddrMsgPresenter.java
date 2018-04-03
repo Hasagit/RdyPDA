@@ -231,6 +231,7 @@ public class LlddrMsgPresenter extends BasePresenter{
         });
     }
 
+    //发送刷新物料单广播（在WldActivity中接收）
     public void sendUpdateWldReceiver(){
         Intent intent=new Intent("com.rdypda.UPDATEWLD");
         context.sendBroadcast(intent);

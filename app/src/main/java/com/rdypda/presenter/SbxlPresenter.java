@@ -62,6 +62,7 @@ public class SbxlPresenter extends BasePresenter {
         getScrq();
     }
 
+    //获取退料库位
     public void getKc(){
         view.setShowProgressDialogEnable(true);
         String sql="Call Proc_PDA_GetStkList();";
@@ -106,6 +107,7 @@ public class SbxlPresenter extends BasePresenter {
         });
     }
 
+    //获取扫描列表
     public void getScanList(String sbbh){
         if (sbbh.equals("")){
             view.showMsgDialog("请先输入设备编号！");
@@ -191,6 +193,7 @@ public class SbxlPresenter extends BasePresenter {
         });
     }
 
+    //获取生产日期
     public void getScrq(){
         view.setShowProgressDialogEnable(true);
         Date currentTime = new Date(System.currentTimeMillis());
@@ -227,6 +230,7 @@ public class SbxlPresenter extends BasePresenter {
         });
     }
 
+    //获取条码序号
     public void getTmxh(String sbbh, String bzsl, String dw, final TextView tmbhText,int type){
         String hldhed="";
         if (type==HL){
@@ -309,6 +313,7 @@ public class SbxlPresenter extends BasePresenter {
         this.ftyIdAndstkId = ftyIdAndstkId;
     }
 
+    //打印事件
     public void printEven(final String ylgg,
                           final String szgg, final String zyry,
                           final String bzsl, final String tmbh,
@@ -379,6 +384,7 @@ public class SbxlPresenter extends BasePresenter {
 
     }
 
+    //获取混料单号
     public void getHldhs(String hldh){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_GenHlWldm2('%s','%s');",
@@ -415,6 +421,7 @@ public class SbxlPresenter extends BasePresenter {
         });
     }
 
+    //下料提交确认
     public void xlPacking(final String sbbh, final String tmbh){
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_XL_Packing('%s', '%s', '%s');",sbbh,tmbh,preferenUtil.getString("userId"));
@@ -445,6 +452,7 @@ public class SbxlPresenter extends BasePresenter {
         });
     }
 
+    //清料
     public void xlClear(final String sbbh){
         if (sbbh.equals("")){
             view.showMsgDialog("请先输入设备编号");
