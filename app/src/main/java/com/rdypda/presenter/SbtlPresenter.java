@@ -6,6 +6,7 @@ import android.content.Context;
 import com.rdypda.model.network.WebService;
 import com.rdypda.util.QrCodeUtil;
 import com.rdypda.util.ScanUtil;
+import com.rdypda.view.activity.SbtlActivity;
 import com.rdypda.view.viewinterface.ISbtlView;
 
 import org.json.JSONArray;
@@ -30,7 +31,7 @@ public class SbtlPresenter extends BasePresenter {
     public int SCAN_TYPE_SB=0;
     public int SCAN_TYPE_TM=1;
     private String sbbh="";
-    private String wltm="";
+    private int startType=0;
     private int type=0;
 
     public SbtlPresenter(Context context,ISbtlView view) {
@@ -42,7 +43,7 @@ public class SbtlPresenter extends BasePresenter {
             @Override
             public void onSuccess(String result) {
                 if (type==SCAN_TYPE_SB){
-                    isValidDevice(result);
+                    isValidDevice(result,startType);
                 }else if (type==SCAN_TYPE_TM){
                     isValidCode(new QrCodeUtil(result).getTmxh());
                 }
@@ -55,14 +56,22 @@ public class SbtlPresenter extends BasePresenter {
         });
     }
 
-    public void isValidDevice(final String sbbh){
+    public void isValidDevice(final String sbbh, int startType){
         if (sbbh.equals("")){
             view.showMsgDialog("设备编号不能为空！");
             return;
         }
         view.setSbbText("");
         view.setShowProgressDialogEnable(true);
-        String sql=String.format("Call Proc_PDA_Get_DeviceList('%s','');",sbbh);
+        String sblb="";
+        if (startType== SbtlActivity.START_TYPE_SBTL){
+            sblb="ZS";
+        }else if (startType==SbtlActivity.START_TYPE_SYTOUL|startType==SbtlActivity.START_TYPE_SYTUIL){
+            sblb="SY";
+        }else if (startType==SbtlActivity.START_TYPE_ZZFL|startType==SbtlActivity.START_TYPE_ZZTL){
+            sblb="ZZ";
+        }
+        String sql=String.format("Call Proc_PDA_Get_DeviceList('%s','%s');",sbbh,sblb);
         WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -74,17 +83,25 @@ public class SbtlPresenter extends BasePresenter {
                 view.setShowProgressDialogEnable(false);
                 try {
                     JSONArray array=value.getJSONArray("Table1");
-                    if (array.length()>0){
+                    if (array.length()==1){
                         SbtlPresenter.this.sbbh=sbbh;
                         view.setSbbText(sbbh);
                         getScanList(sbbh);
-                        view.showMsgDialog("设备验证成功！");
+                        view.showMsgDialog("验证成功！");
                         view.setSbRadioCheck(false);
-                    }else {
+                    }else if (array.length()>1){
+                        String[] sbmc=new String[array.length()];
+                        String[] sbdm=new String[array.length()];
+                        for (int i=0;i<array.length();i++){
+                            sbdm[i]=array.getJSONObject(i).getString("lbm_lbdm");
+                            sbmc[i]=array.getJSONObject(i).getString("lbm_lbmc");
+                        }
+                        view.showQueryList(sbdm,sbmc);
+                    } else {
                         SbtlPresenter.this.sbbh="";
                         view.setSbbText("");
                         getScanList(sbbh);
-                        view.showMsgDialog("设备验证失败！");
+                        view.showMsgDialog("验证失败！");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -130,7 +147,6 @@ public class SbtlPresenter extends BasePresenter {
             @Override
             public void onNext(JSONObject value) {
                 view.setShowProgressDialogEnable(false);
-                wltm=tmbh;
                 view.setWltmText(tmbh);
                 try {
                     JSONArray array=value.getJSONArray("Table2");
@@ -147,7 +163,6 @@ public class SbtlPresenter extends BasePresenter {
 
             @Override
             public void onError(Throwable e) {
-                wltm="";
                 e.printStackTrace();
                 view.setShowProgressDialogEnable(false);
                 view.showMsgDialog(e.getMessage());
@@ -336,5 +351,9 @@ public class SbtlPresenter extends BasePresenter {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public void setStartType(int startType) {
+        this.startType = startType;
     }
 }

@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.liangmutian.airrecyclerview.swipetoloadlayout.BaseRecyclerAdapter;
 import com.rdypda.R;
@@ -51,6 +52,8 @@ public class WydrckActivity extends BaseActivity implements IWydrckView {
     Spinner jskwSp;
     @BindView(R.id.tmbh_ed)
     EditText tmbhEd;
+    @BindView(R.id.kw_text)
+    TextView kwText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +88,10 @@ public class WydrckActivity extends BaseActivity implements IWydrckView {
         refreshZsList(new ArrayList<Map<String, String>>());
         if (startType==START_TYPE_WYDRK){
             actionBar.setTitle("无源单入库");
+            kwText.setText("接收储位：");
         }else {
             actionBar.setTitle("无源单出库");
+            kwText.setText("出库库位：");
         }
     }
 

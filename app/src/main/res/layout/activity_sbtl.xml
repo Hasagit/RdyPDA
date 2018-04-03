@@ -14,7 +14,7 @@
         android:layout_height="50dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         android:background="@color/colorPrimary"
-        app:title="设备投料"
+        app:title=""
         android:id="@+id/toolbar"></android.support.v7.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
@@ -37,10 +37,11 @@
                         android:layout_height="50dp"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_width="70dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="90dp"
                             android:layout_height="match_parent"
-                            android:text="设备编号："
-                            android:gravity="center"/>
+                            android:gravity="center_vertical|left"
+                            android:id="@+id/sp_title"/>
                         <EditText
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -63,10 +64,11 @@
                         android:layout_height="50dp"
                         android:orientation="horizontal">
                         <TextView
-                            android:layout_width="70dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="90dp"
                             android:layout_height="match_parent"
                             android:text="物料条码："
-                            android:gravity="center"/>
+                            android:gravity="left|center_vertical"/>
                         <EditText
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
