@@ -40,6 +40,12 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
     private ProgressDialog progressDialog;
     private AlertDialog dialog;
     private AlertDialog scanDialog;
+    private int startType;
+    public static int START_TYPE_SBTL=0,
+            START_TYPE_SYTOUL=1,
+            START_TYPE_SYTUIL=2,
+            START_TYPE_ZZFL=3,
+            START_TYPE_ZZTL=4;
     @BindView(R.id.tl_list)
     RecyclerView zsList;
     @BindView(R.id.scaned_list)
@@ -54,6 +60,8 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
     RadioButton sbRadio;
     @BindView(R.id.tm_radio)
     RadioButton tmRadio;
+    @BindView(R.id.sp_title)
+    TextView spTitleText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +69,7 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
         ButterKnife.bind(this);
         initView();
         presenter=new SbtlPresenter(this,this);
+        presenter.setStartType(startType);
     }
 
     @Override
@@ -107,6 +116,29 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
                 }
             }
         });
+        startType=getIntent().getIntExtra("start_type",START_TYPE_SBTL);
+        switch (startType){
+            case 0:
+                actionBar.setTitle("设备投料");
+                spTitleText.setText("设备编号：");
+                break;
+            case 1:
+                actionBar.setTitle("丝印投料");
+                spTitleText.setText("型号&品名：");
+                break;
+            case 2:
+                actionBar.setTitle("丝印退料");
+                spTitleText.setText("型号&品名：");
+                break;
+            case 3:
+                actionBar.setTitle("组装发料");
+                spTitleText.setText("线别：");
+                break;
+            case 4:
+                actionBar.setTitle("组装退料");
+                spTitleText.setText("线别：");
+                break;
+        }
     }
 
     @OnClick({R.id.tm_sure_btn,R.id.sb_sure_btn})
@@ -116,7 +148,7 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
                 presenter.isValidCode(wltmEd.getText().toString());
                 break;
             case R.id.sb_sure_btn:
-                presenter.isValidDevice(sbbhEd.getText().toString());
+                presenter.isValidDevice(sbbhEd.getText().toString(),startType);
                 break;
         }
 
@@ -228,6 +260,19 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
     public void setSbRadioCheck(boolean check) {
         sbRadio.setChecked(check);
         tmRadio.setChecked(!check);
+    }
+
+    @Override
+    public void showQueryList(String[] sbdm, String[] sbmc) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,3);
+        builder.setItems(sbmc, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        builder.create().show();
     }
 
     @Override

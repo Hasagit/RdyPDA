@@ -105,7 +105,7 @@ public class LlddrMsgPresenter extends BasePresenter{
             view.showBlueToothAddressDialog();
             return;
         }
-        if (tmpch.equals("")){
+        if (tmbh.equals("")){
             view.showMessage("请先获取条码序号");
             return;
         }

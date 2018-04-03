@@ -191,18 +191,29 @@ public class MainPresenter extends BasePresenter{
         List<Integer>zzfltlResources=new ArrayList<>();
 
         if (isPermission("MOE501D1")){
-            zzfltlArray.add("按单发料");
+            zzfltlArray.add("丝印投料");
             zzfltlResources.add(R.drawable.adfl2_icon);
         }
 
         if (isPermission("MOE502D1")){
-            zzfltlArray.add("按单退料");
+            zzfltlArray.add("丝印退料");
             zzfltlResources.add(R.drawable.adtl_icon);
         }
 
         if (isPermission("MOE503D1")){
             zzfltlArray.add("移库退料到仓库");
             zzfltlResources.add(R.drawable.yklldck_icon);
+        }
+
+        if (isPermission("ZZFTL01")){
+            zzfltlArray.add("组装发料");
+            zzfltlResources.add(R.drawable.adfl2_icon);
+        }
+
+
+        if (isPermission("ZZFTL02")){
+            zzfltlArray.add("组装退料");
+            zzfltlResources.add(R.drawable.adtl_icon);
         }
 
 
@@ -313,6 +324,18 @@ public class MainPresenter extends BasePresenter{
                         break;
                     case "工单退料到原料组":
                         goToGdtldylz();
+                        break;
+                    case "丝印投料":
+                        goToSytoul();
+                        break;
+                    case "丝印退料":
+                        goToSytuil();
+                        break;
+                    case "组装发料":
+                        goToZzfl();
+                        break;
+                    case "组装退料":
+                        goToZztl();
                         break;
                 }
                 return true;
@@ -460,6 +483,7 @@ public class MainPresenter extends BasePresenter{
     //设备投料
     public void goToSbtl(){
         Intent intent=new Intent(context, SbtlActivity.class);
+        intent.putExtra("start_type",SbtlActivity.START_TYPE_SBTL);
         context.startActivity(intent);
     }
 
@@ -492,6 +516,34 @@ public class MainPresenter extends BasePresenter{
     //移库
     public void goToYk(){
         Intent intent=new Intent(context, YkActivity.class);
+        context.startActivity(intent);
+    }
+
+    //丝印投料
+    public void goToSytoul(){
+        Intent intent=new Intent(context,SbtlActivity.class);
+        intent.putExtra("start_type",SbtlActivity.START_TYPE_SYTOUL);
+        context.startActivity(intent);
+    }
+
+    //丝印退料
+    public void goToSytuil(){
+        Intent intent=new Intent(context,SbtlActivity.class);
+        intent.putExtra("start_type",SbtlActivity.START_TYPE_SYTUIL);
+        context.startActivity(intent);
+    }
+
+    //组装发料
+    public void goToZzfl(){
+        Intent intent=new Intent(context,SbtlActivity.class);
+        intent.putExtra("start_type",SbtlActivity.START_TYPE_ZZFL);
+        context.startActivity(intent);
+    }
+
+    //组装退料
+    public void goToZztl(){
+        Intent intent=new Intent(context,SbtlActivity.class);
+        intent.putExtra("start_type",SbtlActivity.START_TYPE_ZZTL);
         context.startActivity(intent);
     }
 
