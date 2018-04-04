@@ -108,7 +108,7 @@ public class SbxlPresenter extends BasePresenter {
     }
 
     //获取扫描列表
-    public void getScanList(String sbbh){
+    public void getScanList(final String sbbh){
         if (sbbh.equals("")){
             view.showMsgDialog("请先输入设备编号！");
             return;
@@ -126,6 +126,7 @@ public class SbxlPresenter extends BasePresenter {
             @Override
             public void onNext(JSONObject value) {
                 view.setShowProgressDialogEnable(false);
+                view.setSbEditText(sbbh);
                 if (date==null){
                     view.showMsgDialog("生产日期获取失败,请重新进入");
                     return;

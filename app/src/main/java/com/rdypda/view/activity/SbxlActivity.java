@@ -330,6 +330,11 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
         errorDialog.show();
     }
 
+    @Override
+    public void setSbEditText(String sbbh) {
+        sbbhEd.setText(sbbh);
+    }
+
     public void showClearDialog(final String sbbh){
         if (sbbh.equals("")){
             showMsgDialog("请先输入并验证设备");

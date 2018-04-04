@@ -24,4 +24,6 @@ public interface ISbxlView {
 
     void showPackErrorDialog(String sbbh,String tmbh);
 
+    void setSbEditText(String sbbh);
+
 }
