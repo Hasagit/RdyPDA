@@ -271,7 +271,6 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
 
     @Override
     public void showQueryList(final String[] sbdm, final String[] sbmc) {
-    public void showQueryList(final String[] sbdm, String[] sbmc) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this,3);
         builder.setItems(sbmc, new DialogInterface.OnClickListener() {
             @Override
