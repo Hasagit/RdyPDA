@@ -122,22 +122,27 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
             case 0:
                 actionBar.setTitle("设备投料");
                 spTitleText.setText("设备编号：");
+                sbbhEd.setHint("请输入或扫描设备编号");
                 break;
             case 1:
                 actionBar.setTitle("丝印投料");
                 spTitleText.setText("型号&品名：");
+                sbbhEd.setHint("请输入或扫描型号&品名");
                 break;
             case 2:
                 actionBar.setTitle("丝印退料");
                 spTitleText.setText("型号&品名：");
+                sbbhEd.setHint("请输入或扫描型号&品名");
                 break;
             case 3:
                 actionBar.setTitle("组装发料");
                 spTitleText.setText("线别：");
+                sbbhEd.setHint("请输入或扫描线别");
                 break;
             case 4:
                 actionBar.setTitle("组装退料");
                 spTitleText.setText("线别：");
+                sbbhEd.setHint("请输入或扫描线别");
                 break;
         }
     }
@@ -207,43 +212,41 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
 
     @Override
     public void showScanDialog(final String tmbh, String ylbh, String ylgg, final String tmsl, String trzs) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            View view= LayoutInflater.from(this).inflate(R.layout.dialog_sbtl,null);
-            final AlertDialog msgDilaog=new AlertDialog.Builder(this)
-                    .setView(view)
-                    .setCancelable(false)
-                    .create();
-            msgDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-            TextView tmbhText=(TextView)view.findViewById(R.id.tmbh);
-            TextView ylbhText=(TextView)view.findViewById(R.id.ylbh);
-            TextView ylggText=(TextView)view.findViewById(R.id.ylgg);
-            TextView tmslText=(TextView)view.findViewById(R.id.tmsl);
-            TextView trzsText=(TextView)view.findViewById(R.id.trzs);
-            final EditText bzslEd=(EditText)view.findViewById(R.id.bzsl);
-            PowerButton jlBtn=(PowerButton)view.findViewById(R.id.jl__btn);
-            PowerButton cancelBtn=(PowerButton)view.findViewById(R.id.cancel_btn);
-            tmbhText.setText(tmbh);
-            ylbhText.setText(ylbh);
-            ylggText.setText(ylgg);
-            tmslText.setText(tmsl);
-            trzsText.setText(trzs);
-            bzslEd.setText(tmsl);
-            jlBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.tlSure(tmbh,bzslEd.getText().toString(),tmsl);
-                    msgDilaog.dismiss();
-                }
-            });
-            cancelBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.cancelScan(tmbh,msgDilaog);
-                }
-            });
+        View view= LayoutInflater.from(this).inflate(R.layout.dialog_sbtl,null);
+        final AlertDialog msgDilaog=new AlertDialog.Builder(this)
+                .setView(view)
+                .setCancelable(false)
+                .create();
+        msgDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        TextView tmbhText=(TextView)view.findViewById(R.id.tmbh);
+        TextView ylbhText=(TextView)view.findViewById(R.id.ylbh);
+        TextView ylggText=(TextView)view.findViewById(R.id.ylgg);
+        TextView tmslText=(TextView)view.findViewById(R.id.tmsl);
+        TextView trzsText=(TextView)view.findViewById(R.id.trzs);
+        final EditText bzslEd=(EditText)view.findViewById(R.id.bzsl);
+        PowerButton jlBtn=(PowerButton)view.findViewById(R.id.jl__btn);
+        PowerButton cancelBtn=(PowerButton)view.findViewById(R.id.cancel_btn);
+        tmbhText.setText(tmbh);
+        ylbhText.setText(ylbh);
+        ylggText.setText(ylgg);
+        tmslText.setText(tmsl);
+        trzsText.setText(trzs);
+        bzslEd.setText(tmsl);
+        jlBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.tlSure(tmbh,bzslEd.getText().toString(),tmsl);
+                msgDilaog.dismiss();
+            }
+        });
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.cancelScan(tmbh,msgDilaog);
+            }
+        });
 
-            msgDilaog.show();
-        }
+        msgDilaog.show();
     }
 
     @Override
@@ -267,13 +270,17 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
     }
 
     @Override
+    public void showQueryList(final String[] sbdm, final String[] sbmc) {
     public void showQueryList(final String[] sbdm, String[] sbmc) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this,3);
         builder.setItems(sbmc, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                presenter.setSbbh(sbdm[which]);
+                setSbbText(sbmc[which]);
+                presenter.getScanList(sbdm[which]);
                 dialog.dismiss();
-                setSbbText(sbdm[which]);
+
             }
         });
         builder.create().show();

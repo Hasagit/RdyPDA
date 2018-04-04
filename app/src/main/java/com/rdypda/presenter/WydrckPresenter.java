@@ -1,7 +1,6 @@
 package com.rdypda.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.rdypda.model.network.WebService;
 import com.rdypda.util.QrCodeUtil;

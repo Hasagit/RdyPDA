@@ -30,7 +30,7 @@ public class WldPresenter extends BasePresenter{
         this.context = context;
     }
 
-
+    //根据领料单号获取物料明细
     public void getLldDet(String djbh,String wldm){
         view.setProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_Get_lld_det('%s','%s')",djbh,wldm);

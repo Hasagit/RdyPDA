@@ -354,6 +354,7 @@ public class HlPresenter extends BasePresenter {
 
     }
 
+    //取消扫描记录
     public void cancelScaned(){
         view.setShowProgressDialogEnable(true);
         String sql=String.format(" Call Proc_PDA_CancelScan('MTR_HL', '', '%s');",preferenUtil.getString("userId"));
