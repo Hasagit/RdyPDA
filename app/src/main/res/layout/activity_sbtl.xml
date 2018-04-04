@@ -46,7 +46,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:id="@+id/sbbh_ed"
-                            android:textSize="15dp"
+                            android:textSize="12dp"
                             android:hint="请输入设备编号"/>
                         <com.rdypda.view.widget.PowerButton
                             android:layout_width="50dp"
@@ -72,7 +72,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:id="@+id/wltm_ed"
-                            android:textSize="15dp"
+                            android:textSize="12dp"
                             android:hint="请输入或扫描物料条码"/>
                         <com.rdypda.view.widget.PowerButton
                             android:layout_width="50dp"

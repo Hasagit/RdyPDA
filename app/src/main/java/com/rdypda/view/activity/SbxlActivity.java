@@ -191,8 +191,8 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
             hlBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    hlBtn.setEnabled(false);
-                    //Toast.makeText(SbxlActivity.this,"料筒未投料，不能执行此操作",Toast.LENGTH_SHORT).show();
+                    //hlBtn.setEnabled(false);
+                    Toast.makeText(SbxlActivity.this,"料筒未投料，不能执行此操作",Toast.LENGTH_SHORT).show();
                 }
             });
         }

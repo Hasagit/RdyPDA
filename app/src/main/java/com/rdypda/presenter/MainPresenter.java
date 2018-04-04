@@ -205,13 +205,13 @@ public class MainPresenter extends BasePresenter{
 
         if (isPermission("ZZFTL01")){
             zzfltlArray.add("组装发料");
-            zzfltlResources.add(R.drawable.adfl2_icon);
+            zzfltlResources.add(R.drawable.zzfl_icon);
         }
 
 
         if (isPermission("ZZFTL02")){
             zzfltlArray.add("组装退料");
-            zzfltlResources.add(R.drawable.adtl_icon);
+            zzfltlResources.add(R.drawable.zztl_icon);
         }
 
 
