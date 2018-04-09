@@ -265,7 +265,7 @@ public class SbtlPresenter extends BasePresenter {
             public void onSubscribe(Disposable d) {
 
             }
-
+            ////
             @Override
             public void onNext(JSONObject value) {
                 view.setShowProgressDialogEnable(false);
