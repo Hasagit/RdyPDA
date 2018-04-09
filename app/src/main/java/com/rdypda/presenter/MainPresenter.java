@@ -49,10 +49,10 @@ import io.reactivex.disposables.Disposable;
 public class MainPresenter extends BasePresenter{
     private IMainView view;
     private String[] permissionList;
-    static final public int TMDY=0;
-    static final public int FL=1;
-    static final public int YLTL=2;
-    static final public int YLJS=3;
+    static final public int TMDY = 0;
+    static final public int FL = 1;
+    static final public int YLTL = 2;
+    static final public int YLJS = 3;
     private Timer timer;
 
     public MainPresenter(Context context,IMainView view) {
@@ -163,7 +163,6 @@ public class MainPresenter extends BasePresenter{
             zsscytlResources.add(R.drawable.sbxl_icon);
         }
 
-
         titles.add(zsscytlArray);
         imgs.add(zsscytlResources);
 
@@ -208,12 +207,10 @@ public class MainPresenter extends BasePresenter{
             zzfltlResources.add(R.drawable.zzfl_icon);
         }
 
-
         if (isPermission("ZZFTL02")){
             zzfltlArray.add("组装退料");
             zzfltlResources.add(R.drawable.zztl_icon);
         }
-
 
         titles.add(zzfltlArray);
         imgs.add(zzfltlResources);
@@ -363,10 +360,12 @@ public class MainPresenter extends BasePresenter{
 
     //条码打印 or 发料
     public void goToLlddr(int type){
+        //打印
         if (type==MainPresenter.TMDY){
             Intent intent=new Intent(context, LlddrActivity.class);
             intent.putExtra("type",type);
             context.startActivity(intent);
+        //发料
         }else if (type==MainPresenter.FL){
             Intent intent=new Intent(context, LlddrActivity.class);
             intent.putExtra("type",type);

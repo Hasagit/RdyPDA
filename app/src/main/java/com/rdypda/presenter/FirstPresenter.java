@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.util.Log;
 
 import com.rdypda.model.network.WebService;
 import com.rdypda.util.DownloadUtils;
@@ -24,6 +25,7 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class FirstPresenter extends BasePresenter {
+    private static final String TAG = FirstPresenter.class.getSimpleName();
     private IFirstView view;
     private String arrayStr;
 
@@ -139,11 +141,11 @@ public class FirstPresenter extends BasePresenter {
                 try {
                     PackageManager pm = context.getPackageManager();
                     PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
-                    String versionName = pi.versionName;
+                    String oldVersion = pi.versionName;
                     JSONArray array = value.getJSONArray("Table1");
-                    String appVer = array.getJSONObject(0).getString("v_WebAppVer").trim();
+                    String newVersion = array.getJSONObject(0).getString("v_WebAppVer").trim();
                     //如果不相等
-                    if (!appVer.equals(versionName)) {
+                    if (haveNewVersion(newVersion,oldVersion)) {
                         String urlStr = array.getJSONObject(0).getString("v_WebAppPath");
                         //2是不做处理
                         preferenUtil.setInt("goToWhere", 2);
@@ -180,6 +182,31 @@ public class FirstPresenter extends BasePresenter {
 
             }
         });
+    }
+
+    /**
+     * 是否有新版本
+     * @param newVersion
+     * @param oldVersion
+     * @return
+     */
+    private boolean haveNewVersion(String newVersion, String oldVersion) {
+        boolean isHaveNewVersion = false;
+        //Log.d(TAG, "haveNewVersion: newVersion"+newVersion);
+        //Log.d(TAG, "haveNewVersion: oldVersion"+oldVersion);
+        String[] oldVersionArr = oldVersion.split("\\.");
+        String[] newVersionArr = newVersion.split("\\.");
+        //Log.d(TAG, "haveNewVersion: length"+oldVersionArr.length);
+        for (int i=0;i<oldVersionArr.length; i++){
+            if((Integer.parseInt(newVersionArr[i])) > (Integer.parseInt(oldVersionArr[i]))){
+                isHaveNewVersion = true;
+            }else if ((Integer.parseInt(newVersionArr[i])) == (Integer.parseInt(oldVersionArr[i]))){
+                continue;
+            }else{
+                break;
+            }
+        }
+        return isHaveNewVersion;
     }
 
     //下载App

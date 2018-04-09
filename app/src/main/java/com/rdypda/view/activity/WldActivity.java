@@ -26,6 +26,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 查询领料单明细
+ */
 public class WldActivity extends BaseActivity implements IWldView{
     @BindView(R.id.wld_recycler)
     RecyclerView recyclerView;
@@ -53,12 +56,14 @@ public class WldActivity extends BaseActivity implements IWldView{
 
     @Override
     protected void initView() {
+        //打印
         if (getIntent().getIntExtra("startType",1)==START_TYPE_LLD){
             setSupportActionBar(toolbar);
             ActionBar actionBar=getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
             title.setText("选择物料号开始打印发料条码");
         }else {
+            //仓库发料
             title.setText("选择物料号开始发料");
             toolbar.setVisibility(View.GONE);
         }
@@ -66,8 +71,9 @@ public class WldActivity extends BaseActivity implements IWldView{
         progressDialog.setTitle("加载中...");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
-
+        //物料代码
         wldm=getIntent().getStringExtra("wldm");
+        //领料单号
         djbh=getIntent().getStringExtra("djbh");
 
         receiver=new BroadcastReceiver() {

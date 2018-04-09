@@ -50,6 +50,7 @@ public class FlTabActivity extends BaseActivity implements IFlTabView {
         setContentView(R.layout.activity_fl_tab);
         ButterKnife.bind(this);
         manager = new LocalActivityManager(this, true);
+        //调用其他Activity的onCreate()
         manager.dispatchCreate(savedInstanceState);
         initView();
         presenter=new FlTabPresenter(this,this);
@@ -71,6 +72,7 @@ public class FlTabActivity extends BaseActivity implements IFlTabView {
         intent_2.putExtra("starType",getIntent().getIntExtra("starType",0));
         intent_2.putExtra("tmxh",getIntent().getStringExtra("tmxh"));
         View viewFl=getView("1",intent_2);
+        //物料明细，这里有扫描
         Intent intent_1=new Intent(this,WldActivity.class);
         intent_1.putExtra("djbh",djbh);
         intent_1.putExtra("wldm",wldm);
@@ -114,6 +116,7 @@ public class FlTabActivity extends BaseActivity implements IFlTabView {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
+                //如果有扫描记录，则提示用户是否保存
                 if (presenter.getScanNum()>0){
                     showReturnDialog();
                 }else {

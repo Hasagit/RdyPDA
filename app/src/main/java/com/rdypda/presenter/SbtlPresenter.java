@@ -158,9 +158,13 @@ public class SbtlPresenter extends BasePresenter {
                 view.setWltmText(tmbh);
                 try {
                     JSONArray array=value.getJSONArray("Table2");
+                    //条码序号
                     String tmbh=array.getJSONObject(0).getString("brp_Sn");
+                    //物料代码
                     String ylbh=array.getJSONObject(0).getString("brp_wldm");
+                    //品名规格
                     String ylgg=array.getJSONObject(0).getString("brp_pmgg");
+                    //条码数量
                     String tmsl=array.getJSONObject(0).getString("brp_Qty");
                     getTlzs(tmbh,ylbh,ylgg,tmsl);
                 } catch (JSONException e) {
@@ -232,7 +236,14 @@ public class SbtlPresenter extends BasePresenter {
         });
     }
 
-    //投料数量确认
+
+
+    /**
+     * //投料数量确认
+     * @param tmxh 条码序号（条码编号）
+     * @param bzsl 下料数量
+     * @param tmsl 条码数量
+     */
     public void tlSure(String tmxh,String bzsl,String tmsl){
         if (bzsl.equals("")){
             view.showMsgDialog("包装数量不能为空！");

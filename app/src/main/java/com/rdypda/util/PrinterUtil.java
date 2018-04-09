@@ -12,6 +12,9 @@ import java.io.UnsupportedEncodingException;
  * Created by DengJf on 2018/1/11.
  */
 
+/**
+ * 二维码解析工具
+ */
 public class PrinterUtil {
     private String Address;
     private TSCActivity tscActivity;
@@ -47,7 +50,6 @@ public class PrinterUtil {
     public void printBarcode(String barcode,int x,int y){
         tscActivity.barcode(x,y,"128",70,1,0,1,1,barcode);
     }
-
     public void printQRCode(String str,int x,int y,int weight){
         tscActivity.sendcommand("QRCODE "+x+","+y+",M,"+weight+",M,0,M1,S2,\"A"+str+"\" \n");
     }

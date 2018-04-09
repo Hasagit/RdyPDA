@@ -44,7 +44,7 @@ public class HlbzPresenter extends BasePresenter {
         getScrq();
     }
 
-    //获取设备明细
+    //获取设备明细（to3指混料机）
     public void getSbmc(String lbdm){
         String sql=String.format("Call Proc_PDA_Get_DeviceList('','%s');",lbdm);
         view.setShowProgressDialogEnable(true);
@@ -123,7 +123,7 @@ public class HlbzPresenter extends BasePresenter {
         });
     }
 
-    //获取混料清单
+    //读取待包装混料清单
     public void getHlqd(){
         if (hljh.equals("")){
             view.showMsgDialog("请先选择混料机号");
@@ -176,7 +176,12 @@ public class HlbzPresenter extends BasePresenter {
         });
     }
 
-    //获取库位
+
+
+    /**
+     * 获取库位
+     * @param map 待包装混料
+     */
     public void getKc(final Map<String,String>map){
         view.setShowProgressDialogEnable(true);
         String sql="Call Proc_PDA_GetStkList();";
@@ -194,7 +199,9 @@ public class HlbzPresenter extends BasePresenter {
                     List<String>data=new ArrayList<>();
                     List<String>dataMc=new ArrayList<>();
                     for (int i=0;i<array.length();i++){
+                        //工厂号
                         data.add(array.getJSONObject(i).getString("stk_stkId"));
+                        //库存地点名称
                         dataMc.add(array.getJSONObject(i).getString("stk_stkmc"));
                     }
                     view.showKcDialog(map,data,dataMc,preferenUtil.getString("usr_gsdm"));
@@ -218,7 +225,15 @@ public class HlbzPresenter extends BasePresenter {
         });
     }
 
-    //获取条码序号
+    /**
+     * 获取条码序号
+     * @param hldh 混料代码
+     * @param bzsl 包装数量
+     * @param gsdm 用户信息
+     * @param kcdd 库存地点
+     * @param tmxh 条码序号（显示的view）
+     * @param qrcode 二维码（显示的view）
+     */
     public void getTmxh(String hldh, String bzsl, String gsdm,
                         String kcdd, final TextView tmxh, final TextView qrcode){
         if (!tmxh.getText().toString().equals("")){
@@ -342,7 +357,18 @@ public class HlbzPresenter extends BasePresenter {
     }
 
 
-    //打印事件
+
+
+    /**
+     *   //打印事件
+     * @param printMsg 二维码信息
+     * @param ylgg 原料规格
+     * @param szgg 色种规格
+     * @param zyry 工作人员
+     * @param bzsl 待包装数量
+     * @param tmbh 条码编号
+     * @param onPrintListener 打印监听器
+     */
     public void printEven(final String printMsg, final String ylgg,
                           final String szgg, final String zyry,
                           final String bzsl, final String tmbh,
@@ -452,6 +478,18 @@ public class HlbzPresenter extends BasePresenter {
     }
 
     //连打条码
+
+    /**
+     * 获取
+     * @param map 待包装混料
+     * @param gsdm 用户信息
+     * @param kcdd 库存地点
+     * @param bzsl 包装数量
+     * @param ldsl 打印分数
+     * @param tmxhText 条码序号（显示的View）
+     * @param qrCodes 二维码
+     * @param tmbhs 条码信息
+     */
     public void getContinueTm(Map<String, String> map, String gsdm, String kcdd, String bzsl, final int ldsl, final TextView tmxhText, final List<String>qrCodes,final List<String>tmbhs){
         /*for (int i=0;i<ldsl;i++){
             getTmxh(map.get("hldh"),
@@ -482,7 +520,6 @@ public class HlbzPresenter extends BasePresenter {
         WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
-
             }
 
             @Override
@@ -490,6 +527,7 @@ public class HlbzPresenter extends BasePresenter {
                 view.setShowProgressDialogEnable(false);
                 for (int i=0;i<ldsl;i++){
                     try {
+
                         int position=i+1;
                         JSONArray array=value.getJSONArray("Table"+position);
                         String result=array.getJSONObject(0).getString("cRetMsg");

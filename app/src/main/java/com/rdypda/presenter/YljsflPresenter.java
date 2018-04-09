@@ -155,7 +155,7 @@ public class YljsflPresenter extends BasePresenter{
         });
     }
 
-    //条码验证
+    //条码验证，原料接收，原料退料
     public void isValidCode(String tmxh,String type,String kcdd){
         if (kcdd.equals("")&startType==MainPresenter.YLJS){
             view.setShowDialogMsg("请先选择库位");
@@ -188,6 +188,7 @@ public class YljsflPresenter extends BasePresenter{
                     map.put("tmsl",array.getJSONObject(0).getString("brp_Qty"));
                     map.put("tmbh",array.getJSONObject(0).getString("brp_Sn"));
                     view.addYljstlRecyclerItem(map);
+                    //退料
                     if (startType==MainPresenter.YLTL){
                         getLldDet(djbh,wldm);
                     }

@@ -65,10 +65,12 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
         ButterKnife.bind(this);
         initView();
         presenter=new YljsflPresenter(this,this);
+        //如果是原料接收则不显示该订单的已收信息
         if (getIntent().getIntExtra("startType",0)==MainPresenter.YLJS){
             wldLayout.setVisibility(View.GONE);
             presenter.getKwmList();
         }else {
+            //获取订单的详细物料信息
             presenter.getLldDet(djbh,wldm);
         }
         presenter.setStartType(getIntent().getIntExtra("startType",0));
@@ -87,7 +89,6 @@ public class YljsflActivity extends BaseActivity implements IYljsflView{
         }else if(getIntent().getIntExtra("startType",0)== MainPresenter.YLTL){
             actionBar.setTitle("原料退料");
             kwLayout.setVisibility(View.GONE);
-
         }
         dialog=new AlertDialog.Builder(this).setTitle("提示").setNegativeButton("确定", new DialogInterface.OnClickListener() {
             @Override

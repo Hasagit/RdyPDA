@@ -119,6 +119,10 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
         Toast.makeText(HlbzActivity.this,msg,Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 显示所有可选择的混料机
+     * @param data
+     */
     @Override
     public void refreshSbmx(final List<String> data) {
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlbzActivity.this,android.R.layout.simple_spinner_dropdown_item,data);
@@ -144,6 +148,10 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
         });
     }
 
+    /**
+     * 混料待包装清单
+     * @param data
+     */
     @Override
     public void refreshBzList(List<Map<String, String>> data) {
         HlbzAdapter adapter=new HlbzAdapter(HlbzActivity.this,R.layout.item_hlbz,data);
@@ -157,6 +165,11 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
         });
     }
 
+    /**
+     * 打印界面
+     * @param map 待包装信息
+     * @param gsdm  用户信息
+     */
     @Override
     public void showPrintDialog(final Map<String, String> map, final String gsdm) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -185,6 +198,7 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
             ybzslText.setText(map.get("ybzsl"));
             dbzslText.setText(map.get("dbzsl"));
             printDilaog.show();
+            //获取条码
             getTmBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -197,6 +211,7 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
                             );
                 }
             });
+            //打印
             printBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -219,6 +234,7 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
 
                 }
             });
+            //连续打印
             continPrintBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -236,6 +252,13 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
         }
     }
 
+    /**
+     * 显示混料包装到那个仓库
+     * @param map 待包装的混料
+     * @param data 工厂号
+     * @param dataMc 库存地点名称
+     * @param gsdm 用户信息
+     */
     @Override
     public void showKcDialog(final Map<String, String> map, final List<String>data,List<String>dataMc, final String gsdm) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -277,6 +300,7 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
                         showMsgDialog("请先选择接收库位");
                         return;
                     }
+                    //显示打印界面
                     showPrintDialog(map,gsdm);
                     kcDilaog.dismiss();
                 }
@@ -345,6 +369,11 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
 
     }
 
+    /**
+     * 重新打印界面
+     * @param hlbh  混料编号
+     * @param tmxh 条码序号
+     */
     @Override
     public void showReloadHlPackingDialog(final String hlbh, final String tmxh) {
         AlertDialog dialog=new AlertDialog.Builder(HlbzActivity.this)
@@ -368,6 +397,13 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
         dialog.show();
     }
 
+    /**
+     * 显示连打界面，
+     * @param map 待包装混料
+     * @param gsdm 用户信息
+     * @param kw 库存地点
+     * @param bzsl 包装数量
+     */
     @Override
     public void showContinPrintDialog(final Map<String, String> map, final String gsdm, final String kw, final String bzsl) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

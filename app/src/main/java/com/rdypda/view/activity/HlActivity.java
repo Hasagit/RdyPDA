@@ -133,6 +133,10 @@ public class HlActivity extends BaseActivity implements IHlView {
         }
     }
 
+    /**
+     * 扫描记录
+     * @param data
+     */
     @Override
     public void refreshScanedList(List<Map<String, String>> data) {
         HlScanedAdapter adapter=new HlScanedAdapter(HlActivity.this,R.layout.item_hl_scaned,data);
@@ -169,6 +173,10 @@ public class HlActivity extends BaseActivity implements IHlView {
         });
     }
 
+    /**
+     * 混料
+     * @param data
+     */
     @Override
     public void refreshHlList(List<Map<String, String>> data) {
         HlAdapter adapter=new HlAdapter(HlActivity.this,R.layout.item_hl_scaned,data);
@@ -176,6 +184,10 @@ public class HlActivity extends BaseActivity implements IHlView {
         hlList.setLayoutManager(new GridLayoutManager(HlActivity.this,1));
     }
 
+    /**
+     * 设置混料机
+     * @param sbbh
+     */
     @Override
     public void setSbmcSelect(String sbbh) {
         if (idData!=null){
@@ -188,6 +200,10 @@ public class HlActivity extends BaseActivity implements IHlView {
 
     }
 
+    /**
+     * 设置是否可选择混料机
+     * @param enable
+     */
     @Override
     public void setSbmcEnable(boolean enable) {
         sbmxSp.setEnabled(enable);
@@ -209,6 +225,11 @@ public class HlActivity extends BaseActivity implements IHlView {
         dialog.show();
     }
 
+    /**
+     * 设置可选择的混料机
+     * @param idData
+     * @param mcData
+     */
     @Override
     public void refreshSbmx(final List<String> idData, final List<String>mcData) {
         this.idData=idData;
@@ -251,6 +272,9 @@ public class HlActivity extends BaseActivity implements IHlView {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * 手工录入
+     */
     public void showAddDialog(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             View view= LayoutInflater.from(this).inflate(R.layout.dialog_add_tm,null);

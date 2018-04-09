@@ -122,9 +122,11 @@ public class MainActivity extends BaseActivity implements IMainView{
    @OnClick({R.id.switch_layout,R.id.exit_layout,R.id.left_content})
     public void onClick(View view) {
         switch (view.getId()){
+            //注销
             case R.id.switch_layout:
                 presenter.goToLogin();
                 break;
+            //退出
             case R.id.exit_layout:
                 finish();
                 break;
@@ -203,7 +205,9 @@ public class MainActivity extends BaseActivity implements IMainView{
         downloadProgressDialog.setProgress(size);
     }
 
-
+    /**
+     * 打开蓝牙，设置蓝牙，不连接
+     */
     public void showBlueToothAddressDialog() {
         final android.app.AlertDialog.Builder builder=new android.app.AlertDialog.Builder(this,3);
         builder.setTitle("请选择蓝牙设备");

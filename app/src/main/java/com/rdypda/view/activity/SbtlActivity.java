@@ -99,7 +99,7 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
                         presenter.closeScanUtil();
                     }
                 }).create();
-
+        //设置设备的扫描类型
         sbRadio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -189,6 +189,7 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
         dialog.setMessage(msg);
         dialog.show();
     }
+
     @Override
     public void setShowScanDialogEnable(boolean enable,String type) {
         if (enable){
@@ -210,6 +211,14 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
         wltmEd.setText(wltm);
     }
 
+    /**
+     * 显示扫描结果界面
+     * @param tmbh 条码编号
+     * @param ylbh 原料编号
+     * @param ylgg 原料规格
+     * @param tmsl 条码数量
+     * @param trzs 加料总数
+     */
     @Override
     public void showScanDialog(final String tmbh, String ylbh, String ylgg, final String tmsl, String trzs) {
         View view= LayoutInflater.from(this).inflate(R.layout.dialog_sbtl,null);
@@ -249,6 +258,10 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
         msgDilaog.show();
     }
 
+    /**
+     * 刷新加料数
+     * @param data
+     */
     @Override
     public void refreshScanList(List<Map<String, String>> data) {
         SbtlScanAdapter adapter=new SbtlScanAdapter(SbtlActivity.this,R.layout.item_sbtl_scan,data);
@@ -256,6 +269,10 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
         scanedList.setLayoutManager(new GridLayoutManager(SbtlActivity.this,1));
     }
 
+    /**
+     * 刷新原料总数
+     * @param data
+     */
     @Override
     public void refreshZsList(List<Map<String, String>> data) {
         SbtlZsAdapter adapter=new SbtlZsAdapter(SbtlActivity.this,R.layout.item_sbtl_zs,data);
@@ -269,6 +286,11 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
         tmRadio.setChecked(!check);
     }
 
+    /**
+     * 显示设备搜索结果
+     * @param sbdm 设备代码
+     * @param sbmc 设备名称
+     */
     @Override
     public void showQueryList(final String[] sbdm, final String[] sbmc) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this,3);
