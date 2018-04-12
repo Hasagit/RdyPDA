@@ -141,6 +141,7 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
             case R.id.ql_btn:
                 showClearDialog(presenter.getSbbh());
                 break;
+
         }
     }
 

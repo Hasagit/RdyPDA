@@ -40,15 +40,18 @@ public class LlddrPresenter extends BasePresenter{
              view.showToast("至少选中一种状态");
              return;
          }
+         //订单完成情况
          String status="1";
          if (view.isUnFinishCheck())status="1";
          if (view.isFinishCheck())status="2";
          if (view.isUnFinishCheck()&view.isFinishCheck())status="3";
          view.setProgressDialogEnable(true);
         String sql="";
+        //原料接收，原料退料（原料组仓库）
          if (starType==MainPresenter.YLJS|starType==MainPresenter.YLTL){
              sql=String.format("Call Proc_PDA_Get_lld2('%s','%s','%s','',%s)",lldh,wldm,ddbh,status);
          }else {
+             //原料仓发料
              sql=String.format("Call Proc_PDA_Get_lld('%s','%s','%s','',%s)",lldh,wldm,ddbh,status);
          }
          WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
@@ -67,12 +70,19 @@ public class LlddrPresenter extends BasePresenter{
                          List<Map<String,String>>data=new ArrayList<>();
                          for (int i=0;i<array.length();i++){
                              Map<String,String>map=new HashMap<>();
+                             //领料单号
                              map.put("djbh",array.getJSONObject(i).getString("llm_djbh"));
+                             //销售单号
                              map.put("xsdh",array.getJSONObject(i).getString("llm_ddbh"));
+                             //开拉日期
                              map.put("klrq",array.getJSONObject(i).getString("llm_ksrq"));
+                             //仓库名称
                              map.put("kcdd",array.getJSONObject(i).getString("stk_id"));
+                             //完成状态
                              map.put("zt",array.getJSONObject(i).getString("llm_Status"));
+                             //物料代码
                              map.put("wldm",array.getJSONObject(i).getString("llm_wldm"));
+                             //是否选择
                              map.put("isCheck","0");
                              data.add(map);
                          }
@@ -106,17 +116,21 @@ public class LlddrPresenter extends BasePresenter{
     //根据启动类型去特定的Activity
     public void sureEvent(List<Map<String,String>>data,int startType){
         String lldhs="";
+        //除原料接收，其他需要先选择
         if (data.size()==0&startType!=MainPresenter.YLJS){
             view.showToast("请先选择一个或多个生产单号进行操作");
             return;
         }
+        //不是原料接收
         if (startType!=MainPresenter.YLJS){
+            //如果库存地点一样
             String kcdd=data.get(0).get("kcdd");
             boolean isKcddSame=true;
             for (int i=0;i<data.size();i++){
                 if (!kcdd.equals(data.get(i).get("kcdd"))){
                     isKcddSame=false;
                 }
+                //领料单号
                 if (i+1!=data.size()){
                     lldhs=lldhs+data.get(i).get("djbh")+",";
                 }else {
@@ -128,19 +142,20 @@ public class LlddrPresenter extends BasePresenter{
                 return;
             }
         }
-
+        //条码打印
         if (startType== MainPresenter.TMDY){
             Intent intent=new Intent(context,WldActivity.class);
             intent.putExtra("djbh",lldhs);
             intent.putExtra("wldm","");
             intent.putExtra("startType",WldActivity.START_TYPE_LLD);
             context.startActivity(intent);
-        }else if (startType== MainPresenter.FL){
+        }else if (startType== MainPresenter.FL){//发料
             Intent intent=new Intent(context,FlTabActivity.class);
             intent.putExtra("djbh",lldhs);
             intent.putExtra("wldm","");
             context.startActivity(intent);
-        }else if (startType== MainPresenter.YLTL){
+
+        }else if (startType== MainPresenter.YLTL){//原料退料
             Intent intent=new Intent(context,YljsflActivity.class);
             intent.putExtra("djbh",lldhs);
             intent.putExtra("wldm","");
@@ -153,7 +168,6 @@ public class LlddrPresenter extends BasePresenter{
             intent.putExtra("startType",MainPresenter.YLJS);
             context.startActivity(intent);
         }
-
         view.finish();
     }
 

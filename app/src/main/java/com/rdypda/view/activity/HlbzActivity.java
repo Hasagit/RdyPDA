@@ -119,6 +119,10 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
         Toast.makeText(HlbzActivity.this,msg,Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 显示所有可选择的混料机
+     * @param data
+     */
     @Override
     public void refreshSbmx(final List<String> data) {
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlbzActivity.this,android.R.layout.simple_spinner_dropdown_item,data);
@@ -144,6 +148,10 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
         });
     }
 
+    /**
+     * 混料待包装清单
+     * @param data
+     */
     @Override
     public void refreshBzList(List<Map<String, String>> data) {
         HlbzAdapter adapter=new HlbzAdapter(HlbzActivity.this,R.layout.item_hlbz,data);
@@ -157,6 +165,11 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
         });
     }
 
+    /**
+     * 打印界面
+     * @param map 待包装信息
+     * @param gsdm  用户信息
+     */
     @Override
     public void showPrintDialog(final Map<String, String> map, final String gsdm) {
         isUpload=false;
@@ -234,6 +247,13 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
         });
     }
 
+    /**
+     * 显示混料包装到那个仓库
+     * @param map 待包装的混料
+     * @param data 工厂号
+     * @param dataMc 库存地点名称
+     * @param gsdm 用户信息
+     */
     @Override
     public void showKcDialog(final Map<String, String> map, final List<String>data,List<String>dataMc, final String gsdm) {
         kcdd="";
@@ -341,6 +361,11 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
 
     }
 
+    /**
+     * 重新打印界面
+     * @param hlbh  混料编号
+     * @param tmxh 条码序号
+     */
     @Override
     public void showReloadHlPackingDialog(final String hlbh, final String tmxh) {
         AlertDialog dialog=new AlertDialog.Builder(HlbzActivity.this)
@@ -364,54 +389,63 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
         dialog.show();
     }
 
+    /**
+     * 显示连打界面，
+     * @param map 待包装混料
+     * @param gsdm 用户信息
+     * @param kw 库存地点
+     * @param bzsl 包装数量
+     */
     @Override
     public void showContinPrintDialog(final Map<String, String> map, final String gsdm, final String kw, final String bzsl) {
-        View view= LayoutInflater.from(this).inflate(R.layout.dialog_hlbz_contin_print,null);
-        isUpload=false;
-        final AlertDialog continPrintDilaog=new AlertDialog.Builder(this)
-                .setView(view)
-                .create();
-        continPrintDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        final EditText dyfs=(EditText) view.findViewById(R.id.dyfs);
-        final TextView tmxhText=(TextView)view.findViewById(R.id.tmbh);
-        PowerButton getContinTm=(PowerButton)view.findViewById(R.id.get_tm_btn);
-        PowerButton printBtn=(PowerButton)view.findViewById(R.id.print_btn);
-        final List<String>printMsgs=new ArrayList<>();
-        final List<String>tmbhs=new ArrayList<>();
-        getContinTm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!tmxhText.getText().toString().equals("")){
-                    showMsgDialog("已经获取条码编号，请不要重复操作");
-                    return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View view= LayoutInflater.from(this).inflate(R.layout.dialog_hlbz_contin_print,null);
+            isUpload=false;
+            final AlertDialog continPrintDilaog=new AlertDialog.Builder(this)
+                    .setView(view)
+                    .create();
+            continPrintDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+            final EditText dyfs=(EditText) view.findViewById(R.id.dyfs);
+            final TextView tmxhText=(TextView)view.findViewById(R.id.tmbh);
+            PowerButton getContinTm=(PowerButton)view.findViewById(R.id.get_tm_btn);
+            PowerButton printBtn=(PowerButton)view.findViewById(R.id.print_btn);
+            final List<String>printMsgs=new ArrayList<>();
+            final List<String>tmbhs=new ArrayList<>();
+            getContinTm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!tmxhText.getText().toString().equals("")){
+                        showMsgDialog("已经获取条码编号，请不要重复操作");
+                        return;
+                    }
+                    if (dyfs.getText().toString().equals("")){
+                        showMsgDialog("请先输入打印份数");
+                        return;
+                    }
+                    if (Integer.parseInt(dyfs.getText().toString())>10){
+                        showMsgDialog("最大连打份数为10");
+                        return;
+                    }
+                    presenter.getContinueTm(map,gsdm,kw,bzsl,Integer.parseInt(dyfs.getText().toString()),tmxhText,printMsgs,tmbhs);
                 }
-                if (dyfs.getText().toString().equals("")){
-                    showMsgDialog("请先输入打印份数");
-                    return;
+            });
+            printBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (tmxhText.getText().equals("")){
+                        showMsgDialog("请先获取条码编号");
+                        return;
+                    }
+                    i=0;
+                    continPrintEven(printMsgs,
+                            map.get("ylgg"),
+                            map.get("szgg"),
+                            map.get("zyry"),
+                            bzsl,tmbhs,map.get("hldh"));
                 }
-                if (Integer.parseInt(dyfs.getText().toString())>10){
-                    showMsgDialog("最大连打份数为10");
-                    return;
-                }
-                presenter.getContinueTm(map,gsdm,kw,bzsl,Integer.parseInt(dyfs.getText().toString()),tmxhText,printMsgs,tmbhs);
-            }
-        });
-        printBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (tmxhText.getText().equals("")){
-                    showMsgDialog("请先获取条码编号");
-                    return;
-                }
-                i=0;
-                continPrintEven(printMsgs,
-                        map.get("ylgg"),
-                        map.get("szgg"),
-                        map.get("zyry"),
-                        bzsl,tmbhs,map.get("hldh"));
-            }
-        });
-        continPrintDilaog.show();
+            });
+            continPrintDilaog.show();
+        }
     }
 
     public void continPrintEven(final List<String> printMsg, final String ylgg, final String szgg, final String zyry, final String bzsl, final List<String> tmbh, final String hldh){

@@ -59,6 +59,7 @@ public class FlActivity extends BaseActivity implements IFlView {
         presenter=new FlPresenter(this,this);
         presenter.setWldm(getIntent().getStringExtra("wldm"));
         presenter.setLldh(getIntent().getStringExtra("djbh"));
+        //获取已扫描但未上存的记录
         presenter.getScanedData();
         if (getIntent().getIntExtra("starType",0)==START_TYPE_LLDDRMSG){
             presenter.isValidCode(getIntent().getStringExtra("tmxh"));
@@ -80,6 +81,7 @@ public class FlActivity extends BaseActivity implements IFlView {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("请稍后...");
 
+        //广播会在原料发料接收，和仓库发料发出
         receiver=new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -92,6 +94,10 @@ public class FlActivity extends BaseActivity implements IFlView {
 
     }
 
+    /**
+     * 保存扫描记录，发料
+     * @param view
+     */
     @OnClick({R.id.save_btn})
     public void onClick(View view){
         switch (view.getId()){
@@ -121,6 +127,7 @@ public class FlActivity extends BaseActivity implements IFlView {
         adapter=new ReceiveAdapter(this,R.layout.item_fl_wl,data);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
         recyclerView.setAdapter(adapter);
+        //弹出是否删除扫描记录弹出框
         adapter.setOnItemClickListener(new ReceiveAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(ReceiveAdapter.ReceiveViewHolder receiveViewHolder, int position, Map<String, String> map) {

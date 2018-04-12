@@ -99,7 +99,7 @@ public class HlPresenter extends BasePresenter {
         });
     }
 
-    //获取设备名称
+    //获取设备名称（to3指混料机）
     public void getSbmc(String lbdm){
         String sql=String.format("Call Proc_PDA_Get_DeviceList('','%s');",lbdm);
         view.setShowProgressDialogEnable(true);
@@ -173,6 +173,7 @@ public class HlPresenter extends BasePresenter {
                     }
                     view.setSbmcSelect(hljh);
                     view.refreshScanedList(data);
+                    //设置设备明细是否可选择，（有记录的时候不允许修改）
                     if (data.size()>0){
                         view.setSbmcEnable(false);
                     }else {

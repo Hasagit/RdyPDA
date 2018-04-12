@@ -31,6 +31,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 发料条码打印，仓库发料，原料接收，原料退料，共用这个Activity
+ */
 public class LlddrActivity extends BaseActivity implements ILlddrView{
     private LlddrAdapter adapter;
     private List<Map<String,String>>data;
@@ -94,7 +97,6 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
 
     @Override
     protected void initView() {
-
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -118,7 +120,7 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
         startType=getIntent().getIntExtra("type",0);
         if (startType== MainPresenter.TMDY){
             title.setText("选择生产单号查看明细清单");
-        }else if (startType==MainPresenter.FL){
+        }else if (startType==MainPresenter.FL){//如果之前有扫描但还没发料的记录，先显示之前的记录
             title.setText("选择生产单号扫描发料");
             presenter.getScanedData();
         }else if (startType==MainPresenter.YLJS){
@@ -162,7 +164,7 @@ public class LlddrActivity extends BaseActivity implements ILlddrView{
             progressDialog.dismiss();
         }
     }
-
+    //
     @Override
     public boolean isFinishCheck() {
         return finishBox.isChecked();
