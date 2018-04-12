@@ -134,10 +134,6 @@ public class MainPresenter extends BasePresenter{
             zsscytlResources.add(R.drawable.adfl_icon);
         }*/
 
-        if (isPermission("MOM503D1")){
-            zsscytlArray.add("退料");
-            zsscytlResources.add(R.drawable.tl_icon);
-        }
 
         if (isPermission("HLKL08")){
             zsscytlArray.add("工单退料到原料组");
