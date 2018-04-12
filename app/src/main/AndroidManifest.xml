@@ -51,6 +51,7 @@
         <activity android:name=".view.activity.SbxlActivity" />
         <activity android:name=".view.activity.WydrckActivity" />
         <activity android:name=".view.activity.YkActivity"></activity>
+        <activity android:name=".view.activity.PddyActivity"/>
     </application>
 
 </manifest>

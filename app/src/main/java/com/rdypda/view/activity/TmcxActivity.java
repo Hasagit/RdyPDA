@@ -58,7 +58,9 @@ public class TmcxActivity extends BaseActivity implements ITmcxView {
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        //库存事务
         kcswFragment=new KcswFragment();
+        //条码信息
         tmxxFragment=new TmxxFragment();
         viewPagerAdapter=new FragmentViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(tmxxFragment,"条码信息");

@@ -64,8 +64,6 @@ public class TmcfActivity extends BaseActivity implements ITmcfView {
         actionBar.setTitle("条码拆分");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
-
         dialog=new AlertDialog.Builder(this).setTitle("提示").setNegativeButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

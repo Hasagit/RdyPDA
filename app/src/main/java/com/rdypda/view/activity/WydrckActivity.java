@@ -250,7 +250,6 @@ public class WydrckActivity extends BaseActivity implements IWydrckView {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        ;
                         presenter.cancelScan(tmxh, wlbh, tmsl);
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {

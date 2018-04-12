@@ -87,6 +87,13 @@ public class TmcfPresenter extends BasePresenter {
     }
 
     //获取拆分条码序号
+
+    /**
+     *
+     * @param tmxh 条码号
+     * @param ytmsl 原条码数量
+     * @param xtmsl 拆分数量
+     */
     public void getTmxh(final String tmxh, String ytmsl, final String xtmsl){
         if (tmxh.equals("")){
             view.setShowMsgDialogEnable("请先扫描拆分条码",true);
@@ -113,6 +120,7 @@ public class TmcfPresenter extends BasePresenter {
 
             }
 
+            //
             @Override
             public void onNext(JSONObject value) {
                 view.setShowProgressDialogEnable(false);
@@ -120,10 +128,13 @@ public class TmcfPresenter extends BasePresenter {
                     JSONArray array=value.getJSONArray("Table2");
                     view.setNewCodeMsg(cf_1+","+xtmsl,array.getJSONObject(0).getString("brp_Sn"));
                     printMsg=array.getJSONObject(0).getString("brp_QrCode");
+                    //新条码序号
                     xtmxh=array.getJSONObject(0).getString("brp_Sn");
                     pch=array.getJSONObject(0).getString("brp_LotNo");
                     wldm=array.getJSONObject(0).getString("brp_wldm");
+                    //品名规格
                     pmgg=array.getJSONObject(0).getString("brp_pmgg");
+
                     szgg=array.getJSONObject(0).getString("sz_wlgg");
                     ylgg=array.getJSONObject(0).getString("wl_wlgg");
                     date=array.getJSONObject(0).getString("brp_Prd_Date");
