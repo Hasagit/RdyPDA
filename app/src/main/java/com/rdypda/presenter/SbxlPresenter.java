@@ -44,7 +44,7 @@ public class SbxlPresenter extends BasePresenter {
     private String hldhs="";//当混料单有多条时，混料单号用此参数
     private String ftyIdAndstkId=";";
     private String printMsg="";
-    private String sbbh;
+    private String sbbh="";
     public int HLS=0,HL=1;
 
 
@@ -160,7 +160,7 @@ public class SbxlPresenter extends BasePresenter {
                     JSONArray array=value.getJSONArray("Table1");
                     List<String> data=new ArrayList<>();
                     List<String>dataMc=new ArrayList<>();
-                    data.add("");
+                    data.add(";");
                     dataMc.add("");
                     for (int i=0;i<array.length();i++){
                         data.add(array.getJSONObject(i).getString("stk_ftyId")+";"+
@@ -196,6 +196,7 @@ public class SbxlPresenter extends BasePresenter {
         }
         hldh="";
         hldhs="";
+        this.sbbh=sbbh;
         view.setShowProgressDialogEnable(true);
         String sql=String.format("Call Proc_PDA_GetScanList ('MTR_TL', '%s', '');",sbbh);
         WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
@@ -589,5 +590,9 @@ public class SbxlPresenter extends BasePresenter {
 
     public String getSbbh() {
         return sbbh;
+    }
+
+    public String getFtyIdAndstkId() {
+        return ftyIdAndstkId;
     }
 }

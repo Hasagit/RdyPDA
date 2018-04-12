@@ -334,6 +334,9 @@ public class MainPresenter extends BasePresenter{
                     case "组装退料":
                         goToZztl();
                         break;
+                    case "移库退料到仓库":
+                        goToYktldck();
+                        break;
                 }
                 return true;
             }
@@ -449,7 +452,9 @@ public class MainPresenter extends BasePresenter{
 
     //移库退料到仓库
     public void goToYktldck(){
-        view.showMsgDialog("敬请期待");
+        Intent intent=new Intent(context,YkActivity.class);
+        intent.putExtra("startType",YkActivity.START_TYPE_YKTLDCK);
+        context.startActivity(intent);
     }
 
     //条码拆分
@@ -526,6 +531,7 @@ public class MainPresenter extends BasePresenter{
     //移库
     public void goToYk(){
         Intent intent=new Intent(context, YkActivity.class);
+        intent.putExtra("startType",YkActivity.START_TYPE_YK);
         context.startActivity(intent);
     }
 
@@ -560,6 +566,7 @@ public class MainPresenter extends BasePresenter{
     //工单退料到原料组
     public void goToGdtldylz(){
         Intent intent=new Intent(context, YkActivity.class);
+        intent.putExtra("startType",YkActivity.START_TYPE_GDTLDYLZ);
         context.startActivity(intent);
     }
 

@@ -203,16 +203,23 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, Map<String, String> map, BaseRecyclerAdapter.BaseRecyclerViewHolder holder) {
-                showScanDialog(map,presenter.HL);
+                if (!presenter.getFtyIdAndstkId().equals(";")){
+                    showScanDialog(map,presenter.HL);
+                }else {
+                    showMsgDialog("请先选择退料库位");
+                }
             }
         });
         if (data.size()>1){
             hlBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Map<String,String>map=data.get(0);
-                    map.put("ylgg",data.get(0).get("ylgg")+"(MIX)");
-                    showScanDialog(map,presenter.HLS);
+                    if (!presenter.getFtyIdAndstkId().equals(";")){
+                        Map<String,String>map=data.get(0);
+                        map.put("ylgg",data.get(0).get("ylgg")+"(MIX)");
+                    }else {
+                        showMsgDialog("请先选择退料库位");
+                    }
                 }
             });
 
