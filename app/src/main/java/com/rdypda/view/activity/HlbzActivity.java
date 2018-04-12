@@ -159,131 +159,127 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
 
     @Override
     public void showPrintDialog(final Map<String, String> map, final String gsdm) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            isUpload=false;
-            View view= LayoutInflater.from(this).inflate(R.layout.dialog_hlbz,null);
-            final AlertDialog printDilaog=new AlertDialog.Builder(this)
-                    .setView(view)
-                    .create();
-            printDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-            TextView hljhText=(TextView)view.findViewById(R.id.hljh);
-            final TextView ylggText=(TextView)view.findViewById(R.id.ylgg);
-            final TextView szggText=(TextView)view.findViewById(R.id.szgg);
-            TextView hlzlText=(TextView)view.findViewById(R.id.hlzl);
-            TextView ybzslText=(TextView)view.findViewById(R.id.ybzsl);
-            TextView dbzslText=(TextView)view.findViewById(R.id.dbzsl);
-            final TextView bzslEd=(EditText)view.findViewById(R.id.bzsl);
-            final TextView tmbhText=(TextView)view.findViewById(R.id.tmbh);
-            final TextView qrCode=(TextView)view.findViewById(R.id.qrcode);
-            PowerButton getTmBtn=(PowerButton)view.findViewById(R.id.get_tm__btn);
-            PowerButton printBtn=(PowerButton)view.findViewById(R.id.print_btn);
-            PowerButton continPrintBtn=(PowerButton)view.findViewById(R.id.contin_print_btn);
-            hljhText.setText(map.get("hljh"));
-            ylggText.setText(map.get("ylgg"));
-            szggText.setText(map.get("szgg"));
-            hlzlText.setText(map.get("hlzl"));
-            ybzslText.setText(map.get("ybzsl"));
-            dbzslText.setText(map.get("dbzsl"));
-            printDilaog.show();
-            getTmBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.getTmxh(map.get("hldh"),
-                            bzslEd.getText().toString(),
-                            gsdm,
-                            kcdd,
-                            tmbhText,
-                            qrCode
-                            );
-                }
-            });
-            printBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.printEven(qrCode.getText().toString(),
-                            ylggText.getText().toString(),
-                            szggText.getText().toString(),
-                            map.get("zyry"),
-                            bzslEd.getText().toString()+new QrCodeUtil(qrCode.getText().toString()).getDw(),
-                            tmbhText.getText().toString(),
-                            new HlbzPresenter.OnPrintListener() {
-                                @Override
-                                public void onFinish() {
-                                    if (!isUpload){
-                                        isUpload=true;
-                                        presenter.hlPacking(map.get("hldh"),tmbhText.getText().toString());
-                                    }
+        isUpload=false;
+        View view= LayoutInflater.from(this).inflate(R.layout.dialog_hlbz,null);
+        final AlertDialog printDilaog=new AlertDialog.Builder(this)
+                .setView(view)
+                .create();
+        printDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        TextView hljhText=(TextView)view.findViewById(R.id.hljh);
+        final TextView ylggText=(TextView)view.findViewById(R.id.ylgg);
+        final TextView szggText=(TextView)view.findViewById(R.id.szgg);
+        TextView hlzlText=(TextView)view.findViewById(R.id.hlzl);
+        TextView ybzslText=(TextView)view.findViewById(R.id.ybzsl);
+        TextView dbzslText=(TextView)view.findViewById(R.id.dbzsl);
+        final TextView bzslEd=(EditText)view.findViewById(R.id.bzsl);
+        final TextView tmbhText=(TextView)view.findViewById(R.id.tmbh);
+        final TextView qrCode=(TextView)view.findViewById(R.id.qrcode);
+        PowerButton getTmBtn=(PowerButton)view.findViewById(R.id.get_tm__btn);
+        PowerButton printBtn=(PowerButton)view.findViewById(R.id.print_btn);
+        PowerButton continPrintBtn=(PowerButton)view.findViewById(R.id.contin_print_btn);
+        hljhText.setText(map.get("hljh"));
+        ylggText.setText(map.get("ylgg"));
+        szggText.setText(map.get("szgg"));
+        hlzlText.setText(map.get("hlzl"));
+        ybzslText.setText(map.get("ybzsl"));
+        dbzslText.setText(map.get("dbzsl"));
+        printDilaog.show();
+        getTmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.getTmxh(map.get("hldh"),
+                        bzslEd.getText().toString(),
+                        gsdm,
+                        kcdd,
+                        tmbhText,
+                        qrCode
+                );
+            }
+        });
+        printBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.printEven(qrCode.getText().toString(),
+                        ylggText.getText().toString(),
+                        szggText.getText().toString(),
+                        map.get("zyry"),
+                        bzslEd.getText().toString()+new QrCodeUtil(qrCode.getText().toString()).getDw(),
+                        tmbhText.getText().toString(),
+                        new HlbzPresenter.OnPrintListener() {
+                            @Override
+                            public void onFinish() {
+                                if (!isUpload){
+                                    isUpload=true;
+                                    presenter.hlPacking(map.get("hldh"),tmbhText.getText().toString());
                                 }
                             }
-                    );
+                        }
+                );
 
+            }
+        });
+        continPrintBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!tmbhText.getText().toString().equals("")){
+                    showMsgDialog("已经获取条码编号，请不要重复操作");
+                    return;
                 }
-            });
-            continPrintBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!tmbhText.getText().toString().equals("")){
-                        showMsgDialog("已经获取条码编号，请不要重复操作");
-                        return;
-                    }
-                    if (bzslEd.getText().toString().equals("")){
-                        showMsgDialog("请先输入包装数量");
-                        return;
-                    }
-                    showContinPrintDialog(map,gsdm,kcdd,bzslEd.getText().toString());
+                if (bzslEd.getText().toString().equals("")){
+                    showMsgDialog("请先输入包装数量");
+                    return;
                 }
-            });
-        }
+                showContinPrintDialog(map,gsdm,kcdd,bzslEd.getText().toString());
+            }
+        });
     }
 
     @Override
     public void showKcDialog(final Map<String, String> map, final List<String>data,List<String>dataMc, final String gsdm) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            kcdd="";
-            if (data.size()>0){
-                kcdd=data.get(0);
-            }
-            View view= LayoutInflater.from(this).inflate(R.layout.dialog_kc,null);
-            final AlertDialog kcDilaog=new AlertDialog.Builder(this)
-                    .setView(view)
-                    .create();
-            kcDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-            Spinner jskwSp=(Spinner)view.findViewById(R.id.jskw);
-            PowerButton sureBtn=(PowerButton)view.findViewById(R.id.sure_btn);
-            PowerButton cancelBtn=(PowerButton)view.findViewById(R.id.cancel_btn);
-            ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlbzActivity.this,android.R.layout.simple_spinner_dropdown_item,dataMc);
-            jskwSp.setAdapter(adapter);
-            jskwSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    kcdd=data.get(position);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-            cancelBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    kcDilaog.dismiss();
-                }
-            });
-            sureBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (kcdd.equals("")){
-                        showMsgDialog("请先选择接收库位");
-                        return;
-                    }
-                    showPrintDialog(map,gsdm);
-                    kcDilaog.dismiss();
-                }
-            });
-
-            kcDilaog.show();
+        kcdd="";
+        if (data.size()>0){
+            kcdd=data.get(0);
         }
+        View view= LayoutInflater.from(this).inflate(R.layout.dialog_kc,null);
+        final AlertDialog kcDilaog=new AlertDialog.Builder(this)
+                .setView(view)
+                .create();
+        kcDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        Spinner jskwSp=(Spinner)view.findViewById(R.id.jskw);
+        PowerButton sureBtn=(PowerButton)view.findViewById(R.id.sure_btn);
+        PowerButton cancelBtn=(PowerButton)view.findViewById(R.id.cancel_btn);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlbzActivity.this,android.R.layout.simple_spinner_dropdown_item,dataMc);
+        jskwSp.setAdapter(adapter);
+        jskwSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                kcdd=data.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kcDilaog.dismiss();
+            }
+        });
+        sureBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (kcdd.equals("")){
+                    showMsgDialog("请先选择接收库位");
+                    return;
+                }
+                showPrintDialog(map,gsdm);
+                kcDilaog.dismiss();
+            }
+        });
+
+        kcDilaog.show();
     }
 
     @Override
@@ -370,54 +366,52 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
 
     @Override
     public void showContinPrintDialog(final Map<String, String> map, final String gsdm, final String kw, final String bzsl) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            View view= LayoutInflater.from(this).inflate(R.layout.dialog_hlbz_contin_print,null);
-            isUpload=false;
-            final AlertDialog continPrintDilaog=new AlertDialog.Builder(this)
-                    .setView(view)
-                    .create();
-            continPrintDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-            final EditText dyfs=(EditText) view.findViewById(R.id.dyfs);
-            final TextView tmxhText=(TextView)view.findViewById(R.id.tmbh);
-            PowerButton getContinTm=(PowerButton)view.findViewById(R.id.get_tm_btn);
-            PowerButton printBtn=(PowerButton)view.findViewById(R.id.print_btn);
-            final List<String>printMsgs=new ArrayList<>();
-            final List<String>tmbhs=new ArrayList<>();
-            getContinTm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!tmxhText.getText().toString().equals("")){
-                        showMsgDialog("已经获取条码编号，请不要重复操作");
-                        return;
-                    }
-                    if (dyfs.getText().toString().equals("")){
-                        showMsgDialog("请先输入打印份数");
-                        return;
-                    }
-                    if (Integer.parseInt(dyfs.getText().toString())>10){
-                        showMsgDialog("最大连打份数为10");
-                        return;
-                    }
-                    presenter.getContinueTm(map,gsdm,kw,bzsl,Integer.parseInt(dyfs.getText().toString()),tmxhText,printMsgs,tmbhs);
+        View view= LayoutInflater.from(this).inflate(R.layout.dialog_hlbz_contin_print,null);
+        isUpload=false;
+        final AlertDialog continPrintDilaog=new AlertDialog.Builder(this)
+                .setView(view)
+                .create();
+        continPrintDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        final EditText dyfs=(EditText) view.findViewById(R.id.dyfs);
+        final TextView tmxhText=(TextView)view.findViewById(R.id.tmbh);
+        PowerButton getContinTm=(PowerButton)view.findViewById(R.id.get_tm_btn);
+        PowerButton printBtn=(PowerButton)view.findViewById(R.id.print_btn);
+        final List<String>printMsgs=new ArrayList<>();
+        final List<String>tmbhs=new ArrayList<>();
+        getContinTm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!tmxhText.getText().toString().equals("")){
+                    showMsgDialog("已经获取条码编号，请不要重复操作");
+                    return;
                 }
-            });
-            printBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (tmxhText.getText().equals("")){
-                        showMsgDialog("请先获取条码编号");
-                        return;
-                    }
-                    i=0;
-                    continPrintEven(printMsgs,
-                            map.get("ylgg"),
-                            map.get("szgg"),
-                            map.get("zyry"),
-                            bzsl,tmbhs,map.get("hldh"));
+                if (dyfs.getText().toString().equals("")){
+                    showMsgDialog("请先输入打印份数");
+                    return;
                 }
-            });
-            continPrintDilaog.show();
-        }
+                if (Integer.parseInt(dyfs.getText().toString())>10){
+                    showMsgDialog("最大连打份数为10");
+                    return;
+                }
+                presenter.getContinueTm(map,gsdm,kw,bzsl,Integer.parseInt(dyfs.getText().toString()),tmxhText,printMsgs,tmbhs);
+            }
+        });
+        printBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tmxhText.getText().equals("")){
+                    showMsgDialog("请先获取条码编号");
+                    return;
+                }
+                i=0;
+                continPrintEven(printMsgs,
+                        map.get("ylgg"),
+                        map.get("szgg"),
+                        map.get("zyry"),
+                        bzsl,tmbhs,map.get("hldh"));
+            }
+        });
+        continPrintDilaog.show();
     }
 
     public void continPrintEven(final List<String> printMsg, final String ylgg, final String szgg, final String zyry, final String bzsl, final List<String> tmbh, final String hldh){

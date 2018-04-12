@@ -116,7 +116,7 @@
                         android:background="@color/colorPrimary"
                         android:orientation="horizontal">
                         <LinearLayout
-                            android:layout_width="100dp"
+                            android:layout_width="50dp"
                             android:layout_height="match_parent"
                             android:background="@drawable/table"
                             android:orientation="vertical"
@@ -126,7 +126,20 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
                                 android:layout_gravity="center_horizontal"
-                                android:text="原料规格"/>
+                                android:text="NO"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/table"
+                            android:orientation="vertical"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:layout_gravity="center_horizontal"
+                                android:text="物料编号"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="100dp"
@@ -138,7 +151,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
                                 android:layout_gravity="center_horizontal"
-                                android:text="设备编号"/>
+                                android:text="物料名称"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="100dp"
@@ -170,7 +183,7 @@
                         </LinearLayout>
                     </LinearLayout>
                     <android.support.v7.widget.RecyclerView
-                        android:layout_width="400dp"
+                        android:layout_width="500dp"
                         android:scrollbars="vertical"
                         android:layout_height="match_parent"
                         android:id="@+id/tl_list"></android.support.v7.widget.RecyclerView>
@@ -188,6 +201,19 @@
                         android:layout_height="50dp"
                         android:background="@color/colorPrimary"
                         android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/table"
+                            android:orientation="vertical"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:layout_gravity="center_horizontal"
+                                android:text="NO"/>
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="120dp"
                             android:layout_height="match_parent"
@@ -224,7 +250,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
                                 android:layout_gravity="center_horizontal"
-                                android:text="原料规格"
+                                android:text="物料名称"
                                 />
                         </LinearLayout>
                         <LinearLayout
@@ -257,7 +283,7 @@
                         </LinearLayout>
                     </LinearLayout>
                     <android.support.v7.widget.RecyclerView
-                        android:layout_width="530dp"
+                        android:layout_width="580dp"
                         android:scrollbars="vertical"
                         android:layout_height="match_parent"
                         android:id="@+id/scaned_list"></android.support.v7.widget.RecyclerView>

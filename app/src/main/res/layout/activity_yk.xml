@@ -97,11 +97,27 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@color/colorPrimary"
                         android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/table"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_vertical"
+                                android:text="NO" />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="150dp"
@@ -149,7 +165,7 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/zs_list"
                         android:scrollbars="vertical"
-                        android:layout_width="400dp"
+                        android:layout_width="450dp"
                         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
                 </LinearLayout>
             </HorizontalScrollView>
@@ -168,6 +184,20 @@
                         android:layout_height="50dp"
                         android:background="@color/colorPrimary"
                         android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/table"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_vertical"
+                                android:text="NO" />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="150dp"
@@ -216,7 +246,7 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/scaned_list"
                         android:scrollbars="vertical"
-                        android:layout_width="400dp"
+                        android:layout_width="450dp"
                         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
                 </LinearLayout>
             </HorizontalScrollView>

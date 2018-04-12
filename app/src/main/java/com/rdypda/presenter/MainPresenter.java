@@ -498,6 +498,7 @@ public class MainPresenter extends BasePresenter{
     //设备下料
     public void goTosbxl(){
         Intent intent=new Intent(context, SbxlActivity.class);
+        intent.putExtra("start_type",SbxlActivity.START_TYPE_SBXL);
         context.startActivity(intent);
     }
 
@@ -538,8 +539,8 @@ public class MainPresenter extends BasePresenter{
 
     //丝印退料
     public void goToSytuil(){
-        Intent intent=new Intent(context,SbtlActivity.class);
-        intent.putExtra("start_type",SbtlActivity.START_TYPE_SYTUIL);
+        Intent intent=new Intent(context,SbxlActivity.class);
+        intent.putExtra("start_type",SbxlActivity.START_TYPE_SYTL);
         context.startActivity(intent);
     }
 
@@ -552,8 +553,8 @@ public class MainPresenter extends BasePresenter{
 
     //组装退料
     public void goToZztl(){
-        Intent intent=new Intent(context,SbtlActivity.class);
-        intent.putExtra("start_type",SbtlActivity.START_TYPE_ZZTL);
+        Intent intent=new Intent(context,SbxlActivity.class);
+        intent.putExtra("start_type",SbxlActivity.START_TYPE_ZZTL);
         context.startActivity(intent);
     }
 

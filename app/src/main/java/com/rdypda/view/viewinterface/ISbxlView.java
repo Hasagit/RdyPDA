@@ -26,4 +26,10 @@ public interface ISbxlView {
 
     void setSbEditText(String sbbh);
 
+    void showQueryList(final String[] sbdm, final String[] sbmc);
+
+    void setSbbhText(String sbbhStr);
+
+    void showToastMsg(String msg);
+
 }

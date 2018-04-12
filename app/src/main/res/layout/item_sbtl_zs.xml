@@ -9,7 +9,7 @@
         android:background="@drawable/white_btn_bg"
         android:orientation="horizontal">
         <LinearLayout
-            android:layout_width="100dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@drawable/table"
             android:orientation="vertical"
@@ -22,10 +22,11 @@
                 android:id="@+id/lab_1"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:background="@drawable/table"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -37,15 +38,13 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:background="@drawable/table"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_horizontal"
-                android:id="@+id/lab_3"
-                />
+                android:id="@+id/lab_3"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="100dp"
@@ -59,6 +58,20 @@
                 android:gravity="center_vertical"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/lab_4"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/table"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/lab_5"
                 />
         </LinearLayout>
     </LinearLayout>

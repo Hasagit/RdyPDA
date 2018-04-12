@@ -38,9 +38,10 @@ public class WydrckZsAdapter extends BaseRecyclerAdapter<WydrckZsAdapter.ViewHol
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int i, final Map<String, String> map) {
-        viewHolder.lab_1.setText(map.get("wlgg"));
-        viewHolder.lab_2.setText(map.get("sl"));
-        viewHolder.lab_3.setText(map.get("wlbh"));
+        viewHolder.lab_1.setText(i+1+"");
+        viewHolder.lab_2.setText(map.get("wlgg"));
+        viewHolder.lab_3.setText(map.get("sl"));
+        viewHolder.lab_4.setText(map.get("wlbh"));
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,13 +53,14 @@ public class WydrckZsAdapter extends BaseRecyclerAdapter<WydrckZsAdapter.ViewHol
     }
 
     public class ViewHolder extends BaseRecyclerAdapter.BaseRecyclerViewHolder{
-        TextView lab_1,lab_2,lab_3;
+        TextView lab_1,lab_2,lab_3,lab_4;
         LinearLayout content;
         public ViewHolder(View itemView) {
             super(itemView);
             lab_1=(TextView)itemView.findViewById(R.id.lab_1);
             lab_2=(TextView)itemView.findViewById(R.id.lab_2);
             lab_3=(TextView)itemView.findViewById(R.id.lab_3);
+            lab_4=(TextView)itemView.findViewById(R.id.lab_4);
             content=(LinearLayout)itemView.findViewById(R.id.content);
         }
     }

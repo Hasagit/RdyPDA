@@ -45,14 +45,20 @@ public class WydrckPresenter extends BasePresenter {
         scanUtil.setOnScanListener(new ScanUtil.OnScanListener() {
             @Override
             public void onSuccess(String result) {
-                if (scanType == SCAN_TYPE_TMBH) {
-                    String tmbh = new QrCodeUtil(result).getTmxh();
+                if (startType==WydrckActivity.START_TYPE_WYDRK|startType==WydrckActivity.START_TYPE_WYDCK){
+                    String tmbh=new QrCodeUtil(result).getTmxh();
                     view.setTmEd(tmbh);
                     isValidCode(tmbh);
-                }else if (scanType == SCAN_TYPE_GDH){
-                    String gdh = new QrCodeUtil(result).getTmxh();
-                    view.setGdhEd(gdh);
-                    isValidGDH(gdh);
+                }else if (startType==WydrckActivity.START_TYPE_GDTH){
+                    if (scanType == SCAN_TYPE_TMBH) {
+                        String tmbh = new QrCodeUtil(result).getTmxh();
+                        view.setTmEd(tmbh);
+                        isValidCode(tmbh);
+                    }else if (scanType == SCAN_TYPE_GDH){
+                        String gdh = new QrCodeUtil(result).getTmxh();
+                        view.setGdhEd(gdh);
+                        isValidGDH(gdh);
+                    }
                 }
             }
 
@@ -125,7 +131,7 @@ public class WydrckPresenter extends BasePresenter {
      */
     public void getKc(){
         view.setShowProgressDialogEnable(true);
-        String sql="Call Proc_PDA_GetStkList();";
+        String sql="Proc_PDA_GetKwmList();";
         WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -142,9 +148,12 @@ public class WydrckPresenter extends BasePresenter {
                     data.add(";");
                     dataMc.add("");
                     for (int i=0;i<array.length();i++){
-                        data.add(array.getJSONObject(i).getString("stk_ftyId")+";"+
-                                array.getJSONObject(i).getString("stk_stkId"));
-                        dataMc.add(array.getJSONObject(i).getString("stk_stkmc"));
+                        data.add(array.getJSONObject(i).getString("kwm_ftyid")+" ; "+
+                                array.getJSONObject(i).getString("kwm_stkId")+" ; "+
+                                array.getJSONObject(i).getString("kwm_kwdm")+" ; "+
+                                array.getJSONObject(i).getString("kwm_cwdm"));
+                        dataMc.add(array.getJSONObject(i).getString("kwm_kwmc")+","+
+                                array.getJSONObject(i).getString("kwm_cwdm"));
                     }
                     view.refreshJskwSp(dataMc,data);
                 } catch (JSONException e) {
@@ -183,12 +192,12 @@ public class WydrckPresenter extends BasePresenter {
             view.showMsgDialog("请先输入条码编号");
             return;
         }
-        if (ftyIdAndstkId.equals(";")){
+        if (startType!=WydrckActivity.START_TYPE_WYDCK&ftyIdAndstkId.equals(";")){
             view.showMsgDialog("请先选择接收库位");
             return;
         }
         String[]kw=ftyIdAndstkId.split(";");
-        if (kw.length<2){
+        if (startType!=WydrckActivity.START_TYPE_WYDCK&kw.length<4){
             view.showMsgDialog("接收库位解析失败");
             return;
         }
@@ -205,9 +214,12 @@ public class WydrckPresenter extends BasePresenter {
         if (startType == WydrckActivity.START_TYPE_GDTH){
             sql = String.format("Call Proc_PDA_IsValidCode('%s','%s','%s','%s');",
                     tmbh,type,gdh,preferenUtil.getString("userId"));
-        }else{
-            sql = String.format("Call Proc_PDA_IsValidCode('%s','%s', '%s;%s;%s;' ,'%s');",
-                    tmbh,type,kw[0],kw[1],kw[1],preferenUtil.getString("userId"));
+        }else if (startType==WydrckActivity.START_TYPE_WYDRK){
+            sql = String.format("Call Proc_PDA_IsValidCode('%s','%s', '%s;%s;%s;%s' ,'%s');",
+                    tmbh,type,kw[0].trim(),kw[1].trim(),kw[2].trim(),kw[3].trim(),preferenUtil.getString("userId"));
+        }else if (startType==WydrckActivity.START_TYPE_WYDCK){
+            sql = String.format("Call Proc_PDA_IsValidCode('%s','%s', '' ,'%s');",
+                    tmbh,type,preferenUtil.getString("userId"));
         }
 
         WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
@@ -307,7 +319,7 @@ public class WydrckPresenter extends BasePresenter {
         }
     }
 
-    public void setScanTpte(int scanType) {
+    public void setScanType(int scanType) {
         this.scanType = scanType;
     }
 }

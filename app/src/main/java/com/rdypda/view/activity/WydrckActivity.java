@@ -60,6 +60,8 @@ public class WydrckActivity extends BaseActivity implements IWydrckView {
     EditText tmbhEd;
     @BindView(R.id.kw_text)
     TextView kwText;
+    @BindView(R.id.kw_layout)
+    LinearLayout kwLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,7 @@ public class WydrckActivity extends BaseActivity implements IWydrckView {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus){
-                    presenter.setScanTpte(WydrckPresenter.SCAN_TYPE_GDH);
+                    presenter.setScanType(WydrckPresenter.SCAN_TYPE_GDH);
                 }
             }
         });
@@ -86,7 +88,7 @@ public class WydrckActivity extends BaseActivity implements IWydrckView {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus) {
-                    presenter.setScanTpte(WydrckPresenter.SCAN_TYPE_TMBH);
+                    presenter.setScanType(WydrckPresenter.SCAN_TYPE_TMBH);
                 }
             }
         });
@@ -115,6 +117,7 @@ public class WydrckActivity extends BaseActivity implements IWydrckView {
         } else if (startType == START_TYPE_WYDCK) {
             actionBar.setTitle("无源单出库");
             kwText.setText("出库库位：");
+            kwLayout.setVisibility(View.GONE);
         } else if (startType == START_TYPE_GDTH) {
             actionBar.setTitle("工单退货");
             kwText.setText("出库库位：");

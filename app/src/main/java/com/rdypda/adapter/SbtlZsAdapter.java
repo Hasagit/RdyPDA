@@ -40,10 +40,11 @@ public class SbtlZsAdapter extends BaseRecyclerAdapter<SbtlZsAdapter.ViewHolder,
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int i, final Map<String, String> map) {
-        viewHolder.lab_1.setText(map.get("ylgg"));
-        viewHolder.lab_2.setText(map.get("sbbh"));
-        viewHolder.lab_3.setText(map.get("zjls"));
-        viewHolder.lab_4.setText(map.get("yjys"));
+        viewHolder.lab_1.setText(i+1+"");
+        viewHolder.lab_2.setText(map.get("ylgg"));
+        viewHolder.lab_3.setText(map.get("sbbh"));
+        viewHolder.lab_4.setText(map.get("zjls"));
+        viewHolder.lab_5.setText(map.get("yjys"));
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +57,7 @@ public class SbtlZsAdapter extends BaseRecyclerAdapter<SbtlZsAdapter.ViewHolder,
 
 
     public class ViewHolder extends BaseRecyclerAdapter.BaseRecyclerViewHolder{
-        TextView lab_1,lab_2,lab_3,lab_4;
+        TextView lab_1,lab_2,lab_3,lab_4,lab_5;
         LinearLayout content;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -64,6 +65,7 @@ public class SbtlZsAdapter extends BaseRecyclerAdapter<SbtlZsAdapter.ViewHolder,
             lab_2=(TextView)itemView.findViewById(R.id.lab_2);
             lab_3=(TextView)itemView.findViewById(R.id.lab_3);
             lab_4=(TextView)itemView.findViewById(R.id.lab_4);
+            lab_5=(TextView)itemView.findViewById(R.id.lab_5);
             content=(LinearLayout)itemView.findViewById(R.id.content);
         }
     }
