@@ -343,7 +343,7 @@ public class PddyPresenter extends BasePresenter{
                     util.printFont(wlpmEnlight+" ",15,140);
                     util.printFont("批次号:"+qrCodeUtil.getScpc(),15,185);
                     util.printFont("条码编号:"+qrCodeUtil.getTmxh(),15,235);
-                    util.printQRCode(qrCode,340,55,7);
+                    util.printQRCode(qrCode,340,55,6);
                     util.startPrint();
                     Log.e("printMsg",qrCode);
                     e.onNext("");
