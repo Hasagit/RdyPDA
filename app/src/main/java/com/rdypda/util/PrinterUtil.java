@@ -36,8 +36,12 @@ public class PrinterUtil {
             Log.e("printNum",0+"");
         }else if (preferenUtil.getInt("printNum")==1){
             tscActivity.setup(75,42,4,10,0,0,0);
-            preferenUtil.setInt("printNum",0);
+            preferenUtil.setInt("printNum",2);
             Log.e("printNum",1+"");
+        }else if (preferenUtil.getInt("printNum")==2){
+            tscActivity.setup(75,42,4,10,0,0,0);
+            preferenUtil.setInt("printNum",0);
+            Log.e("printNum",2+"");
         }
         tscActivity.clearbuffer();
     }

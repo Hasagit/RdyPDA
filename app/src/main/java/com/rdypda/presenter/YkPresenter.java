@@ -52,7 +52,7 @@ public class YkPresenter extends BasePresenter {
     //获取接收库位
     public void getKc(){
         view.setShowProgressDialogEnable(true);
-        String sql="Call Proc_PDA_GetStkList();";
+        String sql="Call Proc_PDA_GetKwmList();";
         WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -69,9 +69,12 @@ public class YkPresenter extends BasePresenter {
                     data.add(";");
                     dataMc.add("");
                     for (int i=0;i<array.length();i++){
-                        data.add(array.getJSONObject(i).getString("stk_ftyId")+";"+
-                                array.getJSONObject(i).getString("stk_stkId"));
-                        dataMc.add(array.getJSONObject(i).getString("stk_stkmc"));
+                        data.add(array.getJSONObject(i).getString("kwm_ftyid")+" ; "+
+                                array.getJSONObject(i).getString("kwm_stkId")+"; "+
+                                array.getJSONObject(i).getString("kwm_kwdm")+"; "+
+                                array.getJSONObject(i).getString("kwm_cwdm"));
+                        dataMc.add(array.getJSONObject(i).getString("kwm_kwmc")+","+
+                                    array.getJSONObject(i).getString("kwm_cwdm"));
                     }
                     view.refreshJskwSp(dataMc,data);
                 } catch (JSONException e) {
@@ -105,14 +108,14 @@ public class YkPresenter extends BasePresenter {
             return;
         }
         String[]kw=ftyIdAndstkId.split(";");
-        if (kw.length<2){
+        if (kw.length<4){
             view.showMsgDialog("接收库位解析失败");
             return;
         }
         view.setShowProgressDialogEnable(true);
         String type;
-        String sql=String.format("Call Proc_PDA_IsValidCode('%s','WYYK', '%s;%s;%s; ', '%s');",
-                tmbh,kw[0],kw[1],kw[1],preferenUtil.getString("userId"));
+        String sql=String.format("Call Proc_PDA_IsValidCode('%s','WYYK', '%s;%s;%s;%s ', '%s');",
+                tmbh,kw[0].trim(),kw[1].trim(),kw[2].trim(),kw[3].trim(),preferenUtil.getString("userId"));
         WebService.doQuerySqlCommandResultJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -187,6 +190,8 @@ public class YkPresenter extends BasePresenter {
 
     public void setFtyIdAndstkId(String ftyIdAndstkId) {
         this.ftyIdAndstkId = ftyIdAndstkId;
+        view.refreshScanList(new ArrayList<Map<String, String>>());
+        view.refreshZsList(new ArrayList<Map<String, String>>());
     }
 
     public void closeScanUtil(){

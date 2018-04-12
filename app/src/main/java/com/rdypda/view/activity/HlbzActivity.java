@@ -172,84 +172,79 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
      */
     @Override
     public void showPrintDialog(final Map<String, String> map, final String gsdm) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            isUpload=false;
-            View view= LayoutInflater.from(this).inflate(R.layout.dialog_hlbz,null);
-            final AlertDialog printDilaog=new AlertDialog.Builder(this)
-                    .setView(view)
-                    .create();
-            printDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-            TextView hljhText=(TextView)view.findViewById(R.id.hljh);
-            final TextView ylggText=(TextView)view.findViewById(R.id.ylgg);
-            final TextView szggText=(TextView)view.findViewById(R.id.szgg);
-            TextView hlzlText=(TextView)view.findViewById(R.id.hlzl);
-            TextView ybzslText=(TextView)view.findViewById(R.id.ybzsl);
-            TextView dbzslText=(TextView)view.findViewById(R.id.dbzsl);
-            final TextView bzslEd=(EditText)view.findViewById(R.id.bzsl);
-            final TextView tmbhText=(TextView)view.findViewById(R.id.tmbh);
-            final TextView qrCode=(TextView)view.findViewById(R.id.qrcode);
-            PowerButton getTmBtn=(PowerButton)view.findViewById(R.id.get_tm__btn);
-            PowerButton printBtn=(PowerButton)view.findViewById(R.id.print_btn);
-            PowerButton continPrintBtn=(PowerButton)view.findViewById(R.id.contin_print_btn);
-            hljhText.setText(map.get("hljh"));
-            ylggText.setText(map.get("ylgg"));
-            szggText.setText(map.get("szgg"));
-            hlzlText.setText(map.get("hlzl"));
-            ybzslText.setText(map.get("ybzsl"));
-            dbzslText.setText(map.get("dbzsl"));
-            printDilaog.show();
-            //获取条码
-            getTmBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.getTmxh(map.get("hldh"),
-                            bzslEd.getText().toString(),
-                            gsdm,
-                            kcdd,
-                            tmbhText,
-                            qrCode
-                            );
-                }
-            });
-            //打印
-            printBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.printEven(qrCode.getText().toString(),
-                            ylggText.getText().toString(),
-                            szggText.getText().toString(),
-                            map.get("zyry"),
-                            bzslEd.getText().toString()+new QrCodeUtil(qrCode.getText().toString()).getDw(),
-                            tmbhText.getText().toString(),
-                            new HlbzPresenter.OnPrintListener() {
-                                @Override
-                                public void onFinish() {
-                                    if (!isUpload){
-                                        isUpload=true;
-                                        presenter.hlPacking(map.get("hldh"),tmbhText.getText().toString());
-                                    }
+        isUpload=false;
+        View view= LayoutInflater.from(this).inflate(R.layout.dialog_hlbz,null);
+        final AlertDialog printDilaog=new AlertDialog.Builder(this)
+                .setView(view)
+                .create();
+        printDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        TextView hljhText=(TextView)view.findViewById(R.id.hljh);
+        final TextView ylggText=(TextView)view.findViewById(R.id.ylgg);
+        final TextView szggText=(TextView)view.findViewById(R.id.szgg);
+        TextView hlzlText=(TextView)view.findViewById(R.id.hlzl);
+        TextView ybzslText=(TextView)view.findViewById(R.id.ybzsl);
+        TextView dbzslText=(TextView)view.findViewById(R.id.dbzsl);
+        final TextView bzslEd=(EditText)view.findViewById(R.id.bzsl);
+        final TextView tmbhText=(TextView)view.findViewById(R.id.tmbh);
+        final TextView qrCode=(TextView)view.findViewById(R.id.qrcode);
+        PowerButton getTmBtn=(PowerButton)view.findViewById(R.id.get_tm__btn);
+        PowerButton printBtn=(PowerButton)view.findViewById(R.id.print_btn);
+        PowerButton continPrintBtn=(PowerButton)view.findViewById(R.id.contin_print_btn);
+        hljhText.setText(map.get("hljh"));
+        ylggText.setText(map.get("ylgg"));
+        szggText.setText(map.get("szgg"));
+        hlzlText.setText(map.get("hlzl"));
+        ybzslText.setText(map.get("ybzsl"));
+        dbzslText.setText(map.get("dbzsl"));
+        printDilaog.show();
+        getTmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.getTmxh(map.get("hldh"),
+                        bzslEd.getText().toString(),
+                        gsdm,
+                        kcdd,
+                        tmbhText,
+                        qrCode
+                );
+            }
+        });
+        printBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.printEven(qrCode.getText().toString(),
+                        ylggText.getText().toString(),
+                        szggText.getText().toString(),
+                        map.get("zyry"),
+                        bzslEd.getText().toString()+new QrCodeUtil(qrCode.getText().toString()).getDw(),
+                        tmbhText.getText().toString(),
+                        new HlbzPresenter.OnPrintListener() {
+                            @Override
+                            public void onFinish() {
+                                if (!isUpload){
+                                    isUpload=true;
+                                    presenter.hlPacking(map.get("hldh"),tmbhText.getText().toString());
                                 }
                             }
-                    );
+                        }
+                );
 
+            }
+        });
+        continPrintBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!tmbhText.getText().toString().equals("")){
+                    showMsgDialog("已经获取条码编号，请不要重复操作");
+                    return;
                 }
-            });
-            //连续打印
-            continPrintBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!tmbhText.getText().toString().equals("")){
-                        showMsgDialog("已经获取条码编号，请不要重复操作");
-                        return;
-                    }
-                    if (bzslEd.getText().toString().equals("")){
-                        showMsgDialog("请先输入包装数量");
-                        return;
-                    }
-                    showContinPrintDialog(map,gsdm,kcdd,bzslEd.getText().toString());
+                if (bzslEd.getText().toString().equals("")){
+                    showMsgDialog("请先输入包装数量");
+                    return;
                 }
-            });
-        }
+                showContinPrintDialog(map,gsdm,kcdd,bzslEd.getText().toString());
+            }
+        });
     }
 
     /**
@@ -261,53 +256,50 @@ public class HlbzActivity extends BaseActivity implements IHlbzView{
      */
     @Override
     public void showKcDialog(final Map<String, String> map, final List<String>data,List<String>dataMc, final String gsdm) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            kcdd="";
-            if (data.size()>0){
-                kcdd=data.get(0);
-            }
-            View view= LayoutInflater.from(this).inflate(R.layout.dialog_kc,null);
-            final AlertDialog kcDilaog=new AlertDialog.Builder(this)
-                    .setView(view)
-                    .create();
-            kcDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-            Spinner jskwSp=(Spinner)view.findViewById(R.id.jskw);
-            PowerButton sureBtn=(PowerButton)view.findViewById(R.id.sure_btn);
-            PowerButton cancelBtn=(PowerButton)view.findViewById(R.id.cancel_btn);
-            ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlbzActivity.this,android.R.layout.simple_spinner_dropdown_item,dataMc);
-            jskwSp.setAdapter(adapter);
-            jskwSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    kcdd=data.get(position);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-            cancelBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    kcDilaog.dismiss();
-                }
-            });
-            sureBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (kcdd.equals("")){
-                        showMsgDialog("请先选择接收库位");
-                        return;
-                    }
-                    //显示打印界面
-                    showPrintDialog(map,gsdm);
-                    kcDilaog.dismiss();
-                }
-            });
-
-            kcDilaog.show();
+        kcdd="";
+        if (data.size()>0){
+            kcdd=data.get(0);
         }
+        View view= LayoutInflater.from(this).inflate(R.layout.dialog_kc,null);
+        final AlertDialog kcDilaog=new AlertDialog.Builder(this)
+                .setView(view)
+                .create();
+        kcDilaog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        Spinner jskwSp=(Spinner)view.findViewById(R.id.jskw);
+        PowerButton sureBtn=(PowerButton)view.findViewById(R.id.sure_btn);
+        PowerButton cancelBtn=(PowerButton)view.findViewById(R.id.cancel_btn);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(HlbzActivity.this,android.R.layout.simple_spinner_dropdown_item,dataMc);
+        jskwSp.setAdapter(adapter);
+        jskwSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                kcdd=data.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kcDilaog.dismiss();
+            }
+        });
+        sureBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (kcdd.equals("")){
+                    showMsgDialog("请先选择接收库位");
+                    return;
+                }
+                showPrintDialog(map,gsdm);
+                kcDilaog.dismiss();
+            }
+        });
+
+        kcDilaog.show();
     }
 
     @Override

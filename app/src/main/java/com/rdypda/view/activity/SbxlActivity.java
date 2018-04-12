@@ -50,7 +50,9 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
     private ProgressDialog progressDialog;
     private AlertDialog dialog;
     private boolean hadUpload;
-
+    public static int START_TYPE_SBXL=0,
+            START_TYPE_SYTL=1,
+            START_TYPE_ZZTL=2;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.xlkw)
@@ -65,7 +67,8 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
     FloatingActionButton hlBtn;
     @BindView(R.id.ql_btn)
     FloatingActionButton qlBtn;
-
+    @BindView(R.id.sbbh_text)
+    TextView sbbhText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +76,7 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
         ButterKnife.bind(this);
         initView();
         presenter=new SbxlPresenter(this,this);
+        presenter.setStartType(getIntent().getIntExtra("start_type",0));
     }
 
     @Override
@@ -101,6 +105,25 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
                 showMsgDialog("请先输入并验证设备编号");
             }
         });
+        switch (getIntent().getIntExtra("start_type",0)){
+            case 0:
+                actionBar.setTitle("设备下料");
+                sbbhText.setText("设备编号：");
+                sbbhEd.setHint("请输入设备编号");
+                break;
+            case 1:
+                actionBar.setTitle("丝印退料");
+                sbbhText.setText("型号&品名：");
+                sbbhEd.setHint("请输入型号&品名");
+                hlBtn.setVisibility(View.GONE);
+                break;
+            case 2:
+                actionBar.setTitle("组装退料");
+                sbbhText.setText("线别：");
+                sbbhEd.setHint("请输入线别");
+                hlBtn.setVisibility(View.GONE);
+                break;
+        }
 
     }
 
@@ -108,10 +131,15 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.sb_sure_btn:
-                presenter.getScanList(sbbhEd.getText().toString());
+                int startType=getIntent().getIntExtra("start_type",0);
+                if (startType==SbxlActivity.START_TYPE_ZZTL|startType==SbxlActivity.START_TYPE_SYTL){
+                    presenter.isValidDevice(sbbhEd.getText().toString());
+                }else if (startType==SbxlActivity.START_TYPE_SBXL){
+                    presenter.getScanList(sbbhEd.getText().toString());
+                }
                 break;
             case R.id.ql_btn:
-                showClearDialog(sbbhEd.getText().toString());
+                showClearDialog(presenter.getSbbh());
                 break;
 
         }
@@ -201,59 +229,57 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
 
     @Override
     public void showScanDialog(final Map<String,String>map, final int type) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            hadUpload=false;
-            View view= LayoutInflater.from(this).inflate(R.layout.dialog_sbxl,null);
-            final AlertDialog msgDilaog=new AlertDialog.Builder(this)
-                    .setView(view)
-                    .create();
-            final TextView sbbhText=(TextView)view.findViewById(R.id.sbbh);
-            final TextView ylggText=(TextView)view.findViewById(R.id.ylgg);
-            final TextView szggText=(TextView)view.findViewById(R.id.szgg);
-            final TextView tmbhText=(TextView)view.findViewById(R.id.tmbh);
-            final TextView zyryText=(TextView)view.findViewById(R.id.zyry);
-            TextView scrqText=(TextView)view.findViewById(R.id.scrq);
-            final EditText bzslEd=(EditText) view.findViewById(R.id.bzsl);
-            PowerButton getTmBtn=(PowerButton)view.findViewById(R.id.get_tm_btn);
-            PowerButton printBtn=(PowerButton)view.findViewById(R.id.print_btn);
-            sbbhText.setText(map.get("sbbh"));
-            ylggText.setText(map.get("ylgg"));
-            scrqText.setText(map.get("scrq"));
-            zyryText.setText(map.get("zyry"));
-            szggText.setText(map.get("szgg"));
-            getTmBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.getTmxh(sbbhText.getText().toString(),
-                            bzslEd.getText().toString(),
-                            map.get("dw"),
-                            tmbhText,
-                            type
-                            );
-                }
-            });
-            printBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.printEven(ylggText.getText().toString(),
-                            szggText.getText().toString(),
-                            zyryText.getText().toString(),
-                            bzslEd.getText().toString(),
-                            tmbhText.getText().toString(),
-                            new HlbzPresenter.OnPrintListener() {
-                                @Override
-                                public void onFinish() {
-                                   if (!hadUpload){
-                                       hadUpload=true;
-                                       presenter.xlPacking(sbbhText.getText().toString(),
-                                               tmbhText.getText().toString());
-                                   }
+        hadUpload=false;
+        View view= LayoutInflater.from(this).inflate(R.layout.dialog_sbxl,null);
+        final AlertDialog msgDilaog=new AlertDialog.Builder(this)
+                .setView(view)
+                .create();
+        final TextView sbbhText=(TextView)view.findViewById(R.id.sbbh);
+        final TextView ylggText=(TextView)view.findViewById(R.id.ylgg);
+        final TextView szggText=(TextView)view.findViewById(R.id.szgg);
+        final TextView tmbhText=(TextView)view.findViewById(R.id.tmbh);
+        final TextView zyryText=(TextView)view.findViewById(R.id.zyry);
+        TextView scrqText=(TextView)view.findViewById(R.id.scrq);
+        final EditText bzslEd=(EditText) view.findViewById(R.id.bzsl);
+        PowerButton getTmBtn=(PowerButton)view.findViewById(R.id.get_tm_btn);
+        PowerButton printBtn=(PowerButton)view.findViewById(R.id.print_btn);
+        sbbhText.setText(map.get("sbbh"));
+        ylggText.setText(map.get("ylgg"));
+        scrqText.setText(map.get("scrq"));
+        zyryText.setText(map.get("zyry"));
+        szggText.setText(map.get("szgg"));
+        getTmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.getTmxh(sbbhText.getText().toString(),
+                        bzslEd.getText().toString(),
+                        map.get("dw"),
+                        tmbhText,
+                        type
+                );
+            }
+        });
+        printBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.printEven(ylggText.getText().toString(),
+                        szggText.getText().toString(),
+                        zyryText.getText().toString(),
+                        bzslEd.getText().toString(),
+                        tmbhText.getText().toString(),
+                        new HlbzPresenter.OnPrintListener() {
+                            @Override
+                            public void onFinish() {
+                                if (!hadUpload){
+                                    hadUpload=true;
+                                    presenter.xlPacking(sbbhText.getText().toString(),
+                                            tmbhText.getText().toString());
                                 }
-                            });
-                }
-            });
-            msgDilaog.show();
-        }
+                            }
+                        });
+            }
+        });
+        msgDilaog.show();
     }
 
     @Override
@@ -365,4 +391,31 @@ public class SbxlActivity extends BaseActivity implements ISbxlView {
         presenter.closeScanUtil();
         super.onDestroy();
     }
+
+    @Override
+    public void showQueryList(final String[] sbdm, final String[] sbmc) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,3);
+        builder.setItems(sbmc, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                presenter.setSbbh(sbdm[which]);
+                setSbbhText(sbmc[which]);
+                presenter.getScanList(sbdm[which]);
+                dialog.dismiss();
+
+            }
+        });
+        builder.create().show();
+    }
+
+    @Override
+    public void setSbbhText(String sbbhStr) {
+        sbbhEd.setText(sbbhStr);
+    }
+
+    @Override
+    public void showToastMsg(String msg) {
+        Toast.makeText(SbxlActivity.this,msg,Toast.LENGTH_SHORT).show();
+    }
+
 }

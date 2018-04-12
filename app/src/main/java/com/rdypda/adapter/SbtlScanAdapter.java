@@ -36,16 +36,17 @@ public class SbtlScanAdapter extends BaseRecyclerAdapter<SbtlScanAdapter.ViewHol
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i, Map<String, String> map) {
-        viewHolder.lab_1.setText(map.get("tmbh"));
-        viewHolder.lab_2.setText(map.get("tlsl"));
-        viewHolder.lab_3.setText(map.get("ylgg"));
-        viewHolder.lab_4.setText(map.get("jlsj"));
-        viewHolder.lab_5.setText(map.get("zyry"));
+        viewHolder.lab_1.setText(i+1+"");
+        viewHolder.lab_2.setText(map.get("tmbh"));
+        viewHolder.lab_3.setText(map.get("tlsl"));
+        viewHolder.lab_4.setText(map.get("ylgg"));
+        viewHolder.lab_5.setText(map.get("jlsj"));
+        viewHolder.lab_6.setText(map.get("zyry"));
     }
 
 
     public class ViewHolder extends  BaseRecyclerAdapter.BaseRecyclerViewHolder{
-        TextView lab_1,lab_2,lab_3,lab_4,lab_5;
+        TextView lab_1,lab_2,lab_3,lab_4,lab_5,lab_6;
         public ViewHolder(View itemView) {
             super(itemView);
             lab_1=(TextView)itemView.findViewById(R.id.lab_1);
@@ -53,6 +54,7 @@ public class SbtlScanAdapter extends BaseRecyclerAdapter<SbtlScanAdapter.ViewHol
             lab_3=(TextView)itemView.findViewById(R.id.lab_3);
             lab_4=(TextView)itemView.findViewById(R.id.lab_4);
             lab_5=(TextView)itemView.findViewById(R.id.lab_5);
+            lab_6=(TextView)itemView.findViewById(R.id.lab_6);
         }
     }
 }

@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.rdypda.model.network.WebService;
 import com.rdypda.util.PrinterUtil;
 import com.rdypda.util.ScanUtil;
+import com.rdypda.view.activity.SbtlActivity;
+import com.rdypda.view.activity.SbxlActivity;
 import com.rdypda.view.viewinterface.ISbxlView;
 
 import org.json.JSONArray;
@@ -37,11 +39,15 @@ public class SbxlPresenter extends BasePresenter {
     private ISbxlView view;
     private String date;
     private ScanUtil scanUtil;
+    private int startType=0;
     private String hldh="";//当混料单只有一条时，混料单号用此参数
     private String hldhs="";//当混料单有多条时，混料单号用此参数
     private String ftyIdAndstkId=";";
     private String printMsg="";
+    private String sbbh;
     public int HLS=0,HL=1;
+
+
     public SbxlPresenter(Context context,ISbxlView view) {
         super(context);
         this.view=view;
@@ -50,7 +56,11 @@ public class SbxlPresenter extends BasePresenter {
         scanUtil.setOnScanListener(new ScanUtil.OnScanListener() {
             @Override
             public void onSuccess(String result) {
-                getScanList(result);
+                if (startType==SbxlActivity.START_TYPE_ZZTL|startType==SbxlActivity.START_TYPE_SYTL){
+                    isValidDevice(result);
+                }else if (startType==SbxlActivity.START_TYPE_SBXL){
+                    getScanList(result);
+                }
             }
 
             @Override
@@ -61,6 +71,77 @@ public class SbxlPresenter extends BasePresenter {
         getKc();
         getScrq();
     }
+
+    public void isValidDevice(final String sbbh){
+        if (sbbh.equals("")){
+            view.showMsgDialog("设备编号不能为空！");
+            return;
+        }
+        view.setSbEditText("");
+        view.setShowProgressDialogEnable(true);
+        String sblb="";
+        if (startType== SbxlActivity.START_TYPE_SYTL){
+            sblb="SY";
+        }else if (startType==SbxlActivity.START_TYPE_ZZTL){
+            sblb="ZZ";
+        }
+        String sql=String.format("Call Proc_PDA_Get_DeviceList('%s','%s');",sbbh,sblb);
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                view.setShowProgressDialogEnable(false);
+                try {
+                    JSONArray array=value.getJSONArray("Table1");
+                    if (array.length()==1){
+                        SbxlPresenter.this.sbbh=sbbh;
+                        SbxlPresenter.this.sbbh=array.getJSONObject(0).getString("lbm_lbdm");
+                        view.setSbEditText(array.getJSONObject(0).getString("lbm_lbmc"));
+                        getScanList(sbbh);
+                        view.showMsgDialog("验证成功！");
+
+                    }else if (array.length()>1){
+                        String[] sbmc=new String[array.length()];
+                        String[] sbdm=new String[array.length()];
+                        for (int i=0;i<array.length();i++){
+                            sbdm[i]=array.getJSONObject(i).getString("lbm_lbdm");
+                            sbmc[i]=array.getJSONObject(i).getString("lbm_lbmc");
+                        }
+                        view.showQueryList(sbdm,sbmc);
+                    } else {
+                        SbxlPresenter.this.sbbh="";
+                        view.setSbEditText("");
+                        getScanList(SbxlPresenter.this.sbbh);
+                        view.showMsgDialog("验证失败！");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    SbxlPresenter.this.sbbh="";
+                    view.setSbEditText("");
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                SbxlPresenter.this.sbbh="";
+                view.setSbEditText("");
+                e.printStackTrace();
+                view.setShowProgressDialogEnable(false);
+                view.showMsgDialog(e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
 
     //获取退料库位
     public void getKc(){
@@ -443,6 +524,7 @@ public class SbxlPresenter extends BasePresenter {
             public void onError(Throwable e) {
                 e.printStackTrace();
                 view.setShowProgressDialogEnable(false);
+                view.showToastMsg(e.getMessage());
                 view.showPackErrorDialog(sbbh,tmbh);
             }
 
@@ -496,4 +578,16 @@ public class SbxlPresenter extends BasePresenter {
         }
     }
 
+    public void setSbbh(String sbbh) {
+        this.sbbh = sbbh;
+        getScanList(sbbh);
+    }
+
+    public void setStartType(int startType) {
+        this.startType = startType;
+    }
+
+    public String getSbbh() {
+        return sbbh;
+    }
 }

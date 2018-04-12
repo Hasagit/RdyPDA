@@ -193,7 +193,7 @@ public class TmbdPresenter extends BasePresenter {
                     util.printFont(ywPmgg.trim()+" ",15,140);
                     util.printFont("批次号:"+pch.trim(),15,185);
                     util.printFont("条码编号:"+xtmxh.trim(),15,235);
-                    util.printQRCode(printMsg,340,55,7);
+                    util.printQRCode(printMsg,340,55,6);
                     util.startPrint();
                     Log.e("printMsg",printMsg);
                     e.onNext("");

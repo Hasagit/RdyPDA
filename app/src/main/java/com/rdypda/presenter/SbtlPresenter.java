@@ -102,7 +102,7 @@ public class SbtlPresenter extends BasePresenter {
                     } else {
                         SbtlPresenter.this.sbbh="";
                         view.setSbbText("");
-                        getScanList(sbbh);
+                        getScanList(SbtlPresenter.this.sbbh);
                         view.showMsgDialog("验证失败！");
                     }
                 } catch (JSONException e) {
