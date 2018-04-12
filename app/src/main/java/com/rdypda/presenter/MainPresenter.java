@@ -258,8 +258,8 @@ public class MainPresenter extends BasePresenter{
             tmglArray.add("工单退货");
             tmglResources.add(R.drawable.gdth_icon);
         }
-        //isPermission("HLKL10")
-        if (true){
+
+        if (isPermission("HLKL10")){
             tmglArray.add("盘点打印");
             tmglResources.add(R.drawable.kcpd_icon);
         }
