@@ -79,9 +79,11 @@ public class TmbdActivity extends BaseActivity implements ITmbdView {
             case android.R.id.home:
                 finish();
                 break;
+            //手动录入
             case R.id.add:
                 showAddDialog();
                 break;
+            //显示蓝牙
             case R.id.setting:
                 showBlueToothAddressDialog();
                 break;
@@ -99,6 +101,7 @@ public class TmbdActivity extends BaseActivity implements ITmbdView {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             View view= LayoutInflater.from(this).inflate(R.layout.dialog_add_tm,null);
             final AlertDialog deleteDialog=new AlertDialog.Builder(this).setView(view).create();
+            //隐藏键盘
             deleteDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
             PowerButton delBtn=(PowerButton)view.findViewById(R.id.sure_btn);
             PowerButton cancelBtn=(PowerButton) view.findViewById(R.id.cancel_btn);

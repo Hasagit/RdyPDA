@@ -13,7 +13,7 @@ import java.io.UnsupportedEncodingException;
  */
 
 /**
- * 二维码解析工具
+ * 打印工具
  */
 public class PrinterUtil {
     private String Address;
@@ -30,6 +30,7 @@ public class PrinterUtil {
         tscActivity.openport(address);
         //41
         if (preferenUtil.getInt("printNum")==0){
+            //打印纸宽，高，打印密度（值越大越暗），传感器类型（0，代表垂直传感器，1代表黑色标记传感器。），设置垂直间隙高度的差距，设置间隙/黑色标记的移位距离
             tscActivity.setup(75,43,4,10,0,0,0);
             preferenUtil.setInt("printNum",1);
             Log.e("printNum",0+"");
@@ -49,11 +50,14 @@ public class PrinterUtil {
         tscActivity.sendcommand("TEXT "+x+","+y+",\"FONT001\",0,2,2,\"");
         tscActivity.sendcommand(str.getBytes("gb2312"));
         tscActivity.sendcommand("\"\n");
+
     }
 
     public void printBarcode(String barcode,int x,int y){
         tscActivity.barcode(x,y,"128",70,1,0,1,1,barcode);
     }
+
+    //M代表
     public void printQRCode(String str,int x,int y,int weight){
         tscActivity.sendcommand("QRCODE "+x+","+y+",M,"+weight+",M,0,M1,S2,\"A"+str+"\" \n");
     }

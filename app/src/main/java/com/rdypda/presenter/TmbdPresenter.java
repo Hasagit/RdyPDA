@@ -87,6 +87,12 @@ public class TmbdPresenter extends BasePresenter {
     }
 
     //验证条码是否能补打
+
+    /**
+     * 补打条码
+     * @param tmxh 条码序号
+     * @param tmsl 条码数量
+     */
     public void splitBarcode(String tmxh,String tmsl){
         if (tmxh.equals("")){
             view.setShowMsgDialog("请先扫描条码或者手动录入条码");

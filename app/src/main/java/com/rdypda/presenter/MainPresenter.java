@@ -14,6 +14,7 @@ import com.rdypda.model.network.WebService;
 import com.rdypda.util.DownloadUtils;
 import com.rdypda.view.activity.HlActivity;
 import com.rdypda.view.activity.HlbzActivity;
+import com.rdypda.view.activity.PddyActivity;
 import com.rdypda.view.activity.LlddrActivity;
 import com.rdypda.view.activity.LoginActivity;
 import com.rdypda.view.activity.SbljActivity;
@@ -257,6 +258,12 @@ public class MainPresenter extends BasePresenter{
             tmglArray.add("工单退货");
             tmglResources.add(R.drawable.gdth_icon);
         }
+        //isPermission("HLKL10")
+        if (true){
+            tmglArray.add("盘点打印");
+            tmglResources.add(R.drawable.kcpd_icon);
+        }
+
         titles.add(tmglArray);
         imgs.add(tmglResources);
 
@@ -316,6 +323,9 @@ public class MainPresenter extends BasePresenter{
                     case "工单退货":
                         goToGdth();
                         break;
+                    case "盘点打印":
+                        goToPddy();
+                        break;
                     case "物料移库":
                         goToYk();
                         break;
@@ -337,11 +347,13 @@ public class MainPresenter extends BasePresenter{
                     case "移库退料到仓库":
                         goToYktldck();
                         break;
+
                 }
                 return true;
             }
         });
     }
+
 
 
 
@@ -452,9 +464,7 @@ public class MainPresenter extends BasePresenter{
 
     //移库退料到仓库
     public void goToYktldck(){
-        Intent intent=new Intent(context,YkActivity.class);
-        intent.putExtra("startType",YkActivity.START_TYPE_YKTLDCK);
-        context.startActivity(intent);
+        view.showMsgDialog("敬请期待");
     }
 
     //条码拆分
@@ -472,6 +482,14 @@ public class MainPresenter extends BasePresenter{
     //库存盘点
     public void goToKcpd(){
         view.showMsgDialog("敬请期待");
+    }
+
+    /**
+     * 盘点打印
+     */
+    private void goToPddy() {
+        Intent intent=new Intent(context, PddyActivity.class);
+        context.startActivity(intent);
     }
 
     //条码查询
