@@ -317,8 +317,8 @@ public class SbtlPresenter extends BasePresenter {
                     List<Map<String,String>>dataZs=new ArrayList<>();
                     for (int i=0;i<arrayZs.length();i++){
                         Map<String,String>map=new HashMap<>();
-                        map.put("ylgg",arrayZs.getJSONObject(i).getString("tld_wlpm"));
-                        map.put("sbbh",arrayZs.getJSONObject(i).getString("tld_devid"));
+                        map.put("ylgg",arrayZs.getJSONObject(i).getString("tld_wldm"));
+                        map.put("sbbh",arrayZs.getJSONObject(i).getString("itm_wlpm"));
                         map.put("zjls",arrayZs.getJSONObject(i).getString("tld_tlsl"));
                         map.put("yjys",arrayZs.getJSONObject(i).getString("tld_sysl"));
                         dataZs.add(map);

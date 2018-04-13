@@ -134,10 +134,6 @@ public class MainPresenter extends BasePresenter{
             zsscytlResources.add(R.drawable.adfl_icon);
         }*/
 
-        if (isPermission("MOM503D1")){
-            zsscytlArray.add("退料");
-            zsscytlResources.add(R.drawable.tl_icon);
-        }
 
         if (isPermission("HLKL08")){
             zsscytlArray.add("工单退料到原料组");
@@ -344,6 +340,9 @@ public class MainPresenter extends BasePresenter{
                     case "组装退料":
                         goToZztl();
                         break;
+                    case "移库退料到仓库":
+                        goToYktldck();
+                        break;
 
                 }
                 return true;
@@ -546,6 +545,7 @@ public class MainPresenter extends BasePresenter{
     //移库
     public void goToYk(){
         Intent intent=new Intent(context, YkActivity.class);
+        intent.putExtra("startType",YkActivity.START_TYPE_YK);
         context.startActivity(intent);
     }
 
@@ -580,6 +580,7 @@ public class MainPresenter extends BasePresenter{
     //工单退料到原料组
     public void goToGdtldylz(){
         Intent intent=new Intent(context, YkActivity.class);
+        intent.putExtra("startType",YkActivity.START_TYPE_GDTLDYLZ);
         context.startActivity(intent);
     }
 

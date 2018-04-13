@@ -38,6 +38,9 @@ public class YkActivity extends BaseActivity implements IYkView {
     private YkPresenter presenter;
     private WydrckScanAdapter scanAdapter;
     private WydrckZsAdapter zsAdapter;
+    public static int START_TYPE_YK=0,
+            START_TYPE_GDTLDYLZ=1,
+            START_TYPE_YKTLDCK=2;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -80,6 +83,18 @@ public class YkActivity extends BaseActivity implements IYkView {
         actionBar.setDisplayHomeAsUpEnabled(true);
         refreshScanList(new ArrayList<Map<String, String>>());
         refreshZsList(new ArrayList<Map<String, String>>());
+
+        switch (getIntent().getIntExtra("startType",0)){
+            case 0:
+                actionBar.setTitle("移库");
+                break;
+            case 1:
+                actionBar.setTitle("工单退料到原料组");
+                break;
+            case 2:
+                actionBar.setTitle("移库退料到仓库");
+                break;
+        }
     }
 
     @OnClick({R.id.tm_sure_btn})

@@ -145,6 +145,26 @@ public class SbtlActivity extends BaseActivity implements ISbtlView {
                 sbbhEd.setHint("请输入或扫描线别");
                 break;
         }
+
+        sbbhEd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    sbRadio.setChecked(true);
+                }
+            }
+        });
+
+        wltmEd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    tmRadio.setChecked(true);
+                }
+            }
+        });
+
+
     }
 
     /**
