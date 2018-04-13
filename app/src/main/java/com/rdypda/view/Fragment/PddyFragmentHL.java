@@ -215,6 +215,7 @@ public class PddyFragmentHL extends Fragment implements PddyAdapter.OnItemLongCl
     @Override
     public void onItemLongClick(PddyAdapter.Holder holder, int position, Map<String, String> map) {
         showAddDialog(map.get(PddyDialog.STR_WlTYPE), map.get(PddyDialog.STR_WLBH), map.get(PddyDialog.STR_WLGG), map.get(PddyDialog.STR_WLBL));
+        pddyAdapter.deleteItem(position);
     }
 
     /**
@@ -246,7 +247,7 @@ public class PddyFragmentHL extends Fragment implements PddyAdapter.OnItemLongCl
 
 
     public void onGetHLBarCodeSucceed(Map<String, String> map) {
-        tvTmbh.setText(map.get("hl_tmbh"));
+        tvTmbh.setText(map.get("hl_tmxh"));
         this.qrCodeMap = map;
     }
 }

@@ -89,6 +89,11 @@ public class PddyAdapter extends RecyclerView.Adapter<PddyAdapter.Holder> {
         return data;
     }
 
+    public void deleteItem(int position) {
+        data.remove(position);
+        notifyDataSetChanged();
+    }
+
     public interface OnItemLongClickListener {
         void onItemLongClick(Holder holder, int position, Map<String, String> map);
     }
