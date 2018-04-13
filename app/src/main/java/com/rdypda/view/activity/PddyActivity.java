@@ -7,13 +7,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.rdypda.R;
 import com.rdypda.adapter.FragmentViewPagerAdapter;
@@ -44,11 +48,11 @@ public class PddyActivity extends BaseActivity implements IPddyView {
     private AlertDialog dialog;
     private ProgressDialog progressDialog;
     private FragmentViewPagerAdapter viewPagerAdapter;
-
+    private int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         setContentView(R.layout.activity_pddy);
         ButterKnife.bind(this);
         initView();
@@ -69,6 +73,23 @@ public class PddyActivity extends BaseActivity implements IPddyView {
         viewPagerAdapter.addFragment(dlFragment, "单料");
         viewPagerAdapter.addFragment(hlFragment, "混料");
         viewPager.setAdapter(viewPagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                PddyActivity.this.position = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         tabLayout.setupWithViewPager(viewPager);
         dialog = new AlertDialog.Builder(this).setTitle("提示").setNegativeButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -80,6 +101,7 @@ public class PddyActivity extends BaseActivity implements IPddyView {
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setTitle("请稍后");
+
     }
 
     @OnClick({R.id.pbtn_bltooth_setting_activity_kcpd})
@@ -89,6 +111,7 @@ public class PddyActivity extends BaseActivity implements IPddyView {
                 showBlueToothAddressDialog();
                 break;
         }
+
     }
 
     @Override
@@ -161,48 +184,80 @@ public class PddyActivity extends BaseActivity implements IPddyView {
             builder.create().show();
         }
     }
+
     /**
-     * 打印
-     * @param qrCode
-     * @param wlpmChinese
-     * @param wlpmEnlight
+     * 获取混料条码
+     * @param wlbhs 物料编号s
+     * @param wlbls 物料比例s
+     * @param scpc 生产批次
+     * @param bzsl 包装数量
+     * @param strDw 单位
+     * @param mapKw 库位信息
      */
     @Override
-    public void printEvent(String qrCode, String wlpmChinese, String wlpmEnlight) {
-        presenter.printEvent(qrCode,wlpmChinese,wlpmEnlight);
+    public void getHLBarCode(String wlbhs, String wlbls, String scpc, String bzsl, String strDw, Map<String, String> mapKw) {
+        presenter.getHLBarCode(wlbhs,wlbls,scpc,bzsl,strDw,mapKw);
     }
 
+    /**
+     * 成功获取混料条码
+     * @param map
+     */
+    @Override
+    public void onGetHLBarCodeSucceed(Map<String, String> map) {
+        hlFragment.onGetHLBarCodeSucceed(map);
+    }
+
+    /**
+     * 查询物料编号（单料，混料通用）
+     * @param wlbh 物料编号
+     */
     @Override
     public void queryWlbh(String wlbh) {
         presenter.queryWlbh(wlbh);
     }
 
     /**
-     * 查询物料编号成功
+     * 查询物料编号成功（单料，混料通用）
      * @param wldmArr
      * @param wlbhData
      */
     @Override
     public void onQueryWlbhSucceed(String[] wldmArr, List<Map<String, String>> wlbhData) {
-        dlFragment.onQueryWlbhSucceed(wldmArr,wlbhData);
+        //根据viewpager的index 判断回调那个Fragment
+        if (position == 0){
+            dlFragment.onQueryWlbhSucceed(wldmArr,wlbhData);
+        }else {
+            hlFragment.onQueryWlbhSucceed(wldmArr,wlbhData);
+        }
+
     }
 
+    /**
+     * 获取库位信息（单料，混料通用）
+     */
     @Override
     public void getKwData() {
         presenter.getKwData();
     }
 
+    /**
+     * 成功获取库存信息（单料，混料通用）
+     * @param dataMc 库位名称
+     * @param data 库位数据
+     */
     @Override
     public void onGetKwdataSucceed(List<String> dataMc, List<Map<String, String>> data) {
         dlFragment.onGetKwdataSucceed(dataMc,data);
+        hlFragment.onGetKwdataSucceed(dataMc,data);
     }
 
     /**
-     * 获取条码
+     * 获取单料条码
      * @param wlbh 物料编号
      * @param scpc 生产批次
      * @param bzsl 包装数量
-     * @param strDw
+     * @param strDw 单位
      * @param mapKw 库位
      */
     @Override
@@ -211,7 +266,7 @@ public class PddyActivity extends BaseActivity implements IPddyView {
     }
 
     /**
-     * 获取条码成功
+     * 获取单料条码成功
      * @param barCode
      * @param qrCode
      */
@@ -220,6 +275,24 @@ public class PddyActivity extends BaseActivity implements IPddyView {
         dlFragment.onGetBarCodeSucceed(barCode,qrCode);
     }
 
+    /**
+     * 单料打印
+     * @param qrCode
+     * @param wlpmChinese
+     * @param wlpmEnlight
+     */
+    @Override
+    public void printEvent(String qrCode, String wlpmChinese, String wlpmEnlight) {
+        presenter.printEvent(qrCode,wlpmChinese,wlpmEnlight);
+    }
+    /**
+     * 混料打印
+     * @param qrCodeMap
+     */
+    @Override
+    public void printHLEvent(Map<String, String> qrCodeMap) {
+        presenter.printHLEvent(qrCodeMap);
+    }
 
     @Override
     public void setShowMsgDialogEnable(String msg) {

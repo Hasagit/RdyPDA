@@ -8,8 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -69,6 +71,13 @@ public class PddyFragmentDL extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_dl, container, false);
         ButterKnife.bind(this, rootView);
+        edWlbh.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+                return false;
+            }
+        });
         return rootView;
     }
 
@@ -104,7 +113,7 @@ public class PddyFragmentDL extends Fragment {
             //Log.d(TAG, "onClick: "+wlbhData.get(which).get("itm_wlgg"));
             tvWlgg.setText(wlbhData.get(0).get("itm_wlgg"));
             strDw = wlbhData.get(0).get("itm_unit");
-            wlpmChinese = wlbhData.get(0).get("itm_wlgg");
+            wlpmChinese = wlbhData.get(0).get("itm_wlpm");
             wlpmEnlight = wlbhData.get(0).get("itm_ywwlpm");
             return;
         }

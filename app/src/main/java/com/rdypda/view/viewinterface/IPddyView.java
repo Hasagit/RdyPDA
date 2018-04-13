@@ -29,4 +29,12 @@ public interface IPddyView {
     void onGetBarCodeSucceed(String barCode, String qrCode);
 
     void showBlueToothAddressDialog();
+
+
+    void getHLBarCode(String wlbhs, String wlbls, String scpc, String bzsl, String strDw, Map<String, String> mapKw);
+
+
+    void onGetHLBarCodeSucceed(Map<String, String> map);
+
+    void printHLEvent(Map<String, String> qrCodeMap);
 }

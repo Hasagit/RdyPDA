@@ -274,13 +274,12 @@ public class PddyPresenter extends BasePresenter{
             return;
         }
         view.setShowProgressDialogEnable(true);
-        String sql=String.format("Call Proc_GenQrcode('BRP','SK','','%s','%s','%s','%s','%s','%s','%s','','%s','')",wlbh,scpc,bzsl,strDw,mapKw.get("stk_ftyId"),mapKw.get("stk_stkId"),mapKw.get("stk_stkId"),preferenUtil.getString("usr_yhmc"));
+        String sql=String.format("Call Proc_GenQrcode('BRP','SK','','%s','%s','%s','%s','%s','%s','%s','','%s','')",wlbh,scpc,bzsl,strDw,mapKw.get("stk_ftyId"),mapKw.get("stk_stkId"),mapKw.get("stk_stkId"),preferenUtil.getString("usr_yhdm"));
         WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
-
             @Override
             public void onNext(JSONObject value) {
                 try {
@@ -309,7 +308,6 @@ public class PddyPresenter extends BasePresenter{
                 view.setShowProgressDialogEnable(false);
                 view.setShowMsgDialogEnable(e.getMessage());
             }
-
             @Override
             public void onComplete() {
 
@@ -367,11 +365,128 @@ public class PddyPresenter extends BasePresenter{
                 view.setShowProgressDialogEnable(false);
                 view.setShowMsgDialogEnable("打印出错！");
             }
+            @Override
+            public void onComplete() {
+                view.setShowProgressDialogEnable(false);
+            }
+        });
+    }
+
+    public void getHLBarCode(String wlbhs, String wlbls, String scpc, String bzsl, String strDw, Map<String, String> mapKw) {
+        view.setShowProgressDialogEnable(true);
+        String sql=String.format("Call Proc_GenQrcode4('BRP','SK','','%s','%s','%s','%s','%s','%s','%s','%s','','%s','')",wlbhs,wlbls,scpc,bzsl,strDw,mapKw.get("stk_ftyId"),mapKw.get("stk_stkId"),mapKw.get("stk_stkId"),preferenUtil.getString("usr_yhdm"));
+        WebService.querySqlCommandJson(sql,preferenUtil.getString("usr_Token")).subscribe(new Observer<JSONObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(JSONObject value) {
+                try {
+                    Map<String,String> map = new HashMap<>();
+                    String[] item=value.getJSONArray("Table1").getJSONObject(0).getString("cRetMsg").split(":");
+                    map.put("hl_wldm",value.getJSONArray("Table1").getJSONObject(0).getString("hl_wldm"));
+                    map.put("hl_szdm",value.getJSONArray("Table1").getJSONObject(0).getString("hl_szdm"));
+                    map.put("hl_wlgg",value.getJSONArray("Table1").getJSONObject(0).getString("hl_wlgg"));
+                    map.put("hl_szgg",value.getJSONArray("Table1").getJSONObject(0).getString("hl_szgg"));
+                    if (item.length>1){
+                        String[]itemItem=item[1].split(";");
+                        if (itemItem.length>1){
+                            map.put("hl_tmxh",itemItem[0]);
+                            map.put("hl_qrcode",itemItem[1]);
+                            view.onGetHLBarCodeSucceed(map);
+                        }else {
+                            view.setShowMsgDialogEnable(item[1]);
+                        }
+                    }else {
+                        view.setShowMsgDialogEnable("数据解析出错");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    view.setShowMsgDialogEnable("Json数据解析出错");
+                }finally {
+                    view.setShowProgressDialogEnable(false);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                view.setShowProgressDialogEnable(false);
+                view.setShowMsgDialogEnable(e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+
+    }
+
+    /**
+     * 打印混料条码
+     * @param qrCodeMap
+     */
+    public void printHLEvent(final Map<String, String> qrCodeMap) {
+        if (!BluetoothAdapter.getDefaultAdapter().isEnabled()){
+            view.showBlueToothAddressDialog();
+            return;
+        }
+        if (preferenUtil.getString("blueToothAddress").equals("")){
+            view.showBlueToothAddressDialog();
+            return;
+        }
+        if (qrCodeMap == null){
+            view.setShowMsgDialogEnable("请先获取条码序号");
+            return;
+        }
+        view.setShowProgressDialogEnable(true);
+        final PrinterUtil util=new PrinterUtil(context);
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+                    QrCodeUtil qrCodeUtil = new QrCodeUtil(qrCodeMap.get("hl_qrcode"));
+                    String address=preferenUtil.getString("blueToothAddress");
+                    util.openPort(address);
+                    util.printFont("原料规格:"+qrCodeMap.get("hl_wlgg"),15,55);
+                    util.printFont("色种规格:"+qrCodeMap.get("hl_szgg")+",",15,100);
+                    util.printFont("作业人员:"+preferenUtil.getString("usr_yhdm"),15,145);
+                    util.printFont("生产日期:"+qrCodeUtil.getScpc(),15,190);
+                    util.printFont("包装数量:"+qrCodeUtil.getBzsl()+qrCodeUtil.getDw(),15,235);
+                    util.printFont("条码编号:"+qrCodeUtil.getTmxh(),15,280);
+                    util.printQRCode(qrCodeMap.get("hl_qrcode"),335,135,5);
+                    util.startPrint();
+                    Log.e("printMsg",qrCodeMap.get("hl_qrcode"));
+                    e.onNext("");
+                    e.onComplete();
+
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(String value) {
+                //view.showMessage("打印完成");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                view.setShowProgressDialogEnable(false);
+                view.setShowMsgDialogEnable("打印出错！");
+            }
 
             @Override
             public void onComplete() {
                 view.setShowProgressDialogEnable(false);
             }
         });
+
     }
 }

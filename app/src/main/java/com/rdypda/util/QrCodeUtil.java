@@ -33,6 +33,10 @@ public class QrCodeUtil {
         }
     }
 
+    /**
+     * 物料编号
+     * @return
+     */
     public String getWlbh() {
         try {
             return object.getString("PN");
@@ -42,6 +46,10 @@ public class QrCodeUtil {
         }
     }
 
+    /**
+     * 生产批次
+     * @return
+     */
     public String getScpc() {
         try {
             return object.getString("LT");
@@ -51,6 +59,10 @@ public class QrCodeUtil {
         }
     }
 
+    /**
+     * 条码号
+     * @return
+     */
     public String getTmxh() {
         try {
             return object.getString("BR");
@@ -60,6 +72,10 @@ public class QrCodeUtil {
         }
     }
 
+    /**
+     * 包装数量
+     * @return
+     */
     public String getBzsl() {
         try {
             return object.getString("QY");
@@ -69,6 +85,10 @@ public class QrCodeUtil {
         }
     }
 
+    /**
+     * 单位
+     * @return
+     */
     public String getDw() {
         try {
             return object.getString("UT");
