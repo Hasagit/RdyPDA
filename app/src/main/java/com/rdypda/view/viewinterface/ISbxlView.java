@@ -24,8 +24,6 @@ public interface ISbxlView {
 
     void showPackErrorDialog(String sbbh,String tmbh);
 
-    void setSbEditText(String sbbh);
-
     void showQueryList(final String[] sbdm, final String[] sbmc);
 
     void setSbbhText(String sbbhStr);

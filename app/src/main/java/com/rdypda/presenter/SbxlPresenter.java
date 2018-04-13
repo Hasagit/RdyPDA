@@ -77,7 +77,7 @@ public class SbxlPresenter extends BasePresenter {
             view.showMsgDialog("设备编号不能为空！");
             return;
         }
-        view.setSbEditText("");
+        view.setSbbhText("");
         view.setShowProgressDialogEnable(true);
         String sblb="";
         if (startType== SbxlActivity.START_TYPE_SYTL){
@@ -100,7 +100,7 @@ public class SbxlPresenter extends BasePresenter {
                     if (array.length()==1){
                         SbxlPresenter.this.sbbh=sbbh;
                         SbxlPresenter.this.sbbh=array.getJSONObject(0).getString("lbm_lbdm");
-                        view.setSbEditText(array.getJSONObject(0).getString("lbm_lbmc"));
+                        view.setSbbhText(array.getJSONObject(0).getString("lbm_lbmc"));
                         getScanList(sbbh);
                         view.showMsgDialog("验证成功！");
 
@@ -114,14 +114,14 @@ public class SbxlPresenter extends BasePresenter {
                         view.showQueryList(sbdm,sbmc);
                     } else {
                         SbxlPresenter.this.sbbh="";
-                        view.setSbEditText("");
+                        view.setSbbhText("");
                         getScanList(SbxlPresenter.this.sbbh);
                         view.showMsgDialog("验证失败！");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     SbxlPresenter.this.sbbh="";
-                    view.setSbEditText("");
+                    view.setSbbhText("");
                 }
 
             }
@@ -129,7 +129,7 @@ public class SbxlPresenter extends BasePresenter {
             @Override
             public void onError(Throwable e) {
                 SbxlPresenter.this.sbbh="";
-                view.setSbEditText("");
+                view.setSbbhText("");
                 e.printStackTrace();
                 view.setShowProgressDialogEnable(false);
                 view.showMsgDialog(e.getMessage());
@@ -208,7 +208,7 @@ public class SbxlPresenter extends BasePresenter {
             @Override
             public void onNext(JSONObject value) {
                 view.setShowProgressDialogEnable(false);
-                view.setSbEditText(sbbh);
+                //view.setSbEditText(sbbh);
                 if (date==null){
                     view.showMsgDialog("生产日期获取失败,请重新进入");
                     return;
@@ -231,9 +231,9 @@ public class SbxlPresenter extends BasePresenter {
                     String hl="";
                     for (int i=0;i<arrayZs.length();i++){
                         Map<String,String>map=new HashMap<>();
-                        map.put("ylgg",arrayZs.getJSONObject(i).getString("tld_wlpm"));
+                        map.put("ylgg",arrayZs.getJSONObject(i).getString("tld_wldm"));
                         map.put("yldm",arrayZs.getJSONObject(i).getString("tld_wldm"));
-                        map.put("sbbh",arrayZs.getJSONObject(i).getString("tld_devid"));
+                        map.put("sbbh",arrayZs.getJSONObject(i).getString("itm_wlpm"));
                         map.put("zjls",arrayZs.getJSONObject(i).getString("tld_tlsl"));
                         map.put("yjys",arrayZs.getJSONObject(i).getString("tld_sysl"));
                         map.put("szgg",arrayZs.getJSONObject(i).getString("tld_szmc"));
